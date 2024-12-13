@@ -38,15 +38,11 @@ def main():
             player.move(1, dimension)
 
         # 踩岩浆扣血
-        a = player.x
-        b = player.y
         for k in range(50):
-            if dimension.get_block_from_pos((a + k,b + k)) == Blocks.LAVA:
-                player.hp -= (1 / 50) * (50 / 90)
-            elif dimension.get_block_from_pos((a + 50 - k,b + k)) == Blocks.LAVA:
-                player.hp -= (1 / 50) * (50 / 90)
-            player.hp = max(0, player.hp)
-            print(player.hp)
+            if (dimension.get_block_from_pos((player.x + k, player.y + k)) == Blocks.LAVA or
+                    dimension.get_block_from_pos((player.x + 50 - k, player.y + k)) == Blocks.LAVA):
+                player.hp -= 1 / 90
+        player.hp = max(0, player.hp)
 
         # 更新摄像机位置
         camera = player.get_camera(dimension.get_render_size())

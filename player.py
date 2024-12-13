@@ -1,10 +1,10 @@
 from typing import Tuple
 
 from config import SCREEN_WIDTH, SCREEN_HEIGHT
-from entity import Entity
+import entity
 
 
-class Player(Entity):
+class Player(entity.Entity):
 
     def get_camera(self, limit: Tuple[int, int]):
         return (max(0, min(limit[0] - SCREEN_WIDTH, self.x + self.size[0] // 2 - SCREEN_WIDTH // 2)),

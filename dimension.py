@@ -2,7 +2,7 @@ from typing import Tuple
 
 import pygame
 
-from block import Block
+import block
 import random
 
 from config import BLOCK_SIZE
@@ -10,7 +10,7 @@ from config import BLOCK_SIZE
 
 class Dimension:
 
-    def __init__(self, width: int, height: int, blocks: list[list[Block]]):
+    def __init__(self, width: int, height: int, blocks: list[list[block.Block]]):
         self.width = width
         self.height = height
         self.blocks = blocks
@@ -19,7 +19,7 @@ class Dimension:
         return self.width * BLOCK_SIZE, self.height * BLOCK_SIZE
 
     @staticmethod
-    def generate_map(width: int, height: int, blocks: list[Block], weights: list[int]):
+    def generate_map(width: int, height: int, blocks: list[block.Block], weights: list[int]):
         return [random.choices(blocks, weights, k=height) for _ in range(width)]
         # 最简单的地图生成器，可自定义权重
 
@@ -34,11 +34,18 @@ class Dimension:
         return pos[0] // BLOCK_SIZE, pos[1] // BLOCK_SIZE
         # 取整，根据实际位置获得方块坐标
 
+    @staticmethod
+    def get_pos_from_index(i: Tuple[int, int]):
+        return i[0] * BLOCK_SIZE, i[1] * BLOCK_SIZE
+
     def get_block_from_pos(self, pos: Tuple[int, int]):
         x, y = self.get_block_index(pos)
         return self.blocks[x][y]
         # 根据实际位置获得方块
 
     def get_block_from_index(self, xy: Tuple[int, int]):
-        return self.blocks[xy[0]][xy[1]]
+        if 0 <= xy[0] < self.width and 0 <= xy[1] < self.height:
+            return self.blocks[xy[0]][xy[1]]
+        else:
+            return None
         # 根据方块坐标获得方块

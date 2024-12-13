@@ -3,11 +3,13 @@ from typing import Tuple
 import pygame
 from pygame import Rect
 
+import animation
 from config import BLOCK_SIZE, INTERACTION_DISTANCE
-from dimension import Dimension
 
 
 class Entity:
+
+    fire_image = pygame.transform.scale(pygame.image.load("assets/fire.png"), (BLOCK_SIZE, BLOCK_SIZE))
 
     def __init__(self, name: str, pos: Tuple[int, int], image: pygame.Surface):
         self.name = name
@@ -16,8 +18,12 @@ class Entity:
         self.size = image.get_size()
         self.mirror = False
         self.hp = 100
+        self.fire_tick = 0
 
-    def move(self, direction, dimension: Dimension, speed=4):
+    def move(self, direction, dimension, speed=4):
+        if not (1 <= direction <= 4):
+            return
+
         # 获取移动方向的左右两格方块，并判断碰撞箱，如果该方块被标记为障碍物则无法通过
         block_x, block_y = dimension.get_block_index((self.x, self.y))
         block2_x, block2_y = block_x, block_y
@@ -47,8 +53,7 @@ class Entity:
         self.y = max(0, min(limit_y - self.size[1], self.y))
 
         # 障碍物处理
-        rect = self.image.get_rect()
-        rect.x, rect.y = self.x, self.y
+        rect = self.get_rect()
         if ((rect.colliderect(Rect(block_x * BLOCK_SIZE, block_y * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE)) and
                 dimension.get_block_from_index((block_x, block_y)).path) or
                 (rect.colliderect(Rect(block2_x * BLOCK_SIZE, block2_y * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE)) and
@@ -62,8 +67,38 @@ class Entity:
             elif direction == 4:
                 self.y += block_y * BLOCK_SIZE - self.y + BLOCK_SIZE
 
+    def tick(self, dimension, player=None):
+        for i in {dimension.get_block_index(self.get_left_top_pos()),
+                  dimension.get_block_index(self.get_left_bottom_pos()),
+                  dimension.get_block_index(self.get_right_top_pos()),
+                  dimension.get_block_index(self.get_right_bottom_pos())}:
+            blk = dimension.get_block_from_index(i)
+            if blk is not None:
+                blk.on_entity(dimension.get_pos_from_index(i), self)
+        if self.fire_tick > 0:
+            self.fire_tick -= 1
+
+    def get_rect(self):
+        rect = self.image.get_rect()
+        rect.x, rect.y = self.x, self.y
+        return rect
+
+    def get_left_top_pos(self):
+        return self.x, self.y
+
+    def get_left_bottom_pos(self):
+        return self.x, self.y + self.size[1]
+
+    def get_right_top_pos(self):
+        return self.x + self.size[0], self.y
+
+    def get_right_bottom_pos(self):
+        return self.x + self.size[0], self.y + self.size[1]
+
     def is_nearby(self, entity):
         return abs(self.x - entity.x) + abs(self.y - entity.y) < INTERACTION_DISTANCE * BLOCK_SIZE
 
-    def render(self, screen: pygame.Surface, camera: Tuple[int, int]):
+    def render(self, screen: pygame.Surface, camera: Tuple[int, int], font=None):
         screen.blit(self.image_mirrored if self.mirror else self.image, (self.x - camera[0], self.y - camera[1]))
+        if self.fire_tick > 0:
+            animation.Animations.FIRE.render(screen, (self.x - camera[0], self.y - camera[1]))

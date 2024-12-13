@@ -5,7 +5,7 @@ import pygame
 from config import BLOCK_SIZE
 
 
-class Block:
+class Block: # 方块
 
     def __init__(self, name: str, image: pygame.Surface, obstacle=False):
         self.name = name

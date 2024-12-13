@@ -43,12 +43,18 @@ class Animations:
         images = load_images_from_sprite("assets/lava.png", (16, 16), (60, 60))
         return images + images[::-1]
 
+    @staticmethod
+    def load_water_images():
+        images = load_images_from_sprite("assets/water.png", (16, 16), (60, 60))
+        return images + images[::-1]
+
     FIRE = Animation(load_images_from_sprite("assets/fire.png", (16, 16), (50, 50)), 5)
     LAVA = Animation(load_lava_images(), 10)
+    WATER = Animation(load_water_images(), 10)
 
 
 def get_all_animations():
-    return [Animations.FIRE, Animations.LAVA]
+    return [Animations.FIRE, Animations.LAVA, Animations.WATER]
 
 
 

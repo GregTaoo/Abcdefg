@@ -22,8 +22,8 @@ def main():
     player = Player("Steve", (600, 600),
                     pygame.transform.scale(pygame.image.load("assets/player.png"), (50, 50)))
     dimension = Dimension(MAP_WIDTH, MAP_HEIGHT, Dimension.generate_map(MAP_WIDTH, MAP_HEIGHT, [
-        Blocks.GRASS_BLOCK, Blocks.LAVA, Blocks.STONE
-    ], [80, 1, 1]))
+        Blocks.GRASS_BLOCK, Blocks.LAVA, Blocks.STONE, Blocks.WATER
+    ], [80, 1, 1, 1]))
     entities = [
         NPC("刁民", (500, 500), pygame.transform.scale(pygame.image.load("assets/villager.png"), (50, 50))),
         NPC("丧尸", (700, 700), pygame.transform.scale(pygame.image.load("assets/zombie.png"), (50, 50)))

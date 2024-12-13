@@ -15,6 +15,7 @@ class Entity:
         self.image, self.image_mirrored = image, pygame.transform.flip(image, True, False)
         self.size = image.get_size()
         self.mirror = False
+        self.hp = 100
 
     def move(self, direction, dimension: Dimension, speed=4):
         # 获取移动方向的左右两格方块，并判断碰撞箱，如果该方块被标记为障碍物则无法通过

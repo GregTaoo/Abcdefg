@@ -1,10 +1,10 @@
-import pygame
 import sys
+
+import pygame
 
 from block import Blocks
 from config import SCREEN_WIDTH, SCREEN_HEIGHT, MAP_WIDTH, MAP_HEIGHT
 from dimension import Dimension
-from entity import Entity
 from player import Player
 
 
@@ -36,6 +36,17 @@ def main():
             player.move(2, dimension)
         if keys[pygame.K_d]:  # 向右移动
             player.move(1, dimension)
+
+        # 踩岩浆扣血
+        a = player.x
+        b = player.y
+        for k in range(50):
+            if dimension.get_block_from_pos((a + k,b + k)) == Blocks.LAVA:
+                player.hp -= (1 / 50) * (50 / 90)
+            elif dimension.get_block_from_pos((a + 50 - k,b + k)) == Blocks.LAVA:
+                player.hp -= (1 / 50) * (50 / 90)
+            player.hp = max(0, player.hp)
+            print(player.hp)
 
         # 更新摄像机位置
         camera = player.get_camera(dimension.get_render_size())

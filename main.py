@@ -4,6 +4,7 @@ import sys
 from block import Blocks
 from config import SCREEN_WIDTH, SCREEN_HEIGHT, MAP_WIDTH, MAP_HEIGHT
 from dimension import Dimension
+from entity import Entity
 from player import Player
 
 

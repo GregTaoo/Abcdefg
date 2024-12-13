@@ -14,6 +14,7 @@ from player import Player
 def main():
     pygame.init()
     pygame.display.set_caption("Minecraft (FAKE)")
+    pygame.display.set_icon(Blocks.GRASS_BLOCK.image)
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
     clock = pygame.time.Clock()
     font = pygame.font.Font("assets/simhei.ttf", 16)

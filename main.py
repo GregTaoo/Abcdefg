@@ -16,8 +16,8 @@ def main():
     player = Player("Steve", (100, 100),
                     pygame.transform.scale(pygame.image.load("assets/player.png"), (50, 50)))
     dimension = Dimension(MAP_WIDTH, MAP_HEIGHT, Dimension.generate_map(MAP_WIDTH, MAP_HEIGHT, [
-        Blocks.GRASS_BLOCK, Blocks.LAVA
-    ], [4, 1]))
+        Blocks.GRASS_BLOCK, Blocks.LAVA, Blocks.STONE
+    ], [80, 1, 1]))
 
     while True:
         for event in pygame.event.get():

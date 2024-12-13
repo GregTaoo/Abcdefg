@@ -19,13 +19,14 @@ def main():
     clock = pygame.time.Clock()
     font = pygame.font.Font("assets/simhei.ttf", 16)
 
-    player = Player("Steve", (100, 100),
+    player = Player("Steve", (600, 600),
                     pygame.transform.scale(pygame.image.load("assets/player.png"), (50, 50)))
     dimension = Dimension(MAP_WIDTH, MAP_HEIGHT, Dimension.generate_map(MAP_WIDTH, MAP_HEIGHT, [
         Blocks.GRASS_BLOCK, Blocks.LAVA, Blocks.STONE
     ], [80, 1, 1]))
     entities = [
-        NPC("Villager", (200, 200), pygame.transform.scale(pygame.image.load("assets/villager.png"), (50, 50)))
+        NPC("Villager", (500, 500), pygame.transform.scale(pygame.image.load("assets/villager.png"), (50, 50))),
+        NPC("Zombie", (700, 700), pygame.transform.scale(pygame.image.load("assets/zombie.png"), (50, 50)))
     ]
     camera = player.get_camera(dimension.get_render_size())
     current_ui = None
@@ -38,6 +39,7 @@ def main():
                 sys.exit()
 
         # 务必先渲染背景
+        screen.fill((50, 50, 50))
         dimension.render(screen, camera)
         for i in entities:
             i.render(screen, camera, font)

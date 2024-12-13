@@ -12,7 +12,7 @@ class NPC(entity.Entity):
     dialog_timer = 0
 
     def dialog(self):
-        return "私は" + self.name + "です、よろしくお願いします!"
+        return "私は " + self.name + " です、よろしくお願いします!"
 
     def tick(self, dimension, player=None):
         super().tick(dimension, player)

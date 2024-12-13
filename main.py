@@ -25,8 +25,8 @@ def main():
         Blocks.GRASS_BLOCK, Blocks.LAVA, Blocks.STONE
     ], [80, 1, 1]))
     entities = [
-        NPC("Villager", (500, 500), pygame.transform.scale(pygame.image.load("assets/villager.png"), (50, 50))),
-        NPC("Zombie", (700, 700), pygame.transform.scale(pygame.image.load("assets/zombie.png"), (50, 50)))
+        NPC("刁民", (500, 500), pygame.transform.scale(pygame.image.load("assets/villager.png"), (50, 50))),
+        NPC("丧尸", (700, 700), pygame.transform.scale(pygame.image.load("assets/zombie.png"), (50, 50)))
     ]
     camera = player.get_camera(dimension.get_render_size())
     current_ui = None

@@ -1,3 +1,4 @@
+import random
 import sys
 
 import pygame
@@ -5,7 +6,7 @@ import pygame
 from NPC import NPC
 from block import Blocks
 import client
-from config import SCREEN_WIDTH, SCREEN_HEIGHT, MAP_WIDTH, MAP_HEIGHT
+from config import SCREEN_WIDTH, SCREEN_HEIGHT, MAP_WIDTH, MAP_HEIGHT, BLOCK_SIZE
 from dimension import Dimension
 from player import Player
 
@@ -22,7 +23,7 @@ def main():
                     pygame.transform.scale(pygame.image.load("assets/player.png"), (50, 50)))
     dimension = Dimension(MAP_WIDTH, MAP_HEIGHT, Dimension.generate_map(MAP_WIDTH, MAP_HEIGHT, [
         Blocks.GRASS_BLOCK, Blocks.LAVA, Blocks.STONE, Blocks.WATER
-    ], [1, 2, 0, 0]))
+    ], [150, 2, 2, 1]))
 
     client.CLIENT = client.Client(screen, clock, font, player, dimension, player.get_camera(dimension.get_render_size()))
 
@@ -44,6 +45,12 @@ def main():
                 sys.exit()
 
         client.CLIENT.tick(events)
+
+        if random.randint(0, 100) == 0 and len(client.CLIENT.entities) < 100:
+            client.CLIENT.spawn_entity(
+                NPC("丧尸", (random.randint(0, MAP_WIDTH * BLOCK_SIZE), random.randint(0, MAP_HEIGHT * BLOCK_SIZE)),
+                    pygame.transform.scale(pygame.image.load("assets/zombie.png"), (50, 50)))
+            )
 
         # 执行渲染
         pygame.display.flip()

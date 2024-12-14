@@ -114,7 +114,7 @@ class Entity:
         hp_rect = pygame.Rect(self.x - camera[0], self.y - camera[1] - bar_height - 5,
                               bar_width * self.hp / 100, bar_height)
         border_rect = pygame.Rect(self.x - camera[0], self.y - camera[1] - bar_height - 5, bar_width, bar_height)
-        pygame.draw.rect(screen, (0, 255, 0) if self.hp >= 25 else (255, 0, 0), hp_rect)
+        pygame.draw.rect(screen, ((0, 255, 0) if self.hp >= 60 else (255, 255, 0)) if self.hp >= 30 else (255, 0, 0), hp_rect)
         pygame.draw.rect(screen, (255, 255, 255), border_rect, 1)
 
         # hp_text = f"HP: {self.hp} / 100"

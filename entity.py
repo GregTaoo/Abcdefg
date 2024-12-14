@@ -8,7 +8,6 @@ from config import BLOCK_SIZE, INTERACTION_DISTANCE
 
 
 class Entity:
-
     fire_image = pygame.transform.scale(pygame.image.load("assets/fire.png"), (BLOCK_SIZE, BLOCK_SIZE))
 
     def __init__(self, name: str, pos: Tuple[int, int], image: pygame.Surface):
@@ -55,7 +54,7 @@ class Entity:
         # 障碍物处理
         rect = self.get_rect()
         if ((rect.colliderect(Rect(block_x * BLOCK_SIZE, block_y * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE)) and
-                dimension.get_block_from_index((block_x, block_y)).path) or
+             dimension.get_block_from_index((block_x, block_y)).path) or
                 (rect.colliderect(Rect(block2_x * BLOCK_SIZE, block2_y * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE)) and
                  dimension.get_block_from_index((block2_x, block2_y)).path)):
             if direction == 1:
@@ -77,6 +76,12 @@ class Entity:
                 blk.on_entity(dimension.get_pos_from_index(i), self)
         if self.fire_tick > 0:
             self.fire_tick -= 1
+            self.hp -= 1 / 12
+
+    def respawn_at_pos(self, pos: Tuple[int, int]):
+        self.x, self.y = pos
+        self.hp = 100
+        self.fire_tick = 0
 
     def get_rect(self):
         rect = self.image.get_rect()
@@ -102,3 +107,17 @@ class Entity:
         screen.blit(self.image_mirrored if self.mirror else self.image, (self.x - camera[0], self.y - camera[1]))
         if self.fire_tick > 0:
             animation.Animations.FIRE.render(screen, (self.x - camera[0], self.y - camera[1]))
+        self.render_hp_bar(screen, camera, font)
+
+    def render_hp_bar(self, screen: pygame.Surface, camera: Tuple[int, int], font=None):
+        bar_width, bar_height = self.size[0], 5
+        hp_rect = pygame.Rect(self.x - camera[0], self.y - camera[1] - bar_height - 5,
+                              bar_width * self.hp / 100, bar_height)
+        border_rect = pygame.Rect(self.x - camera[0], self.y - camera[1] - bar_height - 5, bar_width, bar_height)
+        pygame.draw.rect(screen, (0, 255, 0) if self.hp >= 25 else (255, 0, 0), hp_rect)
+        pygame.draw.rect(screen, (255, 255, 255), border_rect, 1)
+
+        # hp_text = f"HP: {self.hp} / 100"
+        # text_surface = font.render(hp_text, True, (255, 255, 255))
+        # text_rect = text_surface.get_rect(center=(screen.get_width() // 2, screen.get_height() // 2))
+        # screen.blit(text_surface, text_rect)

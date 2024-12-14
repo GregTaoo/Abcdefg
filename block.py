@@ -53,7 +53,7 @@ class Blocks:
         return pygame.transform.scale(pygame.image.load("assets/" + file), (BLOCK_SIZE, BLOCK_SIZE))
 
     GRASS_BLOCK = Block("grass_block", create_image("grass_block.png"))
-    STONE = Block("stone", create_image("stone.png"))
+    STONE = Block("stone", create_image("stone.png"), obstacle=True)
     LAVA = LavaBlock("lava", animation.Animations.LAVA, True)
     WATER = WaterBlock("water", animation.Animations.WATER, True)
 

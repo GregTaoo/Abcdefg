@@ -3,7 +3,6 @@ from typing import Tuple
 import client
 from config import SCREEN_WIDTH, SCREEN_HEIGHT
 import entity
-import UI
 
 
 class Player(entity.Entity):
@@ -19,12 +18,9 @@ class Player(entity.Entity):
         # 获得摄像头应该在的位置
 
     def respawn(self):
-        self.x, self.y = self.respawn_pos
-        self.hp = 100
-        self.fire_tick = 0
+        self.respawn_at_pos(self.respawn_pos)
 
     def tick(self, dimension, player=None):
         super().tick(dimension, player)
-        print(self.hp)
         if self.hp <= 0:
             client.CLIENT.open_death_ui()

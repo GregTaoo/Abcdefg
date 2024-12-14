@@ -3,6 +3,7 @@ from typing import Tuple
 
 import pygame
 
+import client
 import entity
 
 
@@ -11,11 +12,21 @@ class NPC(entity.Entity):
     direction = 0
     dialog_timer = 0
 
+    def __init__(self, name: str, pos: Tuple[int, int], image, can_respawn=False, respawn_pos=None):
+        super().__init__(name, pos, image)
+        self.can_respawn = can_respawn
+        self.respawn_pos = pos if respawn_pos is None else respawn_pos
+
     def dialog(self):
         return "私は " + self.name + " です、よろしくお願いします!"
 
     def tick(self, dimension, player=None):
         super().tick(dimension, player)
+        if self.hp <= 0:
+            if self.can_respawn:
+                self.respawn_at_pos(self.respawn_pos)
+            else:
+                client.CLIENT.entities.remove(self)
         if self.is_nearby(player):
             self.start_dialog(270)
         if self.dialog_timer > 0:
@@ -31,7 +42,7 @@ class NPC(entity.Entity):
         self.dialog_timer = duration
 
     def render(self, screen: pygame.Surface, camera: Tuple[int, int], font=None):
-        super().render(screen, camera)
+        super().render(screen, camera, font)
         self.render_dialog(screen, camera, font)
 
     def render_dialog(self, screen, camera, font):

@@ -42,7 +42,7 @@ class WaterBlock(Block):
     def on_entity(self, block_pos: Tuple[int, int], mob):
         mob.fire_tick = 0
         overlap = mob.get_rect().clip(self.get_rect(block_pos))
-        mob.hp += (overlap.width * overlap.height) / BLOCK_SIZE ** 2 / 9
+        mob.hp += (overlap.width * overlap.height) / BLOCK_SIZE ** 2 / 5
         mob.hp = min(100, mob.hp)
 
 

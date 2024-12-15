@@ -1,5 +1,7 @@
 from typing import Tuple
 
+import pygame
+
 import action
 import client
 import worlds
@@ -13,8 +15,9 @@ class Player(entity.Entity):
         super().__init__(name, pos, image, actions=[
             action.Actions.ATTACK_RIGHT, action.Actions.ULTIMATE_RIGHT
         ])
+        self.dialog_timer = 0
         self.respawn_pos = respawn_pos
-        self.energy = 0
+        self.energy = 3
 
     def get_camera(self, limit: Tuple[int, int]):
         return self.x + self.size[0] // 2 - SCREEN_WIDTH // 2, self.y + self.size[1] // 2 - SCREEN_HEIGHT // 2
@@ -47,3 +50,4 @@ class Player(entity.Entity):
 
     def ultimate_available(self):
         return self.energy == 3
+

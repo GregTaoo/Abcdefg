@@ -9,6 +9,16 @@ import client
 from config import BLOCK_SIZE, INTERACTION_DISTANCE
 
 
+def render_dialog_at_absolute_pos(text, screen, pos, font):
+    text_surface = font.render(text, True, (0, 0, 0))
+    text_rect = text_surface.get_rect()
+    text_rect.topleft = (pos[0] - text_rect.width // 2, pos[1])
+
+    pygame.draw.rect(screen, (0, 0, 0), text_rect.inflate(14, 14))
+    pygame.draw.rect(screen, (255, 255, 255), text_rect.inflate(10, 10))
+    screen.blit(text_surface, text_rect.topleft)
+
+
 class Entity:
     fire_image = pygame.transform.scale(pygame.image.load("assets/fire.png"), (BLOCK_SIZE, BLOCK_SIZE))
 
@@ -132,3 +142,4 @@ class Entity:
         # text_surface = font.render(hp_text, True, (255, 255, 255))
         # text_rect = text_surface.get_rect(center=(screen.get_width() // 2, screen.get_height() // 2))
         # screen.blit(text_surface, text_rect)
+

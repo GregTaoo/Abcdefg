@@ -2,6 +2,7 @@ import pygame
 
 import action
 import client
+import entity
 from button import Button
 from config import SCREEN_WIDTH, SCREEN_HEIGHT
 
@@ -93,6 +94,8 @@ class BattleUI(UI):
 
     def __init__(self, player, enemy):
         super().__init__('Battle')
+        for i in action.get_all_actions():
+            i.reset()
         self.player = player
         self.enemy = enemy
         self.player_pos = (150, 200)
@@ -137,13 +140,26 @@ class BattleUI(UI):
     def render(self, screen: pygame.Surface, font: pygame.font.Font):
         super().render(screen, font)
         if self.playing_action:
-            target_pos = self.action.get_current_pos()
+            target_poses, damage, text = self.action.get_current_pos()
             if self.half_round < self.round * 2:
+                self.enemy.hp -= damage * self.player.atk
                 self.enemy.render_at_absolute_pos(screen, self.enemy_pos, font)
-                self.player.render_at_absolute_pos(screen, self.player_pos if target_pos is None else target_pos, font)
+                if target_poses is None:
+                    self.player.render_at_absolute_pos(screen, self.player_pos, font)
+                else:
+                    for i in target_poses:
+                        self.player.render_at_absolute_pos(screen, i, font)
+                        if self.escaping_stage == 2 and text != '':
+                            entity.render_dialog_at_absolute_pos(text, screen, (i[0] + self.player.size[0] // 2,
+                                                                                i[1] - 40), font)
             else:
+                self.player.hp -= damage * self.enemy.atk
                 self.player.render_at_absolute_pos(screen, self.player_pos, font)
-                self.enemy.render_at_absolute_pos(screen, self.enemy_pos if target_pos is None else target_pos, font)
+                if target_poses is None:
+                    self.enemy.render_at_absolute_pos(screen, self.enemy_pos, font)
+                else:
+                    for i in target_poses:
+                        self.enemy.render_at_absolute_pos(screen, i, font)
         else:
             self.player.render_at_absolute_pos(screen, self.player_pos, font)
             self.enemy.render_at_absolute_pos(screen, self.enemy_pos, font)
@@ -155,14 +171,12 @@ class BattleUI(UI):
         if self.playing_action:
             if self.action.is_end():
                 if self.half_round < self.round * 2:
-                    self.enemy.hp -= self.action.get_damage() * self.player.atk
                     self.action.reset()
                     self.action = action.Actions.ATTACK_LEFT
                     self.half_round += 1
                     if self.escaping_stage == 2:
                         client.CLIENT.close_ui()
                 else:
-                    self.player.hp -= self.action.get_damage() * self.enemy.atk
                     self.action.reset()
                     self.playing_action = False
                     self.set_buttons_active(True)

@@ -1,23 +1,28 @@
 class Action:
 
-    def __init__(self, name: str, file, get_damage=lambda: 10):
+    def __init__(self, name: str, file):
         self.name = name
         self.pos = []
         self.ticks = 0
-        self.get_damage = get_damage
         if file is not None:
             with open(file, "r") as f:
                 s = f.read()
                 for line in s.split('\n'):
                     if len(line) == 0:
                         continue
-                    self.pos.append(tuple(map(int, line.split())))
+                    line1 = line.split('|')
+                    num = line1[0].split()
+                    poses = []
+                    for i in range(len(num) // 2):
+                        poses.append((float(num[i * 2]), float(num[i * 2 + 1])))
+                    self.pos.append((poses, int(line1[1]) if len(line1) >= 2 else 0,
+                                     line1[2] if len(line1) >= 3 else ''))
 
     def tick(self):
         self.ticks = min(self.ticks + 1, len(self.pos) - 1)
 
     def get_current_pos(self):
-        return self.pos[self.ticks] if len(self.pos) > 0 else None
+        return self.pos[self.ticks] if len(self.pos) > 0 else (None, 0, '')
 
     def is_end(self):
         return self.ticks == len(self.pos) - 1
@@ -30,7 +35,10 @@ class Actions:
 
     ATTACK_RIGHT = Action("attack_right", "assets/actions/attack_right.txt")
     ATTACK_LEFT = Action("attack_left", "assets/actions/attack_left.txt")
-    ULTIMATE_RIGHT = Action("ultimate_right", "assets/actions/ultimate_right.txt", lambda: 50)
-    ESCAPE_LEFT = Action("escape_left", "assets/actions/escape_left.txt", lambda: 0)
-    EMPTY = Action("empty", None, lambda: 0)
+    ULTIMATE_RIGHT = Action("ultimate_right", "assets/actions/ultimate_right.txt")
+    ESCAPE_LEFT = Action("escape_left", "assets/actions/escape_left.txt")
+    EMPTY = Action("empty", None)
 
+
+def get_all_actions():
+    return [Actions.ATTACK_RIGHT, Actions.ATTACK_LEFT, Actions.ULTIMATE_RIGHT, Actions.ESCAPE_LEFT, Actions.EMPTY]

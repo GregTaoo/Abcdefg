@@ -49,10 +49,6 @@ class NPC(entity.Entity):
 
     def render_dialog(self, screen, camera, font):
         if self.dialog_timer > 0:
-            text_surface = font.render(self.dialog(), True, (0, 0, 0))
-            text_rect = text_surface.get_rect()
-            text_rect.topleft = (self.x - camera[0] - (text_rect.width - self.size[0]) // 2, self.y - camera[1] - 40)
+            entity.render_dialog_at_absolute_pos(self.dialog(), screen, (self.x - camera[0] + self.size[0] // 2,
+                                                                         self.y - camera[1] - 40), font)
 
-            pygame.draw.rect(screen, (0, 0, 0), text_rect.inflate(14, 14))
-            pygame.draw.rect(screen, (255, 255, 255), text_rect.inflate(10, 10))
-            screen.blit(text_surface, text_rect.topleft)

@@ -28,9 +28,9 @@ class Action:
 
 class Actions:
 
-    ATTACK_RIGHT = Action("attack_right", "assets/attack_right.txt")
-    ATTACK_LEFT = Action("attack_left", "assets/attack_left.txt")
-    ULTIMATE_RIGHT = Action("ultimate_right", "assets/ultimate_right.txt", lambda: 50)
-    ESCAPE_LEFT = Action("escape_left", "assets/escape_left.txt", lambda: 0)
+    ATTACK_RIGHT = Action("attack_right", "assets/actions/attack_right.txt")
+    ATTACK_LEFT = Action("attack_left", "assets/actions/attack_left.txt")
+    ULTIMATE_RIGHT = Action("ultimate_right", "assets/actions/ultimate_right.txt", lambda: 50)
+    ESCAPE_LEFT = Action("escape_left", "assets/actions/escape_left.txt", lambda: 0)
     EMPTY = Action("empty", None, lambda: 0)
 

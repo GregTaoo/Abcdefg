@@ -2,6 +2,7 @@ from typing import Tuple
 
 import action
 import client
+import worlds
 from config import SCREEN_WIDTH, SCREEN_HEIGHT
 import entity
 
@@ -23,7 +24,15 @@ class Player(entity.Entity):
 
     def respawn(self):
         self.reset_energy()
+        self.teleport('the_world', self.respawn_pos)
         self.respawn_at_pos(self.respawn_pos)
+
+    def teleport(self, dimension_str, pos: Tuple[int, int]):
+        dimension = worlds.get_world(dimension_str)
+        if dimension is None:
+            return
+        client.CLIENT.dimension = dimension
+        self.x, self.y = pos
 
     def tick(self, dimension, player=None):
         super().tick(dimension, player)

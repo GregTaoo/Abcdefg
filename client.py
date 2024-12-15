@@ -1,28 +1,48 @@
+import random
+
 import pygame
 
 import UI
 import animation
+import worlds
+from block import Blocks
+from config import MAP_WIDTH, MAP_HEIGHT
+from dimension import Dimension
 from entity import Entity
 from hud import MainHud
 
 CLIENT = None
 
 
+def generate_the_world():
+    mp = Dimension.generate_map(MAP_WIDTH, MAP_HEIGHT, [
+        Blocks.GRASS_BLOCK, Blocks.LAVA, Blocks.STONE, Blocks.WATER
+    ], [150, 2, 2, 1])
+    mp[random.randint(0, MAP_WIDTH - 1)][random.randint(0, MAP_HEIGHT - 1)] = Blocks.NETHER_PORTAL
+    # mp[10][10] = Blocks.NETHER_PORTAL
+    return mp
+
+
 class Client:
 
-    def __init__(self, screen, clock, font, player, dimension, camera):
+    def __init__(self, screen, clock, font, player, dimension):
         self.screen = screen
         self.clock = clock
         self.font = font
         self.player = player
-        self.dimension = dimension
-        self.camera = camera
         self.current_ui = None
         self.current_hud = MainHud(player)
-        self.entities = []
+        worlds.WORLDS.append(Dimension('the_world', MAP_WIDTH, MAP_HEIGHT, generate_the_world()))
+        worlds.WORLDS.append(Dimension(
+            'the_end', MAP_WIDTH, MAP_HEIGHT, Dimension.generate_map(
+                MAP_WIDTH, MAP_HEIGHT, [Blocks.END_STONE], [1]
+            )
+        ))
+        self.dimension = worlds.get_world(dimension)
+        self.camera = self.player.get_camera(self.dimension.get_render_size())
 
     def spawn_entity(self, entity):
-        self.entities.append(entity)
+        self.dimension.spawn_entity(entity)
 
     def open_ui(self, ui):
         self.current_ui = ui
@@ -41,7 +61,7 @@ class Client:
         # 务必先渲染背景
         self.screen.fill((50, 50, 50))
         self.dimension.render(self.screen, self.camera)
-        for i in self.entities:
+        for i in self.dimension.entities:
             i.render(self.screen, self.camera, self.font)
         self.player.render(self.screen, self.camera, self.font)
 
@@ -57,11 +77,11 @@ class Client:
             if keys[pygame.K_d]:  # 向右移动
                 self.player.move(1, self.dimension)
             if keys[pygame.K_f]:
-                for i in self.entities:
+                for i in self.dimension.entities:
                     if i.is_nearby(self.player):
                         self.current_ui = UI.InputTextUI()
             if keys[pygame.K_b]:
-                for i in self.entities:
+                for i in self.dimension.entities:
                     if i.is_nearby(self.player):
                         if i.name == '刁民':
                             iron_golem = Entity('Iron Golem', i.get_right_bottom_pos(),
@@ -81,7 +101,7 @@ class Client:
             self.player.tick(self.dimension)
             for i in animation.get_all_animations():
                 i.tick()
-            for i in self.entities:
+            for i in self.dimension.entities:
                 i.tick(self.dimension, self.player)
 
             # 更新摄像机位置

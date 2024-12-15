@@ -10,10 +10,15 @@ from config import BLOCK_SIZE
 
 class Dimension:
 
-    def __init__(self, width: int, height: int, blocks: list[list[block.Block]]):
+    def __init__(self, name: str, width: int, height: int, blocks: list[list[block.Block]]):
+        self.name = name
         self.width = width
         self.height = height
         self.blocks = blocks
+        self.entities = []
+
+    def spawn_entity(self, entity):
+        self.entities.append(entity)
 
     def get_render_size(self):
         return self.width * BLOCK_SIZE, self.height * BLOCK_SIZE

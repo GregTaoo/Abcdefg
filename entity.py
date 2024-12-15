@@ -81,8 +81,8 @@ class Entity:
         if self.fire_tick > 0:
             self.fire_tick -= 1
             self.hp -= 1 / 12
-        if self.hp <= 0 and self in client.CLIENT.entities:
-            client.CLIENT.entities.remove(self)
+        if self.hp <= 0 and self in client.CLIENT.dimension.entities:
+            client.CLIENT.dimension.entities.remove(self)
             del self
 
     def respawn_at_pos(self, pos: Tuple[int, int]):

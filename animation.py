@@ -51,10 +51,11 @@ class Animations:
     FIRE = Animation(load_images_from_sprite("assets/fire.png", (16, 16), (50, 50)), 5)
     LAVA = Animation(load_lava_images(), 10)
     WATER = Animation(load_water_images(), 10)
+    NETHER_PORTAL = Animation(load_images_from_sprite("assets/nether_portal.png", (16, 16), (60, 60)), 5)
 
 
 def get_all_animations():
-    return [Animations.FIRE, Animations.LAVA, Animations.WATER]
+    return [Animations.FIRE, Animations.LAVA, Animations.WATER, Animations.NETHER_PORTAL]
 
 
 

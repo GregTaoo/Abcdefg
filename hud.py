@@ -1,5 +1,7 @@
 import pygame
 
+import client
+
 
 class Hud:
 
@@ -19,5 +21,6 @@ class MainHud(Hud):
         pass
 
     def render(self, screen: pygame.Surface, font: pygame.font.Font):
-        txt_surface = font.render(f"Pos: {self.player.x},{self.player.y}", True, (200, 200, 200))
+        txt_surface = font.render(f"World: {client.CLIENT.dimension.name}; Pos: {self.player.x},{self.player.y}",
+                                  True, (200, 200, 200))
         screen.blit(txt_surface, (10, 10))

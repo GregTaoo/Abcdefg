@@ -25,7 +25,7 @@ class NPC(entity.Entity):
             if self.can_respawn:
                 self.respawn_at_pos(self.respawn_pos)
             else:
-                client.CLIENT.entities.remove(self)
+                client.CLIENT.dimension.entities.remove(self)
                 del self
                 return
         super().tick(dimension, player)

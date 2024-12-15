@@ -3,6 +3,8 @@ from typing import Tuple
 import pygame
 
 import animation
+import player
+import worlds
 from config import BLOCK_SIZE
 
 
@@ -46,6 +48,17 @@ class WaterBlock(Block):
         mob.hp = min(100, mob.hp)
 
 
+class PortalBlock(Block):
+
+    def __init__(self, name: str, image, is_animation=False, obstacle=False, target_dimension=None):
+        super().__init__(name, image, is_animation, obstacle)
+        self.target_dimension = target_dimension
+
+    def on_entity(self, block_pos: Tuple[int, int], mob):
+        if isinstance(mob, player.Player):
+            mob.teleport(self.target_dimension, block_pos)
+
+
 class Blocks:
 
     @staticmethod
@@ -56,4 +69,7 @@ class Blocks:
     STONE = Block("stone", create_image("stone.png"), obstacle=True)
     LAVA = LavaBlock("lava", animation.Animations.LAVA, True)
     WATER = WaterBlock("water", animation.Animations.WATER, True)
+    NETHER_PORTAL = PortalBlock("nether_portal", animation.Animations.NETHER_PORTAL, True,
+                                target_dimension='the_end')
+    END_STONE = Block("end_stone", create_image("end_stone.png"))
 

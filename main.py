@@ -3,6 +3,7 @@ import sys
 
 import pygame
 
+import worlds
 from NPC import NPC
 from block import Blocks
 import client
@@ -21,11 +22,8 @@ def main():
 
     player = Player("Steve", (600, 600), (600, 600),
                     pygame.transform.scale(pygame.image.load("assets/player.png"), (50, 50)))
-    dimension = Dimension(MAP_WIDTH, MAP_HEIGHT, Dimension.generate_map(MAP_WIDTH, MAP_HEIGHT, [
-        Blocks.GRASS_BLOCK, Blocks.LAVA, Blocks.STONE, Blocks.WATER
-    ], [150, 2, 2, 1]))
 
-    client.CLIENT = client.Client(screen, clock, font, player, dimension, player.get_camera(dimension.get_render_size()))
+    client.CLIENT = client.Client(screen, clock, font, player, 'the_world')
 
     client.CLIENT.spawn_entity(
         NPC(
@@ -46,7 +44,7 @@ def main():
 
         client.CLIENT.tick(events)
 
-        if random.randint(0, 100) == 0 and len(client.CLIENT.entities) < 100:
+        if random.randint(0, 100) == 0 and len(client.CLIENT.dimension.entities) < 100:
             client.CLIENT.spawn_entity(
                 NPC("丧尸", (random.randint(0, MAP_WIDTH * BLOCK_SIZE), random.randint(0, MAP_HEIGHT * BLOCK_SIZE)),
                     pygame.transform.scale(pygame.image.load("assets/zombie.png"), (50, 50)))

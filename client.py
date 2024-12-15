@@ -2,7 +2,8 @@ import pygame
 
 import UI
 import animation
-import entity
+from entity import Entity
+from hud import MainHud
 
 CLIENT = None
 
@@ -17,6 +18,7 @@ class Client:
         self.dimension = dimension
         self.camera = camera
         self.current_ui = None
+        self.current_hud = MainHud(player)
         self.entities = []
 
     def spawn_entity(self, entity):
@@ -62,9 +64,9 @@ class Client:
                 for i in self.entities:
                     if i.is_nearby(self.player):
                         if i.name == '刁民':
-                            iron_golem = entity.Entity('Iron Golem', i.get_right_bottom_pos(),
-                                                       pygame.transform.scale(pygame.image.load("assets/iron_golem.png"),
-                                                                              (50, 50)), atk=8)
+                            iron_golem = Entity('Iron Golem', i.get_right_bottom_pos(),
+                                                pygame.transform.scale(pygame.image.load("assets/iron_golem.png"),
+                                                                       (50, 50)), atk=8)
                             self.spawn_entity(iron_golem)
                             self.current_ui = UI.BattleUI(self.player, iron_golem)
                         else:
@@ -84,6 +86,9 @@ class Client:
 
             # 更新摄像机位置
             self.camera = self.player.get_camera(self.dimension.get_render_size())
+
+            self.current_hud.tick(keys, events)
+            self.current_hud.render(self.screen, self.font)
         else:
             self.current_ui.render(self.screen, self.font)
             if not self.current_ui.tick(pygame.key.get_pressed(), events):

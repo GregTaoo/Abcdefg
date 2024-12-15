@@ -71,5 +71,6 @@ class Blocks:
     WATER = WaterBlock("water", animation.Animations.WATER, True)
     NETHER_PORTAL = PortalBlock("nether_portal", animation.Animations.NETHER_PORTAL, True,
                                 target_dimension='the_end')
+    NETHER_BACK_PORTAL = PortalBlock("nether_portal", animation.Animations.NETHER_PORTAL, True,
+                                     target_dimension='the_world')
     END_STONE = Block("end_stone", create_image("end_stone.png"))
-

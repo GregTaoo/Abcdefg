@@ -23,6 +23,12 @@ def generate_the_world():
     return mp
 
 
+def generate_the_end():
+    mp = Dimension.generate_map(MAP_WIDTH, MAP_HEIGHT, [Blocks.END_STONE], [1])
+    mp[MAP_WIDTH // 2][MAP_HEIGHT // 2] = Blocks.NETHER_BACK_PORTAL
+    return mp
+
+
 class Client:
 
     def __init__(self, screen, clock, font, player, dimension):
@@ -33,11 +39,7 @@ class Client:
         self.current_ui = None
         self.current_hud = MainHud(player)
         worlds.WORLDS.append(Dimension('the_world', MAP_WIDTH, MAP_HEIGHT, generate_the_world()))
-        worlds.WORLDS.append(Dimension(
-            'the_end', MAP_WIDTH, MAP_HEIGHT, Dimension.generate_map(
-                MAP_WIDTH, MAP_HEIGHT, [Blocks.END_STONE], [1]
-            )
-        ))
+        worlds.WORLDS.append(Dimension('the_end', MAP_WIDTH, MAP_HEIGHT, generate_the_end()))
         self.dimension = worlds.get_world(dimension)
         self.camera = self.player.get_camera(self.dimension.get_render_size())
 

@@ -1,5 +1,6 @@
 from typing import Tuple
 
+import action
 import client
 from config import SCREEN_WIDTH, SCREEN_HEIGHT
 import entity
@@ -8,8 +9,11 @@ import entity
 class Player(entity.Entity):
 
     def __init__(self, name: str, respawn_pos: Tuple[int, int], pos: Tuple[int, int], image):
-        super().__init__(name, pos, image)
+        super().__init__(name, pos, image, actions=[
+            action.Actions.ATTACK_RIGHT, action.Actions.ULTIMATE_RIGHT
+        ])
         self.respawn_pos = respawn_pos
+        self.energy = 0
 
     def get_camera(self, limit: Tuple[int, int]):
         return self.x + self.size[0] // 2 - SCREEN_WIDTH // 2, self.y + self.size[1] // 2 - SCREEN_HEIGHT // 2
@@ -18,9 +22,19 @@ class Player(entity.Entity):
         # 获得摄像头应该在的位置
 
     def respawn(self):
+        self.reset_energy()
         self.respawn_at_pos(self.respawn_pos)
 
     def tick(self, dimension, player=None):
         super().tick(dimension, player)
         if self.hp <= 0:
             client.CLIENT.open_death_ui()
+
+    def update_energy(self):
+        self.energy = min(self.energy + 1, 3)
+
+    def reset_energy(self):
+        self.energy = 0
+
+    def ultimate_available(self):
+        return self.energy == 3

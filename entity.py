@@ -3,14 +3,16 @@ from typing import Tuple
 import pygame
 from pygame import Rect
 
+import action
 import animation
+import client
 from config import BLOCK_SIZE, INTERACTION_DISTANCE
 
 
 class Entity:
     fire_image = pygame.transform.scale(pygame.image.load("assets/fire.png"), (BLOCK_SIZE, BLOCK_SIZE))
 
-    def __init__(self, name: str, pos: Tuple[int, int], image: pygame.Surface):
+    def __init__(self, name: str, pos: Tuple[int, int], image: pygame.Surface, actions=None, atk=1.0):
         self.name = name
         self.x, self.y = pos
         self.image, self.image_mirrored = image, pygame.transform.flip(image, True, False)
@@ -18,6 +20,8 @@ class Entity:
         self.mirror = False
         self.hp = 100
         self.fire_tick = 0
+        self.atk = atk
+        self.actions = actions if actions is not None else [action.Actions.ATTACK_LEFT]
 
     def move(self, direction, dimension, speed=4):
         if not (1 <= direction <= 4):
@@ -77,6 +81,9 @@ class Entity:
         if self.fire_tick > 0:
             self.fire_tick -= 1
             self.hp -= 1 / 12
+        if self.hp <= 0 and self in client.CLIENT.entities:
+            client.CLIENT.entities.remove(self)
+            del self
 
     def respawn_at_pos(self, pos: Tuple[int, int]):
         self.x, self.y = pos
@@ -92,13 +99,13 @@ class Entity:
         return self.x, self.y
 
     def get_left_bottom_pos(self):
-        return self.x, self.y + self.size[1]
+        return self.x, self.y + self.size[1] - 1
 
     def get_right_top_pos(self):
         return self.x + self.size[0] - 1, self.y
 
     def get_right_bottom_pos(self):
-        return self.x + self.size[0] - 1, self.y + self.size[1]
+        return self.x + self.size[0] - 1, self.y + self.size[1] - 1
 
     def is_nearby(self, entity):
         return abs(self.x - entity.x) + abs(self.y - entity.y) < INTERACTION_DISTANCE * BLOCK_SIZE
@@ -109,10 +116,8 @@ class Entity:
             animation.Animations.FIRE.render(screen, (self.x - camera[0], self.y - camera[1]))
         self.render_hp_bar(screen, (self.x - camera[0], self.y - camera[1] - 10), font)
 
-    def render_at_absolute_pos(self, screen: pygame.Surface, pos: Tuple[int, int], use_mirror=False, font=None):
-        screen.blit(self.image_mirrored if use_mirror and self.mirror else self.image, pos)
-        if self.fire_tick > 0:
-            animation.Animations.FIRE.render(screen, pos)
+    def render_at_absolute_pos(self, screen: pygame.Surface, pos: Tuple[int, int], font=None, use_mirror=False):
+        screen.blit(self.image_mirrored if use_mirror else self.image, pos)
         self.render_hp_bar(screen, (pos[0], pos[1] - 10), font)
 
     def render_hp_bar(self, screen: pygame.Surface, pos: Tuple[int, int], font=None):

@@ -33,7 +33,7 @@ class UI:
     def render(self, screen: pygame.Surface, font: pygame.font.Font):
         self.blur_background(screen)
         for button in self.buttons:
-            button.draw(screen)
+            button.render(screen)
 
 
 class InputTextUI(UI):
@@ -60,8 +60,8 @@ class InputTextUI(UI):
 
     def render(self, screen: pygame.Surface, font: pygame.font.Font):
         super().render(screen, font)
-        txt_surface = font.render(self.text, True, (0, 0, 0))
         pygame.draw.rect(screen, (255, 255, 255), self.input_box)
+        txt_surface = font.render(self.text, True, (0, 0, 0))
         screen.blit(txt_surface, (self.input_box.x + 5, self.input_box.y + 5))
 
 
@@ -77,66 +77,102 @@ class DeathUI(UI):
         return True
 
 
+class SuccessUI(UI):
+
+    def __init__(self, font: pygame.font.Font):
+        super().__init__('You Won')
+        self.add_button(Button('胜利，点击继续', (SCREEN_WIDTH // 2 - 100, SCREEN_HEIGHT // 2 - 50), (200, 50),
+                               font, (255, 255, 255), (0, 0, 0), lambda: client.CLIENT.close_ui()))
+
+    def tick(self, keys, events):
+        super().tick(keys, events)
+        return True
+
+
 class BattleUI(UI):
 
     def __init__(self, player, enemy):
         super().__init__('Battle')
         self.player = player
         self.enemy = enemy
-        self.player_pos = (200, 200)
+        self.player_pos = (150, 200)
         self.enemy_pos = (SCREEN_WIDTH - 200, 200)
         self.round = 0
         self.half_round = 0
         self.playing_action = False
         self.action = None
-        self.attack_button = Button('攻击', (SCREEN_WIDTH // 2 - 100, SCREEN_HEIGHT // 2 - 50), (200, 50),
+        self.escaping_stage = 0
+        self.attack_button = Button('普攻', (SCREEN_WIDTH // 2 - 110, SCREEN_HEIGHT // 2 - 50), (100, 50),
                                     client.CLIENT.font, (255, 255, 255), (0, 0, 0), self.round_start)
         self.add_button(self.attack_button)
+        self.ultimate_button = Button('大招', (SCREEN_WIDTH // 2 + 10, SCREEN_HEIGHT // 2 - 50), (100, 50),
+                                      client.CLIENT.font, (255, 255, 255), (0, 0, 0),
+                                      lambda: self.round_start(action.Actions.ULTIMATE_RIGHT))
+        self.add_button(self.ultimate_button)
+        self.ultimate_button.set_active(self.player.ultimate_available())
+        self.escape_button = Button('逃跑', (SCREEN_WIDTH // 2 - 110, SCREEN_HEIGHT // 2 + 10), (100, 50),
+                                    client.CLIENT.font, (255, 255, 255), (0, 0, 0),
+                                    self.on_click_escape_button)
+        self.add_button(self.escape_button)
 
-    def round_start(self):
+    def on_click_escape_button(self):
+        self.escaping_stage = 1
+        self.round_start(action.Actions.EMPTY)
+
+    def set_buttons_active(self, active):
+        for button in self.buttons:
+            button.set_active(active)
+
+    def round_start(self, use_action=action.Actions.ATTACK_RIGHT):
         self.round += 1
         self.half_round += 1
-        self.attack_button.set_active(False)
+        self.set_buttons_active(False)
         self.playing_action = True
-        self.action = action.Actions.ATTACK_RIGHT
-
-    def attack(self):
-        self.enemy.hp -= 10
-        if self.enemy.hp <= 0:
-            client.CLIENT.entities.remove(self.enemy)
-            client.CLIENT.close_ui()
+        self.action = use_action
+        if use_action == action.Actions.ATTACK_RIGHT:
+            self.player.update_energy()
+        elif use_action == action.Actions.ULTIMATE_RIGHT:
+            self.player.reset_energy()
 
     def render(self, screen: pygame.Surface, font: pygame.font.Font):
         super().render(screen, font)
         if self.playing_action:
+            target_pos = self.action.get_current_pos()
             if self.half_round < self.round * 2:
                 self.enemy.render_at_absolute_pos(screen, self.enemy_pos, font)
-                print(self.action.get_current_pos())
-                self.player.render_at_absolute_pos(screen, self.action.get_current_pos(), font)
+                self.player.render_at_absolute_pos(screen, self.player_pos if target_pos is None else target_pos, font)
             else:
                 self.player.render_at_absolute_pos(screen, self.player_pos, font)
-                self.enemy.render_at_absolute_pos(screen, self.action.get_current_pos(), font)
+                self.enemy.render_at_absolute_pos(screen, self.enemy_pos if target_pos is None else target_pos, font)
         else:
             self.player.render_at_absolute_pos(screen, self.player_pos, font)
             self.enemy.render_at_absolute_pos(screen, self.enemy_pos, font)
+        txt_surface = font.render(f"Round {self.round}", True, (0, 0, 0))
+        screen.blit(txt_surface, (30, 30))
 
     def tick(self, keys, events):
         super().tick(keys, events)
         if self.playing_action:
             if self.action.is_end():
                 if self.half_round < self.round * 2:
-                    self.enemy.hp -= 10
+                    self.enemy.hp -= self.action.get_damage() * self.player.atk
                     self.action.reset()
                     self.action = action.Actions.ATTACK_LEFT
                     self.half_round += 1
+                    if self.escaping_stage == 2:
+                        client.CLIENT.close_ui()
                 else:
-                    self.player.hp -= 10
+                    self.player.hp -= self.action.get_damage() * self.enemy.atk
                     self.action.reset()
                     self.playing_action = False
-                    self.attack_button.set_active(True)
+                    self.set_buttons_active(True)
+                    self.ultimate_button.set_active(self.player.ultimate_available())
+                    if self.escaping_stage == 1:
+                        self.escaping_stage = 2
+                        self.round_start(action.Actions.ESCAPE_LEFT)
             self.action.tick()
         if self.player.hp <= 0:
             client.CLIENT.open_death_ui()
         elif self.enemy.hp <= 0:
-            client.CLIENT.close_ui()
+            client.CLIENT.open_ui(SuccessUI(client.CLIENT.font))
         return True

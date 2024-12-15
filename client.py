@@ -2,6 +2,7 @@ import pygame
 
 import UI
 import animation
+import entity
 
 CLIENT = None
 
@@ -60,7 +61,14 @@ class Client:
             if keys[pygame.K_b]:
                 for i in self.entities:
                     if i.is_nearby(self.player):
-                        self.current_ui = UI.BattleUI(self.player, i)
+                        if i.name == '刁民':
+                            iron_golem = entity.Entity('Iron Golem', i.get_right_bottom_pos(),
+                                                       pygame.transform.scale(pygame.image.load("assets/iron_golem.png"),
+                                                                              (50, 50)), atk=8)
+                            self.spawn_entity(iron_golem)
+                            self.current_ui = UI.BattleUI(self.player, iron_golem)
+                        else:
+                            self.current_ui = UI.BattleUI(self.player, i)
 
             # 踩岩浆扣血
             # for k in range(50):

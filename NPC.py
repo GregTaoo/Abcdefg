@@ -21,12 +21,14 @@ class NPC(entity.Entity):
         return "Hi! My name is " + self.name
 
     def tick(self, dimension, player=None):
-        super().tick(dimension, player)
-        if self.hp <= 0:
+        if self.hp <= 0 and self in client.CLIENT.entities:
             if self.can_respawn:
                 self.respawn_at_pos(self.respawn_pos)
             else:
                 client.CLIENT.entities.remove(self)
+                del self
+                return
+        super().tick(dimension, player)
         if self.is_nearby(player):
             self.start_dialog(270)
         if self.dialog_timer > 0:

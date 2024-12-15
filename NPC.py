@@ -21,7 +21,7 @@ class NPC(entity.Entity):
         return "Hi! My name is " + self.name
 
     def tick(self, dimension, player=None):
-        if self.hp <= 0 and self in client.CLIENT.entities:
+        if self.hp <= 0 and self in client.CLIENT.dimension.entities:
             if self.can_respawn:
                 self.respawn_at_pos(self.respawn_pos)
             else:

@@ -31,8 +31,8 @@ class Client:
         self.current_ui = UI.DeathUI(self.font)
 
     def player_respawn(self):
-        self.current_ui = None
         self.player.respawn()
+        self.close_ui()
 
     def tick(self, events):
         # 务必先渲染背景
@@ -57,6 +57,10 @@ class Client:
                 for i in self.entities:
                     if i.is_nearby(self.player):
                         self.current_ui = UI.InputTextUI()
+            if keys[pygame.K_b]:
+                for i in self.entities:
+                    if i.is_nearby(self.player):
+                        self.current_ui = UI.BattleUI(self.player, i)
 
             # 踩岩浆扣血
             # for k in range(50):
@@ -75,4 +79,4 @@ class Client:
         else:
             self.current_ui.render(self.screen, self.font)
             if not self.current_ui.tick(pygame.key.get_pressed(), events):
-                self.current_ui = None
+                self.close_ui()

@@ -107,14 +107,20 @@ class Entity:
         screen.blit(self.image_mirrored if self.mirror else self.image, (self.x - camera[0], self.y - camera[1]))
         if self.fire_tick > 0:
             animation.Animations.FIRE.render(screen, (self.x - camera[0], self.y - camera[1]))
-        self.render_hp_bar(screen, camera, font)
+        self.render_hp_bar(screen, (self.x - camera[0], self.y - camera[1] - 10), font)
 
-    def render_hp_bar(self, screen: pygame.Surface, camera: Tuple[int, int], font=None):
+    def render_at_absolute_pos(self, screen: pygame.Surface, pos: Tuple[int, int], use_mirror=False, font=None):
+        screen.blit(self.image_mirrored if use_mirror and self.mirror else self.image, pos)
+        if self.fire_tick > 0:
+            animation.Animations.FIRE.render(screen, pos)
+        self.render_hp_bar(screen, (pos[0], pos[1] - 10), font)
+
+    def render_hp_bar(self, screen: pygame.Surface, pos: Tuple[int, int], font=None):
         bar_width, bar_height = self.size[0], 5
-        hp_rect = pygame.Rect(self.x - camera[0], self.y - camera[1] - bar_height - 5,
-                              bar_width * self.hp / 100, bar_height)
-        border_rect = pygame.Rect(self.x - camera[0], self.y - camera[1] - bar_height - 5, bar_width, bar_height)
-        pygame.draw.rect(screen, ((0, 255, 0) if self.hp >= 60 else (255, 255, 0)) if self.hp >= 30 else (255, 0, 0), hp_rect)
+        hp_rect = pygame.Rect(pos[0], pos[1], bar_width * self.hp / 100, bar_height)
+        border_rect = pygame.Rect(pos[0], pos[1], bar_width, bar_height)
+        pygame.draw.rect(screen, ((0, 255, 0) if self.hp >= 60 else (255, 255, 0)) if self.hp >= 30 else (255, 0, 0),
+                         hp_rect)
         pygame.draw.rect(screen, (255, 255, 255), border_rect, 1)
 
         # hp_text = f"HP: {self.hp} / 100"

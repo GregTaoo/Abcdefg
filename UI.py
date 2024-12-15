@@ -1,5 +1,6 @@
 import pygame
 
+import action
 import client
 from button import Button
 from config import SCREEN_WIDTH, SCREEN_HEIGHT
@@ -73,4 +74,69 @@ class DeathUI(UI):
 
     def tick(self, keys, events):
         super().tick(keys, events)
+        return True
+
+
+class BattleUI(UI):
+
+    def __init__(self, player, enemy):
+        super().__init__('Battle')
+        self.player = player
+        self.enemy = enemy
+        self.player_pos = (200, 200)
+        self.enemy_pos = (SCREEN_WIDTH - 200, 200)
+        self.round = 0
+        self.half_round = 0
+        self.playing_action = False
+        self.action = None
+        self.attack_button = Button('攻击', (SCREEN_WIDTH // 2 - 100, SCREEN_HEIGHT // 2 - 50), (200, 50),
+                                    client.CLIENT.font, (255, 255, 255), (0, 0, 0), self.round_start)
+        self.add_button(self.attack_button)
+
+    def round_start(self):
+        self.round += 1
+        self.half_round += 1
+        self.attack_button.set_active(False)
+        self.playing_action = True
+        self.action = action.Actions.ATTACK_RIGHT
+
+    def attack(self):
+        self.enemy.hp -= 10
+        if self.enemy.hp <= 0:
+            client.CLIENT.entities.remove(self.enemy)
+            client.CLIENT.close_ui()
+
+    def render(self, screen: pygame.Surface, font: pygame.font.Font):
+        super().render(screen, font)
+        if self.playing_action:
+            if self.half_round < self.round * 2:
+                self.enemy.render_at_absolute_pos(screen, self.enemy_pos, font)
+                print(self.action.get_current_pos())
+                self.player.render_at_absolute_pos(screen, self.action.get_current_pos(), font)
+            else:
+                self.player.render_at_absolute_pos(screen, self.player_pos, font)
+                self.enemy.render_at_absolute_pos(screen, self.action.get_current_pos(), font)
+        else:
+            self.player.render_at_absolute_pos(screen, self.player_pos, font)
+            self.enemy.render_at_absolute_pos(screen, self.enemy_pos, font)
+
+    def tick(self, keys, events):
+        super().tick(keys, events)
+        if self.playing_action:
+            if self.action.is_end():
+                if self.half_round < self.round * 2:
+                    self.enemy.hp -= 10
+                    self.action.reset()
+                    self.action = action.Actions.ATTACK_LEFT
+                    self.half_round += 1
+                else:
+                    self.player.hp -= 10
+                    self.action.reset()
+                    self.playing_action = False
+                    self.attack_button.set_active(True)
+            self.action.tick()
+        if self.player.hp <= 0:
+            client.CLIENT.open_death_ui()
+        elif self.enemy.hp <= 0:
+            client.CLIENT.close_ui()
         return True

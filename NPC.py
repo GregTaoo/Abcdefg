@@ -18,7 +18,7 @@ class NPC(entity.Entity):
         self.respawn_pos = pos if respawn_pos is None else respawn_pos
 
     def dialog(self):
-        return "私は " + self.name + " です、よろしくお願いします!"
+        return "Hi! My name is " + self.name
 
     def tick(self, dimension, player=None):
         super().tick(dimension, player)
@@ -49,7 +49,7 @@ class NPC(entity.Entity):
         if self.dialog_timer > 0:
             text_surface = font.render(self.dialog(), True, (0, 0, 0))
             text_rect = text_surface.get_rect()
-            text_rect.topleft = (self.x - camera[0] - (text_rect.width - self.size[0]) // 2, self.y - camera[1] - 30)
+            text_rect.topleft = (self.x - camera[0] - (text_rect.width - self.size[0]) // 2, self.y - camera[1] - 40)
 
             pygame.draw.rect(screen, (0, 0, 0), text_rect.inflate(14, 14))
             pygame.draw.rect(screen, (255, 255, 255), text_rect.inflate(10, 10))

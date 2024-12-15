@@ -28,4 +28,5 @@ class Actions:
 
     ATTACK_RIGHT = Action("attack_right", "assets/attack_right.txt")
     ATTACK_LEFT = Action("attack_left", "assets/attack_left.txt")
+    ATTACK_ULT_RIGHT = Action("attack_ult_right", "assets/attack_ult_right.txt")
 

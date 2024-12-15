@@ -95,10 +95,10 @@ class Entity:
         return self.x, self.y + self.size[1]
 
     def get_right_top_pos(self):
-        return self.x + self.size[0], self.y
+        return self.x + self.size[0] - 1, self.y
 
     def get_right_bottom_pos(self):
-        return self.x + self.size[0], self.y + self.size[1]
+        return self.x + self.size[0] - 1, self.y + self.size[1]
 
     def is_nearby(self, entity):
         return abs(self.x - entity.x) + abs(self.y - entity.y) < INTERACTION_DISTANCE * BLOCK_SIZE

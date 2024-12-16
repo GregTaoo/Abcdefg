@@ -4,7 +4,6 @@ import pygame
 
 import animation
 import player
-import includes
 from config import BLOCK_SIZE
 
 

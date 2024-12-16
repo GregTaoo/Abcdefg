@@ -2,7 +2,6 @@ from typing import Tuple
 
 
 import action
-import client
 import includes
 from config import SCREEN_WIDTH, SCREEN_HEIGHT
 import entity
@@ -33,13 +32,8 @@ class Player(entity.Entity):
         dimension = includes.get_world(dimension_str)
         if dimension is None:
             return
-        client.CLIENT.dimension = dimension
+        includes.CLIENT.dimension = dimension
         self.x, self.y = pos
-
-    def tick(self, dimension, player=None):
-        super().tick(dimension, player)
-        if self.hp <= 0:
-            client.CLIENT.open_death_ui()
 
     def update_energy(self):
         self.energy = min(self.energy + 1, 3)

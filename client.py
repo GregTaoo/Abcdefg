@@ -11,13 +11,11 @@ from dimension import Dimension
 from entity import Entity
 from hud import MainHud
 
-CLIENT = None
-
 
 def generate_the_world():
     mp = Dimension.generate_map(MAP_WIDTH, MAP_HEIGHT, [
         Blocks.GRASS_BLOCK, Blocks.LAVA, Blocks.STONE, Blocks.WATER
-    ], [150, 2, 2, 1])
+    ], [150, 1, 2, 1])
     mp[random.randint(0, MAP_WIDTH - 1)][random.randint(0, MAP_HEIGHT - 1)] = Blocks.NETHER_PORTAL
     # mp[10][10] = Blocks.NETHER_PORTAL
     return mp
@@ -110,9 +108,15 @@ class Client:
                 i.tick()
             for i in self.dimension.entities:
                 i.tick(self.dimension, self.player)
+                if i.hp <= 0:
+                    self.dimension.entities.remove(i)
+                    del i
 
             # 更新摄像机位置
             self.camera = self.player.get_camera(self.dimension.get_render_size())
+
+            if self.player.hp <= 0:
+                self.open_death_ui()
 
             self.current_hud.tick(keys, events)
             self.current_hud.render(self.screen)

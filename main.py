@@ -25,9 +25,9 @@ def main():
     player = Player("Steve", (600, 600), (600, 600),
                     pygame.transform.scale(pygame.image.load("assets/player.png"), (50, 50)))
 
-    client.CLIENT = client.Client(screen, clock, player, 'the_world')
+    includes.CLIENT = client.Client(screen, clock, player, 'the_world')
 
-    client.CLIENT.spawn_entity(VillagerNPC((300, 300)))
+    includes.CLIENT.spawn_entity(VillagerNPC((300, 300)))
 
     while True:
         events = pygame.event.get()
@@ -36,10 +36,10 @@ def main():
                 pygame.quit()
                 sys.exit()
 
-        client.CLIENT.tick(events)
+        includes.CLIENT.tick(events)
 
-        if random.randint(0, 100) == 0 and len(client.CLIENT.dimension.entities) < 100:
-            client.CLIENT.spawn_entity(
+        if random.randint(0, 100) == 0 and len(includes.CLIENT.dimension.entities) < 100:
+            includes.CLIENT.spawn_entity(
                 Entity("丧尸", (random.randint(0, MAP_WIDTH * BLOCK_SIZE), random.randint(0, MAP_HEIGHT * BLOCK_SIZE)),
                        pygame.transform.scale(pygame.image.load("assets/zombie.png"), (50, 50)), coins=10)
             )

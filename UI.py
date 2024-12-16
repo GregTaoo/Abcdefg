@@ -3,7 +3,6 @@ import random
 import pygame
 
 import action
-import client
 import entity
 import includes
 import particle
@@ -78,7 +77,7 @@ class DeathUI(UI):
     def __init__(self):
         super().__init__('You Died')
         self.add_button(Button('你死了，点击重生', (SCREEN_WIDTH // 2 - 100, SCREEN_HEIGHT // 2 - 50), (200, 50),
-                               includes.FONT, (255, 255, 255), (0, 0, 0), lambda: client.CLIENT.player_respawn()))
+                               includes.FONT, (255, 255, 255), (0, 0, 0), lambda: includes.CLIENT.player_respawn()))
 
     def tick(self, keys, events):
         super().tick(keys, events)
@@ -91,7 +90,7 @@ class SuccessUI(UI):
         super().__init__('You Won')
         self.coins = coins
         self.add_button(Button('胜利，点击继续', (SCREEN_WIDTH // 2 - 100, SCREEN_HEIGHT // 2 - 150), (200, 50),
-                               includes.FONT, (255, 255, 255), (0, 0, 0), lambda: client.CLIENT.close_ui()))
+                               includes.FONT, (255, 255, 255), (0, 0, 0), lambda: includes.CLIENT.close_ui()))
 
     def tick(self, keys, events):
         super().tick(keys, events)
@@ -194,12 +193,12 @@ class BattleUI(UI):
         super().tick(keys, events)
         if self.playing_action is None or (self.action is not None and self.action.is_end()):
             if self.player.hp <= 0:
-                client.CLIENT.close_ui()
-                client.CLIENT.open_death_ui()
+                includes.CLIENT.close_ui()
+                includes.CLIENT.open_death_ui()
             elif self.enemy.hp <= 0:
                 self.player.coins += self.enemy.coins
-                client.CLIENT.close_ui()
-                client.CLIENT.open_ui(SuccessUI(self.enemy.coins))
+                includes.CLIENT.close_ui()
+                includes.CLIENT.open_ui(SuccessUI(self.enemy.coins))
         if self.playing_action:
             if self.action.is_end():
                 if self.half_round < self.round * 2:
@@ -208,7 +207,7 @@ class BattleUI(UI):
                     self.half_round += 1
                     self.use_crt = random.randint(0, 100) < self.enemy.crt * 100
                     if self.escaping_stage == 2:
-                        client.CLIENT.close_ui()
+                        includes.CLIENT.close_ui()
                 else:
                     self.action.reset()
                     self.playing_action = False
@@ -235,10 +234,10 @@ class TradeUI(UI):
         cnt = 0
         for option in npc.trade_list:
             self.add_button(Button(option.name, (SCREEN_WIDTH // 2 - 50, 50 + cnt * 70), (100, 50),
-                                   client.CLIENT.font, (255, 255, 255), (0, 0, 0), option.on_trade))
+                                   includes.CLIENT.font, (255, 255, 255), (0, 0, 0), option.on_trade))
             cnt += 1
         self.add_button(Button('离开', (SCREEN_WIDTH // 2 - 50, SCREEN_HEIGHT // 2 + 10), (100, 50),
-                               client.CLIENT.font, (255, 255, 255), (0, 0, 0), client.CLIENT.close_ui))
+                               includes.CLIENT.font, (255, 255, 255), (0, 0, 0), includes.CLIENT.close_ui))
 
     def render(self, screen: pygame.Surface):
         super().render(screen)

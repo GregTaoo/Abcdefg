@@ -25,7 +25,7 @@ class MainHud(Hud):
 
     def render(self, screen: pygame.Surface):
         txt_surface = includes.FONT.render(
-            f"World: {client.CLIENT.dimension.name}; Pos: {self.player.x},{self.player.y}",
+            f"World: {includes.CLIENT.dimension.name}; Pos: {self.player.x},{self.player.y}",
             True, (200, 200, 200))
         screen.blit(txt_surface, (10, 10))
         txt_surface = includes.FONT.render(f"{self.player.coins}", True, (255, 175, 45))

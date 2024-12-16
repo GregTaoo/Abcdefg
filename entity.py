@@ -5,7 +5,6 @@ from pygame import Rect
 
 import action
 import animation
-import client
 import includes
 from config import BLOCK_SIZE, INTERACTION_DISTANCE
 
@@ -94,9 +93,6 @@ class Entity:
         if self.fire_tick > 0:
             self.fire_tick -= 1
             self.hp -= 1 / 12
-        if self.hp <= 0 and self in client.CLIENT.dimension.entities:
-            client.CLIENT.dimension.entities.remove(self)
-            del self
 
     def respawn_at_pos(self, pos: Tuple[int, int]):
         self.x, self.y = pos
@@ -138,7 +134,7 @@ class Entity:
 
     def render_hp_bar(self, screen: pygame.Surface, pos: Tuple[int, int], font=None):
         bar_width, bar_height = self.size[0], 5
-        hp_rect = pygame.Rect(pos[0], pos[1], bar_width * self.hp / 100, bar_height)
+        hp_rect = pygame.Rect(pos[0], pos[1], bar_width * min(1.0, self.hp / 100), bar_height)
         border_rect = pygame.Rect(pos[0], pos[1], bar_width, bar_height)
         pygame.draw.rect(screen, ((0, 255, 0) if self.hp >= 60 else (255, 255, 0)) if self.hp >= 30 else (255, 0, 0),
                          hp_rect)

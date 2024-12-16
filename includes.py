@@ -1,4 +1,5 @@
 WORLDS = []
+CLIENT = None
 COIN_IMAGE = None
 PARTICLES = []
 

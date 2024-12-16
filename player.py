@@ -1,10 +1,9 @@
 from typing import Tuple
 
-import pygame
 
 import action
 import client
-import worlds
+import includes
 from config import SCREEN_WIDTH, SCREEN_HEIGHT
 import entity
 
@@ -18,6 +17,7 @@ class Player(entity.Entity):
         self.dialog_timer = 0
         self.respawn_pos = respawn_pos
         self.energy = 3
+        self.atk = 1.5
 
     def get_camera(self, limit: Tuple[int, int]):
         return self.x + self.size[0] // 2 - SCREEN_WIDTH // 2, self.y + self.size[1] // 2 - SCREEN_HEIGHT // 2
@@ -31,7 +31,7 @@ class Player(entity.Entity):
         self.respawn_at_pos(self.respawn_pos)
 
     def teleport(self, dimension_str, pos: Tuple[int, int]):
-        dimension = worlds.get_world(dimension_str)
+        dimension = includes.get_world(dimension_str)
         if dimension is None:
             return
         client.CLIENT.dimension = dimension

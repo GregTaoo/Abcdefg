@@ -1,4 +1,5 @@
 WORLDS = []
+COIN_IMAGE = None
 
 
 def get_world(name: str):

@@ -4,7 +4,7 @@ import pygame
 
 import UI
 import animation
-import worlds
+import includes
 from block import Blocks
 from config import MAP_WIDTH, MAP_HEIGHT
 from dimension import Dimension
@@ -38,9 +38,9 @@ class Client:
         self.player = player
         self.current_ui = None
         self.current_hud = MainHud(player)
-        worlds.WORLDS.append(Dimension('the_world', MAP_WIDTH, MAP_HEIGHT, generate_the_world()))
-        worlds.WORLDS.append(Dimension('the_end', MAP_WIDTH, MAP_HEIGHT, generate_the_end()))
-        self.dimension = worlds.get_world(dimension)
+        includes.WORLDS.append(Dimension('the_world', MAP_WIDTH, MAP_HEIGHT, generate_the_world()))
+        includes.WORLDS.append(Dimension('the_end', MAP_WIDTH, MAP_HEIGHT, generate_the_end()))
+        self.dimension = includes.get_world(dimension)
         self.camera = self.player.get_camera(self.dimension.get_render_size())
 
     def spawn_entity(self, entity):
@@ -53,6 +53,7 @@ class Client:
         self.current_ui = None
 
     def open_death_ui(self):
+        self.player.coins //= 2
         self.current_ui = UI.DeathUI(self.font)
 
     def player_respawn(self):
@@ -79,12 +80,15 @@ class Client:
             if keys[pygame.K_d]:  # 向右移动
                 self.player.move(1, self.dimension)
             if keys[pygame.K_f]:
-                if self.dimension.nearest_entity(self.player.get_pos()).is_nearby(self.player):
-                    self.current_ui = UI.InputTextUI()
+                nearest = self.dimension.nearest_entity(self.player.get_pos())
+                if nearest.is_nearby(self.player):
+                    self.current_ui = UI.TradeUI(self.player, nearest)
             if keys[pygame.K_b]:
                 nearest = self.dimension.nearest_entity(self.player.get_pos())
                 if nearest.is_nearby(self.player):
                     if nearest.name == '刁民':
+                        for trade in nearest.trade_list:
+                            trade.price *= 2
                         iron_golem = Entity('Iron Golem', nearest.get_right_bottom_pos(),
                                             pygame.transform.scale(pygame.image.load("assets/iron_golem.png"),
                                                                    (50, 50)), atk=8)

@@ -9,20 +9,20 @@ import client
 from config import BLOCK_SIZE, INTERACTION_DISTANCE
 
 
-def render_dialog_at_absolute_pos(text, screen, pos, font):
+def render_dialog_at_absolute_pos(text, screen, pos, font: pygame.font):
     text_surface = font.render(text, True, (0, 0, 0))
     text_rect = text_surface.get_rect()
     text_rect.topleft = (pos[0] - text_rect.width // 2, pos[1])
 
-    pygame.draw.rect(screen, (0, 0, 0), text_rect.inflate(14, 14))
-    pygame.draw.rect(screen, (255, 255, 255), text_rect.inflate(10, 10))
+    pygame.draw.rect(screen, (0, 0, 0), text_rect.inflate(17, 17), border_radius=8)
+    pygame.draw.rect(screen, (255, 255, 255), text_rect.inflate(15, 15), border_radius=8)
     screen.blit(text_surface, text_rect.topleft)
 
 
 class Entity:
     fire_image = pygame.transform.scale(pygame.image.load("assets/fire.png"), (BLOCK_SIZE, BLOCK_SIZE))
 
-    def __init__(self, name: str, pos: Tuple[int, int], image: pygame.Surface, actions=None, atk=1.0):
+    def __init__(self, name: str, pos: Tuple[int, int], image: pygame.Surface, actions=None, atk=1.0, coins=0):
         self.name = name
         self.x, self.y = pos
         self.image, self.image_mirrored = image, pygame.transform.flip(image, True, False)
@@ -31,6 +31,7 @@ class Entity:
         self.hp = 100
         self.fire_tick = 0
         self.atk = atk
+        self.coins = coins
         self.actions = actions if actions is not None else [action.Actions.ATTACK_LEFT]
 
     def move(self, direction, dimension, speed=4):

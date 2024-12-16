@@ -3,12 +3,11 @@ import sys
 
 import pygame
 
-import worlds
-from NPC import NPC
+from NPC import VillagerNPC
 from block import Blocks
 import client
 from config import SCREEN_WIDTH, SCREEN_HEIGHT, MAP_WIDTH, MAP_HEIGHT, BLOCK_SIZE
-from dimension import Dimension
+from entity import Entity
 from player import Player
 
 
@@ -25,15 +24,7 @@ def main():
 
     client.CLIENT = client.Client(screen, clock, font, player, 'the_world')
 
-    client.CLIENT.spawn_entity(
-        NPC(
-            "刁民", (500, 500), pygame.transform.scale(pygame.image.load("assets/villager.png"), (50, 50)),
-            can_respawn=True
-        )
-    )
-    client.CLIENT.spawn_entity(
-        NPC("丧尸", (700, 700), pygame.transform.scale(pygame.image.load("assets/zombie.png"), (50, 50)))
-    )
+    client.CLIENT.spawn_entity(VillagerNPC((300, 300)))
 
     while True:
         events = pygame.event.get()
@@ -46,8 +37,8 @@ def main():
 
         if random.randint(0, 100) == 0 and len(client.CLIENT.dimension.entities) < 100:
             client.CLIENT.spawn_entity(
-                NPC("丧尸", (random.randint(0, MAP_WIDTH * BLOCK_SIZE), random.randint(0, MAP_HEIGHT * BLOCK_SIZE)),
-                    pygame.transform.scale(pygame.image.load("assets/zombie.png"), (50, 50)))
+                Entity("丧尸", (random.randint(0, MAP_WIDTH * BLOCK_SIZE), random.randint(0, MAP_HEIGHT * BLOCK_SIZE)),
+                       pygame.transform.scale(pygame.image.load("assets/zombie.png"), (50, 50)), coins=10)
             )
 
         # 执行渲染

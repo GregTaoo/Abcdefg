@@ -3,6 +3,7 @@ import pygame
 import action
 import client
 import entity
+import includes
 from button import Button
 from config import SCREEN_WIDTH, SCREEN_HEIGHT
 
@@ -80,14 +81,22 @@ class DeathUI(UI):
 
 class SuccessUI(UI):
 
-    def __init__(self, font: pygame.font.Font):
+    def __init__(self, font: pygame.font.Font, coins=0):
         super().__init__('You Won')
-        self.add_button(Button('胜利，点击继续', (SCREEN_WIDTH // 2 - 100, SCREEN_HEIGHT // 2 - 50), (200, 50),
+        self.coins = coins
+        self.add_button(Button('胜利，点击继续', (SCREEN_WIDTH // 2 - 100, SCREEN_HEIGHT // 2 - 150), (200, 50),
                                font, (255, 255, 255), (0, 0, 0), lambda: client.CLIENT.close_ui()))
 
     def tick(self, keys, events):
         super().tick(keys, events)
         return True
+
+    def render(self, screen: pygame.Surface, font: pygame.font.Font):
+        super().render(screen, font)
+        txt_surface = font.render('获得     x ' + str(self.coins), True, (255, 255, 255))
+        screen.blit(txt_surface, (SCREEN_WIDTH // 2 - txt_surface.get_width() // 2, SCREEN_HEIGHT // 2 - 50))
+        screen.blit(includes.COIN_IMAGE, (SCREEN_WIDTH // 2 - txt_surface.get_width() // 2 + 45,
+                                          SCREEN_HEIGHT // 2 - 52))
 
 
 class BattleUI(UI):
@@ -172,7 +181,8 @@ class BattleUI(UI):
             if self.player.hp <= 0:
                 client.CLIENT.open_death_ui()
             elif self.enemy.hp <= 0:
-                client.CLIENT.open_ui(SuccessUI(client.CLIENT.font))
+                self.player.coins += self.enemy.coins
+                client.CLIENT.open_ui(SuccessUI(client.CLIENT.font, self.enemy.coins))
         if self.playing_action:
             if self.action.is_end():
                 if self.half_round < self.round * 2:
@@ -190,4 +200,27 @@ class BattleUI(UI):
                         self.escaping_stage = 2
                         self.round_start(action.Actions.ESCAPE_LEFT)
             self.action.tick()
+        return True
+
+
+class TradeUI(UI):
+
+    def __init__(self, player, npc):
+        super().__init__('Trade')
+        self.player = player
+        self.buttons = []
+        self.npc = npc
+        cnt = 0
+        for option in npc.trade_list:
+            self.add_button(Button(option.name, (SCREEN_WIDTH // 2 - 50, 50 + cnt * 70), (100, 50),
+                                   client.CLIENT.font, (255, 255, 255), (0, 0, 0), option.on_trade))
+            cnt += 1
+        self.add_button(Button('离开', (SCREEN_WIDTH // 2 - 50, SCREEN_HEIGHT // 2 + 10), (100, 50),
+                               client.CLIENT.font, (255, 255, 255), (0, 0, 0), client.CLIENT.close_ui))
+
+    def render(self, screen: pygame.Surface, font: pygame.font.Font):
+        super().render(screen, font)
+
+    def tick(self, keys, events):
+        super().tick(keys, events)
         return True

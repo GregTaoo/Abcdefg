@@ -3,7 +3,7 @@ import pygame
 
 class Button:
     def __init__(self, text, pos, size, font, bg_color=(255, 255, 255), text_color=(0, 0, 0), on_click=lambda: None,
-                 border_color=(0, 0, 0), hover_bg_color=(0, 0, 0), hover_text_color=(255, 255, 255),
+                 border_color=(0, 0, 0), hover_bg_color=(50, 50, 50), hover_text_color=(255, 255, 255),
                  inactive_bg_color=(100, 100, 100), inactive_text_color=(50, 50, 50)):
         self.text = text
         self.pos = pos
@@ -31,8 +31,8 @@ class Button:
         else:
             bg_color = self.bg_color
             text_color = self.text_color
-        pygame.draw.rect(screen, bg_color, self.rect)
-        pygame.draw.rect(screen, self.border_color, self.rect, width=1)
+        pygame.draw.rect(screen, bg_color, self.rect, border_radius=8)
+        pygame.draw.rect(screen, self.border_color, self.rect, width=1, border_radius=8)
         text_surface = self.font.render(self.text, True, text_color)
         text_rect = text_surface.get_rect(center=self.rect.center)
         screen.blit(text_surface, text_rect)

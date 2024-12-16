@@ -168,6 +168,11 @@ class BattleUI(UI):
 
     def tick(self, keys, events):
         super().tick(keys, events)
+        if self.playing_action is None or (self.action is not None and self.action.is_end()):
+            if self.player.hp <= 0:
+                client.CLIENT.open_death_ui()
+            elif self.enemy.hp <= 0:
+                client.CLIENT.open_ui(SuccessUI(client.CLIENT.font))
         if self.playing_action:
             if self.action.is_end():
                 if self.half_round < self.round * 2:
@@ -185,8 +190,4 @@ class BattleUI(UI):
                         self.escaping_stage = 2
                         self.round_start(action.Actions.ESCAPE_LEFT)
             self.action.tick()
-        if self.player.hp <= 0:
-            client.CLIENT.open_death_ui()
-        elif self.enemy.hp <= 0:
-            client.CLIENT.open_ui(SuccessUI(client.CLIENT.font))
         return True

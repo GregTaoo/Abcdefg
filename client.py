@@ -79,20 +79,19 @@ class Client:
             if keys[pygame.K_d]:  # 向右移动
                 self.player.move(1, self.dimension)
             if keys[pygame.K_f]:
-                for i in self.dimension.entities:
-                    if i.is_nearby(self.player):
-                        self.current_ui = UI.InputTextUI()
+                if self.dimension.nearest_entity(self.player.get_pos()).is_nearby(self.player):
+                    self.current_ui = UI.InputTextUI()
             if keys[pygame.K_b]:
-                for i in self.dimension.entities:
-                    if i.is_nearby(self.player):
-                        if i.name == '刁民':
-                            iron_golem = Entity('Iron Golem', i.get_right_bottom_pos(),
-                                                pygame.transform.scale(pygame.image.load("assets/iron_golem.png"),
-                                                                       (50, 50)), atk=8)
-                            self.spawn_entity(iron_golem)
-                            self.current_ui = UI.BattleUI(self.player, iron_golem)
-                        else:
-                            self.current_ui = UI.BattleUI(self.player, i)
+                nearest = self.dimension.nearest_entity(self.player.get_pos())
+                if nearest.is_nearby(self.player):
+                    if nearest.name == '刁民':
+                        iron_golem = Entity('Iron Golem', nearest.get_right_bottom_pos(),
+                                            pygame.transform.scale(pygame.image.load("assets/iron_golem.png"),
+                                                                   (50, 50)), atk=8)
+                        self.spawn_entity(iron_golem)
+                        self.current_ui = UI.BattleUI(self.player, iron_golem)
+                    else:
+                        self.current_ui = UI.BattleUI(self.player, nearest)
 
             # 踩岩浆扣血
             # for k in range(50):

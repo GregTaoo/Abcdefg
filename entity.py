@@ -100,6 +100,9 @@ class Entity:
         self.hp = 100
         self.fire_tick = 0
 
+    def get_pos(self):
+        return self.x, self.y
+
     def get_rect(self):
         rect = self.image.get_rect()
         rect.x, rect.y = self.x, self.y

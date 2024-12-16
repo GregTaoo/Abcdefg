@@ -31,10 +31,9 @@ def generate_the_end():
 
 class Client:
 
-    def __init__(self, screen, clock, font, player, dimension):
+    def __init__(self, screen, clock, player, dimension):
         self.screen = screen
         self.clock = clock
-        self.font = font
         self.player = player
         self.current_ui = None
         self.current_hud = MainHud(player)
@@ -50,11 +49,14 @@ class Client:
         self.current_ui = ui
 
     def close_ui(self):
+        if self.current_ui is not None:
+            self.current_ui.on_close()
+        del self.current_ui
         self.current_ui = None
 
     def open_death_ui(self):
         self.player.coins //= 2
-        self.current_ui = UI.DeathUI(self.font)
+        self.current_ui = UI.DeathUI()
 
     def player_respawn(self):
         self.player.respawn()
@@ -65,8 +67,8 @@ class Client:
         self.screen.fill((50, 50, 50))
         self.dimension.render(self.screen, self.camera)
         for i in self.dimension.entities:
-            i.render(self.screen, self.camera, self.font)
-        self.player.render(self.screen, self.camera, self.font)
+            i.render(self.screen, self.camera)
+        self.player.render(self.screen, self.camera)
 
         if self.current_ui is None:
             # 玩家移动
@@ -113,8 +115,8 @@ class Client:
             self.camera = self.player.get_camera(self.dimension.get_render_size())
 
             self.current_hud.tick(keys, events)
-            self.current_hud.render(self.screen, self.font)
+            self.current_hud.render(self.screen)
         else:
-            self.current_ui.render(self.screen, self.font)
+            self.current_ui.render(self.screen)
             if not self.current_ui.tick(pygame.key.get_pressed(), events):
                 self.close_ui()

@@ -3,6 +3,7 @@ import sys
 
 import pygame
 
+import includes
 from NPC import VillagerNPC
 from block import Blocks
 import client
@@ -17,12 +18,14 @@ def main():
     pygame.display.set_icon(Blocks.GRASS_BLOCK.image)
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
     clock = pygame.time.Clock()
-    font = pygame.font.Font("assets/simhei.ttf", 16)
+    includes.FONT = pygame.font.Font("assets/simhei.ttf", 16)
+    includes.MIDDLE_FONT = pygame.font.Font("assets/simhei.ttf", 24)
+    includes.LARGE_FONT = pygame.font.Font("assets/simhei.ttf", 32)
 
     player = Player("Steve", (600, 600), (600, 600),
                     pygame.transform.scale(pygame.image.load("assets/player.png"), (50, 50)))
 
-    client.CLIENT = client.Client(screen, clock, font, player, 'the_world')
+    client.CLIENT = client.Client(screen, clock, player, 'the_world')
 
     client.CLIENT.spawn_entity(VillagerNPC((300, 300)))
 

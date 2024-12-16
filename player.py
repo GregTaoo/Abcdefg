@@ -13,7 +13,7 @@ class Player(entity.Entity):
     def __init__(self, name: str, respawn_pos: Tuple[int, int], pos: Tuple[int, int], image):
         super().__init__(name, pos, image, actions=[
             action.Actions.ATTACK_RIGHT, action.Actions.ULTIMATE_RIGHT
-        ])
+        ], crt=0.5)
         self.dialog_timer = 0
         self.respawn_pos = respawn_pos
         self.energy = 3

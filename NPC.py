@@ -5,6 +5,7 @@ import pygame
 
 import client
 import entity
+import includes
 
 
 class NPC(entity.Entity):
@@ -25,6 +26,7 @@ class NPC(entity.Entity):
             if self.can_respawn:
                 self.respawn_at_pos(self.respawn_pos)
             else:
+                print(self.name + " has died!")
                 client.CLIENT.dimension.entities.remove(self)
                 del self
                 return
@@ -43,14 +45,14 @@ class NPC(entity.Entity):
     def start_dialog(self, duration):
         self.dialog_timer = duration
 
-    def render(self, screen: pygame.Surface, camera: Tuple[int, int], font=None):
-        super().render(screen, camera, font)
-        self.render_dialog(screen, camera, font)
+    def render(self, screen: pygame.Surface, camera: Tuple[int, int]):
+        super().render(screen, camera)
+        self.render_dialog(screen, camera)
 
-    def render_dialog(self, screen, camera, font):
+    def render_dialog(self, screen, camera):
         if self.dialog_timer > 0:
             entity.render_dialog_at_absolute_pos(self.dialog(), screen, (self.x - camera[0] + self.size[0] // 2,
-                                                                         self.y - camera[1] - 40), font)
+                                                                         self.y - camera[1] - 40), includes.FONT)
 
 
 class VillagerNPC(NPC):

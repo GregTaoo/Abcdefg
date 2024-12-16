@@ -12,8 +12,8 @@ with open("attack_left.txt", "w") as file:
         x = 600 - (450 * i / frames)
         file.write(f"{x:.0f} {f(x):.0f}\n")
     file.write("150 200|10\n")
-    for i in range(frames):
-        x = 450 * i / frames + 150
+    for i in range(frames // 2):
+        x = 450 * i / frames * 2 + 150
         file.write(f"{x:.0f} 200\n")
 
 with open("attack_right.txt", "w") as file:
@@ -21,8 +21,8 @@ with open("attack_right.txt", "w") as file:
         x = 450 * i / frames + 150
         file.write(f"{x:.0f} {f(x):.0f}\n")
     file.write("600 200|10\n")
-    for i in range(frames):
-        x = 600 - (450 * i / frames)
+    for i in range(frames // 2):
+        x = 600 - (450 * i / frames * 2)
         file.write(f"{x:.0f} 200\n")
 
 with open("ultimate_right.txt", "w") as file:

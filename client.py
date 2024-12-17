@@ -27,6 +27,15 @@ def generate_the_end():
     return mp
 
 
+def change_music(music):
+    pygame.mixer.music.load(music)
+    pygame.mixer.music.play(-1)
+
+
+def pause_music():
+    pygame.mixer.music.pause()
+
+
 class Client:
 
     def __init__(self, screen, clock, player, dimension):
@@ -37,6 +46,8 @@ class Client:
         self.current_hud = MainHud(player)
         includes.WORLDS.append(Dimension('the_world', MAP_WIDTH, MAP_HEIGHT, generate_the_world()))
         includes.WORLDS.append(Dimension('the_end', MAP_WIDTH, MAP_HEIGHT, generate_the_end()))
+        includes.SOUND_HIT = pygame.mixer.Sound("assets/sounds/hit.mp3")
+        includes.SOUND_HIT.set_volume(0.5)
         self.dimension = includes.get_world(dimension)
         self.camera = self.player.get_camera(self.dimension.get_render_size())
 

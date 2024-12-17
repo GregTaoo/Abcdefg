@@ -104,6 +104,10 @@ class SuccessUI(UI):
                                           SCREEN_HEIGHT // 2 - 52))
 
 
+def play_sound_hit():
+    includes.SOUND_HIT.play()
+
+
 class BattleUI(UI):
 
     def __init__(self, player, enemy):
@@ -162,6 +166,7 @@ class BattleUI(UI):
                 self.enemy.hp -= real_dmg
                 if real_dmg != 0:
                     particle.add_particle(particle.DamageParticle(real_dmg, self.enemy_pos, 180, self.use_crt))
+                    play_sound_hit()
                 self.enemy.render_at_absolute_pos(screen, self.enemy_pos)
                 if target_poses is None:
                     self.player.render_at_absolute_pos(screen, self.player_pos)
@@ -176,6 +181,7 @@ class BattleUI(UI):
                 self.player.hp -= real_dmg
                 if real_dmg != 0:
                     particle.add_particle(particle.DamageParticle(real_dmg, self.player_pos, 180, self.use_crt))
+                    play_sound_hit()
                 self.player.render_at_absolute_pos(screen, self.player_pos)
                 if target_poses is None:
                     self.enemy.render_at_absolute_pos(screen, self.enemy_pos)
@@ -234,10 +240,10 @@ class TradeUI(UI):
         cnt = 0
         for option in npc.trade_list:
             self.add_button(Button(option.name, (SCREEN_WIDTH // 2 - 50, 50 + cnt * 70), (100, 50),
-                                   includes.CLIENT.font, (255, 255, 255), (0, 0, 0), option.on_trade))
+                                   includes.FONT, (255, 255, 255), (0, 0, 0), option.on_trade))
             cnt += 1
         self.add_button(Button('离开', (SCREEN_WIDTH // 2 - 50, SCREEN_HEIGHT // 2 + 10), (100, 50),
-                               includes.CLIENT.font, (255, 255, 255), (0, 0, 0), includes.CLIENT.close_ui))
+                               includes.FONT, (255, 255, 255), (0, 0, 0), includes.CLIENT.close_ui))
 
     def render(self, screen: pygame.Surface):
         super().render(screen)

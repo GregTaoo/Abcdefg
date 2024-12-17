@@ -22,6 +22,8 @@ def main():
     includes.MIDDLE_FONT = pygame.font.Font("assets/simhei.ttf", 24)
     includes.LARGE_FONT = pygame.font.Font("assets/simhei.ttf", 32)
 
+    pygame.mixer.init()
+
     player = Player("Steve", (600, 600), (600, 600),
                     pygame.transform.scale(pygame.image.load("assets/player.png"), (50, 50)))
 

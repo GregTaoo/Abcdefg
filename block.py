@@ -47,13 +47,14 @@ class WaterBlock(Block):
 
 class PortalBlock(Block):
 
-    def __init__(self, name: str, image, is_animation=False, obstacle=False, target_dimension=None):
+    def __init__(self, name: str, image, is_animation=False, obstacle=False, target_dimension=None, target_pos=(0, 0)):
         super().__init__(name, image, is_animation, obstacle)
         self.target_dimension = target_dimension
+        self.target_pos = target_pos
 
     def on_entity(self, block_pos: Tuple[int, int], mob):
         if isinstance(mob, player.Player):
-            mob.teleport(self.target_dimension, block_pos)
+            mob.teleport(self.target_dimension, self.target_pos)
 
 
 class Blocks:

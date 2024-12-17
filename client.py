@@ -28,12 +28,12 @@ def generate_the_end():
 
 
 def generate_the_nether():
-    mp = []
+    mp = [[Blocks.WARPED_PLANKS] * 20 + [Blocks.NETHERITE_BLOCK] * 40]
     with open('assets/maps/nether.txt', 'r') as f:
         for line in f.readlines():
-            mp.append([Blocks.WARPED_PLANKS] + [Blocks.WARPED_PLANKS if i == 'A' else Blocks.NETHERITE_BLOCK
-                                                for i in line.strip()] + [Blocks.NETHERITE_BLOCK] * 38)
-    for i in range(39):
+            mp.append([Blocks.WARPED_PLANKS if i == 'A' else Blocks.NETHERITE_BLOCK
+                       for i in line.strip()] + [Blocks.NETHERITE_BLOCK] * 39)
+    for i in range(38):
         mp.append([Blocks.NETHERITE_BLOCK] * MAP_WIDTH)
     return mp
 

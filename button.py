@@ -1,6 +1,6 @@
 import pygame
 
-import includes
+import config
 
 
 class Button:
@@ -70,14 +70,14 @@ class TradeButton(Button):
     def on_toggle_click(self):
         text = self.on_click() or None
         if text is not None:
-            includes.CLIENT.open_message_box(text, includes.CLIENT.current_ui)
+            config.CLIENT.open_message_box(text, config.CLIENT.current_ui)
         self.active = self.trade_option.available
 
     def render_text(self, screen, text_color):
         text_surface = self.font.render(self.text, True, text_color)
         text_rect = text_surface.get_rect(center=(self.rect.center[0], self.rect.center[1] - 10))
         screen.blit(text_surface, text_rect)
-        text_surface = includes.FONT.render(f"x{self.trade_option.price}", True, (255, 175, 45))
+        text_surface = config.FONT.render(f"x{self.trade_option.price}", True, (255, 175, 45))
         text_rect = text_surface.get_rect(center=(self.rect.center[0] + 12, self.rect.center[1] + 10))
         screen.blit(text_surface, text_rect)
-        screen.blit(includes.COIN_IMAGE, (self.rect.center[0] - 22, self.rect.center[1]))
+        screen.blit(config.COIN_IMAGE, (self.rect.center[0] - 22, self.rect.center[1]))

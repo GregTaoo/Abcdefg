@@ -1,6 +1,6 @@
 import pygame
 
-import includes
+import config
 
 
 class Particle:
@@ -23,27 +23,27 @@ class Particle:
 
 
 def add_particle(particle: Particle):
-    includes.PARTICLES.append(particle)
+    config.PARTICLES.append(particle)
 
 
 def remove_all_particles():
-    includes.PARTICLES.clear()
+    config.PARTICLES.clear()
 
 
 def remove_played_particles():
-    for i in includes.PARTICLES:
+    for i in config.PARTICLES:
         if i.is_end():
-            includes.PARTICLES.remove(i)
+            config.PARTICLES.remove(i)
             del i
 
 
 def render_particles(screen, font: pygame.font.Font):
-    for i in includes.PARTICLES:
+    for i in config.PARTICLES:
         i.render(screen, font)
 
 
 def tick_particles():
-    for i in includes.PARTICLES:
+    for i in config.PARTICLES:
         i.tick()
 
 

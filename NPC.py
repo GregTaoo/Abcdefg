@@ -4,8 +4,8 @@ from typing import Tuple
 import pygame
 
 import UI
+import config
 import entity
-import includes
 
 
 class NPC(entity.Entity):
@@ -41,7 +41,7 @@ class NPC(entity.Entity):
     def render_dialog(self, screen, camera):
         if self.dialog_timer > 0:
             entity.render_dialog_at_absolute_pos(self.dialog(), screen, (self.x - camera[0] + self.size[0] // 2,
-                                                                         self.y - camera[1] - 40), includes.FONT)
+                                                                         self.y - camera[1] - 40), config.FONT)
 
     def on_battle(self, player):
         pass
@@ -54,7 +54,7 @@ class TraderNPC(NPC):
         self.trade_list = trade_list if trade_list is not None else []
 
     def on_interact(self, player):
-        includes.CLIENT.open_ui(UI.TradeUI(player, self))
+        config.CLIENT.open_ui(UI.TradeUI(player, self))
 
 
 class VillagerNPC(TraderNPC):
@@ -73,8 +73,8 @@ class VillagerNPC(TraderNPC):
             trade.price *= 2
         iron_golem = entity.Entity('Iron Golem', self.get_right_bottom_pos(),
                                    pygame.transform.scale(pygame.image.load("assets/iron_golem.png"), (50, 50)), atk=8)
-        includes.CLIENT.spawn_entity(iron_golem)
-        includes.CLIENT.open_ui(UI.BattleUI(player, iron_golem))
+        config.CLIENT.spawn_entity(iron_golem)
+        config.CLIENT.open_ui(UI.BattleUI(player, iron_golem))
 
 
 class MedicineTraderNPC(TraderNPC):

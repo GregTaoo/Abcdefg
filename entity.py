@@ -6,7 +6,7 @@ from pygame import Rect
 import UI
 import action
 import animation
-import includes
+import config
 from config import BLOCK_SIZE, INTERACTION_DISTANCE
 
 
@@ -135,11 +135,11 @@ class Entity:
         screen.blit(self.image_mirrored if self.mirror else self.image, (self.x - camera[0], self.y - camera[1]))
         if self.fire_tick > 0:
             animation.Animations.FIRE.render(screen, (self.x - camera[0], self.y - camera[1]))
-        self.render_hp_bar(screen, (self.x - camera[0], self.y - camera[1] - 10), includes.FONT)
+        self.render_hp_bar(screen, (self.x - camera[0], self.y - camera[1] - 10), config.FONT)
 
     def render_at_absolute_pos(self, screen: pygame.Surface, pos: Tuple[int, int], use_mirror=False):
         screen.blit(self.image_mirrored if use_mirror else self.image, pos)
-        self.render_hp_bar(screen, (pos[0], pos[1] - 10), includes.FONT)
+        self.render_hp_bar(screen, (pos[0], pos[1] - 10), config.FONT)
 
     def render_hp_bar(self, screen: pygame.Surface, pos: Tuple[int, int], font=None):
         bar_width, bar_height = self.size[0], 5
@@ -158,4 +158,4 @@ class Entity:
         pass
 
     def on_battle(self, player):
-        includes.CLIENT.open_ui(UI.BattleUI(player, self))
+        config.CLIENT.open_ui(UI.BattleUI(player, self))

@@ -2,7 +2,7 @@ from typing import Tuple
 
 
 import action
-import includes
+import config
 from config import SCREEN_WIDTH, SCREEN_HEIGHT
 import entity
 
@@ -29,10 +29,10 @@ class Player(entity.Entity):
         self.respawn_at_pos(self.respawn_pos)
 
     def teleport(self, dimension_str, pos: Tuple[int, int]):
-        dimension = includes.get_world(dimension_str)
+        dimension = config.get_world(dimension_str)
         if dimension is None:
             return
-        includes.CLIENT.dimension = dimension
+        config.CLIENT.dimension = dimension
         self.x, self.y = pos
 
     def update_energy(self):

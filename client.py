@@ -4,7 +4,7 @@ import pygame
 
 import UI
 import animation
-import includes
+import config
 from block import Blocks
 from config import MAP_WIDTH, MAP_HEIGHT
 from dimension import Dimension
@@ -43,15 +43,15 @@ class Client:
         self.player = player
         self.current_ui = None
         self.current_hud = MainHud(player)
-        includes.WORLDS.append(Dimension('the_world', MAP_WIDTH, MAP_HEIGHT, generate_the_world()))
-        includes.WORLDS.append(Dimension('the_end', MAP_WIDTH, MAP_HEIGHT, generate_the_end()))
-        includes.SOUNDS['hit'] = pygame.mixer.Sound("assets/sounds/hit.mp3")
-        includes.SOUNDS['hit'].set_volume(0.5)
-        includes.SOUNDS['player_death'] = pygame.mixer.Sound("assets/sounds/player_death.mp3")
-        includes.SOUNDS['player_death'].set_volume(0.5)
-        includes.SOUNDS['zeus'] = pygame.mixer.Sound("assets/sounds/zeus.mp3")
-        includes.SOUNDS['zeus'].set_volume(0.25)
-        self.dimension = includes.get_world(dimension)
+        config.WORLDS.append(Dimension('the_world', MAP_WIDTH, MAP_HEIGHT, generate_the_world()))
+        config.WORLDS.append(Dimension('the_end', MAP_WIDTH, MAP_HEIGHT, generate_the_end()))
+        config.SOUNDS['hit'] = pygame.mixer.Sound("assets/sounds/hit.mp3")
+        config.SOUNDS['hit'].set_volume(0.5)
+        config.SOUNDS['player_death'] = pygame.mixer.Sound("assets/sounds/player_death.mp3")
+        config.SOUNDS['player_death'].set_volume(0.5)
+        config.SOUNDS['zeus'] = pygame.mixer.Sound("assets/sounds/zeus.mp3")
+        config.SOUNDS['zeus'].set_volume(0.25)
+        self.dimension = config.get_world(dimension)
         self.camera = self.player.get_camera(self.dimension.get_render_size())
 
     def spawn_entity(self, entity):

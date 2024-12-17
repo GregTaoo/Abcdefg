@@ -34,8 +34,7 @@ class LavaBlock(Block):
     def on_entity(self, block_pos: Tuple[int, int], mob):
         mob.fire_tick = 450
         overlap = mob.get_rect().clip(self.get_rect(block_pos))
-        mob.hp -= (overlap.width * overlap.height) / BLOCK_SIZE ** 2 / 3
-        mob.hp = max(0, mob.hp)
+        mob.damage((overlap.width * overlap.height) / BLOCK_SIZE ** 2 / 3)
 
 
 class WaterBlock(Block):
@@ -43,8 +42,7 @@ class WaterBlock(Block):
     def on_entity(self, block_pos: Tuple[int, int], mob):
         mob.fire_tick = 0
         overlap = mob.get_rect().clip(self.get_rect(block_pos))
-        mob.hp += (overlap.width * overlap.height) / BLOCK_SIZE ** 2 / 5
-        mob.hp = min(100, mob.hp)
+        mob.cure((overlap.width * overlap.height) / BLOCK_SIZE ** 2 / 5)
 
 
 class PortalBlock(Block):

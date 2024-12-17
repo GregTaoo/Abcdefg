@@ -23,18 +23,25 @@ def render_dialog_at_absolute_pos(text, screen, pos, font: pygame.font):
 class Entity:
     fire_image = pygame.transform.scale(pygame.image.load("assets/fire.png"), (BLOCK_SIZE, BLOCK_SIZE))
 
-    def __init__(self, name: str, pos: Tuple[int, int], image: pygame.Surface, actions=None, atk=1.0, crt=0.0, coins=0):
+    def __init__(self, name: str, pos: Tuple[int, int], image: pygame.Surface, actions=None, atk=1.0, crt=0.0,
+                 coins=0, max_hp=100):
         self.name = name
         self.x, self.y = pos
         self.image, self.image_mirrored = image, pygame.transform.flip(image, True, False)
         self.size = image.get_size()
         self.mirror = False
-        self.hp = 100
+        self.hp = self.max_hp = max_hp
         self.fire_tick = 0
         self.atk = atk
         self.crt = crt
         self.coins = coins
         self.actions = actions if actions is not None else [action.Actions.ATTACK_LEFT]
+
+    def damage(self, damage):
+        self.hp = max(0, self.hp - damage)
+
+    def cure(self, cure):
+        self.hp = min(self.max_hp, self.hp + cure)
 
     def move(self, direction, dimension, speed=4):
         if not (1 <= direction <= 4):
@@ -93,11 +100,11 @@ class Entity:
                 blk.on_entity(dimension.get_pos_from_index(i), self)
         if self.fire_tick > 0:
             self.fire_tick -= 1
-            self.hp -= 1 / 12
+            self.damage(1 / 12)
 
     def respawn_at_pos(self, pos: Tuple[int, int]):
         self.x, self.y = pos
-        self.hp = 100
+        self.hp = self.max_hp
         self.fire_tick = 0
 
     def get_pos(self):
@@ -135,7 +142,7 @@ class Entity:
 
     def render_hp_bar(self, screen: pygame.Surface, pos: Tuple[int, int], font=None):
         bar_width, bar_height = self.size[0], 5
-        hp_rect = pygame.Rect(pos[0], pos[1], bar_width * min(1.0, self.hp / 100), bar_height)
+        hp_rect = pygame.Rect(pos[0], pos[1], bar_width * min(1.0, self.hp / self.max_hp), bar_height)
         border_rect = pygame.Rect(pos[0], pos[1], bar_width, bar_height)
         pygame.draw.rect(screen, ((0, 255, 0) if self.hp >= 60 else (255, 255, 0)) if self.hp >= 30 else (255, 0, 0),
                          hp_rect)

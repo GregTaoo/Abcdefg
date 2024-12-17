@@ -1,5 +1,3 @@
-import random
-
 import pygame
 
 import UI
@@ -15,7 +13,10 @@ def generate_the_world():
     mp = Dimension.generate_map(MAP_WIDTH, MAP_HEIGHT, [
         Blocks.GRASS_BLOCK, Blocks.LAVA, Blocks.STONE, Blocks.WATER
     ], [150, 1, 2, 1])
-    mp[random.randint(0, MAP_WIDTH - 1)][random.randint(0, MAP_HEIGHT - 1)] = Blocks.NETHER_PORTAL
+    for i in range(3):
+        mp[MAP_WIDTH - 10 + i][MAP_HEIGHT - 10] = mp[MAP_WIDTH - 10 + i][MAP_HEIGHT - 8] = Blocks.OBSIDIAN
+    mp[MAP_WIDTH - 10][MAP_HEIGHT - 9] = mp[MAP_WIDTH - 8][MAP_HEIGHT - 9] = Blocks.OBSIDIAN
+    mp[MAP_WIDTH - 9][MAP_HEIGHT - 9] = Blocks.NETHER_PORTAL
     # mp[10][10] = Blocks.NETHER_PORTAL
     return mp
 
@@ -28,8 +29,12 @@ def generate_the_end():
 
 def generate_the_nether():
     mp = []
-    for i in range(MAP_WIDTH):
-        mp.append([Blocks.WATER for _ in range(MAP_HEIGHT)])
+    with open('assets/maps/nether.txt', 'r') as f:
+        for line in f.readlines():
+            mp.append([Blocks.WARPED_PLANKS] + [Blocks.WARPED_PLANKS if i == 'A' else Blocks.NETHERITE_BLOCK
+                                                for i in line.strip()] + [Blocks.NETHERITE_BLOCK] * 38)
+    for i in range(39):
+        mp.append([Blocks.NETHERITE_BLOCK] * MAP_WIDTH)
     return mp
 
 
@@ -52,6 +57,7 @@ class Client:
         self.current_ui = None
         self.current_hud = MainHud(player)
         config.WORLDS['the_world'] = Dimension('the_world', MAP_WIDTH, MAP_HEIGHT, generate_the_world())
+        config.WORLDS['the_nether'] = Dimension('the_nether', MAP_WIDTH, MAP_HEIGHT, generate_the_nether())
         config.WORLDS['the_end'] = Dimension('the_end', MAP_WIDTH, MAP_HEIGHT, generate_the_end())
         config.SOUNDS['hit'] = pygame.mixer.Sound("assets/sounds/hit.mp3")
         config.SOUNDS['hit'].set_volume(0.5)

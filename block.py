@@ -67,7 +67,10 @@ class Blocks:
     LAVA = LavaBlock("lava", animation.Animations.LAVA, True)
     WATER = WaterBlock("water", animation.Animations.WATER, True)
     NETHER_PORTAL = PortalBlock("nether_portal", animation.Animations.NETHER_PORTAL, True,
-                                target_dimension='the_end')
+                                target_dimension='the_nether')
     NETHER_BACK_PORTAL = PortalBlock("nether_portal", animation.Animations.NETHER_PORTAL, True,
                                      target_dimension='the_world')
     END_STONE = Block("end_stone", create_image("end_stone.png"))
+    WARPED_PLANKS = Block("warped_planks", create_image("warped_planks.png"))
+    NETHERITE_BLOCK = Block("netherite_block", create_image("netherite_block.png"), obstacle=True)
+    OBSIDIAN = Block("obsidian", create_image("obsidian.png"))

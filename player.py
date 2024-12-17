@@ -44,3 +44,6 @@ class Player(entity.Entity):
     def ultimate_available(self):
         return self.energy == 3
 
+    def tick_second(self, dimension, player=None):
+        if self.fire_tick > 0:
+            config.SOUNDS['hit'].play()

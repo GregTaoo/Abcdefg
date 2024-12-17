@@ -40,6 +40,7 @@ class Client:
     def __init__(self, screen, clock, player, dimension):
         self.screen = screen
         self.clock = clock
+        self.tick_counter = 0
         self.player = player
         self.current_ui = None
         self.current_hud = MainHud(player)
@@ -77,6 +78,11 @@ class Client:
     def player_respawn(self):
         self.player.respawn()
         self.close_ui()
+
+    def tick_second(self):
+        self.player.tick_second(self.dimension, self.player)
+        for i in self.dimension.entities:
+            i.tick_second(self.dimension, self.player)
 
     def tick(self, events):
         # 务必先渲染背景
@@ -126,6 +132,10 @@ class Client:
 
             if self.player.hp <= 0:
                 self.open_death_ui()
+
+            self.tick_counter = (self.tick_counter + 1) % 90
+            if self.tick_counter == 0:
+                self.tick_second()
 
             self.current_hud.tick(keys, events)
             self.current_hud.render(self.screen)

@@ -103,6 +103,9 @@ class Entity:
             self.fire_tick -= 1
             self.damage(1 / 12)
 
+    def tick_second(self, dimension, player=None):
+        pass
+
     def respawn_at_pos(self, pos: Tuple[int, int]):
         self.x, self.y = pos
         self.hp = self.max_hp

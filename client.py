@@ -47,6 +47,10 @@ class Client:
         includes.WORLDS.append(Dimension('the_end', MAP_WIDTH, MAP_HEIGHT, generate_the_end()))
         includes.SOUND_HIT = pygame.mixer.Sound("assets/sounds/hit.mp3")
         includes.SOUND_HIT.set_volume(0.5)
+        includes.SOUND_PLAYER_DEATH = pygame.mixer.Sound("assets/sounds/player_death.mp3")
+        includes.SOUND_PLAYER_DEATH.set_volume(0.5)
+        includes.SOUND_ZEUS = pygame.mixer.Sound("assets/sounds/zeus.mp3")
+        includes.SOUND_ZEUS.set_volume(0.5)
         self.dimension = includes.get_world(dimension)
         self.camera = self.player.get_camera(self.dimension.get_render_size())
 

@@ -104,10 +104,6 @@ class SuccessUI(UI):
                                           SCREEN_HEIGHT // 2 - 52))
 
 
-def play_sound_hit():
-    includes.SOUND_HIT.play()
-
-
 class BattleUI(UI):
 
     def __init__(self, player, enemy):
@@ -166,7 +162,7 @@ class BattleUI(UI):
                 self.enemy.hp -= real_dmg
                 if real_dmg != 0:
                     particle.add_particle(particle.DamageParticle(real_dmg, self.enemy_pos, 180, self.use_crt))
-                    play_sound_hit()
+                    includes.SOUND_HIT.play()
                 self.enemy.render_at_absolute_pos(screen, self.enemy_pos)
                 if target_poses is None:
                     self.player.render_at_absolute_pos(screen, self.player_pos)
@@ -181,7 +177,7 @@ class BattleUI(UI):
                 self.player.hp -= real_dmg
                 if real_dmg != 0:
                     particle.add_particle(particle.DamageParticle(real_dmg, self.player_pos, 180, self.use_crt))
-                    play_sound_hit()
+                    includes.SOUND_HIT.play()
                 self.player.render_at_absolute_pos(screen, self.player_pos)
                 if target_poses is None:
                     self.enemy.render_at_absolute_pos(screen, self.enemy_pos)
@@ -199,6 +195,7 @@ class BattleUI(UI):
         super().tick(keys, events)
         if self.playing_action is None or (self.action is not None and self.action.is_end()):
             if self.player.hp <= 0:
+                includes.SOUND_PLAYER_DEATH.play()
                 includes.CLIENT.close_ui()
                 includes.CLIENT.open_death_ui()
             elif self.enemy.hp <= 0:

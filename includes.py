@@ -8,6 +8,8 @@ MIDDLE_FONT = None
 LARGE_FONT = None
 
 SOUND_HIT = None
+SOUND_PLAYER_DEATH = None
+SOUND_ZEUS = None
 
 
 def get_world(name: str):

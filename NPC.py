@@ -55,7 +55,17 @@ class VillagerNPC(NPC):
                          ])
         self.hp = 1145141919810
 
+class TraderNPC(NPC):
 
+    def __init__(self, pos):
+        super().__init__("奸商", pos, pygame.transform.scale(pygame.image.load("assets/trader.png"), (50, 50)),
+                         trade_list=[
+                             TradeOption("购买", 10, lambda: print("购买")),
+                             TradeOption("购买1", 10, lambda: print("购买1")),
+                             TradeOption("购买2", 10, lambda: print("购买2")),
+                         ])
+        self.hp = 1145141919810
+        
 class TradeOption:
 
     def __init__(self, name: str, price: int, on_trade):

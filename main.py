@@ -5,6 +5,7 @@ import pygame
 
 import includes
 from NPC import VillagerNPC
+from NPC import TraderNPC
 from block import Blocks
 import client
 from config import SCREEN_WIDTH, SCREEN_HEIGHT, MAP_WIDTH, MAP_HEIGHT, BLOCK_SIZE
@@ -30,6 +31,7 @@ def main():
     includes.CLIENT = client.Client(screen, clock, player, 'the_world')
 
     includes.CLIENT.spawn_entity(VillagerNPC((300, 300)))
+    includes.CLIENT.spawn_entity(TraderNPC((200, 200)))
 
     while True:
         events = pygame.event.get()

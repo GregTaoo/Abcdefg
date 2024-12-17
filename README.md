@@ -9,4 +9,4 @@ CRT 暴击率
 CRT Damage 暴击伤害
 
 伤害计算公式：
-伤害 = 技能伤害 * ATK * (CRT_DMG if 暴击 else 1)
+**伤害 = 技能伤害 * ATK * (CRT_DMG if 暴击 else 1)**

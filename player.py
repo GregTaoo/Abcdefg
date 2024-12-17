@@ -16,6 +16,9 @@ class Player(entity.Entity):
         self.dialog_timer = 0
         self.respawn_pos = respawn_pos
         self.energy = 3
+        self.souls = 1
+        self.skill = 0
+        # 0: NONE, 1: 天谴, 2: 吸血
 
     def get_camera(self, limit: Tuple[int, int]):
         return self.x + self.size[0] // 2 - SCREEN_WIDTH // 2, self.y + self.size[1] // 2 - SCREEN_HEIGHT // 2
@@ -29,7 +32,7 @@ class Player(entity.Entity):
         self.respawn_at_pos(self.respawn_pos)
 
     def teleport(self, dimension_str, pos: Tuple[int, int]):
-        dimension = config.get_world(dimension_str)
+        dimension = config.WORLDS[dimension_str]
         if dimension is None:
             return
         config.CLIENT.dimension = dimension

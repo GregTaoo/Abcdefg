@@ -35,6 +35,12 @@ def main():
     config.CLIENT.spawn_entity(MedicineTraderNPC((200, 200)))
     config.CLIENT.spawn_entity(WeaponTraderNPC((400, 400)))
 
+    for _ in range(20):
+        config.CLIENT.spawn_entity(
+            Entity("丧尸", (random.randint(0, MAP_WIDTH * BLOCK_SIZE), random.randint(0, MAP_HEIGHT * BLOCK_SIZE)),
+                   pygame.transform.scale(pygame.image.load("assets/zombie.png"), (50, 50)), coins=10)
+        )
+
     while True:
         events = pygame.event.get()
         for event in events:
@@ -43,12 +49,6 @@ def main():
                 sys.exit()
 
         config.CLIENT.tick(events)
-
-        if random.randint(0, 100) == 0 and len(config.CLIENT.dimension.entities) < 100:
-            config.CLIENT.spawn_entity(
-                Entity("丧尸", (random.randint(0, MAP_WIDTH * BLOCK_SIZE), random.randint(0, MAP_HEIGHT * BLOCK_SIZE)),
-                       pygame.transform.scale(pygame.image.load("assets/zombie.png"), (50, 50)), coins=10)
-            )
 
         # 执行渲染
         pygame.display.flip()

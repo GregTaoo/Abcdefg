@@ -26,6 +26,13 @@ def generate_the_end():
     return mp
 
 
+def generate_the_nether():
+    mp = []
+    for i in range(MAP_WIDTH):
+        mp.append([Blocks.WATER for _ in range(MAP_HEIGHT)])
+    return mp
+
+
 def change_music(music):
     pygame.mixer.music.load(music)
     pygame.mixer.music.play(-1)
@@ -44,15 +51,15 @@ class Client:
         self.player = player
         self.current_ui = None
         self.current_hud = MainHud(player)
-        config.WORLDS.append(Dimension('the_world', MAP_WIDTH, MAP_HEIGHT, generate_the_world()))
-        config.WORLDS.append(Dimension('the_end', MAP_WIDTH, MAP_HEIGHT, generate_the_end()))
+        config.WORLDS['the_world'] = Dimension('the_world', MAP_WIDTH, MAP_HEIGHT, generate_the_world())
+        config.WORLDS['the_end'] = Dimension('the_end', MAP_WIDTH, MAP_HEIGHT, generate_the_end())
         config.SOUNDS['hit'] = pygame.mixer.Sound("assets/sounds/hit.mp3")
         config.SOUNDS['hit'].set_volume(0.5)
         config.SOUNDS['player_death'] = pygame.mixer.Sound("assets/sounds/player_death.mp3")
         config.SOUNDS['player_death'].set_volume(0.5)
         config.SOUNDS['zeus'] = pygame.mixer.Sound("assets/sounds/zeus.mp3")
         config.SOUNDS['zeus'].set_volume(0.25)
-        self.dimension = config.get_world(dimension)
+        self.dimension = config.WORLDS[dimension]
         self.camera = self.player.get_camera(self.dimension.get_render_size())
 
     def spawn_entity(self, entity):
@@ -131,6 +138,7 @@ class Client:
             self.camera = self.player.get_camera(self.dimension.get_render_size())
 
             if self.player.hp <= 0:
+                config.SOUNDS['player_death'].play()
                 self.open_death_ui()
 
             self.tick_counter = (self.tick_counter + 1) % 90

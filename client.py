@@ -89,14 +89,13 @@ class Client:
                 self.player.move(2, self.dimension)
             if keys[pygame.K_d]:  # 向右移动
                 self.player.move(1, self.dimension)
-            if keys[pygame.K_f]:
+            if keys[pygame.K_f] or keys[pygame.K_b]:
                 nearest = self.dimension.nearest_entity(self.player.get_pos())
                 if nearest.is_nearby(self.player):
-                    nearest.on_interact(self.player)
-            if keys[pygame.K_b]:
-                nearest = self.dimension.nearest_entity(self.player.get_pos())
-                if nearest.is_nearby(self.player):
-                    nearest.on_battle(self.player)
+                    if keys[pygame.K_f]:
+                        nearest.on_interact(self.player)
+                    if keys[pygame.K_b]:
+                        nearest.on_battle(self.player)
 
             # 踩岩浆扣血
             # for k in range(50):

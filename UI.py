@@ -122,13 +122,13 @@ class MessageBoxUI(UI):
         super().__init__(message)
         self.message = message
         self.father_ui = father_ui
-        self.add_button(Button('返回', (SCREEN_WIDTH // 2 - 100, SCREEN_HEIGHT // 2 - 150), (200, 50),
+        self.add_button(Button('返回', (SCREEN_WIDTH // 2 - 100, SCREEN_HEIGHT // 2 + 50), (200, 50),
                                config.FONT, (255, 255, 255), (0, 0, 0), lambda: config.CLIENT.close_ui()))
 
     def render(self, screen: pygame.Surface):
         super().render(screen)
         txt_surface = config.LARGE_FONT.render(self.message, True, (255, 255, 255))
-        screen.blit(txt_surface, (SCREEN_WIDTH // 2 - txt_surface.get_width() // 2, SCREEN_HEIGHT // 2 - 50))
+        screen.blit(txt_surface, (SCREEN_WIDTH // 2 - txt_surface.get_width() // 2, SCREEN_HEIGHT // 2 - 75))
 
     def on_close(self):
         config.CLIENT.open_ui(self.father_ui)

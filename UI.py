@@ -238,7 +238,8 @@ class TradeUI(UI):
         cnt = 0
         for option in npc.trade_list:
             self.add_button(Button(option.name, (SCREEN_WIDTH // 2 - 50, 50 + cnt * 70), (100, 50),
-                                   includes.FONT, (255, 255, 255), (0, 0, 0), option.on_trade))
+                                   includes.FONT, (255, 255, 255), (0, 0, 0),
+                                   lambda opt=option: opt.on_trade(self.player, self.npc, opt)))
             cnt += 1
         self.add_button(Button('离开', (SCREEN_WIDTH // 2 - 50, SCREEN_HEIGHT // 2 + 10), (100, 50),
                                includes.FONT, (255, 255, 255), (0, 0, 0), includes.CLIENT.close_ui))

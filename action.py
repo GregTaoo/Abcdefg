@@ -1,5 +1,6 @@
 class Action:
 
+    # 格式:
     def __init__(self, name: str, file):
         self.name = name
         self.pos = []

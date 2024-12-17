@@ -60,11 +60,15 @@ class Client:
     def open_ui(self, ui):
         self.current_ui = ui
 
+    def open_message_box(self, text, father_ui):
+        self.open_ui(UI.MessageBoxUI(text, father_ui))
+
     def close_ui(self):
-        if self.current_ui is not None:
-            self.current_ui.on_close()
-        del self.current_ui
+        ui = self.current_ui
         self.current_ui = None
+        if ui is not None:
+            ui.on_close()
+        del ui
 
     def open_death_ui(self):
         self.player.coins //= 2

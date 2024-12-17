@@ -1,5 +1,7 @@
 import pygame
 
+import includes
+
 
 class Button:
     def __init__(self, text, pos, size, font, bg_color=(255, 255, 255), text_color=(0, 0, 0), on_click=lambda: None,
@@ -44,7 +46,26 @@ class Button:
         for event in events:
             if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
                 if self.rect.collidepoint(event.pos):
-                    self.on_click()
+                    self.on_toggle_click()
+
+    def on_toggle_click(self):
+        self.on_click()
 
     def set_active(self, active):
         self.active = active
+
+
+class TradeButton(Button):
+
+    def __init__(self, text, pos, size, font, trade_option, bg_color=(255, 255, 255), text_color=(0, 0, 0),
+                 on_click=lambda: None, border_color=(0, 0, 0), hover_bg_color=(50, 50, 50), hover_text_color=(255, 255, 255),
+                 inactive_bg_color=(100, 100, 100), inactive_text_color=(50, 50, 50)):
+        super().__init__(text, pos, size, font, bg_color, text_color, on_click, border_color, hover_bg_color,
+                         hover_text_color, inactive_bg_color, inactive_text_color)
+        self.trade_option = trade_option
+
+    def on_toggle_click(self):
+        text = self.on_click()
+        if text is not None and len(text) > 0:
+            includes.CLIENT.open_message_box(text, includes.CLIENT.current_ui)
+        self.active = self.trade_option.available

@@ -6,7 +6,7 @@ import action
 import entity
 import includes
 import particle
-from button import Button
+from button import Button, TradeButton
 from config import SCREEN_WIDTH, SCREEN_HEIGHT
 
 
@@ -102,6 +102,28 @@ class SuccessUI(UI):
         screen.blit(txt_surface, (SCREEN_WIDTH // 2 - txt_surface.get_width() // 2, SCREEN_HEIGHT // 2 - 50))
         screen.blit(includes.COIN_IMAGE, (SCREEN_WIDTH // 2 - txt_surface.get_width() // 2 + 45,
                                           SCREEN_HEIGHT // 2 - 52))
+
+
+class MessageBoxUI(UI):
+
+    def __init__(self, message, father_ui):
+        super().__init__(message)
+        self.message = message
+        self.father_ui = father_ui
+        self.add_button(Button('返回', (SCREEN_WIDTH // 2 - 100, SCREEN_HEIGHT // 2 - 150), (200, 50),
+                               includes.FONT, (255, 255, 255), (0, 0, 0), lambda: includes.CLIENT.close_ui()))
+
+    def render(self, screen: pygame.Surface):
+        super().render(screen)
+        txt_surface = includes.LARGE_FONT.render(self.message, True, (255, 255, 255))
+        screen.blit(txt_surface, (SCREEN_WIDTH // 2 - txt_surface.get_width() // 2, SCREEN_HEIGHT // 2 - 50))
+
+    def on_close(self):
+        includes.CLIENT.open_ui(self.father_ui)
+
+    def tick(self, keys, events):
+        super().tick(keys, events)
+        return True
 
 
 class BattleUI(UI):
@@ -237,12 +259,15 @@ class TradeUI(UI):
         self.npc = npc
         cnt = 0
         for option in npc.trade_list:
-            self.add_button(Button(option.name, (SCREEN_WIDTH // 2 - 50, 50 + cnt * 70), (100, 50),
-                                   includes.FONT, (255, 255, 255), (0, 0, 0),
-                                   lambda opt=option: opt.on_trade(self.player, self.npc, opt)))
+            self.add_button(TradeButton(option.name, (SCREEN_WIDTH // 2 - 50, 50 + cnt * 70), (100, 50),
+                                        includes.FONT, option, (255, 255, 255), (0, 0, 0),
+                                        lambda opt=option: self.handle_trade(opt)))
             cnt += 1
         self.add_button(Button('离开', (SCREEN_WIDTH // 2 - 50, SCREEN_HEIGHT // 2 + 10), (100, 50),
                                includes.FONT, (255, 255, 255), (0, 0, 0), includes.CLIENT.close_ui))
+
+    def handle_trade(self, option):
+        return option.on_trade(self.player, self.npc, option)
 
     def render(self, screen: pygame.Surface):
         super().render(screen)

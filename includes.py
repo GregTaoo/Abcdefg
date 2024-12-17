@@ -7,6 +7,7 @@ FONT = None
 MIDDLE_FONT = None
 LARGE_FONT = None
 
+SOUNDS = {}
 SOUND_HIT = None
 SOUND_PLAYER_DEATH = None
 SOUND_ZEUS = None

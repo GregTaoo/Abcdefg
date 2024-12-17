@@ -15,14 +15,16 @@ class Action:
                     poses = []
                     for i in range(len(num) // 2):
                         poses.append((float(num[i * 2]), float(num[i * 2 + 1])))
+                    if len(line1) >= 4:
+                        sounds = line1[3].split()
                     self.pos.append((poses, int(line1[1]) if len(line1) >= 2 else 0,
-                                     line1[2] if len(line1) >= 3 else ''))
+                                     line1[2] if len(line1) >= 3 else '', sounds if len(line1) >= 4 else []))
 
     def tick(self):
         self.ticks = min(self.ticks + 1, len(self.pos) - 1)
 
     def get_current_pos(self):
-        return self.pos[self.ticks] if len(self.pos) > 0 else (None, 0, '')
+        return self.pos[self.ticks] if len(self.pos) > 0 else (None, 0, '', [])
 
     def is_end(self):
         return self.ticks == len(self.pos) - 1

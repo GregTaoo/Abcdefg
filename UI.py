@@ -156,20 +156,21 @@ class BattleUI(UI):
     def render(self, screen: pygame.Surface):
         super().render(screen)
         if self.playing_action:
-            target_poses, damage, text = self.action.get_current_pos()
+            target_poses, damage, text, sounds = self.action.get_current_pos()
+            for sound in sounds:
+                includes.SOUNDS[sound].play()
             if self.half_round < self.round * 2:
                 real_dmg = damage * self.player.atk * (2 if self.use_crt else 1)
                 self.enemy.hp -= real_dmg
                 if real_dmg != 0:
                     particle.add_particle(particle.DamageParticle(real_dmg, self.enemy_pos, 180, self.use_crt))
-                    includes.SOUND_HIT.play()
                 self.enemy.render_at_absolute_pos(screen, self.enemy_pos)
                 if target_poses is None:
                     self.player.render_at_absolute_pos(screen, self.player_pos)
                 else:
                     for i in target_poses:
                         self.player.render_at_absolute_pos(screen, i)
-                        if self.escaping_stage == 2 and text != '':
+                        if text != '':
                             entity.render_dialog_at_absolute_pos(text, screen, (i[0] + self.player.size[0] // 2,
                                                                                 i[1] - 40), includes.FONT)
             else:
@@ -178,9 +179,7 @@ class BattleUI(UI):
                 if real_dmg != 0:
                     particle.add_particle(particle.DamageParticle(real_dmg, self.player_pos, 180, self.use_crt))
                     if self.player.hp <= 0:
-                        includes.SOUND_PLAYER_DEATH.play()
-                    else:
-                        includes.SOUND_HIT.play()
+                        includes.SOUNDS['player_death'].play()
                 self.player.render_at_absolute_pos(screen, self.player_pos)
                 if target_poses is None:
                     self.enemy.render_at_absolute_pos(screen, self.enemy_pos)

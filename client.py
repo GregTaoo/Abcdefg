@@ -2,13 +2,13 @@ import random
 
 import pygame
 
+import NPC
 import UI
 import animation
 import includes
 from block import Blocks
 from config import MAP_WIDTH, MAP_HEIGHT
 from dimension import Dimension
-from entity import Entity
 from hud import MainHud
 
 
@@ -93,18 +93,13 @@ class Client:
             if keys[pygame.K_f]:
                 nearest = self.dimension.nearest_entity(self.player.get_pos())
                 if nearest.is_nearby(self.player):
-                    self.current_ui = UI.TradeUI(self.player, nearest)
+                    if isinstance(nearest, NPC.NPC):
+                        nearest.on_interact(self.player)
             if keys[pygame.K_b]:
                 nearest = self.dimension.nearest_entity(self.player.get_pos())
                 if nearest.is_nearby(self.player):
-                    if nearest.name == '刁民':
-                        for trade in nearest.trade_list:
-                            trade.price *= 2
-                        iron_golem = Entity('Iron Golem', nearest.get_right_bottom_pos(),
-                                            pygame.transform.scale(pygame.image.load("assets/iron_golem.png"),
-                                                                   (50, 50)), atk=8)
-                        self.spawn_entity(iron_golem)
-                        self.current_ui = UI.BattleUI(self.player, iron_golem)
+                    if isinstance(nearest, NPC.NPC):
+                        nearest.on_battle(self.player)
                     else:
                         self.current_ui = UI.BattleUI(self.player, nearest)
 

@@ -3,6 +3,7 @@ from typing import Tuple
 
 import pygame
 
+import UI
 import entity
 import includes
 
@@ -31,6 +32,12 @@ class NPC(entity.Entity):
             else:
                 self.direction = 0
 
+    def on_interact(self, player):
+        pass
+
+    def on_battle(self, player):
+        pass
+
     def start_dialog(self, duration):
         self.dialog_timer = duration
 
@@ -55,6 +62,18 @@ class VillagerNPC(NPC):
                          ])
         self.hp = 1145141919810
 
+    def on_interact(self, player):
+        includes.CLIENT.open_ui(UI.TradeUI(player, self))
+
+    def on_battle(self, player):
+        for trade in self.trade_list:
+            trade.price *= 2
+        iron_golem = entity.Entity('Iron Golem', self.get_right_bottom_pos(),
+                                   pygame.transform.scale(pygame.image.load("assets/iron_golem.png"), (50, 50)), atk=8)
+        includes.CLIENT.spawn_entity(iron_golem)
+        includes.CLIENT.open_ui(UI.BattleUI(player, iron_golem))
+
+
 class TraderNPC(NPC):
 
     def __init__(self, pos):
@@ -65,7 +84,8 @@ class TraderNPC(NPC):
                              TradeOption("购买2", 10, lambda: print("购买2")),
                          ])
         self.hp = 1145141919810
-        
+
+
 class TradeOption:
 
     def __init__(self, name: str, price: int, on_trade):

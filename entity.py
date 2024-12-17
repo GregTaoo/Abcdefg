@@ -34,6 +34,7 @@ class Entity:
         self.fire_tick = 0
         self.atk = atk
         self.crt = crt
+        self.crt_damage = 2.0
         self.coins = coins
         self.actions = actions if actions is not None else [action.Actions.ATTACK_LEFT]
 

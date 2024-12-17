@@ -71,17 +71,63 @@ class VillagerNPC(NPC):
         includes.CLIENT.open_ui(UI.BattleUI(player, iron_golem))
 
 
-class TraderNPC(NPC):
+class Medicine_TraderNPC(NPC):
 
     def __init__(self, pos):
-        super().__init__("奸商", pos, pygame.transform.scale(pygame.image.load("assets/trader.png"), (50, 50)),
+        super().__init__("女巫", pos, pygame.transform.scale(pygame.image.load("assets/trader.png"), (50, 50)),
                          trade_list=[
-                             TradeOption("购买", 10, lambda player, npc, opt: print("购买")),
+                             TradeOption("HP", 10, self.buy_1),
                              TradeOption("购买1", 10, lambda player, npc, opt: print("购买1")),
                              TradeOption("购买2", 10, lambda player, npc, opt: print("购买2")),
                          ])
         self.hp = 1145141919810
+    
+    @staticmethod
+    def buy_1(player, npc, opt):
+        if player.coins < opt.price:
+            opt.name = "金币不足"
+            return
+        opt.name = "购买小型生命药水"
+        player.hp = min(player.hp + 20, player.max_hp)
+        player.coins -= opt.price
+        
+    @staticmethod
+    def buy_2(player, npc, opt):
+        if player.coins < opt.price:
+            opt.name = "金币不足"
+            return
+        opt.name = "购买中型生命药水"
+        player.hp = min(player.hp + 50, player.max_hp)
+        player.coins -= opt.price
+        
+class Weapon_TraderNPC(NPC):
 
+    def __init__(self, pos):
+        super().__init__("军火贩", pos, pygame.transform.scale(pygame.image.load("assets/trader.png"), (50, 50)),
+                         trade_list=[
+                             TradeOption("充能拳套", 10, self.buy_1),
+                             TradeOption("铁剑", 10, self.buy_2),
+                             TradeOption("购买2", 10, lambda player, npc, opt: print("购买2")),
+                         ])
+        self.hp = 1145141919810
+    
+    @staticmethod
+    def buy_1(player, npc, opt):
+        if player.coins < opt.price:
+            opt.name = "金币不足"
+            return
+        opt.name = "购买充能拳套"
+        player.crt += 15
+        player.coins -= opt.price
+        
+    @staticmethod
+    def buy_2(player, npc, opt):
+        if player.coins < opt.price:
+            opt.name = "金币不足"
+            return
+        opt.name = "购买铁剑"
+        player.atk += 10
+        player.coins -= opt.price
 
 class TradeOption:
 

@@ -160,7 +160,7 @@ class BattleUI(UI):
             for sound in sounds:
                 includes.SOUNDS[sound].play()
             if self.half_round < self.round * 2:
-                real_dmg = damage * self.player.atk * (2 if self.use_crt else 1)
+                real_dmg = damage * self.player.atk * (self.player.crt_damage if self.use_crt else 1)
                 self.enemy.damage(real_dmg)
                 if real_dmg != 0:
                     particle.add_particle(particle.DamageParticle(real_dmg, self.enemy_pos, 180, self.use_crt))
@@ -174,7 +174,7 @@ class BattleUI(UI):
                             entity.render_dialog_at_absolute_pos(text, screen, (i[0] + self.player.size[0] // 2,
                                                                                 i[1] - 40), includes.FONT)
             else:
-                real_dmg = damage * self.enemy.atk * (2 if self.use_crt else 1)
+                real_dmg = damage * self.enemy.atk * (self.enemy.crt_damage if self.use_crt else 1)
                 self.player.damage(real_dmg)
                 if real_dmg != 0:
                     particle.add_particle(particle.DamageParticle(real_dmg, self.player_pos, 180, self.use_crt))

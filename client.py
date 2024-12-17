@@ -50,7 +50,7 @@ class Client:
         includes.SOUNDS['player_death'] = pygame.mixer.Sound("assets/sounds/player_death.mp3")
         includes.SOUNDS['player_death'].set_volume(0.5)
         includes.SOUNDS['zeus'] = pygame.mixer.Sound("assets/sounds/zeus.mp3")
-        includes.SOUNDS['zeus'].set_volume(0.5)
+        includes.SOUNDS['zeus'].set_volume(0.25)
         self.dimension = includes.get_world(dimension)
         self.camera = self.player.get_camera(self.dimension.get_render_size())
 

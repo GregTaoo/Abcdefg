@@ -76,20 +76,26 @@ class DeathUI(UI):
 
     def __init__(self):
         super().__init__('You Died')
-        self.add_button(Button('你死了，点击重生', (SCREEN_WIDTH // 2 - 100, SCREEN_HEIGHT // 2 - 50), (200, 50),
+        self.add_button(Button('重生', (SCREEN_WIDTH // 2 - 100, SCREEN_HEIGHT // 2 + 50), (200, 50),
                                includes.FONT, (255, 255, 255), (0, 0, 0), lambda: includes.CLIENT.player_respawn()))
 
     def tick(self, keys, events):
         super().tick(keys, events)
         return True
 
+    def render(self, screen: pygame.Surface):
+        super().render(screen)
+        txt_surface = includes.LARGE_FONT.render("你死了", True, (255, 0, 0))
+        screen.blit(txt_surface, (SCREEN_WIDTH // 2 - txt_surface.get_width() // 2, SCREEN_HEIGHT // 2 - 75))
+
 
 class SuccessUI(UI):
 
-    def __init__(self, coins=0):
+    def __init__(self, name='', coins=0):
         super().__init__('You Won')
+        self.name = name
         self.coins = coins
-        self.add_button(Button('胜利，点击继续', (SCREEN_WIDTH // 2 - 100, SCREEN_HEIGHT // 2 - 150), (200, 50),
+        self.add_button(Button('继续', (SCREEN_WIDTH // 2 - 100, SCREEN_HEIGHT // 2 + 50), (200, 50),
                                includes.FONT, (255, 255, 255), (0, 0, 0), lambda: includes.CLIENT.close_ui()))
 
     def tick(self, keys, events):
@@ -98,10 +104,12 @@ class SuccessUI(UI):
 
     def render(self, screen: pygame.Surface):
         super().render(screen)
+        txt_surface = includes.LARGE_FONT.render("你击败了 " + self.name, True, (0, 255, 0))
+        screen.blit(txt_surface, (SCREEN_WIDTH // 2 - txt_surface.get_width() // 2, SCREEN_HEIGHT // 2 - 75))
         txt_surface = includes.FONT.render('获得     x ' + str(self.coins), True, (255, 255, 255))
-        screen.blit(txt_surface, (SCREEN_WIDTH // 2 - txt_surface.get_width() // 2, SCREEN_HEIGHT // 2 - 50))
+        screen.blit(txt_surface, (SCREEN_WIDTH // 2 - txt_surface.get_width() // 2, SCREEN_HEIGHT // 2 - 35))
         screen.blit(includes.COIN_IMAGE, (SCREEN_WIDTH // 2 - txt_surface.get_width() // 2 + 45,
-                                          SCREEN_HEIGHT // 2 - 52))
+                                          SCREEN_HEIGHT // 2 - 37))
 
 
 class MessageBoxUI(UI):
@@ -224,7 +232,7 @@ class BattleUI(UI):
             elif self.enemy.hp <= 0:
                 self.player.coins += self.enemy.coins
                 includes.CLIENT.close_ui()
-                includes.CLIENT.open_ui(SuccessUI(self.enemy.coins))
+                includes.CLIENT.open_ui(SuccessUI(self.enemy.name, self.enemy.coins))
         if self.playing_action:
             if self.action.is_end():
                 if self.half_round < self.round * 2:

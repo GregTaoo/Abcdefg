@@ -3,6 +3,7 @@ from typing import Tuple
 import pygame
 from pygame import Rect
 
+import UI
 import action
 import animation
 import includes
@@ -145,3 +146,8 @@ class Entity:
         # text_rect = text_surface.get_rect(center=(screen.get_width() // 2, screen.get_height() // 2))
         # screen.blit(text_surface, text_rect)
 
+    def on_interact(self, player):
+        pass
+
+    def on_battle(self, player):
+        includes.CLIENT.open_ui(UI.BattleUI(player, self))

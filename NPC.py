@@ -32,12 +32,6 @@ class NPC(entity.Entity):
             else:
                 self.direction = 0
 
-    def on_interact(self, player):
-        pass
-
-    def on_battle(self, player):
-        pass
-
     def start_dialog(self, duration):
         self.dialog_timer = duration
 
@@ -49,6 +43,9 @@ class NPC(entity.Entity):
         if self.dialog_timer > 0:
             entity.render_dialog_at_absolute_pos(self.dialog(), screen, (self.x - camera[0] + self.size[0] // 2,
                                                                          self.y - camera[1] - 40), includes.FONT)
+
+    def on_battle(self, player):
+        pass
 
 
 class VillagerNPC(NPC):

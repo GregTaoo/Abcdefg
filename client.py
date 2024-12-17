@@ -2,7 +2,6 @@ import random
 
 import pygame
 
-import NPC
 import UI
 import animation
 import includes
@@ -93,15 +92,11 @@ class Client:
             if keys[pygame.K_f]:
                 nearest = self.dimension.nearest_entity(self.player.get_pos())
                 if nearest.is_nearby(self.player):
-                    if isinstance(nearest, NPC.NPC):
-                        nearest.on_interact(self.player)
+                    nearest.on_interact(self.player)
             if keys[pygame.K_b]:
                 nearest = self.dimension.nearest_entity(self.player.get_pos())
                 if nearest.is_nearby(self.player):
-                    if isinstance(nearest, NPC.NPC):
-                        nearest.on_battle(self.player)
-                    else:
-                        self.current_ui = UI.BattleUI(self.player, nearest)
+                    nearest.on_battle(self.player)
 
             # 踩岩浆扣血
             # for k in range(50):

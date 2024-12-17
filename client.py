@@ -115,10 +115,11 @@ class Client:
             for i in animation.get_all_animations():
                 i.tick()
             for i in self.dimension.entities:
-                i.tick(self.dimension, self.player)
                 if i.hp <= 0:
                     self.dimension.entities.remove(i)
                     del i
+                else:
+                    i.tick(self.dimension, self.player)
 
             # 更新摄像机位置
             self.camera = self.player.get_camera(self.dimension.get_render_size())

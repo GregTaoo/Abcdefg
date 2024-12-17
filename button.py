@@ -35,6 +35,9 @@ class Button:
             text_color = self.text_color
         pygame.draw.rect(screen, bg_color, self.rect, border_radius=8)
         pygame.draw.rect(screen, self.border_color, self.rect, width=1, border_radius=8)
+        self.render_text(screen, text_color)
+
+    def render_text(self, screen, text_color):
         text_surface = self.font.render(self.text, True, text_color)
         text_rect = text_surface.get_rect(center=self.rect.center)
         screen.blit(text_surface, text_rect)
@@ -58,14 +61,23 @@ class Button:
 class TradeButton(Button):
 
     def __init__(self, text, pos, size, font, trade_option, bg_color=(255, 255, 255), text_color=(0, 0, 0),
-                 on_click=lambda: None, border_color=(0, 0, 0), hover_bg_color=(50, 50, 50), hover_text_color=(255, 255, 255),
-                 inactive_bg_color=(100, 100, 100), inactive_text_color=(50, 50, 50)):
+                 on_click=lambda: None, border_color=(0, 0, 0), hover_bg_color=(50, 50, 50),
+                 hover_text_color=(255, 255, 255), inactive_bg_color=(100, 100, 100), inactive_text_color=(50, 50, 50)):
         super().__init__(text, pos, size, font, bg_color, text_color, on_click, border_color, hover_bg_color,
                          hover_text_color, inactive_bg_color, inactive_text_color)
         self.trade_option = trade_option
 
     def on_toggle_click(self):
-        text = self.on_click()
-        if text is not None and len(text) > 0:
+        text = self.on_click() or None
+        if text is not None:
             includes.CLIENT.open_message_box(text, includes.CLIENT.current_ui)
         self.active = self.trade_option.available
+
+    def render_text(self, screen, text_color):
+        text_surface = self.font.render(self.text, True, text_color)
+        text_rect = text_surface.get_rect(center=(self.rect.center[0], self.rect.center[1] - 10))
+        screen.blit(text_surface, text_rect)
+        text_surface = includes.FONT.render(f"x{self.trade_option.price}", True, (255, 175, 45))
+        text_rect = text_surface.get_rect(center=(self.rect.center[0] + 12, self.rect.center[1] + 10))
+        screen.blit(text_surface, text_rect)
+        screen.blit(includes.COIN_IMAGE, (self.rect.center[0] - 22, self.rect.center[1]))

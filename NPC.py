@@ -110,7 +110,7 @@ class MedicineTraderNPC(TraderNPC):
 class WeaponTraderNPC(TraderNPC):
 
     def __init__(self, pos):
-        super().__init__(i18n.text('weapon_trader'), pos, pygame.transform.scale(pygame.image.load("assets/trader.png"),
+        super().__init__(i18n.text('weapon_trader'), pos, pygame.transform.scale(pygame.image.load("assets/工匠.png"),
                                                                                  (50, 50)),
                          trade_list=[
                              TradeOption(i18n.text('charged_fist'), 10, self.buy_1),

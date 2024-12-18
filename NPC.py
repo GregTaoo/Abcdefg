@@ -82,11 +82,11 @@ class VillagerNPC(TraderNPC):
 class MedicineTraderNPC(TraderNPC):
 
     def __init__(self, pos):
-        super().__init__(i18n.text('witch'), pos,
-                         pygame.transform.scale(pygame.image.load("assets/witch.png"), (50, 50)),
+        super().__init__(i18n.text('教官'), pos,
+                         pygame.transform.scale(pygame.image.load("assets/trainer.png"), (50, 50)),
                          trade_list=[
-                             TradeOption(i18n.literal("小型生命药水"), 10, self.buy_1),
-                             TradeOption(i18n.literal("中型生命药水"), 10, self.buy_2),
+                             TradeOption(i18n.literal("锻炼"), 10, self.buy_1),
+                             TradeOption(i18n.literal("健身"), 10, self.buy_2),
                              TradeOption(i18n.literal("购买2"), 10, lambda player, npc, opt: print("购买2")),
                          ])
         self.hp = 1145141919810
@@ -95,17 +95,17 @@ class MedicineTraderNPC(TraderNPC):
     def buy_1(player, npc, opt):
         if player.coins < opt.price:
             return i18n.text('no_enough_coins')
-        player.hp = min(player.hp + 20, player.max_hp)
+        player.max_hp += 20
         player.coins -= opt.price
-        return i18n.literal("购买小型生命药水")
+        return i18n.literal("效果显著，增加20体力上限")
 
     @staticmethod
     def buy_2(player, npc, opt):
         if player.coins < opt.price:
             return i18n.text('no_enough_coins')
-        player.hp = min(player.hp + 50, player.max_hp)
+        player.max_hp += 50
         player.coins -= opt.price
-        return i18n.literal("购买中型生命药水")
+        return i18n.literal("十分强大的，增加50体力上限")
 
 
 class WeaponTraderNPC(TraderNPC):

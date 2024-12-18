@@ -125,7 +125,7 @@ class WeaponTraderNPC(TraderNPC):
             return i18n.text('no_enough_coins')
         player.crt += 0.15
         player.coins -= opt.price
-        return i18n.text('bought').format(i18n.text('charged_fist'))
+        return i18n.literal(i18n.text('bought').format(i18n.text('charged_fist')))
 
     @staticmethod
     def buy_2(player, npc, opt):
@@ -133,12 +133,12 @@ class WeaponTraderNPC(TraderNPC):
             return i18n.text('no_enough_coins')
         player.atk += 0.1
         player.coins -= opt.price
-        return i18n.text('bought').format(i18n.text('iron_sword'))
+        return i18n.literal(i18n.text('bought').format(i18n.text('iron_sword')))
 
 
 class TradeOption:
 
-    def __init__(self, name: str, price: int, on_trade):
+    def __init__(self, name: i18n.Text, price: int, on_trade):
         self.name = name
         self.price = price
         self.on_trade = on_trade

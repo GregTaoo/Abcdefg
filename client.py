@@ -3,6 +3,7 @@ import pygame
 import UI
 import animation
 import config
+import i18n
 from block import Blocks
 from config import MAP_WIDTH, MAP_HEIGHT
 from dimension import Dimension
@@ -74,7 +75,7 @@ class Client:
     def open_ui(self, ui):
         self.current_ui = ui
 
-    def open_message_box(self, text, father_ui):
+    def open_message_box(self, text: i18n.Text, father_ui):
         self.open_ui(UI.MessageBoxUI(text, father_ui))
 
     def close_ui(self):

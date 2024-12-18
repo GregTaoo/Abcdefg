@@ -146,7 +146,7 @@ class SuccessUI(UI):
 
 class MessageBoxUI(UI):
 
-    def __init__(self, message, father_ui):
+    def __init__(self, message: i18n.Text, father_ui):
         super().__init__()
         self.message = message
         self.father_ui = father_ui

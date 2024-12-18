@@ -7,6 +7,7 @@ import UI
 import config
 import entity
 import i18n
+from block import Blocks
 
 
 class NPC(entity.Entity):
@@ -151,12 +152,12 @@ class NetherNPC1(TraderNPC):
 
     @staticmethod
     def buy_1(player, npc, opt):
-
+        config.CLIENT.dimension.replace_block((2, 17), Blocks.WARPED_PLANKS)
         return i18n.literal(i18n.text('bought').format(i18n.text('charged_fist')))
 
     @staticmethod
     def buy_2(player, npc, opt):
-        config.CLIENT.dimension.replace_block()
+        config.CLIENT.dimension.replace_block((3, 19), Blocks.WARPED_PLANKS)
         return i18n.literal(i18n.text('bought').format(i18n.text('iron_sword')))
 
 

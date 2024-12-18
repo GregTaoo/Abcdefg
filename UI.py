@@ -341,13 +341,20 @@ class DialogUI(UI):
                                          (100, 50), config.FONT, (255, 255, 255), (0, 0, 0),
                                          self.next_dialog)
         self.add_button(self.next_button)
+        self.update_button_text()
+
+    def update_button_text(self):
+        if self.current_dialog < len(self.dialogs) and len(self.dialogs[self.current_dialog]) > 1:
+            self.next_button.text = self.dialogs[self.current_dialog][1]
+        else:
+            self.next_button.text = i18n.text('continue')
 
     def next_dialog(self):
         self.current_dialog += 1
         if self.current_dialog >= len(self.dialogs):
             config.CLIENT.close_ui()
             self.after_dialog()
-        self.next_button.text = self.dialogs[self.current_dialog][1].get()
+        self.update_button_text()
 
     def render(self, screen: pygame.Surface):
         super().render(screen)

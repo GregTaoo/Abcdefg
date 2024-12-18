@@ -5,6 +5,7 @@ import pygame
 import action
 import config
 import entity
+import i18n
 import particle
 from button import Button, TradeButton
 from config import SCREEN_WIDTH, SCREEN_HEIGHT
@@ -12,8 +13,7 @@ from config import SCREEN_WIDTH, SCREEN_HEIGHT
 
 class UI:
 
-    def __init__(self, title: str):
-        self.title = title
+    def __init__(self):
         self.buttons = []
 
     def add_button(self, button):
@@ -47,10 +47,33 @@ class UI:
         pass
 
 
+class SelectLanguageUI(UI):
+
+    def __init__(self):
+        super().__init__()
+        self.add_button(Button('简体中文', (SCREEN_WIDTH // 2 - 100, SCREEN_HEIGHT // 2 - 75), (200, 45),
+                               config.FONT, (255, 255, 255), (0, 0, 0), lambda: self.set_language_and_close(0)))
+        self.add_button(Button('繁體中文', (SCREEN_WIDTH // 2 - 100, SCREEN_HEIGHT // 2 - 25), (200, 45),
+                               config.FONT, (255, 255, 255), (0, 0, 0), lambda: self.set_language_and_close(1)))
+        self.add_button(Button('English', (SCREEN_WIDTH // 2 - 100, SCREEN_HEIGHT // 2 + 25), (200, 45),
+                               config.FONT, (255, 255, 255), (0, 0, 0), lambda: self.set_language_and_close(2)))
+        self.add_button(Button('日本語', (SCREEN_WIDTH // 2 - 100, SCREEN_HEIGHT // 2 + 75), (200, 45),
+                               config.FONT, (255, 255, 255), (0, 0, 0), lambda: self.set_language_and_close(3)))
+
+    @staticmethod
+    def set_language_and_close(language):
+        i18n.set_language(language)
+        config.CLIENT.close_ui()
+
+    def tick(self, keys, events):
+        super().tick(keys, events)
+        return True
+
+
 class InputTextUI(UI):
 
     def __init__(self):
-        super().__init__('Input Text')
+        super().__init__()
         self.input_box = pygame.Rect(100, 100, SCREEN_WIDTH - 200, SCREEN_HEIGHT - 200)
         self.text = ''
 
@@ -79,8 +102,8 @@ class InputTextUI(UI):
 class DeathUI(UI):
 
     def __init__(self):
-        super().__init__('You Died')
-        self.add_button(Button('重生', (SCREEN_WIDTH // 2 - 100, SCREEN_HEIGHT // 2 + 50), (200, 50),
+        super().__init__()
+        self.add_button(Button(i18n.text('respawn'), (SCREEN_WIDTH // 2 - 100, SCREEN_HEIGHT // 2 + 50), (200, 50),
                                config.FONT, (255, 255, 255), (0, 0, 0), lambda: config.CLIENT.player_respawn()))
 
     def tick(self, keys, events):
@@ -89,17 +112,17 @@ class DeathUI(UI):
 
     def render(self, screen: pygame.Surface):
         super().render(screen)
-        txt_surface = config.LARGE_FONT.render("你死了", True, (255, 0, 0))
+        txt_surface = config.LARGE_FONT.render(i18n.text('you_died'), True, (255, 0, 0))
         screen.blit(txt_surface, (SCREEN_WIDTH // 2 - txt_surface.get_width() // 2, SCREEN_HEIGHT // 2 - 75))
 
 
 class SuccessUI(UI):
 
     def __init__(self, name='', coins=0):
-        super().__init__('You Won')
+        super().__init__()
         self.name = name
         self.coins = coins
-        self.add_button(Button('继续', (SCREEN_WIDTH // 2 - 100, SCREEN_HEIGHT // 2 + 50), (200, 50),
+        self.add_button(Button(i18n.text('continue'), (SCREEN_WIDTH // 2 - 100, SCREEN_HEIGHT // 2 + 50), (200, 50),
                                config.FONT, (255, 255, 255), (0, 0, 0), lambda: config.CLIENT.close_ui()))
 
     def tick(self, keys, events):
@@ -108,9 +131,9 @@ class SuccessUI(UI):
 
     def render(self, screen: pygame.Surface):
         super().render(screen)
-        txt_surface = config.LARGE_FONT.render("你击败了 " + self.name, True, (0, 255, 0))
+        txt_surface = config.LARGE_FONT.render(i18n.text('beat_entity').format(self.name), True, (0, 255, 0))
         screen.blit(txt_surface, (SCREEN_WIDTH // 2 - txt_surface.get_width() // 2, SCREEN_HEIGHT // 2 - 75))
-        txt_surface = config.FONT.render('获得     x ' + str(self.coins), True, (255, 255, 255))
+        txt_surface = config.FONT.render(i18n.text('obtained_coins').format(self.coins), True, (255, 255, 255))
         screen.blit(txt_surface, (SCREEN_WIDTH // 2 - txt_surface.get_width() // 2, SCREEN_HEIGHT // 2 - 35))
         screen.blit(config.COIN_IMAGE, (SCREEN_WIDTH // 2 - txt_surface.get_width() // 2 + 45,
                                         SCREEN_HEIGHT // 2 - 37))
@@ -119,10 +142,10 @@ class SuccessUI(UI):
 class MessageBoxUI(UI):
 
     def __init__(self, message, father_ui):
-        super().__init__(message)
+        super().__init__()
         self.message = message
         self.father_ui = father_ui
-        self.add_button(Button('返回', (SCREEN_WIDTH // 2 - 100, SCREEN_HEIGHT // 2 + 50), (200, 50),
+        self.add_button(Button(i18n.text('go_back'), (SCREEN_WIDTH // 2 - 100, SCREEN_HEIGHT // 2 + 50), (200, 50),
                                config.FONT, (255, 255, 255), (0, 0, 0), lambda: config.CLIENT.close_ui()))
 
     def render(self, screen: pygame.Surface):
@@ -141,7 +164,7 @@ class MessageBoxUI(UI):
 class BattleUI(UI):
 
     def __init__(self, player, enemy):
-        super().__init__('Battle')
+        super().__init__()
         for i in action.get_all_actions():
             i.reset()
         self.player = player
@@ -154,15 +177,17 @@ class BattleUI(UI):
         self.action = None
         self.use_crt = False
         self.escaping_stage = 0
-        self.attack_button = Button('普攻', (SCREEN_WIDTH // 2 - 110, SCREEN_HEIGHT // 2 - 50), (100, 50),
+        self.attack_button = Button(i18n.text('common_attack'), (SCREEN_WIDTH // 2 - 110, SCREEN_HEIGHT // 2 - 50),
+                                    (100, 50),
                                     config.FONT, (255, 255, 255), (0, 0, 0), self.round_start)
         self.add_button(self.attack_button)
-        self.ultimate_button = Button('大招', (SCREEN_WIDTH // 2 + 10, SCREEN_HEIGHT // 2 - 50), (100, 50),
+        self.ultimate_button = Button(i18n.text('ultimate_attack'), (SCREEN_WIDTH // 2 + 10, SCREEN_HEIGHT // 2 - 50),
+                                      (100, 50),
                                       config.FONT, (255, 255, 255), (0, 0, 0),
                                       lambda: self.round_start(action.Actions.ULTIMATE_RIGHT))
         self.add_button(self.ultimate_button)
         self.ultimate_button.set_active(self.player.ultimate_available())
-        self.escape_button = Button('逃跑', (SCREEN_WIDTH // 2 - 110, SCREEN_HEIGHT // 2 + 10), (100, 50),
+        self.escape_button = Button(i18n.text('escape'), (SCREEN_WIDTH // 2 - 110, SCREEN_HEIGHT // 2 + 10), (100, 50),
                                     config.FONT, (255, 255, 255), (0, 0, 0),
                                     self.on_click_escape_button)
         self.add_button(self.escape_button)
@@ -223,7 +248,7 @@ class BattleUI(UI):
         else:
             self.player.render_at_absolute_pos(screen, self.player_pos)
             self.enemy.render_at_absolute_pos(screen, self.enemy_pos)
-        txt_surface = config.FONT.render(f"Round {self.round}", True, (0, 0, 0))
+        txt_surface = config.FONT.render(i18n.text('rounds').format(self.round), True, (0, 0, 0))
         screen.blit(txt_surface, (30, 30))
         particle.render_particles(screen, config.MIDDLE_FONT)
 
@@ -265,7 +290,7 @@ class BattleUI(UI):
 class TradeUI(UI):
 
     def __init__(self, player, npc):
-        super().__init__('Trade')
+        super().__init__()
         self.player = player
         self.buttons = []
         self.npc = npc
@@ -275,7 +300,7 @@ class TradeUI(UI):
                                         config.FONT, option, (255, 255, 255), (0, 0, 0),
                                         lambda opt=option: self.handle_trade(opt)))
             cnt += 1
-        self.add_button(Button('离开', (SCREEN_WIDTH // 2 - 50, SCREEN_HEIGHT // 2 + 10), (100, 50),
+        self.add_button(Button(i18n.text('go_back'), (SCREEN_WIDTH // 2 - 50, SCREEN_HEIGHT // 2 + 10), (100, 50),
                                config.FONT, (255, 255, 255), (0, 0, 0), config.CLIENT.close_ui))
 
     def handle_trade(self, option):

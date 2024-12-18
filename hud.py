@@ -1,6 +1,7 @@
 import pygame
 
 import config
+import i18n
 from config import SCREEN_WIDTH, SCREEN_HEIGHT
 
 
@@ -23,13 +24,12 @@ class MainHud(Hud):
         pass
 
     def render(self, screen: pygame.Surface):
-        txt_surface = config.FONT.render(
-            f"World: {config.CLIENT.dimension.name}; Pos: {self.player.x},{self.player.y}",
-            True, (200, 200, 200))
+        txt_surface = config.FONT.render(i18n.text('player_pos').format(
+            i18n.text(config.CLIENT.dimension.name), self.player.x, self.player.y), True, (200, 200, 200))
         screen.blit(txt_surface, (10, 10))
         txt_surface = config.FONT.render(f"{self.player.coins}", True, (255, 175, 45))
         screen.blit(config.COIN_IMAGE, (SCREEN_WIDTH - 10 - txt_surface.get_width() - 25, 8))
         screen.blit(txt_surface, (SCREEN_WIDTH - 10 - txt_surface.get_width(), 10))
-        txt_surface = config.FONT.render(f"ATK: {self.player.atk:.1f}, CRT: {self.player.crt * 100:.1f}%,"
-                                           f" CRT DMG: {(self.player.crt_damage - 1) * 100:.1f}%", True, (255, 255, 255))
+        txt_surface = config.FONT.render(i18n.text('player_values').format(
+            self.player.atk, self.player.crt * 100, (self.player.crt_damage - 1) * 100), True, (255, 255, 255))
         screen.blit(txt_surface, (SCREEN_WIDTH - 10 - txt_surface.get_width(), SCREEN_HEIGHT - 30))

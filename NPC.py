@@ -6,6 +6,7 @@ import pygame
 import UI
 import config
 import entity
+import i18n
 
 
 class NPC(entity.Entity):
@@ -16,7 +17,7 @@ class NPC(entity.Entity):
         super().__init__(name, pos, image)
 
     def dialog(self):
-        return "Hi! My name is " + self.name
+        return i18n.text('npc_dialog').format(self.name)
 
     def tick(self, dimension, player=None):
         super().tick(dimension, player)
@@ -60,7 +61,8 @@ class TraderNPC(NPC):
 class VillagerNPC(TraderNPC):
 
     def __init__(self, pos):
-        super().__init__("刁民", pos, pygame.transform.scale(pygame.image.load("assets/villager.png"), (50, 50)),
+        super().__init__(i18n.text('villager'), pos, pygame.transform.scale(pygame.image.load("assets/villager.png"),
+                                                                            (50, 50)),
                          trade_list=[
                              TradeOption("购买", 10, lambda player, npc, opt: print("购买")),
                              TradeOption("购买1", 10, lambda player, npc, opt: print("购买1")),
@@ -71,7 +73,7 @@ class VillagerNPC(TraderNPC):
     def on_battle(self, player):
         for trade in self.trade_list:
             trade.price *= 2
-        iron_golem = entity.Entity('Iron Golem', self.get_right_bottom_pos(),
+        iron_golem = entity.Entity(i18n.text('iron_golem'), self.get_right_bottom_pos(),
                                    pygame.transform.scale(pygame.image.load("assets/iron_golem.png"), (50, 50)), atk=8)
         config.CLIENT.spawn_entity(iron_golem)
         config.CLIENT.open_ui(UI.BattleUI(player, iron_golem))
@@ -80,7 +82,7 @@ class VillagerNPC(TraderNPC):
 class MedicineTraderNPC(TraderNPC):
 
     def __init__(self, pos):
-        super().__init__("女巫", pos, pygame.transform.scale(pygame.image.load("assets/trader.png"), (50, 50)),
+        super().__init__(i18n.text('witch'), pos, pygame.transform.scale(pygame.image.load("assets/trader.png"), (50, 50)),
                          trade_list=[
                              TradeOption("小型生命药水", 10, self.buy_1),
                              TradeOption("中型生命药水", 10, self.buy_2),
@@ -91,7 +93,7 @@ class MedicineTraderNPC(TraderNPC):
     @staticmethod
     def buy_1(player, npc, opt):
         if player.coins < opt.price:
-            return "金币不足"
+            return i18n.text('not_enough_coins')
         player.hp = min(player.hp + 20, player.max_hp)
         player.coins -= opt.price
         return "购买小型生命药水"
@@ -99,7 +101,7 @@ class MedicineTraderNPC(TraderNPC):
     @staticmethod
     def buy_2(player, npc, opt):
         if player.coins < opt.price:
-            return "金币不足"
+            return i18n.text('not_enough_coins')
         player.hp = min(player.hp + 50, player.max_hp)
         player.coins -= opt.price
         return "购买中型生命药水"
@@ -110,8 +112,8 @@ class WeaponTraderNPC(TraderNPC):
     def __init__(self, pos):
         super().__init__("军火贩", pos, pygame.transform.scale(pygame.image.load("assets/trader.png"), (50, 50)),
                          trade_list=[
-                             TradeOption("充能拳套", 10, self.buy_1),
-                             TradeOption("铁剑", 10, self.buy_2),
+                             TradeOption(i18n.text('charged_fist'), 10, self.buy_1),
+                             TradeOption(i18n.text('iron_sword'), 10, self.buy_2),
                              TradeOption("购买2", 10, lambda player, npc, opt: print("购买2")),
                          ])
         self.hp = 1145141919810
@@ -119,18 +121,18 @@ class WeaponTraderNPC(TraderNPC):
     @staticmethod
     def buy_1(player, npc, opt):
         if player.coins < opt.price:
-            return "金币不足"
+            return i18n.text('not_enough_coins')
         player.crt += 0.15
         player.coins -= opt.price
-        return "购买了充能拳套"
+        return i18n.text('bought').format(i18n.text('charged_fist'))
 
     @staticmethod
     def buy_2(player, npc, opt):
         if player.coins < opt.price:
-            return "金币不足"
+            return i18n.text('not_enough_coins')
         player.atk += 0.1
         player.coins -= opt.price
-        return "购买了铁剑"
+        return i18n.text('bought').format(i18n.text('iron_sword'))
 
 
 class TradeOption:

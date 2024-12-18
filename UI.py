@@ -337,8 +337,8 @@ class DialogUI(UI):
         self.dialogs = dialogs
         self.after_dialog = after_dialog
         self.current_dialog = 0
-        self.next_button = ClassicButton(i18n.text('continue'), (SCREEN_WIDTH // 2 - 50, SCREEN_HEIGHT // 2 + 10),
-                                         (100, 50), config.FONT, (255, 255, 255), (0, 0, 0),
+        self.next_button = ClassicButton(i18n.text('continue'), (SCREEN_WIDTH // 2 - 150, SCREEN_HEIGHT // 2 + 10),
+                                         (300, 50), config.FONT, (255, 255, 255), (0, 0, 0),
                                          self.next_dialog)
         self.add_button(self.next_button)
         self.update_button_text()

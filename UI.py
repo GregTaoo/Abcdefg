@@ -59,8 +59,6 @@ class SelectLanguageUI(UI):
                                config.FONT, (255, 255, 255), (0, 0, 0), lambda: self.set_language_and_close(2)))
         self.add_button(Button(i18n.literal('日本語'), (SCREEN_WIDTH // 2 - 100, SCREEN_HEIGHT // 2), (200, 45),
                                config.FONT, (255, 255, 255), (0, 0, 0), lambda: self.set_language_and_close(3)))
-        self.add_button(Button(i18n.literal('文言'), (SCREEN_WIDTH // 2 - 100, SCREEN_HEIGHT // 2 + 50), (200, 45),
-                               config.FONT, (255, 255, 255), (0, 0, 0), lambda: self.set_language_and_close(4)))
 
     @staticmethod
     def set_language_and_close(language):

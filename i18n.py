@@ -1,15 +1,14 @@
 import json
 
 LANG = 0
-# 0: Chinese Simplified, 1: Chinese Traditional, 2: English, 3: Japanese, 4: 文言（翻译由 ChatGPT 提供）
+# 0: Chinese Simplified, 1: Chinese Traditional, 2: English, 3: Japanese（翻译由 ChatGPT 提供）
 
 STRINGS = {}
 LANG_DICT = {
     0: 'zh_cn',
     1: 'zh_tr',
     2: 'en_us',
-    3: 'jp_jp',
-    4: 'zh_wy'
+    3: 'jp_jp'
 }
 
 

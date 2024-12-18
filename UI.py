@@ -358,8 +358,9 @@ class DialogUI(UI):
 
     def render(self, screen: pygame.Surface):
         super().render(screen)
-        txt_surface = config.FONT.render(self.dialogs[self.current_dialog][0].get(), True, (255, 255, 255))
-        screen.blit(txt_surface, (SCREEN_WIDTH // 2 - txt_surface.get_width() // 2, SCREEN_HEIGHT // 2 - 75))
+        if self.current_dialog < len(self.dialogs):
+            txt_surface = config.FONT.render(self.dialogs[self.current_dialog][0].get(), True, (255, 255, 255))
+            screen.blit(txt_surface, (SCREEN_WIDTH // 2 - txt_surface.get_width() // 2, SCREEN_HEIGHT // 2 - 75))
 
     def tick(self, keys, events):
         super().tick(keys, events)

@@ -25,4 +25,44 @@ def load_strings():
 
 
 def text(string: str):
-    return STRINGS[string] or '?'
+    return TranslatableText(string)
+
+
+def literal(string: str):
+    return Text(string)
+
+
+class Text:
+
+    def __init__(self, string):
+        self.string = string
+
+    def format(self, *args):
+        return self.string.format(*args)
+
+    def __str__(self):
+        return self.string
+
+    def __repr__(self):
+        return self.string
+
+    def get(self):
+        return self.string
+
+
+class TranslatableText(Text):
+
+    def __init__(self, key):
+        super().__init__(key)
+
+    def format(self, *args):
+        return STRINGS[self.string].format(*args) or '?'
+
+    def __str__(self):
+        return STRINGS[self.string] or '?'
+
+    def __repr__(self):
+        return STRINGS[self.string] or '?'
+
+    def get(self):
+        return STRINGS[self.string] or '?'

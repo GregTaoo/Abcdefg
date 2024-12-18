@@ -51,13 +51,13 @@ class SelectLanguageUI(UI):
 
     def __init__(self):
         super().__init__()
-        self.add_button(Button('简体中文', (SCREEN_WIDTH // 2 - 100, SCREEN_HEIGHT // 2 - 75), (200, 45),
+        self.add_button(Button(i18n.literal('简体中文'), (SCREEN_WIDTH // 2 - 100, SCREEN_HEIGHT // 2 - 75), (200, 45),
                                config.FONT, (255, 255, 255), (0, 0, 0), lambda: self.set_language_and_close(0)))
-        self.add_button(Button('繁體中文', (SCREEN_WIDTH // 2 - 100, SCREEN_HEIGHT // 2 - 25), (200, 45),
+        self.add_button(Button(i18n.literal('繁體中文'), (SCREEN_WIDTH // 2 - 100, SCREEN_HEIGHT // 2 - 25), (200, 45),
                                config.FONT, (255, 255, 255), (0, 0, 0), lambda: self.set_language_and_close(1)))
-        self.add_button(Button('English', (SCREEN_WIDTH // 2 - 100, SCREEN_HEIGHT // 2 + 25), (200, 45),
+        self.add_button(Button(i18n.literal('English'), (SCREEN_WIDTH // 2 - 100, SCREEN_HEIGHT // 2 + 25), (200, 45),
                                config.FONT, (255, 255, 255), (0, 0, 0), lambda: self.set_language_and_close(2)))
-        self.add_button(Button('日本語', (SCREEN_WIDTH // 2 - 100, SCREEN_HEIGHT // 2 + 75), (200, 45),
+        self.add_button(Button(i18n.literal('日本語'), (SCREEN_WIDTH // 2 - 100, SCREEN_HEIGHT // 2 + 75), (200, 45),
                                config.FONT, (255, 255, 255), (0, 0, 0), lambda: self.set_language_and_close(3)))
 
     @staticmethod
@@ -112,7 +112,7 @@ class DeathUI(UI):
 
     def render(self, screen: pygame.Surface):
         super().render(screen)
-        txt_surface = config.LARGE_FONT.render(i18n.text('you_died'), True, (255, 0, 0))
+        txt_surface = config.LARGE_FONT.render(i18n.text('you_died').get(), True, (255, 0, 0))
         screen.blit(txt_surface, (SCREEN_WIDTH // 2 - txt_surface.get_width() // 2, SCREEN_HEIGHT // 2 - 75))
 
 
@@ -135,7 +135,7 @@ class SuccessUI(UI):
         screen.blit(txt_surface, (SCREEN_WIDTH // 2 - txt_surface.get_width() // 2, SCREEN_HEIGHT // 2 - 75))
         txt_surface = config.FONT.render(i18n.text('obtained_coins').format(self.coins), True, (255, 255, 255))
         screen.blit(txt_surface, (SCREEN_WIDTH // 2 - txt_surface.get_width() // 2, SCREEN_HEIGHT // 2 - 35))
-        screen.blit(config.COIN_IMAGE, (SCREEN_WIDTH // 2 - txt_surface.get_width() // 2 + 45,
+        screen.blit(config.COIN_IMAGE, (SCREEN_WIDTH // 2 - txt_surface.get_width() // 2 - 22,
                                         SCREEN_HEIGHT // 2 - 37))
 
 
@@ -150,7 +150,7 @@ class MessageBoxUI(UI):
 
     def render(self, screen: pygame.Surface):
         super().render(screen)
-        txt_surface = config.LARGE_FONT.render(self.message, True, (255, 255, 255))
+        txt_surface = config.LARGE_FONT.render(self.message.get(), True, (255, 255, 255))
         screen.blit(txt_surface, (SCREEN_WIDTH // 2 - txt_surface.get_width() // 2, SCREEN_HEIGHT // 2 - 75))
 
     def on_close(self):
@@ -227,6 +227,8 @@ class BattleUI(UI):
                 if target_poses is None:
                     self.player.render_at_absolute_pos(screen, self.player_pos)
                 else:
+                    if text != '':
+                        text = i18n.text(text).get() or ''
                     for i in target_poses:
                         self.player.render_at_absolute_pos(screen, i)
                         if text != '':

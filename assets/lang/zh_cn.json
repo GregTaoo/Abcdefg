@@ -7,6 +7,7 @@
     "villager": "刁民",
     "iron_golem": "铁傀儡",
     "witch": "女巫",
+    "weapon_trader": "军火贩",
     "no_enough_coins": "金币不足",
     "bought": "购买了 {}",
     "charged_fist": "充能拳套",
@@ -18,10 +19,12 @@
     "you_died": "你死了!",
     "continue": "继续",
     "beat_entity": "你击败了 {}!",
-    "obtained_coins": "获得     x {}",
+    "obtained_coins": "获得金币 x {}",
     "go_back": "返回",
     "common_attack": "普攻",
     "ultimate_attack": "大招",
     "escape": "逃跑",
-    "rounds": "回合 {}"
+    "rounds": "回合 {}",
+    "clone_tech": "分身之术!",
+    "mocking": "菜就多练"
 }

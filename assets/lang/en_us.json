@@ -7,6 +7,7 @@
     "villager": "Villager",
     "iron_golem": "Iron Golem",
     "witch": "Witch",
+    "weapon_trader": "Weapon Trader",
     "no_enough_coins": "No enough coins",
     "bought": "You bought {}",
     "charged_fist": "Charged Fist",
@@ -18,10 +19,12 @@
     "you_died": "You Died!",
     "continue": "Continue",
     "beat_entity": "You beat {}!",
-    "obtained_coins": "Obtained      x {}",
+    "obtained_coins": "Obtained Coins x {}",
     "go_back": "Go Back",
     "common_attack": "Attack",
     "ultimate_attack": "Ultimate",
     "escape": "Escape",
-    "rounds": "Round {}"
+    "rounds": "Round {}",
+    "clone_tech": "Clone Technique!",
+    "mocking": "If you're bad, practice more"
 }

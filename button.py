@@ -38,7 +38,7 @@ class Button:
         self.render_text(screen, text_color)
 
     def render_text(self, screen, text_color):
-        text_surface = self.font.render(self.text, True, text_color)
+        text_surface = self.font.render(self.text.get(), True, text_color)
         text_rect = text_surface.get_rect(center=self.rect.center)
         screen.blit(text_surface, text_rect)
 
@@ -74,7 +74,7 @@ class TradeButton(Button):
         self.active = self.trade_option.available
 
     def render_text(self, screen, text_color):
-        text_surface = self.font.render(self.text, True, text_color)
+        text_surface = self.font.render(self.text.get(), True, text_color)
         text_rect = text_surface.get_rect(center=(self.rect.center[0], self.rect.center[1] - 10))
         screen.blit(text_surface, text_rect)
         text_surface = config.FONT.render(f"x{self.trade_option.price}", True, (255, 175, 45))

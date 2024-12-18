@@ -3,7 +3,6 @@ import pygame
 import UI
 import animation
 import config
-import i18n
 from block import Blocks
 from config import MAP_WIDTH, MAP_HEIGHT
 from dimension import Dimension
@@ -29,7 +28,7 @@ def generate_the_end():
 
 
 def generate_the_nether():
-    mp = [[Blocks.WARPED_PLANKS] * 20 + [Blocks.NETHERITE_BLOCK] * 40]
+    mp = [[Blocks.NETHERITE_BLOCK] * 17 + [Blocks.WARPED_PLANKS] * 3 + [Blocks.NETHERITE_BLOCK] * 40]
     with open('assets/maps/nether.txt', 'r') as f:
         for line in f.readlines():
             mp.append([Blocks.WARPED_PLANKS if i == 'A' else Blocks.NETHERITE_BLOCK

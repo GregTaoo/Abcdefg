@@ -17,6 +17,9 @@ class Dimension:
         self.blocks = blocks
         self.entities = []
 
+    def set_block(self, pos: Tuple[int, int], replace_block: block.Block):
+        self.blocks[pos[0]][pos[1]] = replace_block
+
     def spawn_entity(self, entity):
         self.entities.append(entity)
 

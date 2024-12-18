@@ -75,3 +75,4 @@ class Blocks:
     WARPED_PLANKS = Block("warped_planks", create_image("warped_planks.png"))
     NETHERITE_BLOCK = Block("netherite_block", create_image("netherite_block.png"), obstacle=True)
     OBSIDIAN = Block("obsidian", create_image("obsidian.png"))
+    REDSTONE_BLOCK = Block("redstone_block", create_image("redstone_block.png"))

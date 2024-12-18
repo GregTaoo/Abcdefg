@@ -36,6 +36,7 @@ def generate_the_nether():
                        for i in line.strip()] + [Blocks.NETHERITE_BLOCK] * 39)
     for i in range(38):
         mp.append([Blocks.NETHERITE_BLOCK] * MAP_WIDTH)
+    mp[3][18] = mp[4][20] = Blocks.REDSTONE_BLOCK
     return mp
 
 

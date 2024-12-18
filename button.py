@@ -94,10 +94,13 @@ class TradeButton(ClassicButton):
         self.active = self.trade_option.available
 
     def render_text(self, screen, text_color):
+        render_coin = self.trade_option.price > 0
         text_surface = self.font.render(self.text.get(), True, text_color)
-        text_rect = text_surface.get_rect(center=(self.rect.center[0], self.rect.center[1] - 10))
+        text_rect = text_surface.get_rect(center=(self.rect.center[0], self.rect.center[1]
+                                                  - (10 if render_coin else 0)))
         screen.blit(text_surface, text_rect)
-        text_surface = config.FONT.render(f"x{self.trade_option.price}", True, (255, 175, 45))
-        text_rect = text_surface.get_rect(center=(self.rect.center[0] + 12, self.rect.center[1] + 10))
-        screen.blit(text_surface, text_rect)
-        screen.blit(config.COIN_IMAGE, (self.rect.center[0] - 22, self.rect.center[1]))
+        if render_coin:
+            text_surface = config.FONT.render(f"x{self.trade_option.price}", True, (255, 175, 45))
+            text_rect = text_surface.get_rect(center=(self.rect.center[0] + 12, self.rect.center[1] + 10))
+            screen.blit(text_surface, text_rect)
+            screen.blit(config.COIN_IMAGE, (self.rect.center[0] - 22, self.rect.center[1]))

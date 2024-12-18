@@ -82,7 +82,7 @@ class VillagerNPC(TraderNPC):
 class MedicineTraderNPC(TraderNPC):
 
     def __init__(self, pos):
-        super().__init__(i18n.text('教官'), pos,
+        super().__init__(i18n.text('witch'), pos,
                          pygame.transform.scale(pygame.image.load("assets/trainer.png"), (50, 50)),
                          trade_list=[
                              TradeOption(i18n.literal("锻炼"), 10, self.buy_1),
@@ -134,6 +134,29 @@ class WeaponTraderNPC(TraderNPC):
             return i18n.text('no_enough_coins')
         player.atk += 0.1
         player.coins -= opt.price
+        return i18n.literal(i18n.text('bought').format(i18n.text('iron_sword')))
+
+
+class NetherNPC1(TraderNPC):
+
+    def __init__(self, pos):
+        super().__init__(i18n.text('nether_npc1'), pos,
+                         pygame.transform.scale(pygame.image.load("assets/nether_npc1.png"), (50, 50)),
+                         trade_list=[
+                             TradeOption(i18n.text('charged_fist'), 0, self.buy_1),
+                             TradeOption(i18n.text('iron_sword'), 0, self.buy_2),
+                             TradeOption(i18n.literal("购买2"), 0, lambda player, npc, opt: print("购买2")),
+                         ])
+        self.hp = 1145141919810
+
+    @staticmethod
+    def buy_1(player, npc, opt):
+
+        return i18n.literal(i18n.text('bought').format(i18n.text('charged_fist')))
+
+    @staticmethod
+    def buy_2(player, npc, opt):
+        config.CLIENT.dimension.replace_block()
         return i18n.literal(i18n.text('bought').format(i18n.text('iron_sword')))
 
 

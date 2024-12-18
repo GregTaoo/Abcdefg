@@ -1,4 +1,5 @@
 import random
+from typing import Tuple
 
 import pygame
 
@@ -315,7 +316,7 @@ class TradeUI(UI):
                                         lambda opt=option: self.handle_trade(opt)))
             cnt += 1
         self.add_button(ClassicButton(i18n.text('go_back'), (SCREEN_WIDTH // 2 - 50, SCREEN_HEIGHT // 2 + 10),
-                                      (100, 50),  config.FONT, (255, 255, 255), (0, 0, 0),
+                                      (100, 50), config.FONT, (255, 255, 255), (0, 0, 0),
                                       config.CLIENT.close_ui))
 
     def handle_trade(self, option):
@@ -331,24 +332,26 @@ class TradeUI(UI):
 
 class DialogUI(UI):
 
-    def __init__(self, dialogs, after_dialog):
+    def __init__(self, dialogs: list[Tuple[i18n.Text, i18n.Text]], after_dialog):
         super().__init__()
         self.dialogs = dialogs
         self.after_dialog = after_dialog
         self.current_dialog = 0
-        self.add_button(ClassicButton(i18n.text('continue'), (SCREEN_WIDTH // 2 - 50, SCREEN_HEIGHT // 2 + 10),
-                                      (100, 50), config.FONT, (255, 255, 255), (0, 0, 0),
-                                      self.next_dialog))
+        self.next_button = ClassicButton(i18n.text('continue'), (SCREEN_WIDTH // 2 - 50, SCREEN_HEIGHT // 2 + 10),
+                                         (100, 50), config.FONT, (255, 255, 255), (0, 0, 0),
+                                         self.next_dialog)
+        self.add_button(self.next_button)
 
     def next_dialog(self):
         self.current_dialog += 1
         if self.current_dialog >= len(self.dialogs):
             config.CLIENT.close_ui()
             self.after_dialog()
+        self.next_button.text = self.dialogs[self.current_dialog][1].get()
 
     def render(self, screen: pygame.Surface):
         super().render(screen)
-        txt_surface = config.FONT.render(self.dialogs[self.current_dialog], True, (255, 255, 255))
+        txt_surface = config.FONT.render(self.dialogs[self.current_dialog][0].get(), True, (255, 255, 255))
         screen.blit(txt_surface, (SCREEN_WIDTH // 2 - txt_surface.get_width() // 2, SCREEN_HEIGHT // 2 - 75))
 
     def tick(self, keys, events):

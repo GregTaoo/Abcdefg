@@ -1,3 +1,4 @@
+import random
 from typing import Tuple
 
 import pygame
@@ -162,3 +163,16 @@ class Entity:
 
     def on_battle(self, player):
         config.CLIENT.open_ui(UI.BattleUI(player, self))
+
+
+class Monster(Entity):
+    direction = 0
+
+    def tick(self, dimension, player=None):
+        super().tick(dimension, player)
+        self.move(self.direction, dimension, 1)
+        if random.randint(0, 450) == 0:
+            if random.randint(0, 5) == 0:
+                self.direction = random.randint(1, 4)
+            else:
+                self.direction = 0

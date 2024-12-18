@@ -327,3 +327,30 @@ class TradeUI(UI):
     def tick(self, keys, events):
         super().tick(keys, events)
         return True
+
+
+class DialogUI(UI):
+
+    def __init__(self, dialogs, after_dialog):
+        super().__init__()
+        self.dialogs = dialogs
+        self.after_dialog = after_dialog
+        self.current_dialog = 0
+        self.add_button(ClassicButton(i18n.text('continue'), (SCREEN_WIDTH // 2 - 50, SCREEN_HEIGHT // 2 + 10),
+                                      (100, 50), config.FONT, (255, 255, 255), (0, 0, 0),
+                                      self.next_dialog))
+
+    def next_dialog(self):
+        self.current_dialog += 1
+        if self.current_dialog >= len(self.dialogs):
+            config.CLIENT.close_ui()
+            self.after_dialog()
+
+    def render(self, screen: pygame.Surface):
+        super().render(screen)
+        txt_surface = config.FONT.render(self.dialogs[self.current_dialog], True, (255, 255, 255))
+        screen.blit(txt_surface, (SCREEN_WIDTH // 2 - txt_surface.get_width() // 2, SCREEN_HEIGHT // 2 - 75))
+
+    def tick(self, keys, events):
+        super().tick(keys, events)
+        return True

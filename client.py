@@ -1,5 +1,6 @@
 import pygame
 
+import NPC
 import UI
 import animation
 import config
@@ -60,6 +61,7 @@ class Client:
         self.current_hud = MainHud(player)
         config.WORLDS['the_world'] = Dimension('the_world', MAP_WIDTH, MAP_HEIGHT, generate_the_world())
         config.WORLDS['the_nether'] = Dimension('the_nether', MAP_WIDTH, MAP_HEIGHT, generate_the_nether())
+        config.WORLDS['the_nether'].spawn_entity(NPC.NetherNPC1((2 * config.BLOCK_SIZE + 5, 18 * config.BLOCK_SIZE + 5)))
         config.WORLDS['the_end'] = Dimension('the_end', MAP_WIDTH, MAP_HEIGHT, generate_the_end())
         config.SOUNDS['hit'] = pygame.mixer.Sound("assets/sounds/hit.mp3")
         config.SOUNDS['hit'].set_volume(0.5)

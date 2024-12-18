@@ -1,4 +1,3 @@
-import random
 from typing import Tuple
 
 import pygame
@@ -11,11 +10,10 @@ from block import Blocks
 
 
 class NPC(entity.Entity):
-    direction = 0
-    dialog_timer = 0
 
     def __init__(self, name: str, pos: Tuple[int, int], image):
         super().__init__(name, pos, image)
+        self.dialog_timer = 0
 
     def dialog(self):
         return i18n.text('npc_dialog').format(self.name)
@@ -26,12 +24,6 @@ class NPC(entity.Entity):
             self.start_dialog(270)
         if self.dialog_timer > 0:
             self.dialog_timer -= 1
-        self.move(self.direction, dimension, 1)
-        if random.randint(0, 450) == 0:
-            if random.randint(0, 5) == 0:
-                self.direction = random.randint(1, 4)
-            else:
-                self.direction = 0
 
     def start_dialog(self, duration):
         self.dialog_timer = duration
@@ -142,7 +134,7 @@ class NetherNPC1(TraderNPC):
 
     def __init__(self, pos):
         super().__init__(i18n.text('nether_npc1'), pos,
-                         pygame.transform.scale(pygame.image.load("assets/nether_npc1.png"), (50, 50)),
+                         pygame.transform.scale(pygame.image.load("assets/trainer.png"), (50, 50)),
                          trade_list=[
                              TradeOption(i18n.text('charged_fist'), 0, self.buy_1),
                              TradeOption(i18n.text('iron_sword'), 0, self.buy_2),
@@ -152,13 +144,16 @@ class NetherNPC1(TraderNPC):
 
     @staticmethod
     def buy_1(player, npc, opt):
-        config.CLIENT.dimension.replace_block((2, 17), Blocks.WARPED_PLANKS)
+        config.CLIENT.dimension.set_block((2, 17), Blocks.WARPED_PLANKS)
         return i18n.literal(i18n.text('bought').format(i18n.text('charged_fist')))
 
     @staticmethod
     def buy_2(player, npc, opt):
-        config.CLIENT.dimension.replace_block((3, 19), Blocks.WARPED_PLANKS)
+        config.CLIENT.dimension.set_block((3, 19), Blocks.WARPED_PLANKS)
         return i18n.literal(i18n.text('bought').format(i18n.text('iron_sword')))
+
+    def on_interact(self, player):
+        config.CLIENT.open_ui(UI.DialogUI([], lambda: config.CLIENT.open_ui(UI.TradeUI(player, self))))
 
 
 class TradeOption:

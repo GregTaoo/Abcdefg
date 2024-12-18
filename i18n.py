@@ -56,13 +56,13 @@ class TranslatableText(Text):
         super().__init__(key)
 
     def format(self, *args):
-        return STRINGS[self.string].format(*args) or self.string
+        return STRINGS[self.string].format(*args) if self.string in STRINGS else self.string
 
     def __str__(self):
-        return STRINGS[self.string] or self.string
+        return STRINGS[self.string] if self.string in STRINGS else self.string
 
     def __repr__(self):
-        return STRINGS[self.string] or self.string
+        return STRINGS[self.string] if self.string in STRINGS else self.string
 
     def get(self):
-        return STRINGS[self.string] or self.string
+        return STRINGS[self.string] if self.string in STRINGS else self.string

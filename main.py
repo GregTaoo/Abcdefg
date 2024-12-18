@@ -12,7 +12,7 @@ from NPC import WeaponTraderNPC
 from block import Blocks
 import client
 from config import SCREEN_WIDTH, SCREEN_HEIGHT, MAP_WIDTH, MAP_HEIGHT, BLOCK_SIZE
-from entity import Entity
+from entity import Monster
 from player import Player
 
 
@@ -41,9 +41,9 @@ def main():
 
     for _ in range(20):
         config.CLIENT.spawn_entity(
-            Entity(i18n.text('zombie'), (random.randint(0, MAP_WIDTH * BLOCK_SIZE),
-                                         random.randint(0, MAP_HEIGHT * BLOCK_SIZE)),
-                   pygame.transform.scale(pygame.image.load("assets/zombie.png"), (50, 50)), coins=10)
+            Monster(i18n.text('zombie'), (random.randint(0, MAP_WIDTH * BLOCK_SIZE),
+                                          random.randint(0, MAP_HEIGHT * BLOCK_SIZE)),
+                    pygame.transform.scale(pygame.image.load("assets/zombie.png"), (50, 50)), coins=10)
         )
 
     while True:

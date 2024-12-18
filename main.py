@@ -41,7 +41,8 @@ def main():
 
     for _ in range(20):
         config.CLIENT.spawn_entity(
-            Entity(i18n.text('zombie'), (random.randint(0, MAP_WIDTH * BLOCK_SIZE), random.randint(0, MAP_HEIGHT * BLOCK_SIZE)),
+            Entity(i18n.text('zombie'), (random.randint(0, MAP_WIDTH * BLOCK_SIZE),
+                                         random.randint(0, MAP_HEIGHT * BLOCK_SIZE)),
                    pygame.transform.scale(pygame.image.load("assets/zombie.png"), (50, 50)), coins=10)
         )
 

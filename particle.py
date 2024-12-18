@@ -1,6 +1,7 @@
 import pygame
 
 import config
+import i18n
 
 
 class Particle:
@@ -64,8 +65,6 @@ class DamageParticle(Particle):
 
     def render(self, screen, font: pygame.font.Font):
         txt_surface = font.render(
-            ('暴击 ' if self.is_crt else '') + f"{-self.damage:.0f}", True, self.color)
+            (i18n.text('crt_hit').get() + ' ' if self.is_crt else '') + f"{-self.damage:.0f}", True, self.color)
         txt_surface.set_alpha(max(0, int(self.alpha)))
         screen.blit(txt_surface, (self.x, self.y))
-
-

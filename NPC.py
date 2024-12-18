@@ -82,7 +82,8 @@ class VillagerNPC(TraderNPC):
 class MedicineTraderNPC(TraderNPC):
 
     def __init__(self, pos):
-        super().__init__(i18n.text('witch'), pos, pygame.transform.scale(pygame.image.load("assets/trader.png"), (50, 50)),
+        super().__init__(i18n.text('witch'), pos,
+                         pygame.transform.scale(pygame.image.load("assets/witch.png"), (50, 50)),
                          trade_list=[
                              TradeOption(i18n.literal("小型生命药水"), 10, self.buy_1),
                              TradeOption(i18n.literal("中型生命药水"), 10, self.buy_2),
@@ -110,8 +111,8 @@ class MedicineTraderNPC(TraderNPC):
 class WeaponTraderNPC(TraderNPC):
 
     def __init__(self, pos):
-        super().__init__(i18n.text('weapon_trader'), pos, pygame.transform.scale(pygame.image.load("assets/weapon_trader.png"),
-                                                                                 (50, 50)),
+        super().__init__(i18n.text('weapon_trader'), pos,
+                         pygame.transform.scale(pygame.image.load("assets/weapon_trader.png"), (50, 50)),
                          trade_list=[
                              TradeOption(i18n.text('charged_fist'), 10, self.buy_1),
                              TradeOption(i18n.text('iron_sword'), 10, self.buy_2),

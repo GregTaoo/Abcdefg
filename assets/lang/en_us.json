@@ -26,5 +26,6 @@
     "escape": "Escape",
     "rounds": "Round {}",
     "clone_tech": "Clone Technique!",
-    "mocking": "If you're bad, practice more"
+    "mocking": "If you're bad, practice more",
+    "crt_hit": "CRT Hit!"
 }

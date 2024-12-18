@@ -27,5 +27,11 @@
     "rounds": "回合 {}",
     "clone_tech": "分身之术!",
     "mocking": "菜就多练",
-    "crt_hit": "暴击!"
+    "crt_hit": "暴击!",
+    "nether_npc1_option1": "杀戮之心",
+    "nether_npc1_option2": "守护之眼",
+    "nether_npc1_dia1": "年轻人，恭喜你通过了第一关！",
+    "nether_player_dia1": "我感谢你。",
+    "nether_npc1_dia2": "接下来，摆在你面前的有两条路，一条走往杀戮，一条走往守护，年轻人，想清楚，再做选择......",
+    "nether_player_dia2": "我要好好想想......"
 }

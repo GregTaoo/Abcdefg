@@ -27,5 +27,8 @@
     "rounds": "Round {}",
     "clone_tech": "Clone Technique!",
     "mocking": "If you're bad, practice more",
-    "crt_hit": "CRT Hit!"
+    "crt_hit": "CRT Hit!",
+    "nether_npc1_option1": "Heart of Slaughter",
+    "nether_npc1_option2": "Eye of Guardian",
+    "nether_npc1_dia1": ""
 }

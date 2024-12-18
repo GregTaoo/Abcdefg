@@ -136,8 +136,8 @@ class NetherNPC1(TraderNPC):
         super().__init__(i18n.text('nether_npc1'), pos,
                          pygame.transform.scale(pygame.image.load("assets/trainer.png"), (50, 50)),
                          trade_list=[
-                             TradeOption(i18n.text('charged_fist'), 0, self.buy_1),
-                             TradeOption(i18n.text('iron_sword'), 0, self.buy_2),
+                             TradeOption(i18n.text('nether_npc1_option1'), 0, self.buy_1),
+                             TradeOption(i18n.text('nether_npc1_option2'), 0, self.buy_2),
                              TradeOption(i18n.literal("购买2"), 0, lambda player, npc, opt: print("购买2")),
                          ])
         self.hp = 1145141919810
@@ -153,7 +153,7 @@ class NetherNPC1(TraderNPC):
         return i18n.literal(i18n.text('bought').format(i18n.text('iron_sword')))
 
     def on_interact(self, player):
-        config.CLIENT.open_ui(UI.DialogUI([], lambda: config.CLIENT.open_ui(UI.TradeUI(player, self))))
+        config.CLIENT.open_ui(UI.DialogUI([(i18n.text('nether_npc1_dia1'),i18n.text('nether_player_dia1')), (i18n.text('nether_npc1_dia2'),i18n.text('nether_player_dia2'))], lambda: config.CLIENT.open_ui(UI.TradeUI(player, self))))
 
 
 class TradeOption:

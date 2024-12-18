@@ -51,14 +51,16 @@ class SelectLanguageUI(UI):
 
     def __init__(self):
         super().__init__()
-        self.add_button(Button(i18n.literal('简体中文'), (SCREEN_WIDTH // 2 - 100, SCREEN_HEIGHT // 2 - 75), (200, 45),
+        self.add_button(Button(i18n.literal('简体中文'), (SCREEN_WIDTH // 2 - 100, SCREEN_HEIGHT // 2 - 150), (200, 45),
                                config.FONT, (255, 255, 255), (0, 0, 0), lambda: self.set_language_and_close(0)))
-        self.add_button(Button(i18n.literal('繁體中文'), (SCREEN_WIDTH // 2 - 100, SCREEN_HEIGHT // 2 - 25), (200, 45),
+        self.add_button(Button(i18n.literal('繁體中文'), (SCREEN_WIDTH // 2 - 100, SCREEN_HEIGHT // 2 - 100), (200, 45),
                                config.FONT, (255, 255, 255), (0, 0, 0), lambda: self.set_language_and_close(1)))
-        self.add_button(Button(i18n.literal('English'), (SCREEN_WIDTH // 2 - 100, SCREEN_HEIGHT // 2 + 25), (200, 45),
+        self.add_button(Button(i18n.literal('English'), (SCREEN_WIDTH // 2 - 100, SCREEN_HEIGHT // 2 - 50), (200, 45),
                                config.FONT, (255, 255, 255), (0, 0, 0), lambda: self.set_language_and_close(2)))
-        self.add_button(Button(i18n.literal('日本語'), (SCREEN_WIDTH // 2 - 100, SCREEN_HEIGHT // 2 + 75), (200, 45),
+        self.add_button(Button(i18n.literal('日本語'), (SCREEN_WIDTH // 2 - 100, SCREEN_HEIGHT // 2), (200, 45),
                                config.FONT, (255, 255, 255), (0, 0, 0), lambda: self.set_language_and_close(3)))
+        self.add_button(Button(i18n.literal('文言'), (SCREEN_WIDTH // 2 - 100, SCREEN_HEIGHT // 2 + 50), (200, 45),
+                               config.FONT, (255, 255, 255), (0, 0, 0), lambda: self.set_language_and_close(4)))
 
     @staticmethod
     def set_language_and_close(language):
@@ -68,6 +70,11 @@ class SelectLanguageUI(UI):
     def tick(self, keys, events):
         super().tick(keys, events)
         return True
+
+    def render(self, screen: pygame.Surface):
+        super().render(screen)
+        txt_surface = config.FONT.render('Translated by ChatGPT', True, (255, 255, 255))
+        screen.blit(txt_surface, (SCREEN_WIDTH // 2 - txt_surface.get_width() // 2, SCREEN_HEIGHT // 2 + 100))
 
 
 class InputTextUI(UI):

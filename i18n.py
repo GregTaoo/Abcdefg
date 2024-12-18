@@ -1,14 +1,15 @@
 import json
 
 LANG = 0
-# 0: Chinese Simplified, 1: Chinese Traditional, 2: English
+# 0: Chinese Simplified, 1: Chinese Traditional, 2: English, 3: Japanese, 4: 文言（翻译由 ChatGPT 提供）
 
 STRINGS = {}
 LANG_DICT = {
     0: 'zh_cn',
     1: 'zh_tr',
     2: 'en_us',
-    3: 'jp_jp'
+    3: 'jp_jp',
+    4: 'zh_wy'
 }
 
 
@@ -56,13 +57,13 @@ class TranslatableText(Text):
         super().__init__(key)
 
     def format(self, *args):
-        return STRINGS[self.string].format(*args) or '?'
+        return STRINGS[self.string].format(*args) or self.string
 
     def __str__(self):
-        return STRINGS[self.string] or '?'
+        return STRINGS[self.string] or self.string
 
     def __repr__(self):
-        return STRINGS[self.string] or '?'
+        return STRINGS[self.string] or self.string
 
     def get(self):
-        return STRINGS[self.string] or '?'
+        return STRINGS[self.string] or self.string

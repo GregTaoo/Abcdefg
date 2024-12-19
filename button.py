@@ -41,12 +41,11 @@ class Button:
 
 
 class ClassicButton(Button):
-    def __init__(self, text, pos, size, font, bg_color=(255, 255, 255), text_color=(0, 0, 0), on_click=lambda: None,
+    def __init__(self, text, pos, size, bg_color=(255, 255, 255), text_color=(0, 0, 0), on_click=lambda: None,
                  border_color=(0, 0, 0), hover_bg_color=(50, 50, 50), hover_text_color=(255, 255, 255),
                  inactive_bg_color=(100, 100, 100), inactive_text_color=(50, 50, 50)):
         super().__init__(pos, size, on_click)
         self.text = text
-        self.font = font
         self.bg_color = bg_color
         self.text_color = text_color
         self.border_color = border_color
@@ -70,7 +69,7 @@ class ClassicButton(Button):
         self.render_text(screen, text_color)
 
     def render_text(self, screen, text_color):
-        text_surface = self.font.render(self.text.get(), True, text_color)
+        text_surface = config.FONT.render(self.text.get(), True, text_color)
         center = (self.rect.center[0] + 1, self.rect.center[1] + 1) if self.mouse_down else self.rect.center
         text_rect = text_surface.get_rect(center=center)
         screen.blit(text_surface, text_rect)
@@ -92,10 +91,10 @@ class ImageButton(Button):
 
 class TradeButton(ClassicButton):
 
-    def __init__(self, text, pos, size, font, trade_option, bg_color=(255, 255, 255), text_color=(0, 0, 0),
+    def __init__(self, text, pos, size, trade_option, bg_color=(255, 255, 255), text_color=(0, 0, 0),
                  on_click=lambda: None, border_color=(0, 0, 0), hover_bg_color=(50, 50, 50),
                  hover_text_color=(255, 255, 255), inactive_bg_color=(100, 100, 100), inactive_text_color=(50, 50, 50)):
-        super().__init__(text, pos, size, font, bg_color, text_color, on_click, border_color, hover_bg_color,
+        super().__init__(text, pos, size, bg_color, text_color, on_click, border_color, hover_bg_color,
                          hover_text_color, inactive_bg_color, inactive_text_color)
         self.trade_option = trade_option
 
@@ -107,12 +106,13 @@ class TradeButton(ClassicButton):
 
     def render_text(self, screen, text_color):
         render_coin = self.trade_option.price > 0
-        text_surface = self.font.render(self.text.get(), True, text_color)
-        text_rect = text_surface.get_rect(center=(self.rect.center[0], self.rect.center[1]
-                                                  - (10 if render_coin else 0)))
+        text_surface = config.FONT.render(self.text.get(), True, text_color)
+        delta = 1 if self.mouse_down else 0
+        text_rect = text_surface.get_rect(center=(self.rect.center[0] + delta, self.rect.center[1]
+                                                  + (-10 if render_coin else 0) + delta))
         screen.blit(text_surface, text_rect)
         if render_coin:
             text_surface = config.FONT.render(f"x{self.trade_option.price}", True, (255, 175, 45))
-            text_rect = text_surface.get_rect(center=(self.rect.center[0] + 12, self.rect.center[1] + 10))
+            text_rect = text_surface.get_rect(center=(self.rect.center[0] + 12 + delta, self.rect.center[1] + 10 + delta))
             screen.blit(text_surface, text_rect)
-            screen.blit(config.COIN_IMAGE, (self.rect.center[0] - 22, self.rect.center[1]))
+            screen.blit(config.COIN_IMAGE, (self.rect.center[0] - 22 + delta, self.rect.center[1] + delta))

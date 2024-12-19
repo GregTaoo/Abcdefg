@@ -63,7 +63,8 @@ class Client:
         self.player = player
         self.current_ui = None
         self.current_hud = MainHud(player)
-        config.WORLDS['the_world'] = Dimension('the_world', MAP_WIDTH, MAP_HEIGHT, generate_the_world())
+        config.WORLDS['the_world'] = Dimension('the_world', MAP_WIDTH, MAP_HEIGHT, generate_the_world(),
+                                               'assets/sounds/music_minecraft.mp3')
         config.WORLDS['the_nether'] = Dimension('the_nether', MAP_WIDTH, MAP_HEIGHT, generate_the_nether(),
                                                 'assets/sounds/music_terribly.mp3')
         nether_npc1 = NPC.NetherNPC1((2 * config.BLOCK_SIZE + 5, 18 * config.BLOCK_SIZE + 5))
@@ -89,6 +90,7 @@ class Client:
         config.SOUNDS['button2'] = pygame.mixer.Sound("assets/sounds/button2.mp3")
         config.SOUNDS['button2'].set_volume(0.75)
         self.dimension = config.WORLDS[dimension]
+        self.set_dimension(config.WORLDS[dimension])
         self.camera = self.player.get_camera(self.dimension.get_render_size())
 
     def spawn_entity(self, entity):

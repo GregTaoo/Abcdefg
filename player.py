@@ -32,10 +32,11 @@ class Player(entity.Entity):
         self.respawn_at_pos(self.respawn_pos)
 
     def teleport(self, dimension_str, pos: Tuple[int, int]):
-        dimension = config.WORLDS[dimension_str]
-        if dimension is None:
-            return
-        config.CLIENT.set_dimension(dimension)
+        if dimension_str != config.CLIENT.dimension.name:
+            dimension = config.WORLDS[dimension_str]
+            if dimension is None:
+                return
+            config.CLIENT.set_dimension(dimension)
         self.x, self.y = pos
 
     def update_energy(self):

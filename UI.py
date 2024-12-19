@@ -54,16 +54,16 @@ class SelectLanguageUI(UI):
     def __init__(self):
         super().__init__()
         self.add_button(ClassicButton(i18n.literal('简体中文'), (SCREEN_WIDTH // 2 - 100, SCREEN_HEIGHT // 2 - 150),
-                                      (200, 45), config.FONT, (255, 255, 255), (0, 0, 0),
+                                      (200, 45), (255, 255, 255), (0, 0, 0),
                                       lambda: self.set_language_and_close(0)))
         self.add_button(ClassicButton(i18n.literal('繁體中文'), (SCREEN_WIDTH // 2 - 100, SCREEN_HEIGHT // 2 - 100),
-                                      (200, 45), config.FONT, (255, 255, 255), (0, 0, 0),
+                                      (200, 45), (255, 255, 255), (0, 0, 0),
                                       lambda: self.set_language_and_close(1)))
         self.add_button(ClassicButton(i18n.literal('English'), (SCREEN_WIDTH // 2 - 100, SCREEN_HEIGHT // 2 - 50),
-                                      (200, 45), config.FONT, (255, 255, 255), (0, 0, 0),
+                                      (200, 45), (255, 255, 255), (0, 0, 0),
                                       lambda: self.set_language_and_close(2)))
         self.add_button(ClassicButton(i18n.literal('日本語'), (SCREEN_WIDTH // 2 - 100, SCREEN_HEIGHT // 2),
-                                      (200, 45), config.FONT, (255, 255, 255), (0, 0, 0),
+                                      (200, 45), (255, 255, 255), (0, 0, 0),
                                       lambda: self.set_language_and_close(3)))
 
     @staticmethod
@@ -149,7 +149,7 @@ class DeathUI(UI):
     def __init__(self):
         super().__init__()
         self.add_button(ClassicButton(i18n.text('respawn'), (SCREEN_WIDTH // 2 - 100, SCREEN_HEIGHT // 2 + 50),
-                                      (200, 50), config.FONT, (255, 255, 255), (0, 0, 0),
+                                      (200, 50), (255, 255, 255), (0, 0, 0),
                                       lambda: config.CLIENT.player_respawn()))
 
     def tick(self, keys, events):
@@ -169,7 +169,7 @@ class SuccessUI(UI):
         self.name = name
         self.coins = coins
         self.add_button(ClassicButton(i18n.text('continue'), (SCREEN_WIDTH // 2 - 100, SCREEN_HEIGHT // 2 + 50),
-                                      (200, 50), config.FONT, (255, 255, 255), (0, 0, 0),
+                                      (200, 50), (255, 255, 255), (0, 0, 0),
                                       lambda: config.CLIENT.close_ui()))
 
     def tick(self, keys, events):
@@ -193,7 +193,7 @@ class MessageBoxUI(UI):
         self.message = message
         self.father_ui = father_ui
         self.add_button(ClassicButton(i18n.text('go_back'), (SCREEN_WIDTH // 2 - 100, SCREEN_HEIGHT // 2 + 50),
-                                      (200, 50), config.FONT, (255, 255, 255), (0, 0, 0),
+                                      (200, 50), (255, 255, 255), (0, 0, 0),
                                       lambda: config.CLIENT.close_ui()))
 
     def render(self, screen: pygame.Surface):
@@ -227,16 +227,16 @@ class BattleUI(UI):
         self.escaping_stage = 0
         self.attack_button = ClassicButton(i18n.text('common_attack'),
                                            (SCREEN_WIDTH // 2 - 110, SCREEN_HEIGHT // 2 - 50), (100, 50),
-                                           config.FONT, (255, 255, 255), (0, 0, 0), self.round_start)
+                                           (255, 255, 255), (0, 0, 0), self.round_start)
         self.add_button(self.attack_button)
         self.ultimate_button = ClassicButton(i18n.text('ultimate_attack'),
                                              (SCREEN_WIDTH // 2 + 10, SCREEN_HEIGHT // 2 - 50), (100, 50),
-                                             config.FONT, (255, 255, 255), (0, 0, 0),
+                                             (255, 255, 255), (0, 0, 0),
                                              lambda: self.round_start(action.Actions.ULTIMATE_RIGHT))
         self.add_button(self.ultimate_button)
         self.ultimate_button.set_active(self.player.ultimate_available())
         self.escape_button = ClassicButton(i18n.text('escape'), (SCREEN_WIDTH // 2 - 110, SCREEN_HEIGHT // 2 + 10),
-                                           (100, 50), config.FONT, (255, 255, 255), (0, 0, 0),
+                                           (100, 50), (255, 255, 255), (0, 0, 0),
                                            self.on_click_escape_button)
         self.add_button(self.escape_button)
 
@@ -347,11 +347,11 @@ class TradeUI(UI):
         cnt = 0
         for option in npc.trade_list:
             self.add_button(TradeButton(option.name, (SCREEN_WIDTH // 2 - 50, 50 + cnt * 70), (100, 50),
-                                        config.FONT, option, (255, 255, 255), (0, 0, 0),
+                                        option, (255, 255, 255), (0, 0, 0),
                                         lambda opt=option: self.handle_trade(opt)))
             cnt += 1
         self.add_button(ClassicButton(i18n.text('go_back'), (SCREEN_WIDTH // 2 - 50, SCREEN_HEIGHT // 2 + 10),
-                                      (100, 50), config.FONT, (255, 255, 255), (0, 0, 0),
+                                      (100, 50), (255, 255, 255), (0, 0, 0),
                                       config.CLIENT.close_ui))
 
     def handle_trade(self, option):
@@ -373,7 +373,7 @@ class DialogUI(UI):
         self.after_dialog = after_dialog
         self.current_dialog = 0
         self.next_button = ClassicButton(i18n.text('continue'), (SCREEN_WIDTH // 2 - 150, SCREEN_HEIGHT // 2 + 10),
-                                         (300, 50), config.FONT, (255, 255, 255), (0, 0, 0),
+                                         (300, 50), (255, 255, 255), (0, 0, 0),
                                          self.next_dialog)
         self.add_button(self.next_button)
         self.update_button_text()

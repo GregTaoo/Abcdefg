@@ -10,7 +10,7 @@ class Button:
         self.active = True
         self.hovered = False
         self.mouse_down = False
-        self.mouse_timer = 10
+        self.mouse_timer = 15
         self.pos = pos
         self.size = size
         self.rect = pygame.Rect(pos, size)
@@ -31,7 +31,7 @@ class Button:
                     config.SOUNDS['button2'].play()
                 self.on_toggle_click()
                 self.mouse_down = False
-                self.mouse_timer = 10
+                self.mouse_timer = 15
 
     def on_toggle_click(self):
         self.on_click()

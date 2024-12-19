@@ -1,4 +1,5 @@
 import random
+import time
 from typing import Tuple
 
 import pygame
@@ -84,8 +85,19 @@ class InputTextUI(UI):
 
     def __init__(self):
         super().__init__()
-        self.input_box = pygame.Rect(100, 100, SCREEN_WIDTH - 200, SCREEN_HEIGHT - 200)
+        self.input_rect = pygame.Rect(10, SCREEN_HEIGHT - 40, SCREEN_WIDTH - 20, 30)
         self.text = ''
+        self.bg_color = (50, 50, 50)
+        self.text_color = (255, 255, 255)
+
+    def get_response(self, text):
+        return 'AI: You said: ' + text
+
+    def send_message(self, text):
+        response = self.get_response(text)
+        config.CLIENT.current_hud.messages.insert(0, ('You: ' + text, time.time()))
+        config.CLIENT.current_hud.messages.insert(0, (response, time.time()))
+        config.CLIENT.close_ui()
 
     def tick(self, keys, events):
         super().tick(keys, events)
@@ -93,6 +105,7 @@ class InputTextUI(UI):
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_RETURN:
                     print(self.text)
+                    self.send_message(self.text)
                     self.text = ''
                 elif event.key == pygame.K_BACKSPACE:
                     self.text = self.text[:-1]
@@ -104,9 +117,31 @@ class InputTextUI(UI):
 
     def render(self, screen: pygame.Surface):
         super().render(screen)
-        pygame.draw.rect(screen, (255, 255, 255), self.input_box)
-        txt_surface = config.FONT.render(self.text, True, (0, 0, 0))
-        screen.blit(txt_surface, (self.input_box.x + 5, self.input_box.y + 5))
+        pygame.draw.rect(screen, self.bg_color, self.input_rect)
+        txt_surface = config.FONT.render(self.text, True, self.text_color)
+        screen.blit(txt_surface, (self.input_rect.x + 5, self.input_rect.y + 5))
+
+        y_offset = SCREEN_HEIGHT - 50  # Start from the bottom
+        max_height = 600  # Maximum height to render messages
+        max_width = SCREEN_WIDTH // 2  # Maximum width for messages
+        messages_to_render = [(msg, ts) for msg, ts in config.CLIENT.current_hud.messages]
+
+        for message, timestamp in messages_to_render:
+            lines = []
+            while message:
+                for i in range(len(message)):
+                    if config.FONT.size(message[:i])[0] > max_width:
+                        break
+                else:
+                    i = len(message)
+                lines.append(message[:i])
+                message = message[i:]
+            for line in lines:  # Render each line from bottom to top
+                txt_surface = config.FONT.render(line, True, (255, 255, 255))
+                y_offset -= txt_surface.get_height() + 5
+                if y_offset < SCREEN_HEIGHT - max_height:
+                    return
+                screen.blit(txt_surface, (10, y_offset))
 
 
 class DeathUI(UI):

@@ -96,7 +96,8 @@ class Client:
 
     def set_dimension(self, dimension):
         self.dimension = dimension
-        change_music(dimension.music)
+        if dimension.music is not None:
+            change_music(dimension.music)
 
     def open_ui(self, ui):
         self.current_ui = ui
@@ -135,6 +136,8 @@ class Client:
         if self.current_ui is None:
             # 玩家移动
             keys = pygame.key.get_pressed()
+            if keys[pygame.K_SLASH]:
+                self.open_ui(UI.InputTextUI())
             if keys[pygame.K_w]:  # 向上移动
                 self.player.move(4, self.dimension)
             if keys[pygame.K_s]:  # 向下移动

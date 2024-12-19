@@ -1,5 +1,3 @@
-import random
-
 import pygame
 
 import config
@@ -11,6 +9,8 @@ class Button:
         self.on_click = on_click
         self.active = True
         self.hovered = False
+        self.mouse_down = False
+        self.mouse_timer = 10
         self.pos = pos
         self.size = size
         self.rect = pygame.Rect(pos, size)
@@ -19,11 +19,19 @@ class Button:
         if not self.active:
             return
         self.hovered = self.rect.collidepoint(pygame.mouse.get_pos())
+        if self.mouse_down:
+            self.mouse_timer = max(0, self.mouse_timer - 1)
         for event in events:
-            if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
-                if self.rect.collidepoint(event.pos):
-                    config.SOUNDS[random.choice(['button1', 'button2'])].play()
-                    self.on_toggle_click()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if self.hovered:
+                    config.SOUNDS['button1'].play()
+                    self.mouse_down = True
+            elif self.mouse_down and event.type == pygame.MOUSEBUTTONUP:
+                if self.mouse_timer == 0:
+                    config.SOUNDS['button2'].play()
+                self.on_toggle_click()
+                self.mouse_down = False
+                self.mouse_timer = 10
 
     def on_toggle_click(self):
         self.on_click()
@@ -51,7 +59,7 @@ class ClassicButton(Button):
         if not self.active:
             bg_color = self.inactive_bg_color
             text_color = self.inactive_text_color
-        elif self.hovered:
+        elif self.hovered or self.mouse_down:
             bg_color = self.hover_bg_color
             text_color = self.hover_text_color
         else:
@@ -63,7 +71,8 @@ class ClassicButton(Button):
 
     def render_text(self, screen, text_color):
         text_surface = self.font.render(self.text.get(), True, text_color)
-        text_rect = text_surface.get_rect(center=self.rect.center)
+        center = (self.rect.center[0] + 1, self.rect.center[1] + 1) if self.mouse_down else self.rect.center
+        text_rect = text_surface.get_rect(center=center)
         screen.blit(text_surface, text_rect)
 
 
@@ -74,7 +83,7 @@ class ImageButton(Button):
         self.image = image
 
     def render(self, screen):
-        if self.hovered:
+        if self.hovered or self.mouse_down:
             bg_surface = pygame.Surface(self.rect.size, pygame.SRCALPHA)
             bg_surface.fill((0, 0, 0, 100))
             screen.blit(bg_surface, self.pos)

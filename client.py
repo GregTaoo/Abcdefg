@@ -38,6 +38,7 @@ def generate_the_nether():
     for i in range(38):
         mp.append([Blocks.NETHERITE_BLOCK] * MAP_WIDTH)
     mp[2][17] = mp[3][19] = Blocks.REDSTONE_BLOCK
+    mp[7][11] = mp[8][10] = Blocks.REDSTONE_BLOCK
     return mp
 
 
@@ -64,6 +65,8 @@ class Client:
         nether_npc1 = NPC.NetherNPC1((2 * config.BLOCK_SIZE + 5, 18 * config.BLOCK_SIZE + 5))
         nether_npc1.mirror = True
         config.WORLDS['the_nether'].spawn_entity(nether_npc1)
+        nether_npc2 = NPC.NetherNPC2((8 * config.BLOCK_SIZE + 5, 11 * config.BLOCK_SIZE + 5))
+        config.WORLDS['the_nether'].spawn_entity(nether_npc2)
         config.WORLDS['the_end'] = Dimension('the_end', MAP_WIDTH, MAP_HEIGHT, generate_the_end())
         config.SOUNDS['hit'] = pygame.mixer.Sound("assets/sounds/hit.mp3")
         config.SOUNDS['hit'].set_volume(0.5)

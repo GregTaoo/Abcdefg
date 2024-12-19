@@ -132,8 +132,8 @@ class Entity:
     def get_right_bottom_pos(self):
         return self.x + self.size[0] - 1, self.y + self.size[1] - 1
 
-    def is_nearby(self, entity):
-        return abs(self.x - entity.x) + abs(self.y - entity.y) < INTERACTION_DISTANCE * BLOCK_SIZE
+    def is_nearby(self, entity, distance=INTERACTION_DISTANCE):
+        return abs(self.x - entity.x) + abs(self.y - entity.y) < distance * BLOCK_SIZE
 
     def render(self, screen: pygame.Surface, camera: Tuple[int, int]):
         screen.blit(self.image_mirrored if self.mirror else self.image, (self.x - camera[0], self.y - camera[1]))

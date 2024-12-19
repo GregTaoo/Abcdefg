@@ -180,14 +180,14 @@ class NetherNPC2(TraderNPC):
         config.CLIENT.dimension.set_block((7, 11), Blocks.WARPED_PLANKS)
         npc.traded = True
         config.CLIENT.close_ui()
-        return i18n.literal(i18n.text('bought2').format(i18n.text('nether_npc2_option1')))
+        return i18n.literal(i18n.text('bought').format(i18n.text('nether_npc2_option1')))
 
     @staticmethod
     def buy_2(player, npc, opt):
         config.CLIENT.dimension.set_block((8, 10), Blocks.WARPED_PLANKS)
         npc.traded = True
         config.CLIENT.close_ui()
-        return i18n.literal(i18n.text('bought2').format(i18n.text('nether_npc2_option2')))
+        return i18n.literal(i18n.text('bought').format(i18n.text('nether_npc2_option2')))
 
     def on_interact(self, player):
         if not self.traded:
@@ -195,6 +195,101 @@ class NetherNPC2(TraderNPC):
                                                (i18n.text('nether_npc2_dia2'), i18n.text('nether_player2_dia2'))],
                                               lambda: config.CLIENT.open_ui(UI.TradeUI(player, self))))
 
+class NetherNPC3(TraderNPC):
+
+    def __init__(self, pos):
+        super().__init__(i18n.text('nether_npc3'), pos,
+                         pygame.transform.scale(pygame.image.load("assets/trainer.png"), (50, 50)),
+                         trade_list=[
+                             TradeOption(i18n.text('nether_npc3_option1'), 0, self.buy_1),
+                             TradeOption(i18n.text('nether_npc3_option2'), 0, self.buy_2)
+                         ])
+        self.hp = 1145141919810
+        self.traded = False
+
+    @staticmethod
+    def buy_1(player, npc, opt):
+        config.CLIENT.dimension.set_block((18, 18), Blocks.WARPED_PLANKS)
+        npc.traded = True
+        config.CLIENT.close_ui()
+        return i18n.literal(i18n.text('bought').format(i18n.text('nether_npc3_option1')))
+
+    @staticmethod
+    def buy_2(player, npc, opt):
+        config.CLIENT.dimension.set_block((19, 19), Blocks.WARPED_PLANKS)
+        npc.traded = True
+        config.CLIENT.close_ui()
+        return i18n.literal(i18n.text('bought').format(i18n.text('nether_npc3_option2')))
+
+    def on_interact(self, player):
+        if not self.traded:
+            config.CLIENT.open_ui(UI.DialogUI([(i18n.text('nether_npc3_dia1'), i18n.text('nether_player3_dia1')),
+                                               (i18n.text('nether_npc3_dia2'), i18n.text('nether_player3_dia2'))],
+                                              lambda: config.CLIENT.open_ui(UI.TradeUI(player, self))))
+
+class NetherNPC4(TraderNPC):
+
+    def __init__(self, pos):
+        super().__init__(i18n.text('nether_npc4'), pos,
+                         pygame.transform.scale(pygame.image.load("assets/trainer.png"), (50, 50)),
+                         trade_list=[
+                             TradeOption(i18n.text('nether_npc4_option1'), 0, self.buy_1),
+                             TradeOption(i18n.text('nether_npc4_option2'), 0, self.buy_2)
+                         ])
+        self.hp = 1145141919810
+        self.traded = False
+
+    @staticmethod
+    def buy_1(player, npc, opt):
+        # config.CLIENT.dimension.set_block((7, 11), Blocks.WARPED_PLANKS)
+        npc.traded = True
+        config.CLIENT.close_ui()
+        return i18n.literal(i18n.text('bought').format(i18n.text('nether_npc4_option1')))
+
+    @staticmethod
+    def buy_2(player, npc, opt):
+        # config.CLIENT.dimension.set_block((8, 10), Blocks.WARPED_PLANKS)
+        npc.traded = True
+        config.CLIENT.close_ui()
+        return i18n.literal(i18n.text('bought').format(i18n.text('nether_npc4_option2')))
+
+    def on_interact(self, player):
+        if not self.traded:
+            config.CLIENT.open_ui(UI.DialogUI([(i18n.text('nether_npc4_dia1'), i18n.text('nether_player4_dia1')),
+                                               (i18n.text('nether_npc4_dia2'), i18n.text('nether_player4_dia2'))],
+                                              lambda: config.CLIENT.open_ui(UI.TradeUI(player, self))))
+
+class NetherNPC5(TraderNPC):
+
+    def __init__(self, pos):
+        super().__init__(i18n.text('nether_npc5'), pos,
+                         pygame.transform.scale(pygame.image.load("assets/trainer.png"), (50, 50)),
+                         trade_list=[
+                             TradeOption(i18n.text('nether_npc4_option1'), 0, self.buy_1),
+                             TradeOption(i18n.text('nether_npc4_option2'), 0, self.buy_2)
+                         ])
+        self.hp = 1145141919810
+        self.traded = False
+
+    @staticmethod
+    def buy_1(player, npc, opt):
+        # config.CLIENT.dimension.set_block((7, 11), Blocks.WARPED_PLANKS)
+        npc.traded = True
+        config.CLIENT.close_ui()
+        return i18n.literal(i18n.text('bought').format(i18n.text('nether_npc5_option1')))
+
+    @staticmethod
+    def buy_2(player, npc, opt):
+        # config.CLIENT.dimension.set_block((8, 10), Blocks.WARPED_PLANKS)
+        npc.traded = True
+        config.CLIENT.close_ui()
+        return i18n.literal(i18n.text('bought').format(i18n.text('nether_npc5_option2')))
+
+    def on_interact(self, player):
+        if not self.traded:
+            config.CLIENT.open_ui(UI.DialogUI([(i18n.text('nether_npc5_dia1'), i18n.text('nether_player5_dia1')),
+                                               (i18n.text('nether_npc5_dia2'), i18n.text('nether_player5_dia2'))],
+                                              lambda: config.CLIENT.open_ui(UI.TradeUI(player, self))))
 
 class TradeOption:
 

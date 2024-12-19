@@ -92,8 +92,8 @@ class ImageButton(Button):
 class TradeButton(ClassicButton):
 
     def __init__(self, text, pos, size, trade_option, bg_color=(255, 255, 255), text_color=(0, 0, 0),
-                 on_click=lambda: None, border_color=(0, 0, 0), hover_bg_color=(50, 50, 50),
-                 hover_text_color=(255, 255, 255), inactive_bg_color=(100, 100, 100), inactive_text_color=(50, 50, 50)):
+                 on_click=lambda: None, border_color=(0, 0, 0), hover_bg_color=(200, 200, 200),
+                 hover_text_color=(0, 0, 0), inactive_bg_color=(100, 100, 100), inactive_text_color=(50, 50, 50)):
         super().__init__(text, pos, size, bg_color, text_color, on_click, border_color, hover_bg_color,
                          hover_text_color, inactive_bg_color, inactive_text_color)
         self.trade_option = trade_option
@@ -113,6 +113,7 @@ class TradeButton(ClassicButton):
         screen.blit(text_surface, text_rect)
         if render_coin:
             text_surface = config.FONT.render(f"x{self.trade_option.price}", True, (255, 175, 45))
-            text_rect = text_surface.get_rect(center=(self.rect.center[0] + 12 + delta, self.rect.center[1] + 10 + delta))
+            text_rect = text_surface.get_rect(center=(
+                self.rect.center[0] + 12 + delta, self.rect.center[1] + 10 + delta))
             screen.blit(text_surface, text_rect)
             screen.blit(config.COIN_IMAGE, (self.rect.center[0] - 22 + delta, self.rect.center[1] + delta))

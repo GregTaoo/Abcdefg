@@ -87,6 +87,7 @@ class Client:
         nether_npc5 = NPC.NetherNPC3((20 * config.BLOCK_SIZE + 5, 1 * config.BLOCK_SIZE + 5))
         config.WORLDS['the_nether'].spawn_entity(nether_npc5)
         config.WORLDS['the_end'] = Dimension('the_end', MAP_WIDTH, MAP_HEIGHT, generate_the_end())
+
         config.SOUNDS['hit'] = pygame.mixer.Sound("assets/sounds/hit.mp3")
         config.SOUNDS['hit'].set_volume(0.5)
         config.SOUNDS['player_death'] = pygame.mixer.Sound("assets/sounds/player_death.mp3")

@@ -35,7 +35,7 @@ class Player(entity.Entity):
         dimension = config.WORLDS[dimension_str]
         if dimension is None:
             return
-        config.CLIENT.dimension = dimension
+        config.CLIENT.set_dimension(dimension)
         self.x, self.y = pos
 
     def update_energy(self):

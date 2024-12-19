@@ -1,3 +1,5 @@
+import random
+
 import pygame
 
 import config
@@ -20,6 +22,7 @@ class Button:
         for event in events:
             if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
                 if self.rect.collidepoint(event.pos):
+                    config.SOUNDS[random.choice(['button1', 'button2'])].play()
                     self.on_toggle_click()
 
     def on_toggle_click(self):

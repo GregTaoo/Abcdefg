@@ -44,6 +44,7 @@ def generate_the_nether():
 
 def change_music(music):
     pygame.mixer.music.load(music)
+    pygame.mixer.music.set_volume(0.1)
     pygame.mixer.music.play(-1)
 
 
@@ -61,7 +62,8 @@ class Client:
         self.current_ui = None
         self.current_hud = MainHud(player)
         config.WORLDS['the_world'] = Dimension('the_world', MAP_WIDTH, MAP_HEIGHT, generate_the_world())
-        config.WORLDS['the_nether'] = Dimension('the_nether', MAP_WIDTH, MAP_HEIGHT, generate_the_nether())
+        config.WORLDS['the_nether'] = Dimension('the_nether', MAP_WIDTH, MAP_HEIGHT, generate_the_nether(),
+                                                'assets/sounds/music_terribly.mp3')
         nether_npc1 = NPC.NetherNPC1((2 * config.BLOCK_SIZE + 5, 18 * config.BLOCK_SIZE + 5))
         nether_npc1.mirror = True
         config.WORLDS['the_nether'].spawn_entity(nether_npc1)
@@ -74,11 +76,19 @@ class Client:
         config.SOUNDS['player_death'].set_volume(0.5)
         config.SOUNDS['zeus'] = pygame.mixer.Sound("assets/sounds/zeus.mp3")
         config.SOUNDS['zeus'].set_volume(0.25)
+        config.SOUNDS['button1'] = pygame.mixer.Sound("assets/sounds/button1.mp3")
+        config.SOUNDS['button1'].set_volume(0.75)
+        config.SOUNDS['button2'] = pygame.mixer.Sound("assets/sounds/button2.mp3")
+        config.SOUNDS['button2'].set_volume(0.75)
         self.dimension = config.WORLDS[dimension]
         self.camera = self.player.get_camera(self.dimension.get_render_size())
 
     def spawn_entity(self, entity):
         self.dimension.spawn_entity(entity)
+
+    def set_dimension(self, dimension):
+        self.dimension = dimension
+        change_music(dimension.music)
 
     def open_ui(self, ui):
         self.current_ui = ui

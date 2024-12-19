@@ -10,12 +10,13 @@ from config import BLOCK_SIZE
 
 class Dimension:
 
-    def __init__(self, name: str, width: int, height: int, blocks: list[list[block.Block]]):
+    def __init__(self, name: str, width: int, height: int, blocks: list[list[block.Block]], music=None):
         self.name = name
         self.width = width
         self.height = height
         self.blocks = blocks
         self.entities = []
+        self.music = music
 
     def set_block(self, pos: Tuple[int, int], replace_block: block.Block):
         self.blocks[pos[0]][pos[1]] = replace_block

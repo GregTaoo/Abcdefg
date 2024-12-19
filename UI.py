@@ -312,6 +312,7 @@ class BattleUI(UI):
                 self.player.coins += self.enemy.coins
                 config.CLIENT.close_ui()
                 config.CLIENT.open_ui(SuccessUI(self.enemy.name, self.enemy.coins))
+                config.SOUNDS['victory'].play()
         if self.playing_action:
             if self.action.is_end():
                 if self.half_round < self.round * 2:

@@ -22,11 +22,6 @@ def main():
     pygame.display.set_icon(Blocks.GRASS_BLOCK.image)
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
     clock = pygame.time.Clock()
-    config.FONT = pygame.font.Font("assets/lang/simhei.ttf", 16)
-    config.FONT_BOLD = pygame.font.Font("assets/lang/simhei.ttf", 16)
-    config.FONT_BOLD.set_bold(True)
-    config.MIDDLE_FONT = pygame.font.Font("assets/lang/simhei.ttf", 24)
-    config.LARGE_FONT = pygame.font.Font("assets/lang/simhei.ttf", 32)
 
     pygame.mixer.init()
 

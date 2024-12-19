@@ -63,10 +63,18 @@ class Client:
         self.player = player
         self.current_ui = None
         self.current_hud = MainHud(player)
+
         config.WORLDS['the_world'] = Dimension('the_world', MAP_WIDTH, MAP_HEIGHT, generate_the_world(),
                                                'assets/sounds/music_minecraft.mp3')
         config.WORLDS['the_nether'] = Dimension('the_nether', MAP_WIDTH, MAP_HEIGHT, generate_the_nether(),
                                                 'assets/sounds/music_terribly.mp3')
+
+        config.FONT = pygame.font.Font("assets/lang/simhei.ttf", 16)
+        config.FONT_BOLD = pygame.font.Font("assets/lang/simhei.ttf", 16)
+        config.FONT_BOLD.set_bold(True)
+        config.MIDDLE_FONT = pygame.font.Font("assets/lang/simhei.ttf", 24)
+        config.LARGE_FONT = pygame.font.Font("assets/lang/simhei.ttf", 32)
+
         nether_npc1 = NPC.NetherNPC1((2 * config.BLOCK_SIZE + 5, 18 * config.BLOCK_SIZE + 5))
         nether_npc1.mirror = True
         config.WORLDS['the_nether'].spawn_entity(nether_npc1)
@@ -89,6 +97,9 @@ class Client:
         config.SOUNDS['button1'].set_volume(0.75)
         config.SOUNDS['button2'] = pygame.mixer.Sound("assets/sounds/button2.mp3")
         config.SOUNDS['button2'].set_volume(0.75)
+        config.SOUNDS['victory'] = pygame.mixer.Sound("assets/sounds/victory.mp3")
+        config.SOUNDS['victory'].set_volume(0.75)
+
         self.dimension = config.WORLDS[dimension]
         self.set_dimension(config.WORLDS[dimension])
         self.camera = self.player.get_camera(self.dimension.get_render_size())

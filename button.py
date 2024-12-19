@@ -42,7 +42,7 @@ class Button:
 
 class ClassicButton(Button):
     def __init__(self, text, pos, size, bg_color=(255, 255, 255), text_color=(0, 0, 0), on_click=lambda: None,
-                 border_color=(0, 0, 0), hover_bg_color=(50, 50, 50), hover_text_color=(255, 255, 255),
+                 border_color=(0, 0, 0), hover_bg_color=(200, 200, 200), hover_text_color=(0, 0, 0),
                  inactive_bg_color=(100, 100, 100), inactive_text_color=(50, 50, 50)):
         super().__init__(pos, size, on_click)
         self.text = text

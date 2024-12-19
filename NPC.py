@@ -166,11 +166,11 @@ class NetherNPC1(TraderNPC):
 class NetherNPC2(TraderNPC):
 
     def __init__(self, pos):
-        super().__init__(i18n.text('nether_npc1'), pos,
+        super().__init__(i18n.text('nether_npc2'), pos,
                          pygame.transform.scale(pygame.image.load("assets/trainer.png"), (50, 50)),
                          trade_list=[
-                             TradeOption(i18n.text('nether_npc1_option1'), 0, self.buy_1),
-                             TradeOption(i18n.text('nether_npc1_option2'), 0, self.buy_2)
+                             TradeOption(i18n.text('nether_npc2_option1'), 0, self.buy_1),
+                             TradeOption(i18n.text('nether_npc2_option2'), 0, self.buy_2)
                          ])
         self.hp = 1145141919810
         self.traded = False
@@ -180,19 +180,19 @@ class NetherNPC2(TraderNPC):
         config.CLIENT.dimension.set_block((7, 11), Blocks.WARPED_PLANKS)
         npc.traded = True
         config.CLIENT.close_ui()
-        return i18n.literal(i18n.text('bought').format(i18n.text('nether_npc1_option1')))
+        return i18n.literal(i18n.text('bought2').format(i18n.text('nether_npc2_option1')))
 
     @staticmethod
     def buy_2(player, npc, opt):
         config.CLIENT.dimension.set_block((8, 10), Blocks.WARPED_PLANKS)
         npc.traded = True
         config.CLIENT.close_ui()
-        return i18n.literal(i18n.text('bought').format(i18n.text('nether_npc1_option2')))
+        return i18n.literal(i18n.text('bought2').format(i18n.text('nether_npc2_option2')))
 
     def on_interact(self, player):
         if not self.traded:
-            config.CLIENT.open_ui(UI.DialogUI([(i18n.text('nether_npc1_dia1'), i18n.text('nether_player_dia1')),
-                                               (i18n.text('nether_npc1_dia2'), i18n.text('nether_player_dia2'))],
+            config.CLIENT.open_ui(UI.DialogUI([(i18n.text('nether_npc2_dia1'), i18n.text('nether_player2_dia1')),
+                                               (i18n.text('nether_npc2_dia2'), i18n.text('nether_player2_dia2'))],
                                               lambda: config.CLIENT.open_ui(UI.TradeUI(player, self))))
 
 

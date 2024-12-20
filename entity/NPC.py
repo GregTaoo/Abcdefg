@@ -77,7 +77,7 @@ class MedicineTraderNPC(TraderNPC):
 
     def __init__(self, pos):
         super().__init__(I18n.text('witch'), pos,
-                         pygame.transform.scale(pygame.image.load("./assets/trainer.png"), (50, 50)),
+                         pygame.transform.scale(pygame.image.load("./assets/witch.png"), (50, 50)),
                          trade_list=[
                              TradeOption(I18n.literal("锻炼"), 10, self.buy_1),
                              TradeOption(I18n.literal("健身"), 10, self.buy_2),

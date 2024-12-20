@@ -7,7 +7,7 @@ from render import Animation
 import I18n
 import Config
 import Block
-from Config import MAP_WIDTH, MAP_HEIGHT
+from Config import MAP_WIDTH, MAP_HEIGHT, SCREEN_WIDTH, SCREEN_HEIGHT
 from Dimension import Dimension
 from UI.ChatUI import ChatUI
 from UI.DeathUI import DeathUI
@@ -156,7 +156,9 @@ class Client:
         self.screen.fill((50, 50, 50))
         self.dimension.render(self.screen, self.camera)
         for i in self.dimension.entities:
-            i.render(self.screen, self.camera)
+            if (self.camera[0] - i.size[0] <= i.x <= self.camera[0] + SCREEN_WIDTH and
+                    self.camera[1] - i.size[1] <= i.y <= self.camera[1] + SCREEN_HEIGHT):
+                i.render(self.screen, self.camera)
         self.player.render(self.screen, self.camera)
 
         if self.current_ui is None:

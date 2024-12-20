@@ -33,8 +33,8 @@ with open("ultimate_right.txt", "w") as file:
     for x in range(10):
         file.write(f"{600 - 100 / 10 * x} {200 - 100 / 10 * x} {600 + 100 / 10 * x} {200 - 100 / 10 * x}"
                    f" {600 - 100 / 10 * x} {200 + 100 / 10 * x} {600 + 100 / 10 * x} {200 + 100 / 10 * x}"
-                   f"|6|clone_tech|zeus\n")
-    # file.write(f"500 100 700 100 500 300 700 300|6||zeus\n")
+                   f"|0|clone_tech|zeus\n")
+    file.write(f"500 100 700 100 500 300 700 300|60||zeus\n")
     for x in range(90):
         k = (math.sqrt(100 / 90) * x) ** 2
         file.write(f"{500 + k} {100 + k} {700 - k} {100 + k}"

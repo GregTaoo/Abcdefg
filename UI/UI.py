@@ -24,7 +24,7 @@ class UI:
             surface = pygame.transform.smoothscale(surface, screen.get_size())
         dark_overlay = pygame.Surface(screen.get_size())
         dark_overlay.fill((0, 0, 0))
-        dark_overlay.set_alpha(100)  # Adjust the alpha value for more/less darkness
+        dark_overlay.set_alpha(150)  # Adjust the alpha value for more/less darkness
         surface.blit(dark_overlay, (0, 0))
         screen.blit(surface, (0, 0))
 

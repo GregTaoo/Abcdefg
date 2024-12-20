@@ -28,18 +28,18 @@ class BattleUI(UI):
         self.use_crt = False
         self.escaping_stage = 0
         self.attack_button = ClassicButton(I18n.text('common_attack'),
-                                           (Config.SCREEN_WIDTH // 2 - 110, Config.SCREEN_HEIGHT // 2 - 50),
-                                           (100, 50), (255, 255, 255), (0, 0, 0), self.round_start)
+                                           (Config.SCREEN_WIDTH // 2 - 150, Config.SCREEN_HEIGHT // 2 + 50),
+                                           (95, 50), (255, 255, 255), (0, 0, 0), self.round_start)
         self.add_button(self.attack_button)
         self.ultimate_button = ClassicButton(I18n.text('ultimate_attack'),
-                                             (Config.SCREEN_WIDTH // 2 + 10, Config.SCREEN_HEIGHT // 2 - 50),
-                                             (100, 50), (255, 255, 255), (0, 0, 0),
+                                             (Config.SCREEN_WIDTH // 2 - 50, Config.SCREEN_HEIGHT // 2 + 50),
+                                             (95, 50), (255, 255, 255), (0, 0, 0),
                                              lambda: self.round_start(Action.ULTIMATE_RIGHT))
         self.add_button(self.ultimate_button)
         self.ultimate_button.set_active(self.player.ultimate_available())
         self.escape_button = ClassicButton(I18n.text('escape'),
-                                           (Config.SCREEN_WIDTH // 2 - 110, Config.SCREEN_HEIGHT // 2 + 10),
-                                           (100, 50), (255, 255, 255), (0, 0, 0),
+                                           (Config.SCREEN_WIDTH // 2 + 50, Config.SCREEN_HEIGHT // 2 + 50),
+                                           (95, 50), (255, 255, 255), (0, 0, 0),
                                            self.on_click_escape_button)
         self.add_button(self.escape_button)
 

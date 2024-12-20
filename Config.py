@@ -8,7 +8,6 @@ WORLDS = {}
 CLIENT = None
 COIN_IMAGE = None
 LANGUAGE_IMAGE = None
-PARTICLES = []
 FONT = None
 FONT_BOLD = None
 MIDDLE_FONT = None

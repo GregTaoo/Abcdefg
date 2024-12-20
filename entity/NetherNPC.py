@@ -3,6 +3,7 @@ import pygame
 import Block
 import Config
 import I18n
+from Dialog import Dialog
 from UI.DialogUI import DialogUI
 from UI.TradeUI import TradeUI
 from entity.NPC import TraderNPC, TradeOption
@@ -36,9 +37,8 @@ class NetherNPC1(TraderNPC):
 
     def on_interact(self, player):
         if not self.traded:
-            Config.CLIENT.open_ui(DialogUI([(I18n.text('nether_npc1_dia1'), I18n.text('nether_player_dia1')),
-                                            (I18n.text('nether_npc1_dia2'), I18n.text('nether_player_dia2'))],
-                                           lambda: Config.CLIENT.open_ui(TradeUI(player, self))))
+            Config.CLIENT.open_ui(DialogUI(Dialog('./assets/dialogs/nether_npc1.json'),
+                                           lambda msg: Config.CLIENT.open_ui(TradeUI(player, self))))
 
 
 class NetherNPC2(TraderNPC):
@@ -69,9 +69,8 @@ class NetherNPC2(TraderNPC):
 
     def on_interact(self, player):
         if not self.traded:
-            Config.CLIENT.open_ui(DialogUI([(I18n.text('nether_npc2_dia1'), I18n.text('nether_player2_dia1')),
-                                            (I18n.text('nether_npc2_dia2'), I18n.text('nether_player2_dia2'))],
-                                           lambda: Config.CLIENT.open_ui(TradeUI(player, self))))
+            Config.CLIENT.open_ui(DialogUI(Dialog('./assets/dialogs/nether_npc2.json'),
+                                           lambda msg: Config.CLIENT.open_ui(TradeUI(player, self))))
 
 
 class NetherNPC3(TraderNPC):
@@ -102,9 +101,8 @@ class NetherNPC3(TraderNPC):
 
     def on_interact(self, player):
         if not self.traded:
-            Config.CLIENT.open_ui(DialogUI([(I18n.text('nether_npc3_dia1'), I18n.text('nether_player3_dia1')),
-                                            (I18n.text('nether_npc3_dia2'), I18n.text('nether_player3_dia2'))],
-                                           lambda: Config.CLIENT.open_ui(TradeUI(player, self))))
+            Config.CLIENT.open_ui(DialogUI(Dialog('./assets/dialogs/nether_npc3.json'),
+                                           lambda msg: Config.CLIENT.open_ui(TradeUI(player, self))))
 
 
 class NetherNPC4(TraderNPC):
@@ -135,9 +133,8 @@ class NetherNPC4(TraderNPC):
 
     def on_interact(self, player):
         if not self.traded:
-            Config.CLIENT.open_ui(DialogUI([(I18n.text('nether_npc4_dia1'), I18n.text('nether_player4_dia1')),
-                                            (I18n.text('nether_npc4_dia2'), I18n.text('nether_player4_dia2'))],
-                                           lambda: Config.CLIENT.open_ui(TradeUI(player, self))))
+            Config.CLIENT.open_ui(DialogUI(Dialog('./assets/dialogs/nether_npc4.json'),
+                                           lambda msg: Config.CLIENT.open_ui(TradeUI(player, self))))
 
 
 class NetherNPC5(TraderNPC):
@@ -168,6 +165,5 @@ class NetherNPC5(TraderNPC):
 
     def on_interact(self, player):
         if not self.traded:
-            Config.CLIENT.open_ui(DialogUI([(I18n.text('nether_npc5_dia1'), I18n.text('nether_player5_dia1')),
-                                            (I18n.text('nether_npc5_dia2'), I18n.text('nether_player5_dia2'))],
-                                           lambda: Config.CLIENT.open_ui(TradeUI(player, self))))
+            Config.CLIENT.open_ui(DialogUI(Dialog('./assets/dialogs/nether_npc5.json'),
+                                           lambda msg: Config.CLIENT.open_ui(TradeUI(player, self))))

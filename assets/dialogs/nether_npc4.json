@@ -1,0 +1,23 @@
+{
+  "start": "1",
+  "data": {
+    "1": {
+      "npc": "nether_npc4_dia1",
+      "player": [
+        {
+          "str": "nether_player4_dia1",
+          "next": "2"
+        }
+      ]
+    },
+    "2": {
+      "npc": "nether_npc4_dia2",
+      "player": [
+        {
+          "str": "nether_player4_dia2",
+          "next": "!1"
+        }
+      ]
+    }
+  }
+}

@@ -50,6 +50,7 @@ def generate_the_nether():
     mp[2][17] = mp[3][19] = Block.REDSTONE_BLOCK
     mp[7][11] = mp[8][10] = Block.REDSTONE_BLOCK
     mp[18][18] = mp[19][19] = Block.REDSTONE_BLOCK
+    mp[0][19] = Block.NETHER_BACK_PORTAL
 
     return mp
 

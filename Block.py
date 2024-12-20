@@ -72,7 +72,7 @@ GRASS_BLOCK_WITH_MUSHROOM = Block("grass_block_with_mushroom", create_image("gra
 END_PORTAL = PortalBlock("end_portal", Animation.END_PORTAL, True,
                          target_dimension='the_end')
 NETHER_BACK_PORTAL = PortalBlock("nether_portal", Animation.NETHER_PORTAL, True,
-                                 target_dimension='the_world')
+                                 target_dimension='the_world', target_pos=(1080, 1080))
 END_STONE = Block("end_stone", create_image("end_stone.png"))
 WARPED_PLANKS = Block("warped_planks", create_image("warped_planks.png"))
 NETHERITE_BLOCK = Block("netherite_block", create_image("netherite_block.png"), obstacle=True)

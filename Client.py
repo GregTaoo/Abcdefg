@@ -114,10 +114,10 @@ class Client:
 
         self.dimension = Config.WORLDS[dimension]
         self.set_dimension(Config.WORLDS[dimension])
-        self.camera = self.player.get_camera(self.dimension.get_render_size())
+        self.camera = self.player.get_camera()
 
-    def spawn_entity(self, entity):
-        self.dimension.spawn_entity(entity)
+    def spawn_entity(self, entity_to_spawn):
+        self.dimension.spawn_entity(entity_to_spawn)
 
     def set_dimension(self, dimension):
         self.dimension = dimension
@@ -196,7 +196,7 @@ class Client:
                     i.tick(self.dimension, self.player)
 
             # 更新摄像机位置
-            self.camera = self.player.get_camera(self.dimension.get_render_size())
+            self.camera = self.player.get_camera()
 
             if self.player.hp <= 0:
                 Config.SOUNDS['player_death'].play()

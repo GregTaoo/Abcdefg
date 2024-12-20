@@ -19,7 +19,7 @@ class Player(Entity):
         self.skill = 0
         # 0: NONE, 1: 天谴, 2: 吸血
 
-    def get_camera(self, limit: Tuple[int, int]):
+    def get_camera(self):
         return self.x + self.size[0] // 2 - SCREEN_WIDTH // 2, self.y + self.size[1] // 2 - SCREEN_HEIGHT // 2
         # return (max(0, min(limit[0] - SCREEN_WIDTH, self.x + self.size[0] // 2 - SCREEN_WIDTH // 2)),
         #         max(0, min(limit[1] - SCREEN_HEIGHT, self.y + self.size[1] // 2 - SCREEN_HEIGHT // 2)))

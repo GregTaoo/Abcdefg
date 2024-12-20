@@ -67,7 +67,8 @@ class VillagerNPC(TraderNPC):
         for trade in self.trade_list:
             trade.price *= 2
         iron_golem = Entity.Entity(I18n.text('iron_golem'), self.get_right_bottom_pos(),
-                                   pygame.transform.scale(pygame.image.load("./assets/iron_golem.png"), (50, 50)), atk=8)
+                                   pygame.transform.scale(pygame.image.load("./assets/iron_golem.png"), (50, 50)),
+                                   atk=8)
         Config.CLIENT.spawn_entity(iron_golem)
         Config.CLIENT.open_ui(BattleUI(player, iron_golem))
 

@@ -21,5 +21,7 @@ class DeathUI(UI):
 
     def render(self, screen: pygame.Surface):
         super().render(screen)
+        txt_surface = Config.LARGE_FONT.render(I18n.text('you_died').get(), True, (255, 255, 255))
+        screen.blit(txt_surface, (SCREEN_WIDTH // 2 - txt_surface.get_width() // 2 + 1, SCREEN_HEIGHT // 2 - 74))
         txt_surface = Config.LARGE_FONT.render(I18n.text('you_died').get(), True, (255, 0, 0))
         screen.blit(txt_surface, (SCREEN_WIDTH // 2 - txt_surface.get_width() // 2, SCREEN_HEIGHT // 2 - 75))

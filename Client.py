@@ -54,6 +54,11 @@ def generate_the_nether():
     return mp
 
 
+def load_sound(name, path, volume=0.5):
+    Config.SOUNDS[name] = pygame.mixer.Sound(path)
+    Config.SOUNDS[name].set_volume(volume)
+
+
 class Client:
 
     def __init__(self, screen, clock, player, dimension):
@@ -82,18 +87,12 @@ class Client:
         nether_npc5 = entity.NetherNPC.NetherNPC3((20 * Config.BLOCK_SIZE + 5, 1 * Config.BLOCK_SIZE + 5))
         Config.WORLDS['the_nether'].spawn_entity(nether_npc5)
 
-        Config.SOUNDS['hit'] = pygame.mixer.Sound("./assets/sounds/hit.mp3")
-        Config.SOUNDS['hit'].set_volume(0.5)
-        Config.SOUNDS['player_death'] = pygame.mixer.Sound("./assets/sounds/player_death.mp3")
-        Config.SOUNDS['player_death'].set_volume(0.5)
-        Config.SOUNDS['zeus'] = pygame.mixer.Sound("./assets/sounds/zeus.mp3")
-        Config.SOUNDS['zeus'].set_volume(0.25)
-        Config.SOUNDS['button1'] = pygame.mixer.Sound("./assets/sounds/button1.mp3")
-        Config.SOUNDS['button1'].set_volume(0.75)
-        Config.SOUNDS['button2'] = pygame.mixer.Sound("./assets/sounds/button2.mp3")
-        Config.SOUNDS['button2'].set_volume(0.75)
-        Config.SOUNDS['victory'] = pygame.mixer.Sound("./assets/sounds/victory.mp3")
-        Config.SOUNDS['victory'].set_volume(0.75)
+        load_sound('hit', './assets/sounds/hit.mp3', 0.5)
+        load_sound('player_death', './assets/sounds/player_death.mp3', 0.5)
+        load_sound('zeus', './assets/sounds/zeus.mp3', 0.25)
+        load_sound('button1', './assets/sounds/button1.mp3', 0.75)
+        load_sound('button2', './assets/sounds/button2.mp3', 0.75)
+        load_sound('victory', './assets/sounds/victory.mp3', 0.75)
 
         Config.COIN_IMAGE = pygame.transform.scale(pygame.image.load('./assets/coin.png'), (20, 20))
         Config.LANGUAGE_IMAGE = pygame.transform.scale(pygame.image.load('./assets/language.png'), (20, 20))

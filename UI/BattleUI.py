@@ -101,7 +101,7 @@ class BattleUI(UI):
         else:
             self.player.render_at_absolute_pos(screen, self.player_pos)
             self.enemy.render_at_absolute_pos(screen, self.enemy_pos)
-        txt_surface = Config.FONT.render(I18n.text('rounds').format(self.round), True, (0, 0, 0))
+        txt_surface = Config.FONT.render(I18n.text('rounds').format(self.round), True, (255, 255, 255))
         screen.blit(txt_surface, (30, 30))
         Particle.render_particles(screen, Config.MIDDLE_FONT)
 

@@ -54,38 +54,21 @@ def generate_the_nether():
     return mp
 
 
-def change_music(music):
-    pygame.mixer.music.load(music)
-    pygame.mixer.music.set_volume(0.1)
-    pygame.mixer.music.play(-1)
-
-
-def pause_music():
-    pygame.mixer.music.pause()
-
-
 class Client:
 
     def __init__(self, screen, clock, player, dimension):
-        self.screen = screen
-        self.clock = clock
-        self.tick_counter = 0
-        self.player = player
-        self.current_ui = None
-        self.current_hud = MainHud(player)
-
         Config.WORLDS['the_world'] = Dimension('the_world', MAP_WIDTH, MAP_HEIGHT, generate_the_world(),
-                                               'assets/sounds/music_minecraft.mp3')
+                                               './assets/sounds/music_minecraft.mp3')
         Config.WORLDS['the_nether'] = Dimension('the_nether', MAP_WIDTH, MAP_HEIGHT, generate_the_nether(),
-                                                'assets/sounds/music_terribly.mp3')
+                                                './assets/sounds/music_terribly.mp3')
         Config.WORLDS['the_end'] = Dimension('the_end', MAP_WIDTH, MAP_HEIGHT, generate_the_end(),
-                                             'assets/sounds/music_mario.mp3')
+                                             './assets/sounds/music_mario.mp3')
 
-        Config.FONT = pygame.font.Font("assets/lang/simhei.ttf", 16)
-        Config.FONT_BOLD = pygame.font.Font("assets/lang/simhei.ttf", 16)
+        Config.FONT = pygame.font.Font("./assets/lang/simhei.ttf", 16)
+        Config.FONT_BOLD = pygame.font.Font("./assets/lang/simhei.ttf", 16)
         Config.FONT_BOLD.set_bold(True)
-        Config.MIDDLE_FONT = pygame.font.Font("assets/lang/simhei.ttf", 24)
-        Config.LARGE_FONT = pygame.font.Font("assets/lang/simhei.ttf", 32)
+        Config.MIDDLE_FONT = pygame.font.Font("./assets/lang/simhei.ttf", 24)
+        Config.LARGE_FONT = pygame.font.Font("./assets/lang/simhei.ttf", 32)
 
         nether_npc1 = entity.NetherNPC.NetherNPC1((2 * Config.BLOCK_SIZE + 5, 18 * Config.BLOCK_SIZE + 5))
         nether_npc1.mirror = True
@@ -99,22 +82,41 @@ class Client:
         nether_npc5 = entity.NetherNPC.NetherNPC3((20 * Config.BLOCK_SIZE + 5, 1 * Config.BLOCK_SIZE + 5))
         Config.WORLDS['the_nether'].spawn_entity(nether_npc5)
 
-        Config.SOUNDS['hit'] = pygame.mixer.Sound("assets/sounds/hit.mp3")
+        Config.SOUNDS['hit'] = pygame.mixer.Sound("./assets/sounds/hit.mp3")
         Config.SOUNDS['hit'].set_volume(0.5)
-        Config.SOUNDS['player_death'] = pygame.mixer.Sound("assets/sounds/player_death.mp3")
+        Config.SOUNDS['player_death'] = pygame.mixer.Sound("./assets/sounds/player_death.mp3")
         Config.SOUNDS['player_death'].set_volume(0.5)
-        Config.SOUNDS['zeus'] = pygame.mixer.Sound("assets/sounds/zeus.mp3")
+        Config.SOUNDS['zeus'] = pygame.mixer.Sound("./assets/sounds/zeus.mp3")
         Config.SOUNDS['zeus'].set_volume(0.25)
-        Config.SOUNDS['button1'] = pygame.mixer.Sound("assets/sounds/button1.mp3")
+        Config.SOUNDS['button1'] = pygame.mixer.Sound("./assets/sounds/button1.mp3")
         Config.SOUNDS['button1'].set_volume(0.75)
-        Config.SOUNDS['button2'] = pygame.mixer.Sound("assets/sounds/button2.mp3")
+        Config.SOUNDS['button2'] = pygame.mixer.Sound("./assets/sounds/button2.mp3")
         Config.SOUNDS['button2'].set_volume(0.75)
-        Config.SOUNDS['victory'] = pygame.mixer.Sound("assets/sounds/victory.mp3")
+        Config.SOUNDS['victory'] = pygame.mixer.Sound("./assets/sounds/victory.mp3")
         Config.SOUNDS['victory'].set_volume(0.75)
 
+        Config.COIN_IMAGE = pygame.transform.scale(pygame.image.load('./assets/coin.png'), (20, 20))
+        Config.LANGUAGE_IMAGE = pygame.transform.scale(pygame.image.load('./assets/language.png'), (20, 20))
+
+        self.screen = screen
+        self.clock = clock
+        self.tick_counter = 0
+        self.player = player
+        self.current_ui = None
+        self.current_hud = MainHud(player)
         self.dimension = Config.WORLDS[dimension]
         self.set_dimension(Config.WORLDS[dimension])
         self.camera = self.player.get_camera()
+
+    @staticmethod
+    def change_music(music):
+        pygame.mixer.music.load(music)
+        pygame.mixer.music.set_volume(0.1)
+        pygame.mixer.music.play(-1)
+
+    @staticmethod
+    def pause_music():
+        pygame.mixer.music.pause()
 
     def spawn_entity(self, entity_to_spawn):
         self.dimension.spawn_entity(entity_to_spawn)
@@ -122,7 +124,7 @@ class Client:
     def set_dimension(self, dimension):
         self.dimension = dimension
         if dimension.music is not None:
-            change_music(dimension.music)
+            self.change_music(dimension.music)
 
     def open_ui(self, ui):
         self.current_ui = ui

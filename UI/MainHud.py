@@ -14,8 +14,6 @@ class MainHud(Hud):
     def __init__(self, player):
         super().__init__()
         self.player = player
-        Config.COIN_IMAGE = pygame.transform.scale(pygame.image.load('./assets/coin.png'), (20, 20))
-        Config.LANGUAGE_IMAGE = pygame.transform.scale(pygame.image.load('./assets/language.png'), (20, 20))
         self.add_button(ImageButton(Config.LANGUAGE_IMAGE, (10, Config.SCREEN_HEIGHT - 30),
                                     lambda: Config.CLIENT.open_ui(SelectLanguageUI())))
         self.messages = []

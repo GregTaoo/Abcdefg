@@ -21,7 +21,6 @@ def render_dialog_at_absolute_pos(text, screen, pos, font: pygame.font):
 
 
 class Entity:
-    fire_image = pygame.transform.scale(pygame.image.load("./assets/fire.png"), (BLOCK_SIZE, BLOCK_SIZE))
 
     def __init__(self, name: str, pos: Tuple[int, int], image: pygame.Surface, actions=None, atk=1.0, crt=0.0,
                  coins=0, max_hp=100):

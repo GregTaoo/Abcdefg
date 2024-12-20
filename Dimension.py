@@ -2,15 +2,15 @@ from typing import Tuple
 
 import pygame
 
-import block
+import Block
 import random
 
-from config import BLOCK_SIZE
+from Config import BLOCK_SIZE
 
 
 class Dimension:
 
-    def __init__(self, name: str, width: int, height: int, blocks: list[list[block.Block]], music=None):
+    def __init__(self, name: str, width: int, height: int, blocks: list[list[Block.Block]], music=None):
         self.name = name
         self.width = width
         self.height = height
@@ -18,7 +18,7 @@ class Dimension:
         self.entities = []
         self.music = music
 
-    def set_block(self, pos: Tuple[int, int], replace_block: block.Block):
+    def set_block(self, pos: Tuple[int, int], replace_block: Block.Block):
         self.blocks[pos[0]][pos[1]] = replace_block
 
     def spawn_entity(self, entity):
@@ -28,7 +28,7 @@ class Dimension:
         return self.width * BLOCK_SIZE, self.height * BLOCK_SIZE
 
     @staticmethod
-    def generate_map(width: int, height: int, blocks: list[block.Block], weights: list[int]):
+    def generate_map(width: int, height: int, blocks: list[Block.Block], weights: list[int]):
         return [random.choices(blocks, weights, k=height) for _ in range(width)]
         # 最简单的地图生成器，可自定义权重
 

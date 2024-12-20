@@ -1,0 +1,33 @@
+import pygame
+
+import Config
+import I18n
+from UI.UI import UI
+from UI.widget.ClassicButton import ClassicButton
+
+
+class BattleSuccessUI(UI):
+
+    def __init__(self, name='', coins=0):
+        super().__init__()
+        self.name = name
+        self.coins = coins
+        self.add_button(ClassicButton(I18n.text('continue'),
+                                      (Config.SCREEN_WIDTH // 2 - 100, Config.SCREEN_HEIGHT // 2 + 50),
+                                      (200, 50), (255, 255, 255), (0, 0, 0),
+                                      lambda: Config.CLIENT.close_ui()))
+
+    def tick(self, keys, events):
+        super().tick(keys, events)
+        return True
+
+    def render(self, screen: pygame.Surface):
+        super().render(screen)
+        txt_surface = Config.LARGE_FONT.render(I18n.text('beat_entity').format(self.name), True, (0, 255, 0))
+        screen.blit(txt_surface, (Config.SCREEN_WIDTH // 2 - txt_surface.get_width() // 2,
+                                  Config.SCREEN_HEIGHT // 2 - 75))
+        txt_surface = Config.FONT.render(I18n.text('obtained_coins').format(self.coins), True, (255, 255, 255))
+        screen.blit(txt_surface, (Config.SCREEN_WIDTH // 2 - txt_surface.get_width() // 2,
+                                  Config.SCREEN_HEIGHT // 2 - 35))
+        screen.blit(Config.COIN_IMAGE, (Config.SCREEN_WIDTH // 2 - txt_surface.get_width() // 2 - 22,
+                                        Config.SCREEN_HEIGHT // 2 - 37))

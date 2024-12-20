@@ -1,7 +1,8 @@
 import pygame
 
-import config
-import i18n
+import I18n
+
+PARTICLES = []
 
 
 class Particle:
@@ -24,27 +25,27 @@ class Particle:
 
 
 def add_particle(particle: Particle):
-    config.PARTICLES.append(particle)
+    PARTICLES.append(particle)
 
 
 def remove_all_particles():
-    config.PARTICLES.clear()
+    PARTICLES.clear()
 
 
 def remove_played_particles():
-    for i in config.PARTICLES:
+    for i in PARTICLES:
         if i.is_end():
-            config.PARTICLES.remove(i)
+            PARTICLES.remove(i)
             del i
 
 
 def render_particles(screen, font: pygame.font.Font):
-    for i in config.PARTICLES:
+    for i in PARTICLES:
         i.render(screen, font)
 
 
 def tick_particles():
-    for i in config.PARTICLES:
+    for i in PARTICLES:
         i.tick()
 
 
@@ -65,6 +66,6 @@ class DamageParticle(Particle):
 
     def render(self, screen, font: pygame.font.Font):
         txt_surface = font.render(
-            (i18n.text('crt_hit').get() + ' ' if self.is_crt else '') + f"{-self.damage:.0f}", True, self.color)
+            (I18n.text('crt_hit').get() + ' ' if self.is_crt else '') + f"{-self.damage:.0f}", True, self.color)
         txt_surface.set_alpha(max(0, int(self.alpha)))
         screen.blit(txt_surface, (self.x, self.y))

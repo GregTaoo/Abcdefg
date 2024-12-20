@@ -2,9 +2,9 @@ from typing import Tuple
 
 import pygame
 
-import animation
-import player
-from config import BLOCK_SIZE
+from render import Animation
+from entity import Player
+from Config import BLOCK_SIZE
 
 
 class Block:
@@ -53,26 +53,28 @@ class PortalBlock(Block):
         self.target_pos = target_pos
 
     def on_entity(self, block_pos: Tuple[int, int], mob):
-        if isinstance(mob, player.Player):
+        if isinstance(mob, Player.Player):
             mob.teleport(self.target_dimension, self.target_pos)
 
 
-class Blocks:
+def create_image(file: str):
+    return pygame.transform.scale(pygame.image.load("assets/" + file), (BLOCK_SIZE, BLOCK_SIZE))
 
-    @staticmethod
-    def create_image(file: str):
-        return pygame.transform.scale(pygame.image.load("assets/" + file), (BLOCK_SIZE, BLOCK_SIZE))
 
-    GRASS_BLOCK = Block("grass_block", create_image("grass_block.png"))
-    STONE = Block("stone", create_image("stone.png"), obstacle=True)
-    LAVA = LavaBlock("lava", animation.Animations.LAVA, True)
-    WATER = WaterBlock("water", animation.Animations.WATER, True)
-    NETHER_PORTAL = PortalBlock("nether_portal", animation.Animations.NETHER_PORTAL, True,
-                                target_dimension='the_nether', target_pos=(60, 1080))
-    NETHER_BACK_PORTAL = PortalBlock("nether_portal", animation.Animations.NETHER_PORTAL, True,
-                                     target_dimension='the_world')
-    END_STONE = Block("end_stone", create_image("end_stone.png"))
-    WARPED_PLANKS = Block("warped_planks", create_image("warped_planks.png"))
-    NETHERITE_BLOCK = Block("netherite_block", create_image("netherite_block.png"), obstacle=True)
-    OBSIDIAN = Block("obsidian", create_image("obsidian.png"))
-    REDSTONE_BLOCK = Block("redstone_block", create_image("redstone_block.png"), obstacle=True)
+GRASS_BLOCK = Block("grass_block", create_image("grass_block.png"))
+STONE = Block("stone", create_image("stone.png"), obstacle=True)
+LAVA = LavaBlock("lava", Animation.LAVA, True)
+WATER = WaterBlock("water", Animation.WATER, True)
+NETHER_PORTAL = PortalBlock("nether_portal", Animation.NETHER_PORTAL, True,
+                            target_dimension='the_nether', target_pos=(60, 1080))
+GRASS_BLOCK_WITH_FLOWER = Block("grass_block_with_flower", create_image("grass_block_with_flower.png"))
+GRASS_BLOCK_WITH_MUSHROOM = Block("grass_block_with_mushroom", create_image("grass_block_with_mushroom.png"))
+END_PORTAL = PortalBlock("end_portal", Animation.END_PORTAL, True,
+                         target_dimension='the_end')
+NETHER_BACK_PORTAL = PortalBlock("nether_portal", Animation.NETHER_PORTAL, True,
+                                 target_dimension='the_world')
+END_STONE = Block("end_stone", create_image("end_stone.png"))
+WARPED_PLANKS = Block("warped_planks", create_image("warped_planks.png"))
+NETHERITE_BLOCK = Block("netherite_block", create_image("netherite_block.png"), obstacle=True)
+OBSIDIAN = Block("obsidian", create_image("obsidian.png"))
+REDSTONE_BLOCK = Block("redstone_block", create_image("redstone_block.png"), obstacle=True)

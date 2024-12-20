@@ -1,7 +1,11 @@
+ACTIONS = []
+
+
 class Action:
 
     # 格式:
     def __init__(self, name: str, file):
+        ACTIONS.append(self)
         self.name = name
         self.pos = []
         self.ticks = 0
@@ -34,14 +38,8 @@ class Action:
         self.ticks = 0
 
 
-class Actions:
-
-    ATTACK_RIGHT = Action("attack_right", "assets/actions/attack_right.txt")
-    ATTACK_LEFT = Action("attack_left", "assets/actions/attack_left.txt")
-    ULTIMATE_RIGHT = Action("ultimate_right", "assets/actions/ultimate_right.txt")
-    ESCAPE_LEFT = Action("escape_left", "assets/actions/escape_left.txt")
-    EMPTY = Action("empty", None)
-
-
-def get_all_actions():
-    return [Actions.ATTACK_RIGHT, Actions.ATTACK_LEFT, Actions.ULTIMATE_RIGHT, Actions.ESCAPE_LEFT, Actions.EMPTY]
+ATTACK_RIGHT = Action("attack_right", "./assets/actions/attack_right.txt")
+ATTACK_LEFT = Action("attack_left", "./assets/actions/attack_left.txt")
+ULTIMATE_RIGHT = Action("ultimate_right", "./assets/actions/ultimate_right.txt")
+ESCAPE_LEFT = Action("escape_left", "./assets/actions/escape_left.txt")
+EMPTY = Action("empty", None)

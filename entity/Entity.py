@@ -4,11 +4,10 @@ from typing import Tuple
 import pygame
 from pygame import Rect
 
-import UI
-import action
-import animation
-import config
-from config import BLOCK_SIZE, INTERACTION_DISTANCE
+from render import Action, Animation
+import Config
+from Config import BLOCK_SIZE, INTERACTION_DISTANCE
+from UI.BattleUI import BattleUI
 
 
 def render_dialog_at_absolute_pos(text, screen, pos, font: pygame.font):
@@ -22,7 +21,7 @@ def render_dialog_at_absolute_pos(text, screen, pos, font: pygame.font):
 
 
 class Entity:
-    fire_image = pygame.transform.scale(pygame.image.load("assets/fire.png"), (BLOCK_SIZE, BLOCK_SIZE))
+    fire_image = pygame.transform.scale(pygame.image.load("./assets/fire.png"), (BLOCK_SIZE, BLOCK_SIZE))
 
     def __init__(self, name: str, pos: Tuple[int, int], image: pygame.Surface, actions=None, atk=1.0, crt=0.0,
                  coins=0, max_hp=100):
@@ -37,7 +36,7 @@ class Entity:
         self.crt = crt
         self.crt_damage = 2.0
         self.coins = coins
-        self.actions = actions if actions is not None else [action.Actions.ATTACK_LEFT]
+        self.actions = actions if actions is not None else [Action.ATTACK_LEFT]
 
     def damage(self, damage):
         self.hp = max(0, self.hp - damage)
@@ -138,12 +137,12 @@ class Entity:
     def render(self, screen: pygame.Surface, camera: Tuple[int, int]):
         screen.blit(self.image_mirrored if self.mirror else self.image, (self.x - camera[0], self.y - camera[1]))
         if self.fire_tick > 0:
-            animation.Animations.FIRE.render(screen, (self.x - camera[0], self.y - camera[1]))
-        self.render_hp_bar(screen, (self.x - camera[0], self.y - camera[1] - 10), config.FONT)
+            Animation.FIRE.render(screen, (self.x - camera[0], self.y - camera[1]))
+        self.render_hp_bar(screen, (self.x - camera[0], self.y - camera[1] - 10), Config.FONT)
 
     def render_at_absolute_pos(self, screen: pygame.Surface, pos: Tuple[int, int], use_mirror=False):
         screen.blit(self.image_mirrored if use_mirror else self.image, pos)
-        self.render_hp_bar(screen, (pos[0], pos[1] - 10), config.FONT)
+        self.render_hp_bar(screen, (pos[0], pos[1] - 10), Config.FONT)
 
     def render_hp_bar(self, screen: pygame.Surface, pos: Tuple[int, int], font=None):
         bar_width, bar_height = self.size[0], 5
@@ -162,7 +161,7 @@ class Entity:
         pass
 
     def on_battle(self, player):
-        config.CLIENT.open_ui(UI.BattleUI(player, self))
+        Config.CLIENT.open_ui(BattleUI(player, self))
 
 
 class Monster(Entity):

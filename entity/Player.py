@@ -1,17 +1,16 @@
 from typing import Tuple
 
+from render import Action
+import Config
+from Config import SCREEN_WIDTH, SCREEN_HEIGHT
+from entity.Entity import Entity
 
-import action
-import config
-from config import SCREEN_WIDTH, SCREEN_HEIGHT
-import entity
 
-
-class Player(entity.Entity):
+class Player(Entity):
 
     def __init__(self, name: str, respawn_pos: Tuple[int, int], pos: Tuple[int, int], image):
         super().__init__(name, pos, image, actions=[
-            action.Actions.ATTACK_RIGHT, action.Actions.ULTIMATE_RIGHT
+            Action.ATTACK_RIGHT, Action.ULTIMATE_RIGHT
         ], crt=0.5)
         self.dialog_timer = 0
         self.respawn_pos = respawn_pos
@@ -32,11 +31,11 @@ class Player(entity.Entity):
         self.respawn_at_pos(self.respawn_pos)
 
     def teleport(self, dimension_str, pos: Tuple[int, int]):
-        if dimension_str != config.CLIENT.dimension.name:
-            dimension = config.WORLDS[dimension_str]
+        if dimension_str != Config.CLIENT.dimension.name:
+            dimension = Config.WORLDS[dimension_str]
             if dimension is None:
                 return
-            config.CLIENT.set_dimension(dimension)
+            Config.CLIENT.set_dimension(dimension)
         self.x, self.y = pos
 
     def update_energy(self):
@@ -50,4 +49,4 @@ class Player(entity.Entity):
 
     def tick_second(self, dimension, player=None):
         if self.fire_tick > 0:
-            config.SOUNDS['hit'].play()
+            Config.SOUNDS['hit'].play()

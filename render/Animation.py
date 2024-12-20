@@ -2,10 +2,13 @@ import random
 
 import pygame
 
+ANIMATIONS = []
+
 
 class Animation:
 
     def __init__(self, images: list[pygame.Surface], duration: int, is_random=False):
+        ANIMATIONS.append(self)
         self.images = images
         self.duration = duration
         self.ticks = 0
@@ -36,26 +39,18 @@ def load_images_from_sprite(file, image_size, resize):
     return images
 
 
-class Animations:
-
-    @staticmethod
-    def load_lava_images():
-        images = load_images_from_sprite("assets/lava.png", (16, 16), (60, 60))
-        return images + images[::-1]
-
-    @staticmethod
-    def load_water_images():
-        images = load_images_from_sprite("assets/water.png", (16, 16), (60, 60))
-        return images + images[::-1]
-
-    FIRE = Animation(load_images_from_sprite("assets/fire.png", (16, 16), (50, 50)), 5)
-    LAVA = Animation(load_lava_images(), 10)
-    WATER = Animation(load_water_images(), 10)
-    NETHER_PORTAL = Animation(load_images_from_sprite("assets/nether_portal.png", (16, 16), (60, 60)), 5)
+def load_lava_images():
+    images = load_images_from_sprite("./assets/lava.png", (16, 16), (60, 60))
+    return images + images[::-1]
 
 
-def get_all_animations():
-    return [Animations.FIRE, Animations.LAVA, Animations.WATER, Animations.NETHER_PORTAL]
+def load_water_images():
+    images = load_images_from_sprite("./assets/water.png", (16, 16), (60, 60))
+    return images + images[::-1]
 
 
-
+FIRE = Animation(load_images_from_sprite("./assets/fire.png", (16, 16), (50, 50)), 5)
+LAVA = Animation(load_lava_images(), 10)
+WATER = Animation(load_water_images(), 10)
+NETHER_PORTAL = Animation(load_images_from_sprite("./assets/nether_portal.png", (16, 16), (60, 60)), 5)
+END_PORTAL = Animation(load_images_from_sprite("./assets/end_portal.png", (16, 16), (60, 60)), 5)

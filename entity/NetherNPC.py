@@ -18,7 +18,6 @@ class NetherNPC1(TraderNPC):
                              TradeOption(I18n.text('nether_npc1_option1'), 0, self.buy_1),
                              TradeOption(I18n.text('nether_npc1_option2'), 0, self.buy_2)
                          ])
-        self.hp = 1145141919810
         self.traded = False
 
     @staticmethod
@@ -50,7 +49,6 @@ class NetherNPC2(TraderNPC):
                              TradeOption(I18n.text('nether_npc2_option1'), 0, self.buy_1),
                              TradeOption(I18n.text('nether_npc2_option2'), 0, self.buy_2)
                          ])
-        self.hp = 1145141919810
         self.traded = False
 
     @staticmethod
@@ -82,7 +80,6 @@ class NetherNPC3(TraderNPC):
                              TradeOption(I18n.text('nether_npc3_option1'), 0, self.buy_1),
                              TradeOption(I18n.text('nether_npc3_option2'), 0, self.buy_2)
                          ])
-        self.hp = 1145141919810
         self.traded = False
 
     @staticmethod
@@ -114,7 +111,6 @@ class NetherNPC4(TraderNPC):
                              TradeOption(I18n.text('nether_npc4_option1'), 0, self.buy_1),
                              TradeOption(I18n.text('nether_npc4_option2'), 0, self.buy_2)
                          ])
-        self.hp = 1145141919810
         self.traded = False
 
     @staticmethod
@@ -146,7 +142,6 @@ class NetherNPC5(TraderNPC):
                              TradeOption(I18n.text('nether_npc4_option1'), 0, self.buy_1),
                              TradeOption(I18n.text('nether_npc4_option2'), 0, self.buy_2)
                          ])
-        self.hp = 1145141919810
         self.traded = False
 
     @staticmethod

@@ -15,21 +15,20 @@ class UI:
             button.tick(events)
         return False
 
-    # Copilot 写的
     def blur_background(self, screen: pygame.Surface):
         if self.blurred_surface is None:
             surface = pygame.Surface(screen.get_size())
             surface.blit(screen, (0, 0))
-            for _ in range(5):  # Adjust the range for more/less blur
+            for _ in range(5):
+                # 模糊5次
                 surface = pygame.transform.smoothscale(surface, (surface.get_width() // 2, surface.get_height() // 2))
                 surface = pygame.transform.smoothscale(surface, screen.get_size())
             dark_overlay = pygame.Surface(screen.get_size())
             dark_overlay.fill((0, 0, 0))
-            dark_overlay.set_alpha(150)  # Adjust the alpha value for more/less darkness
+            dark_overlay.set_alpha(150)
             surface.blit(dark_overlay, (0, 0))
             self.blurred_surface = surface
-        else:
-            screen.blit(self.blurred_surface, (0, 0))
+        screen.blit(self.blurred_surface, (0, 0))
 
     def render(self, screen: pygame.Surface):
         self.blur_background(screen)

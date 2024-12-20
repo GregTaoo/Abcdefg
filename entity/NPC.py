@@ -14,6 +14,7 @@ class NPC(Entity.Entity):
     def __init__(self, name: str, pos: Tuple[int, int], image):
         super().__init__(name, pos, image)
         self.dialog_timer = 0
+        self.hp = self.max_hp = 1145141919810
 
     def dialog(self):
         return I18n.text('npc_dialog').format(self.name)

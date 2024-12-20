@@ -15,9 +15,6 @@ class Dialog:
             self.dialogs = data['data']
             self.current = self.dialogs[data['start']]
 
-    def get_dialog(self):
-        return self.current
-
     def next(self, choice: int):
         nxt = self.current['player'][choice]['next']
         if nxt[0] == '!':
@@ -28,39 +25,26 @@ class Dialog:
 
 '''
 {
-  "start": "d1",
-  "data":{
-      "d1": {
-        "npc": "qwq",
-        "player": [
-          {
-            "str": "qwq",
-            "next": "d2"
-          },
-          {
-            "str": "qwq",
-            "next": "d3"
-          }
-        ]
-      },
-      "d2": {
-        "npc": "qwq2",
-        "player": [
-          {
-            "str": "qwq2",
-            "next": "d3"
-          }
-        ]
-      },
-      "d3": {
-        "npc": "qwq3",
-        "player": [
-          {
-            "str": "qwq3",
-            "next": "!1"
-          }
-        ]
-      }
+  "start": "1",
+  "data": {
+    "1": {
+      "npc": "nether_npc2_dia1",
+      "player": [
+        {
+          "str": "nether_player2_dia1",
+          "next": "2"
+        }
+      ]
+    },
+    "2": {
+      "npc": "nether_npc2_dia2",
+      "player": [
+        {
+          "str": "nether_player2_dia2",
+          "next": "!1"
+        }
+      ]
+    }
   }
 }
 '''

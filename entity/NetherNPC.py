@@ -141,7 +141,7 @@ class NetherNPC5(TraderNPC):
 
     def __init__(self, pos):
         super().__init__(I18n.text('nether_npc5'), pos,
-                         pygame.transform.scale(pygame.image.load("../assets/trainer.png"), (50, 50)),
+                         pygame.transform.scale(pygame.image.load("./assets/trainer.png"), (50, 50)),
                          trade_list=[
                              TradeOption(I18n.text('nether_npc4_option1'), 0, self.buy_1),
                              TradeOption(I18n.text('nether_npc4_option2'), 0, self.buy_2)

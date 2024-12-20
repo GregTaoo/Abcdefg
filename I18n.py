@@ -19,7 +19,7 @@ def set_language(lang: int):
 
 
 def load_strings():
-    with open('assets/lang/' + LANG_DICT[LANG] + '.json', 'r', encoding='utf-8') as file:
+    with open('./assets/lang/' + LANG_DICT[LANG] + '.json', 'r', encoding='utf-8') as file:
         global STRINGS
         STRINGS = json.load(file)
 

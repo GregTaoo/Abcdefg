@@ -11,11 +11,11 @@ from ui.widget.ClassicButton import ClassicButton
 
 class DialogUI(UI):
 
-    def __init__(self, npc: NPC, dialogs: Dialog, after_dialog):
+    def __init__(self, npc: NPC, dialogs: Dialog, choose):
         super().__init__()
         self.npc = npc
         self.dialogs = dialogs
-        self.after_dialog = after_dialog
+        self.choose = choose
         self.npc_text = I18n.text(self.dialogs.current['npc']).get()
         self.options = self.dialogs.current['player']
         self.typing_index = 1
@@ -39,7 +39,7 @@ class DialogUI(UI):
     def next_dialog(self, choice: int):
         nxt = self.dialogs.next(choice)
         if isinstance(nxt, str):
-            s = self.after_dialog(nxt)
+            s = self.choose(nxt) or '!#'
             if s[0] == '!':
                 Config.CLIENT.close_ui()
                 return

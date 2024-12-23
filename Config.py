@@ -12,5 +12,6 @@ FONT = None
 FONT_BOLD = None
 MIDDLE_FONT = None
 LARGE_FONT = None
+HUGE_FONT = None
 SOUNDS = {}
 CLOCKS = []

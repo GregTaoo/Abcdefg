@@ -18,13 +18,11 @@ class TradeUI(UI):
         cnt = 0
         for option in npc.trade_list:
             self.add_button(TradeButton(option.name, (Config.SCREEN_WIDTH // 2 - 50, 50 + cnt * 70), (100, 50),
-                                        option, (255, 255, 255), (0, 0, 0),
-                                        lambda opt=option: self.handle_trade(opt)))
+                                        option, on_click=lambda opt=option: self.handle_trade(opt)))
             cnt += 1
         self.add_button(ClassicButton(I18n.text('go_back'),
                                       (Config.SCREEN_WIDTH // 2 - 50, Config.SCREEN_HEIGHT // 2 + 10),
-                                      (100, 50), (255, 255, 255), (0, 0, 0),
-                                      Config.CLIENT.close_ui))
+                                      (100, 50), on_click=Config.CLIENT.close_ui))
 
     def handle_trade(self, option):
         return option.on_trade(self.player, self.npc, option)

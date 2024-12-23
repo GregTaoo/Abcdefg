@@ -12,19 +12,19 @@ class SelectLanguageUI(UI):
         super().__init__()
         self.add_button(ClassicButton(I18n.literal('简体中文'),
                                       (Config.SCREEN_WIDTH // 2 - 100, Config.SCREEN_HEIGHT // 2 - 150),
-                                      (200, 45), (255, 255, 255), (0, 0, 0),
+                                      (200, 45), (0, 0, 0, 150), (255, 255, 255),
                                       lambda: self.set_language_and_close(0)))
         self.add_button(ClassicButton(I18n.literal('繁體中文'),
                                       (Config.SCREEN_WIDTH // 2 - 100, Config.SCREEN_HEIGHT // 2 - 100),
-                                      (200, 45), (255, 255, 255), (0, 0, 0),
+                                      (200, 45), (0, 0, 0, 150), (255, 255, 255),
                                       lambda: self.set_language_and_close(1)))
         self.add_button(ClassicButton(I18n.literal('English'),
                                       (Config.SCREEN_WIDTH // 2 - 100, Config.SCREEN_HEIGHT // 2 - 50),
-                                      (200, 45), (255, 255, 255), (0, 0, 0),
+                                      (200, 45), (0, 0, 0, 150), (255, 255, 255),
                                       lambda: self.set_language_and_close(2)))
         self.add_button(ClassicButton(I18n.literal('日本語'),
                                       (Config.SCREEN_WIDTH // 2 - 100, Config.SCREEN_HEIGHT // 2),
-                                      (200, 45), (255, 255, 255), (0, 0, 0),
+                                      (200, 45), (0, 0, 0, 150), (255, 255, 255),
                                       lambda: self.set_language_and_close(3)))
 
     @staticmethod

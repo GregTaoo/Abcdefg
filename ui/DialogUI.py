@@ -34,9 +34,7 @@ class DialogUI(UI):
         for i, option in enumerate(options):
             self.add_button(ClassicButton(I18n.text(option['str']),
                                           (Config.SCREEN_WIDTH // 2 - 150, Config.SCREEN_HEIGHT // 2 + 10 + i * 50),
-                                          (300, 45), (0, 0, 0, 150), (255, 255, 255),
-                                          lambda index=i: self.next_dialog(index), (0, 0, 0, 150),
-                                          (0, 0, 0, 200), (255, 255, 255), border_radius=1))
+                                          (300, 45), on_click=lambda index=i: self.next_dialog(index), border_radius=1))
 
     def next_dialog(self, choice: int):
         nxt = self.dialogs.next(choice)

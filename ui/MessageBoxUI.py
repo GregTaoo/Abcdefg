@@ -14,8 +14,7 @@ class MessageBoxUI(UI):
         self.father_ui = father_ui
         self.add_button(ClassicButton(I18n.text('go_back'),
                                       (Config.SCREEN_WIDTH // 2 - 100, Config.SCREEN_HEIGHT // 2 + 50),
-                                      (200, 50), (255, 255, 255), (0, 0, 0),
-                                      lambda: Config.CLIENT.close_ui()))
+                                      (200, 50), on_click=lambda: Config.CLIENT.close_ui()))
 
     def render(self, screen: pygame.Surface):
         super().render(screen)

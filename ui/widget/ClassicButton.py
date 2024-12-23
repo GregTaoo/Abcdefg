@@ -5,9 +5,9 @@ from ui.widget.Button import Button
 
 
 class ClassicButton(Button):
-    def __init__(self, text, pos, size, bg_color=(255, 255, 255, 255), text_color=(0, 0, 0), on_click=lambda: None,
-                 border_color=(0, 0, 0, 255), hover_bg_color=(200, 200, 200, 255), hover_text_color=(0, 0, 0),
-                 inactive_bg_color=(100, 100, 100, 255), inactive_text_color=(50, 50, 50), border_radius=8):
+    def __init__(self, text, pos, size, bg_color=(0, 0, 0, 150), text_color=(255, 255, 255), on_click=lambda: None,
+                 border_color=(0, 0, 0, 150), hover_bg_color=(0, 0, 0, 200), hover_text_color=(255, 255, 255),
+                 inactive_bg_color=(0, 0, 0, 255), inactive_text_color=(50, 50, 50), border_radius=8):
         super().__init__(pos, size, on_click)
         self.text = text
         self.bg_color = bg_color

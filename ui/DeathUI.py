@@ -12,8 +12,7 @@ class DeathUI(UI):
     def __init__(self):
         super().__init__()
         self.add_button(ClassicButton(I18n.text('respawn'), (SCREEN_WIDTH // 2 - 100, SCREEN_HEIGHT // 2 + 50),
-                                      (200, 50), (255, 255, 255), (0, 0, 0),
-                                      lambda: Config.CLIENT.player_respawn()))
+                                      (200, 50), on_click=lambda: Config.CLIENT.player_respawn()))
 
     def tick(self, keys, events):
         super().tick(keys, events)

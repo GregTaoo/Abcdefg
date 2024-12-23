@@ -53,8 +53,13 @@
     "nether_player2_dia1": "我感谢你。",
     "nether_npc2_dia2": "接下来，你有两个选择，年轻人，遵从自己的内心，去做选择吧......",
     "nether_player2_dia2": "我好好思考一下......",
+    "nether_npc2_dia3": "做出自己的选择吧......",
     "nether_npc2_option1": "狂暴战刃",
     "nether_npc2_option2": "回响之杖",
+    "nether_npc2_dia_b1": "祝你好运",
+    "nether_player2_dia_b1": "谢谢",
+    "nether_npc2_dia_b2": "祝你好运",
+    "nether_player2_dia_b2": "谢谢",
 
     "nether_npc3_dia1": "欢迎来到狂暴商店",
     "nether_player3_dia1": "我感谢你。",
@@ -63,6 +68,8 @@
     "nether_player3_dia2_2": "这对吗？",
     "nether_npc3_dia3": "来吧，年轻人，这是你应得的",
     "nether_npc3_option1": "获得 狂暴战刃",
+    "nether_npc3_dia_b1": "祝你好运",
+    "nether_player3_dia_b1": "谢谢",
 
     "nether_npc4_dia1": "恭喜你来到杀戮的世界",
     "nether_player4_dia1": "你***吧",

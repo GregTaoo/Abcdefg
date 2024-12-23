@@ -61,10 +61,10 @@ class NetherNPC2(TraderNPC):
     def process_choice(self, player, choice):
         self.interact = False
         if choice == '1':
-            Config.CLIENT.dimension.set_block((2, 17), Block.WARPED_PLANKS)
+            Config.CLIENT.dimension.set_block((7, 11), Block.WARPED_PLANKS)
             return 'b1'
         elif choice == '2':
-            Config.CLIENT.dimension.set_block((3, 19), Block.WARPED_PLANKS)
+            Config.CLIENT.dimension.set_block((8, 10), Block.WARPED_PLANKS)
             return 'b2'
         else:
             return '!#'
@@ -97,6 +97,13 @@ class NetherNPC3(TraderNPC):
         if self.interact:
             Config.CLIENT.open_ui(DialogUI(self, Dialog('nether_npc3'),
                                            lambda msg: Config.CLIENT.open_ui(TradeUI(player, self))))
+
+    def process_choice(self, player, choice):
+        self.interact = False
+        if choice == '1':
+            return 'b1'
+        else:
+            return '!#'
 
 
 class NetherNPC4(TraderNPC):

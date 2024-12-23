@@ -31,8 +31,7 @@
     "hint_interact": "[F] 与{}互动",
     "hint_battle": "[B] 与{}战斗",
 
-    "nether_npc1_option1": "杀戮之眼",
-    "nether_npc1_option2": "守护之心",
+
     "nether_npc1_dia1": "年轻人，恭喜你通过了第一关！",
     "nether_player1_dia1": "我感谢你。",
     "nether_npc1_dia2": "接下来，摆在你面前的有两条路，一条走往杀戮，一条走往守护。",
@@ -43,6 +42,12 @@
     "nether_npc1_dia4": "我无法给你建议，但是请你想清楚，再做选择......",
     "nether_player1_dia4": "我要好好想想......",
     "nether_npc1_dia5": "做出自己的选择吧......",
+    "nether_npc1_option1": "杀戮之眼",
+    "nether_npc1_option2": "守护之心",
+    "nether_npc1_dia_b1": "祝你好运",
+    "nether_player1_dia_b1": "谢谢",
+    "nether_npc1_dia_b2": "祝你好运",
+    "nether_player1_dia_b2": "谢谢",
 
     "nether_npc2_dia1": "年轻人，这条路能净化你的内心！",
     "nether_player2_dia1": "我感谢你。",

@@ -58,6 +58,17 @@ class NetherNPC2(TraderNPC):
             Config.CLIENT.open_ui(DialogUI(self, Dialog('nether_npc2'),
                                            lambda msg: Config.CLIENT.open_ui(TradeUI(player, self))))
 
+    def process_choice(self, player, choice):
+        self.interact = False
+        if choice == '1':
+            Config.CLIENT.dimension.set_block((2, 17), Block.WARPED_PLANKS)
+            return 'b1'
+        elif choice == '2':
+            Config.CLIENT.dimension.set_block((3, 19), Block.WARPED_PLANKS)
+            return 'b2'
+        else:
+            return '!#'
+
 
 class NetherNPC3(TraderNPC):
 

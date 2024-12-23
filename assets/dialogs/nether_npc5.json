@@ -8,6 +8,10 @@
           "str": "nether_player5_dia1",
           "next": "2"
         }
+        {
+          "str": "nether_player5_dia1_2",
+          "next": "2"
+        }
       ]
     },
     "2": {
@@ -15,7 +19,25 @@
       "player": [
         {
           "str": "nether_player5_dia2",
-          "next": "!1"
+          "next": "3"
+        }
+      ]
+    },
+    "3": {
+      "npc": "nether_npc5_dia3",
+      "player": [
+        {
+          "str": "nether_player5_dia3",
+          "next": "4"
+        }
+      ]
+    },
+    "4": {
+      "npc": "nether_npc5_dia4",
+      "player": [
+        {
+          "str": "nether_player5_dia4",
+          "next": "!#"
         }
       ]
     }

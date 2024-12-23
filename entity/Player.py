@@ -49,5 +49,5 @@ class Player(Entity):
         return self.energy == 3
 
     def tick_second(self):
-        if self.fire_tick > 0:
+        if self.fire_tick > 0 and Config.CLIENT.current_ui is None:
             Config.SOUNDS['hit'].play()

@@ -61,6 +61,10 @@ class DialogUI(UI):
                                   Config.SCREEN_HEIGHT // 2 - 75))
         Config.CLIENT.player.render_at_absolute_pos(screen, (20, Config.SCREEN_HEIGHT - 70), False, False)
         self.npc.render_at_absolute_pos(screen, (Config.SCREEN_WIDTH - 70, 20), True, False)
+        if 'image' in self.dialogs.current:
+            img = self.dialogs.current['image']
+            img = pygame.transform.scale(img, (img.get_width() * 2, img.get_height() * 2))
+            screen.blit(img, (Config.SCREEN_WIDTH // 2 - img.get_width() // 2, 150))
 
     def tick(self, keys, events):
         super().tick(keys, events)

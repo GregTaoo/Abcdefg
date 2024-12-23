@@ -19,6 +19,11 @@ class ChatUI(UI):
         return 'AI: You said: ' + text
 
     def send_message(self, text):
+        if text.startswith('/tp'):
+            x, y = text.split(' ')[1:]
+            Config.CLIENT.player.x = int(x)
+            Config.CLIENT.player.y = int(y)
+            return
         response = self.get_response(text)
         Config.CLIENT.current_hud.messages.insert(0, ('You: ' + text, time.time()))
         Config.CLIENT.current_hud.messages.insert(0, (response, time.time()))

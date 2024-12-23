@@ -75,6 +75,7 @@ class Client:
         Config.FONT_BOLD.set_bold(True)
         Config.MIDDLE_FONT = pygame.font.Font("./assets/lang/simhei.ttf", 24)
         Config.LARGE_FONT = pygame.font.Font("./assets/lang/simhei.ttf", 32)
+        Config.HUGE_FONT = pygame.font.Font("./assets/lang/simhei.ttf", 48)
 
         nether_npc1 = entity.NetherNPC.NetherNPC1((2 * Config.BLOCK_SIZE + 5, 18 * Config.BLOCK_SIZE + 5))
         nether_npc1.mirror = True

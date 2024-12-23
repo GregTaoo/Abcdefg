@@ -20,7 +20,7 @@ from ui.StarterUI import StarterUI
 
 def main():
     pygame.init()
-    pygame.display.set_caption("Minecraft (FAKE)")
+    pygame.display.set_caption("Redemption")
     pygame.display.set_icon(Block.GRASS_BLOCK.renderer.image)
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
     clock = pygame.time.Clock()

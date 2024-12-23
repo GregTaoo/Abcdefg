@@ -133,6 +133,14 @@ class NetherNPC4(TraderNPC):
         if self.interact:
             Config.CLIENT.open_ui(DialogUI(self, Dialog('nether_npc4'),
                                            lambda msg: Config.CLIENT.open_ui(TradeUI(player, self))))
+    
+    def process_choice(self, player, choice):
+        self.interact = False
+        if choice == '1':
+            return 'b1'
+        else:
+            return '!#'
+
 
 
 class NetherNPC5(TraderNPC):
@@ -162,3 +170,11 @@ class NetherNPC5(TraderNPC):
         if self.interact:
             Config.CLIENT.open_ui(DialogUI(self, Dialog('nether_npc5'),
                                            lambda msg: Config.CLIENT.open_ui(TradeUI(player, self))))
+            
+    def process_choice(self, player, choice):
+        self.interact = False
+        if choice == '1':
+            return 'b1'
+        else:
+            return '!#'
+

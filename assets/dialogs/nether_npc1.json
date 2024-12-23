@@ -5,7 +5,7 @@
       "npc": "nether_npc1_dia1",
       "player": [
         {
-          "str": "nether_player_dia1",
+          "str": "nether_player1_dia1",
           "next": "2"
         }
       ]
@@ -14,7 +14,29 @@
       "npc": "nether_npc1_dia2",
       "player": [
         {
-          "str": "nether_player_dia2",
+          "str": "nether_player1_dia2",
+          "next": "3"
+        },
+        {
+          "str": "nether_player1_dia2_2",
+          "next": "4"
+        }
+      ]
+    },
+    "3": {
+      "npc": "nether_npc1_dia3",
+      "player": [
+        {
+          "str": "nether_player1_dia3",
+          "next": "!1"
+        }
+      ]
+    },
+    "4": {
+      "npc": "nether_npc1_dia4",
+      "player": [
+        {
+          "str": "nether_player1_dia4",
           "next": "!1"
         }
       ]

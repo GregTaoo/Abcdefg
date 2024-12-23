@@ -2,6 +2,7 @@ import pygame
 
 import Config
 import I18n
+from render import Renderer
 from ui.UI import UI
 from ui.widget.ClassicButton import ClassicButton
 from ui.widget.TradeButton import TradeButton
@@ -30,7 +31,13 @@ class TradeUI(UI):
 
     def render(self, screen: pygame.Surface):
         super().render(screen)
+        txt_surface = Config.FONT.render(f"{self.player.coins}", True, (255, 175, 45))
+        screen.blit(Config.COIN_IMAGE, (10, 10))
+        screen.blit(txt_surface, (35, 12))
+        Config.CLIENT.player.render_at_absolute_pos(screen, (20, Config.SCREEN_HEIGHT - 70), False, False)
+        self.npc.render_at_absolute_pos(screen, (Config.SCREEN_WIDTH - 70, 20), True, False)
 
     def tick(self, keys, events):
         super().tick(keys, events)
+        Renderer.PLAYER.tick()
         return True

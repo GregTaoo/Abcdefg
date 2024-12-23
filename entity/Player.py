@@ -1,28 +1,29 @@
 from typing import Tuple
 
-from render import Action
 import Config
 from Config import SCREEN_WIDTH, SCREEN_HEIGHT
 from entity.Entity import Entity
+from render import Action
+from render.Renderer import AnimationRenderer
 
 
 class Player(Entity):
 
-    def __init__(self, name: str, respawn_pos: Tuple[int, int], pos: Tuple[int, int], image):
-        super().__init__(name, pos, image, actions=[
+    def __init__(self, name: str, respawn_pos: Tuple[int, int], pos: Tuple[int, int],
+                 renderer: AnimationRenderer, size=None):
+        super().__init__(name, pos, renderer, actions=[
             Action.ATTACK_RIGHT, Action.ULTIMATE_RIGHT
-        ], crt=0.5)
+        ], crt=0.5, size=size)
         self.dialog_timer = 0
         self.respawn_pos = respawn_pos
         self.energy = 3
         self.souls = 1
         self.skill = 0
         # 0: NONE, 1: 天谴, 2: 吸血
+        Config.CLOCKS.append((90, self.tick_second))
 
     def get_camera(self):
         return self.x + self.size[0] // 2 - SCREEN_WIDTH // 2, self.y + self.size[1] // 2 - SCREEN_HEIGHT // 2
-        # return (max(0, min(limit[0] - SCREEN_WIDTH, self.x + self.size[0] // 2 - SCREEN_WIDTH // 2)),
-        #         max(0, min(limit[1] - SCREEN_HEIGHT, self.y + self.size[1] // 2 - SCREEN_HEIGHT // 2)))
         # 获得摄像头应该在的位置
 
     def respawn(self):
@@ -47,6 +48,6 @@ class Player(Entity):
     def ultimate_available(self):
         return self.energy == 3
 
-    def tick_second(self, dimension, player=None):
+    def tick_second(self):
         if self.fire_tick > 0:
             Config.SOUNDS['hit'].play()

@@ -13,21 +13,22 @@ import Client
 from Config import SCREEN_WIDTH, SCREEN_HEIGHT, MAP_WIDTH, MAP_HEIGHT, BLOCK_SIZE
 from entity.Entity import Monster
 from entity.Player import Player
+from render import Renderer
+from render.Renderer import ImageRenderer
 from ui.StarterUI import StarterUI
 
 
 def main():
     pygame.init()
     pygame.display.set_caption("Minecraft (FAKE)")
-    pygame.display.set_icon(Block.GRASS_BLOCK.image)
+    pygame.display.set_icon(Block.GRASS_BLOCK.renderer.image)
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
     clock = pygame.time.Clock()
 
     pygame.mixer.init()
 
     I18n.set_language(0)
-    player = Player(I18n.text('player_name'), (600, 600), (600, 600),
-                    pygame.transform.scale(pygame.image.load("assets/player.png"), (50, 50)))
+    player = Player(I18n.text('player_name'), (600, 600), (600, 600), Renderer.PLAYER, size=(50, 50))
 
     Config.CLIENT = Client.Client(screen, clock, player, 'the_world')
     Config.CLIENT.open_ui(StarterUI())
@@ -40,7 +41,7 @@ def main():
         Config.CLIENT.spawn_entity(
             Monster(I18n.text('zombie'), (random.randint(0, MAP_WIDTH * BLOCK_SIZE),
                                           random.randint(0, MAP_HEIGHT * BLOCK_SIZE)),
-                    pygame.transform.scale(pygame.image.load("assets/zombie.png"), (50, 50)), coins=10)
+                    ImageRenderer(pygame.transform.scale(pygame.image.load("assets/zombie.png"), (50, 50))), coins=10)
         )
 
     while True:

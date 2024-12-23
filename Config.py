@@ -13,5 +13,4 @@ FONT_BOLD = None
 MIDDLE_FONT = None
 LARGE_FONT = None
 SOUNDS = {}
-
-MSPT = 0
+CLOCKS = []

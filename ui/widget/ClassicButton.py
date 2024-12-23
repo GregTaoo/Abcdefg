@@ -5,9 +5,9 @@ from ui.widget.Button import Button
 
 
 class ClassicButton(Button):
-    def __init__(self, text, pos, size, bg_color=(255, 255, 255), text_color=(0, 0, 0), on_click=lambda: None,
-                 border_color=(0, 0, 0), hover_bg_color=(200, 200, 200), hover_text_color=(0, 0, 0),
-                 inactive_bg_color=(100, 100, 100), inactive_text_color=(50, 50, 50)):
+    def __init__(self, text, pos, size, bg_color=(255, 255, 255, 255), text_color=(0, 0, 0), on_click=lambda: None,
+                 border_color=(0, 0, 0, 255), hover_bg_color=(200, 200, 200, 255), hover_text_color=(0, 0, 0),
+                 inactive_bg_color=(100, 100, 100, 255), inactive_text_color=(50, 50, 50), border_radius=8):
         super().__init__(pos, size, on_click)
         self.text = text
         self.bg_color = bg_color
@@ -17,6 +17,7 @@ class ClassicButton(Button):
         self.hover_text_color = hover_text_color
         self.inactive_bg_color = inactive_bg_color
         self.inactive_text_color = inactive_text_color
+        self.border_radius = border_radius
 
     def render(self, screen):
         if not self.active:
@@ -28,8 +29,12 @@ class ClassicButton(Button):
         else:
             bg_color = self.bg_color
             text_color = self.text_color
-        pygame.draw.rect(screen, bg_color, self.rect, border_radius=8)
-        pygame.draw.rect(screen, self.border_color, self.rect, width=1, border_radius=8)
+
+        button_surface = pygame.Surface(self.rect.size, pygame.SRCALPHA)
+        pygame.draw.rect(button_surface, bg_color, button_surface.get_rect(), border_radius=self.border_radius)
+        pygame.draw.rect(button_surface, self.border_color, button_surface.get_rect(), width=1,
+                         border_radius=self.border_radius)
+        screen.blit(button_surface, self.rect.topleft)
         self.render_text(screen, text_color)
 
     def render_text(self, screen, text_color):

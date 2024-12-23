@@ -3,12 +3,12 @@ import random
 import pygame
 
 import entity.NetherNPC
-from render import Animation
 import I18n
 import Config
 import Block
 from Config import MAP_WIDTH, MAP_HEIGHT, SCREEN_WIDTH, SCREEN_HEIGHT
 from Dimension import Dimension
+from render import Renderer
 from ui.ChatUI import ChatUI
 from ui.DeathUI import DeathUI
 from ui.MainHud import MainHud
@@ -108,6 +108,17 @@ class Client:
         self.set_dimension(Config.WORLDS[dimension])
         self.camera = self.player.get_camera()
 
+        Config.CLOCKS.append((15, self.update_hint))
+
+    def update_hint(self):
+        nearest = self.dimension.nearest_entity(self.player.get_pos())
+        if nearest.is_nearby(self.player):
+            self.current_hud.display_hint = True
+            self.current_hud.target_entity = nearest
+        else:
+            self.current_hud.display_hint = False
+            self.current_hud.target_entity = None
+
     @staticmethod
     def change_music(music):
         pygame.mixer.music.load(music)
@@ -147,22 +158,29 @@ class Client:
         self.player.respawn()
         self.close_ui()
 
-    def tick_second(self):
-        self.player.tick_second(self.dimension, self.player)
-        for i in self.dimension.entities:
-            i.tick_second(self.dimension, self.player)
-
-    def tick(self, events):
-        # 务必先渲染背景
-        self.screen.fill((50, 50, 50))
-        self.dimension.render(self.screen, self.camera)
+    def render_entities(self):
         for i in self.dimension.entities:
             if (self.camera[0] - i.size[0] <= i.x <= self.camera[0] + SCREEN_WIDTH and
                     self.camera[1] - i.size[1] <= i.y <= self.camera[1] + SCREEN_HEIGHT):
                 i.render(self.screen, self.camera)
         self.player.render(self.screen, self.camera)
 
+    def tick(self, events):
+        # 务必先渲染背景
+        self.screen.fill((50, 50, 50))
+        self.dimension.render(self.screen, self.camera)
+
         if self.current_ui is None:
+            for i in Renderer.ANIMATIONS:
+                i.tick()
+            self.player.tick(self.dimension)
+            for i in self.dimension.entities:
+                if i.hp <= 0:
+                    self.dimension.entities.remove(i)
+                    del i
+                else:
+                    i.tick(self.dimension, self.player)
+
             # 玩家移动
             keys = pygame.key.get_pressed()
             if keys[pygame.K_SLASH]:
@@ -189,15 +207,6 @@ class Client:
             #             dimension.get_block_from_pos((player.x + 50 - k, player.y + k)) == Block.LAVA):
             #         player.hp -= 1 / 90
             # player.hp = max(0, player.hp)
-            self.player.tick(self.dimension)
-            for i in Animation.ANIMATIONS:
-                i.tick()
-            for i in self.dimension.entities:
-                if i.hp <= 0:
-                    self.dimension.entities.remove(i)
-                    del i
-                else:
-                    i.tick(self.dimension, self.player)
 
             # 更新摄像机位置
             self.camera = self.player.get_camera()
@@ -206,13 +215,17 @@ class Client:
                 Config.SOUNDS['player_death'].play()
                 self.open_death_ui()
 
-            self.tick_counter = (self.tick_counter + 1) % 90
-            if self.tick_counter == 0:
-                self.tick_second()
+            self.render_entities()
 
             self.current_hud.tick(keys, events)
             self.current_hud.render(self.screen)
         else:
+            self.render_entities()
             self.current_ui.render(self.screen)
             if not self.current_ui.tick(pygame.key.get_pressed(), events):
                 self.close_ui()
+
+        self.tick_counter += 1
+        for ticks, method in Config.CLOCKS:
+            if self.tick_counter % ticks == 0:
+                method()

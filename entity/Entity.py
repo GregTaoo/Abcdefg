@@ -4,7 +4,7 @@ from typing import Tuple
 import pygame
 from pygame import Rect
 
-from render import Action, Animation
+from render import Action, Renderer
 import Config
 from Config import BLOCK_SIZE, INTERACTION_DISTANCE
 from ui.BattleUI import BattleUI
@@ -22,19 +22,22 @@ def render_dialog_at_absolute_pos(text, screen, pos, font: pygame.font):
 
 class Entity:
 
-    def __init__(self, name: str, pos: Tuple[int, int], image: pygame.Surface, actions=None, atk=1.0, crt=0.0,
-                 coins=0, max_hp=100):
+    def __init__(self, name: str, pos: Tuple[int, int], renderer: Renderer, actions=None, atk=1.0, crt=0.0,
+                 coins=0, max_hp=100, size=None):
         self.name = name
         self.x, self.y = pos
-        self.image, self.image_mirrored = image, pygame.transform.flip(image, True, False)
-        self.size = image.get_size()
+        self.renderer = renderer
+        self.size = size or renderer.get_size()
         self.mirror = False
         self.hp = self.max_hp = max_hp
         self.fire_tick = 0
         self.atk = atk
         self.crt = crt
+        self.moving = False
         self.crt_damage = 2.0
         self.coins = coins
+        self.interact = False
+        self.battle = True
         self.actions = actions if actions is not None else [Action.ATTACK_LEFT]
 
     def damage(self, damage):
@@ -47,6 +50,7 @@ class Entity:
         if not (1 <= direction <= 4):
             return
 
+        self.moving = True
         # 获取移动方向的左右两格方块，并判断碰撞箱，如果该方块被标记为障碍物则无法通过
         block_x, block_y = dimension.get_block_index((self.x, self.y))
         block2_x, block2_y = block_x, block_y
@@ -91,6 +95,7 @@ class Entity:
                 self.y += block_y * BLOCK_SIZE - self.y + BLOCK_SIZE
 
     def tick(self, dimension, player=None):
+        self.moving = False
         for i in {dimension.get_block_index(self.get_left_top_pos()),
                   dimension.get_block_index(self.get_left_bottom_pos()),
                   dimension.get_block_index(self.get_right_top_pos()),
@@ -102,9 +107,6 @@ class Entity:
             self.fire_tick -= 1
             self.damage(1 / 12)
 
-    def tick_second(self, dimension, player=None):
-        pass
-
     def respawn_at_pos(self, pos: Tuple[int, int]):
         self.x, self.y = pos
         self.hp = self.max_hp
@@ -114,9 +116,7 @@ class Entity:
         return self.x, self.y
 
     def get_rect(self):
-        rect = self.image.get_rect()
-        rect.x, rect.y = self.x, self.y
-        return rect
+        return pygame.Rect(self.x, self.y, self.size[0], self.size[1])
 
     def get_left_top_pos(self):
         return self.x, self.y
@@ -134,14 +134,15 @@ class Entity:
         return abs(self.x - entity.x) + abs(self.y - entity.y) < distance * BLOCK_SIZE
 
     def render(self, screen: pygame.Surface, camera: Tuple[int, int]):
-        screen.blit(self.image_mirrored if self.mirror else self.image, (self.x - camera[0], self.y - camera[1]))
+        self.renderer.render(screen, (self.x - camera[0], self.y - camera[1]), self.mirror, not self.moving)
         if self.fire_tick > 0:
-            Animation.FIRE.render(screen, (self.x - camera[0], self.y - camera[1]))
+            Renderer.FIRE.render(screen, (self.x - camera[0], self.y - camera[1]))
         self.render_hp_bar(screen, (self.x - camera[0], self.y - camera[1] - 10), Config.FONT)
 
-    def render_at_absolute_pos(self, screen: pygame.Surface, pos: Tuple[int, int], use_mirror=False):
-        screen.blit(self.image_mirrored if use_mirror else self.image, pos)
-        self.render_hp_bar(screen, (pos[0], pos[1] - 10), Config.FONT)
+    def render_at_absolute_pos(self, screen: pygame.Surface, pos: Tuple[int, int], use_mirror=False, hp_bar=True):
+        self.renderer.render(screen, pos, use_mirror, True)
+        if hp_bar:
+            self.render_hp_bar(screen, (pos[0], pos[1] - 10), Config.FONT)
 
     def render_hp_bar(self, screen: pygame.Surface, pos: Tuple[int, int], font=None):
         bar_width, bar_height = self.size[0], 5
@@ -161,6 +162,12 @@ class Entity:
 
     def on_battle(self, player):
         Config.CLIENT.open_ui(BattleUI(player, self))
+
+    def can_interact(self):
+        return self.interact
+
+    def can_battle(self):
+        return self.battle
 
 
 class Monster(Entity):

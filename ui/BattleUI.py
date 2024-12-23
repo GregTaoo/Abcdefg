@@ -4,7 +4,7 @@ import pygame
 
 import Config
 from entity import Entity
-from render import Particle, Action
+from render import Particle, Action, Renderer
 import I18n
 from ui.UI import UI
 from ui.BattleSuccessUI import BattleSuccessUI
@@ -107,6 +107,7 @@ class BattleUI(UI):
 
     def tick(self, keys, events):
         super().tick(keys, events)
+        Renderer.PLAYER.tick()
         if self.playing_action is None or (self.action is not None and self.action.is_end()):
             if self.player.hp <= 0:
                 Config.CLIENT.close_ui()

@@ -4,6 +4,7 @@ import pygame
 
 import Config
 import I18n
+from render import Renderer
 from ui.BattleUI import BattleUI
 from ui.TradeUI import TradeUI
 from entity import Entity
@@ -11,10 +12,12 @@ from entity import Entity
 
 class NPC(Entity.Entity):
 
-    def __init__(self, name: str, pos: Tuple[int, int], image):
-        super().__init__(name, pos, image)
+    def __init__(self, name: str, pos: Tuple[int, int], renderer: Renderer):
+        super().__init__(name, pos, renderer)
         self.dialog_timer = 0
         self.hp = self.max_hp = 1145141919810
+        self.battle = False
+        self.interact = True
 
     def dialog(self):
         return I18n.text('npc_dialog').format(self.name)
@@ -44,8 +47,8 @@ class NPC(Entity.Entity):
 
 class TraderNPC(NPC):
 
-    def __init__(self, name: str, pos: Tuple[int, int], image, trade_list=None):
-        super().__init__(name, pos, image)
+    def __init__(self, name: str, pos: Tuple[int, int], renderer: Renderer, trade_list=None):
+        super().__init__(name, pos, renderer)
         self.trade_list = trade_list if trade_list is not None else []
 
     def on_interact(self, player):
@@ -55,20 +58,19 @@ class TraderNPC(NPC):
 class VillagerNPC(TraderNPC):
 
     def __init__(self, pos):
-        super().__init__(I18n.text('villager'), pos, pygame.transform.scale(pygame.image.load("./assets/villager.png"),
-                                                                            (50, 50)),
+        super().__init__(I18n.text('villager'), pos, Renderer.image_renderer('villager.png', (50, 50)),
                          trade_list=[
                              TradeOption(I18n.literal("购买"), 10, lambda player, npc, opt: print("购买")),
                              TradeOption(I18n.literal("购买1"), 10, lambda player, npc, opt: print("购买1")),
                              TradeOption(I18n.literal("购买2"), 10, lambda player, npc, opt: print("购买2")),
                          ])
-        self.hp = 1145141919810
+        self.battle = True
 
     def on_battle(self, player):
         for trade in self.trade_list:
             trade.price *= 2
         iron_golem = Entity.Entity(I18n.text('iron_golem'), self.get_right_bottom_pos(),
-                                   pygame.transform.scale(pygame.image.load("./assets/iron_golem.png"), (50, 50)),
+                                   Renderer.image_renderer('iron_golem.png', (50, 50)),
                                    atk=8)
         Config.CLIENT.spawn_entity(iron_golem)
         Config.CLIENT.open_ui(BattleUI(player, iron_golem))
@@ -77,14 +79,12 @@ class VillagerNPC(TraderNPC):
 class MedicineTraderNPC(TraderNPC):
 
     def __init__(self, pos):
-        super().__init__(I18n.text('witch'), pos,
-                         pygame.transform.scale(pygame.image.load("./assets/witch.png"), (50, 50)),
+        super().__init__(I18n.text('witch'), pos, Renderer.image_renderer('witch.png', (50, 50)),
                          trade_list=[
                              TradeOption(I18n.literal("锻炼"), 10, self.buy_1),
                              TradeOption(I18n.literal("健身"), 10, self.buy_2),
                              TradeOption(I18n.literal("购买2"), 10, lambda player, npc, opt: print("购买2")),
                          ])
-        self.hp = 1145141919810
 
     @staticmethod
     def buy_1(player, npc, opt):
@@ -106,14 +106,12 @@ class MedicineTraderNPC(TraderNPC):
 class WeaponTraderNPC(TraderNPC):
 
     def __init__(self, pos):
-        super().__init__(I18n.text('weapon_trader'), pos,
-                         pygame.transform.scale(pygame.image.load("./assets/weapon_trader.png"), (50, 50)),
+        super().__init__(I18n.text('weapon_trader'), pos, Renderer.image_renderer('weapon_trader.png', (50, 50)),
                          trade_list=[
                              TradeOption(I18n.text('charged_fist'), 10, self.buy_1),
                              TradeOption(I18n.text('iron_sword'), 10, self.buy_2),
                              TradeOption(I18n.literal("购买2"), 10, lambda player, npc, opt: print("购买2")),
                          ])
-        self.hp = 1145141919810
 
     @staticmethod
     def buy_1(player, npc, opt):

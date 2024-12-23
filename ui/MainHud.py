@@ -17,6 +17,8 @@ class MainHud(Hud):
         self.add_button(ImageButton(Config.LANGUAGE_IMAGE, (10, Config.SCREEN_HEIGHT - 30),
                                     lambda: Config.CLIENT.open_ui(SelectLanguageUI())))
         self.messages = []
+        self.display_hint = False
+        self.target_entity = None
 
     def render(self, screen: pygame.Surface):
         super().render(screen)
@@ -52,3 +54,18 @@ class MainHud(Hud):
                 if y_offset < Config.SCREEN_HEIGHT - max_height:
                     return
                 screen.blit(txt_surface, (10, y_offset))
+
+        if self.display_hint:
+            y = Config.SCREEN_HEIGHT // 2 - 8 if self.target_entity.can_interact() ^ self.target_entity.can_battle()\
+                else Config.SCREEN_HEIGHT // 2 - 25
+            if self.target_entity.can_interact():
+                txt_surface = Config.FONT.render(I18n.text('hint_interact').format(self.target_entity.name),
+                                                 True, (150, 255, 150))
+                screen.blit(txt_surface,
+                            (Config.SCREEN_WIDTH - txt_surface.get_width(), y))
+                y += 25
+            if self.target_entity.can_battle():
+                txt_surface = Config.FONT.render(I18n.text('hint_battle').format(self.target_entity.name),
+                                                 True, (150, 255, 150))
+                screen.blit(txt_surface,
+                            (Config.SCREEN_WIDTH - txt_surface.get_width(), y))

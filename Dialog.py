@@ -4,7 +4,7 @@ import json
 class Dialog:
 
     def __init__(self, filename: str):
-        self.filename = filename
+        self.filename = './assets/dialogs/' + filename + '.json'
         self.dialogs = {}
         self.current = None
         self.load()

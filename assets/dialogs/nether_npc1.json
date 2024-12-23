@@ -28,7 +28,7 @@
       "player": [
         {
           "str": "nether_player1_dia3",
-          "next": "!1"
+          "next": "5"
         }
       ]
     },
@@ -37,7 +37,38 @@
       "player": [
         {
           "str": "nether_player1_dia4",
+          "next": "5"
+        }
+      ]
+    },
+    "5": {
+      "npc": "nether_npc1_dia5",
+      "player": [
+        {
+          "str": "nether_npc1_option1",
           "next": "!1"
+        },
+        {
+          "str": "nether_npc1_option2",
+          "next": "!2"
+        }
+      ]
+    },
+    "b1": {
+      "npc": "nether_npc1_dia_b1",
+      "player": [
+        {
+          "str": "nether_player1_dia_b1",
+          "next": "!#"
+        }
+      ]
+    },
+    "b2": {
+      "npc": "nether_npc1_dia_b2",
+      "player": [
+        {
+          "str": "nether_player1_dia_b2",
+          "next": "!#"
         }
       ]
     }

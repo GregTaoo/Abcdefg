@@ -22,7 +22,7 @@ class DialogUI(UI):
         Config.CLOCKS.append((10, self.typer_animate))
 
     def on_close(self):
-        Config.CLOCKS.remove((15, self.typer_animate))
+        Config.CLOCKS.remove((10, self.typer_animate))
         super().on_close()
 
     def typer_animate(self):
@@ -39,15 +39,23 @@ class DialogUI(UI):
     def next_dialog(self, choice: int):
         nxt = self.dialogs.next(choice)
         if isinstance(nxt, str):
-            self.after_dialog(nxt)
-            return
+            s = self.after_dialog(nxt)
+            if s[0] == '!':
+                Config.CLIENT.close_ui()
+                return
+            else:
+                nxt = self.dialogs.current = self.dialogs.dialogs[s]
         self.options = nxt['player']
         self.buttons.clear()
         self.npc_text = I18n.text(self.dialogs.current['npc']).get()
         self.typing_index = 1
 
     def render(self, screen: pygame.Surface):
-        super().render(screen)
+        dark_overlay = pygame.Surface((Config.SCREEN_WIDTH, Config.SCREEN_HEIGHT - 200), pygame.SRCALPHA)
+        dark_overlay.fill((0, 0, 0, 200), (0, 0, Config.SCREEN_WIDTH, Config.SCREEN_HEIGHT - 200))
+        screen.blit(dark_overlay, (0, 100))
+        for button in self.buttons:
+            button.render(screen)
         txt_surface = Config.FONT.render(self.npc_text[:self.typing_index], True, (255, 255, 255))
         screen.blit(txt_surface, (Config.SCREEN_WIDTH // 2 - txt_surface.get_width() // 2,
                                   Config.SCREEN_HEIGHT // 2 - 75))

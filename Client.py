@@ -113,7 +113,7 @@ class Client:
 
     def update_hint(self):
         nearest = self.dimension.nearest_entity(self.player.get_pos())
-        if nearest.is_nearby(self.player):
+        if nearest is not None and nearest.is_nearby(self.player):
             self.current_hud.display_hint = True
             self.current_hud.target_entity = nearest
         else:
@@ -196,7 +196,7 @@ class Client:
                 self.player.move(1, self.dimension)
             if keys[pygame.K_f] or keys[pygame.K_b]:
                 nearest = self.dimension.nearest_entity(self.player.get_pos())
-                if nearest.is_nearby(self.player):
+                if nearest is not None and nearest.is_nearby(self.player):
                     if keys[pygame.K_f]:
                         nearest.on_interact(self.player)
                     if keys[pygame.K_b]:

@@ -65,5 +65,7 @@ class Dimension:
         # 根据方块坐标获得方块
 
     def nearest_entity(self, pos: Tuple[int, int]):
+        if len(self.entities) == 0:
+            return None
         return min(self.entities, key=lambda e: abs(e.x - pos[0]) + abs(e.y - pos[1]))
 

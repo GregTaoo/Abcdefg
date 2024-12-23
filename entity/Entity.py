@@ -7,7 +7,7 @@ from pygame import Rect
 from render import Action, Animation
 import Config
 from Config import BLOCK_SIZE, INTERACTION_DISTANCE
-from UI.BattleUI import BattleUI
+from ui.BattleUI import BattleUI
 
 
 def render_dialog_at_absolute_pos(text, screen, pos, font: pygame.font):

@@ -1,6 +1,6 @@
 import pygame
 
-from UI.widget.Button import Button
+from ui.widget.Button import Button
 
 
 class ImageButton(Button):

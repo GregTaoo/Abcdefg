@@ -1,6 +1,5 @@
 import random
 import sys
-import time
 
 import pygame
 
@@ -14,7 +13,7 @@ import Client
 from Config import SCREEN_WIDTH, SCREEN_HEIGHT, MAP_WIDTH, MAP_HEIGHT, BLOCK_SIZE
 from entity.Entity import Monster
 from entity.Player import Player
-from UI.SelectLanguageUI import SelectLanguageUI
+from ui.StarterUI import StarterUI
 
 
 def main():
@@ -31,7 +30,7 @@ def main():
                     pygame.transform.scale(pygame.image.load("assets/player.png"), (50, 50)))
 
     Config.CLIENT = Client.Client(screen, clock, player, 'the_world')
-    Config.CLIENT.open_ui(SelectLanguageUI())
+    Config.CLIENT.open_ui(StarterUI())
 
     Config.CLIENT.spawn_entity(VillagerNPC((300, 300)))
     Config.CLIENT.spawn_entity(MedicineTraderNPC((200, 200)))

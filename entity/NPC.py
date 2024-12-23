@@ -4,8 +4,8 @@ import pygame
 
 import Config
 import I18n
-from UI.BattleUI import BattleUI
-from UI.TradeUI import TradeUI
+from ui.BattleUI import BattleUI
+from ui.TradeUI import TradeUI
 from entity import Entity
 
 

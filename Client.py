@@ -9,10 +9,10 @@ import Config
 import Block
 from Config import MAP_WIDTH, MAP_HEIGHT, SCREEN_WIDTH, SCREEN_HEIGHT
 from Dimension import Dimension
-from UI.ChatUI import ChatUI
-from UI.DeathUI import DeathUI
-from UI.MainHud import MainHud
-from UI.MessageBoxUI import MessageBoxUI
+from ui.ChatUI import ChatUI
+from ui.DeathUI import DeathUI
+from ui.MainHud import MainHud
+from ui.MessageBoxUI import MessageBoxUI
 
 
 def generate_the_world():

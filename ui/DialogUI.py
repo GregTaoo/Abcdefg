@@ -3,8 +3,8 @@ import pygame
 import I18n
 import Config
 from Dialog import Dialog
-from UI.UI import UI
-from UI.widget.ClassicButton import ClassicButton
+from ui.UI import UI
+from ui.widget.ClassicButton import ClassicButton
 
 
 class DialogUI(UI):

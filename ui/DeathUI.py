@@ -2,8 +2,8 @@ import pygame
 
 import Config
 import I18n
-from UI.UI import UI
-from UI.widget.ClassicButton import ClassicButton
+from ui.UI import UI
+from ui.widget.ClassicButton import ClassicButton
 from Config import SCREEN_WIDTH, SCREEN_HEIGHT
 
 

@@ -3,7 +3,7 @@ import time
 import pygame
 
 import Config
-from UI.UI import UI
+from ui.UI import UI
 
 
 class ChatUI(UI):

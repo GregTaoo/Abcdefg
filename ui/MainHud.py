@@ -4,9 +4,9 @@ import pygame
 
 import Config
 import I18n
-from UI.Hud import Hud
-from UI.SelectLanguageUI import SelectLanguageUI
-from UI.widget.ImageButton import ImageButton
+from ui.Hud import Hud
+from ui.SelectLanguageUI import SelectLanguageUI
+from ui.widget.ImageButton import ImageButton
 
 
 class MainHud(Hud):

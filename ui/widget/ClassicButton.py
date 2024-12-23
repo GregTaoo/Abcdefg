@@ -1,7 +1,7 @@
 import pygame
 
 import Config
-from UI.widget.Button import Button
+from ui.widget.Button import Button
 
 
 class ClassicButton(Button):

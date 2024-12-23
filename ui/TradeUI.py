@@ -2,9 +2,9 @@ import pygame
 
 import Config
 import I18n
-from UI.UI import UI
-from UI.widget.ClassicButton import ClassicButton
-from UI.widget.TradeButton import TradeButton
+from ui.UI import UI
+from ui.widget.ClassicButton import ClassicButton
+from ui.widget.TradeButton import TradeButton
 
 
 class TradeUI(UI):

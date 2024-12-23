@@ -6,9 +6,9 @@ import Config
 from entity import Entity
 from render import Particle, Action
 import I18n
-from UI.UI import UI
-from UI.BattleSuccessUI import BattleSuccessUI
-from UI.widget.ClassicButton import ClassicButton
+from ui.UI import UI
+from ui.BattleSuccessUI import BattleSuccessUI
+from ui.widget.ClassicButton import ClassicButton
 
 
 class BattleUI(UI):

@@ -1,5 +1,5 @@
 import Config
-from UI.widget.ClassicButton import ClassicButton
+from ui.widget.ClassicButton import ClassicButton
 
 
 class TradeButton(ClassicButton):

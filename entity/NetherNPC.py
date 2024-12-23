@@ -4,8 +4,8 @@ import Block
 import Config
 import I18n
 from Dialog import Dialog
-from UI.DialogUI import DialogUI
-from UI.TradeUI import TradeUI
+from ui.DialogUI import DialogUI
+from ui.TradeUI import TradeUI
 from entity.NPC import TraderNPC, TradeOption
 
 

@@ -16,6 +16,7 @@ class StarterUI(UI):
         self.splash = 'NULL'
         with open('./assets/lang/splashes.txt', 'r') as f:
             self.splash = random.choice(f.readlines()).strip()
+        self.title = pygame.image.load('./assets/title.png')
         self.rendered_splash = pygame.transform.rotate(Config.MIDDLE_FONT.render(self.splash, True, (255, 255, 0)), -30)
         self.tick_cnt = 0
 
@@ -33,13 +34,11 @@ class StarterUI(UI):
                                           True, (255, 255, 255))
         screen.blit(text_surface,
                     ((Config.SCREEN_WIDTH - text_surface.get_width()) // 2, Config.SCREEN_HEIGHT // 2 + 150))
-        text_surface = Config.HUGE_FONT.render(I18n.literal('Redemption').get(), True, (255, 255, 255))
-        screen.blit(text_surface,
-                    ((Config.SCREEN_WIDTH - text_surface.get_width()) // 2, Config.SCREEN_HEIGHT // 2 - 100))
-        scale_factor = 0.75 + 0.25 * math.sin(self.tick_cnt / 45 * math.pi)
+        screen.blit(self.title, (Config.SCREEN_WIDTH // 2 - self.title.get_width() // 2, 200))
+        scale_factor = 0.875 + 0.125 * math.sin(self.tick_cnt / 45 * math.pi)
         scaled_splash = pygame.transform.scale(self.rendered_splash,
                                                (int(self.rendered_splash.get_width() * scale_factor),
                                                 int(self.rendered_splash.get_height() * scale_factor)))
         screen.blit(scaled_splash,
-                    ((Config.SCREEN_WIDTH + text_surface.get_width()) // 2 - scaled_splash.get_width() // 2,
+                    ((Config.SCREEN_WIDTH + self.title.get_width()) // 2 - scaled_splash.get_width() // 2,
                      210 - scaled_splash.get_height() // 2))

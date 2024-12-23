@@ -17,15 +17,22 @@ class TradeUI(UI):
         self.npc = npc
         cnt = 0
         for option in npc.trade_list:
-            self.add_button(TradeButton(option.name, (Config.SCREEN_WIDTH // 2 - 50, 50 + cnt * 70), (100, 50),
-                                        option, on_click=lambda opt=option: self.handle_trade(opt)))
+            button = TradeButton(option.name, (Config.SCREEN_WIDTH // 2 - 50, 50 + cnt * 70), (100, 50),
+                                 option, on_click=lambda opt=option: self.handle_trade(opt))
+            if player.coins < option.price:
+                button.active = False
+            self.add_button(button)
             cnt += 1
         self.add_button(ClassicButton(I18n.text('go_back'),
                                       (Config.SCREEN_WIDTH // 2 - 50, Config.SCREEN_HEIGHT // 2 + 10),
                                       (100, 50), on_click=Config.CLIENT.close_ui))
 
     def handle_trade(self, option):
-        return option.on_trade(self.player, self.npc, option)
+        ret = option.on_trade(self.player, self.npc, option)
+        for button in self.buttons:
+            if isinstance(button, TradeButton):
+                button.active = self.player.coins >= button.trade_option.price
+        return ret
 
     def render(self, screen: pygame.Surface):
         super().render(screen)

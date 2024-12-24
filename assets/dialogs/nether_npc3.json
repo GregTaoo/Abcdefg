@@ -25,6 +25,28 @@
     },
     "3": {
       "npc": "nether_npc3_dia3",
+      "image": "./assets/shaanxi.png",
+      "player": [
+        {
+          "str": "nether_player3_dia3",
+          "next": "b1"
+        },
+        {
+          "str": "nether_player3_dia3_2",
+          "next": "4"
+        },
+        {
+          "str": "nether_player3_dia3_3",
+          "next": "b1"
+        },
+        {
+          "str": "nether_player3_dia3_4",
+          "next": "b1"
+        }
+      ]
+    },
+    "4": {
+      "npc": "nether_npc3_dia4",
       "player": [
         {
           "str": "nether_npc3_option1",

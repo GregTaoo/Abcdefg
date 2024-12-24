@@ -51,9 +51,9 @@ class DialogUI(UI):
         self.typing_index = 1
 
     def render(self, screen: pygame.Surface):
-        dark_overlay = pygame.Surface((Config.SCREEN_WIDTH, Config.SCREEN_HEIGHT - 200), pygame.SRCALPHA)
-        dark_overlay.fill((0, 0, 0, 200), (0, 0, Config.SCREEN_WIDTH, Config.SCREEN_HEIGHT - 200))
-        screen.blit(dark_overlay, (0, 100))
+        dark_overlay = pygame.Surface((Config.SCREEN_WIDTH, Config.SCREEN_HEIGHT - 140), pygame.SRCALPHA)
+        dark_overlay.fill((0, 0, 0, 200), (0, 0, Config.SCREEN_WIDTH, Config.SCREEN_HEIGHT - 140))
+        screen.blit(dark_overlay, (0, 70))
         for button in self.buttons:
             button.render(screen)
         txt_surface = Config.FONT.render(self.npc_text[:self.typing_index], True, (255, 255, 255))
@@ -62,9 +62,9 @@ class DialogUI(UI):
         Config.CLIENT.player.render_at_absolute_pos(screen, (20, Config.SCREEN_HEIGHT - 70), False, False)
         self.npc.render_at_absolute_pos(screen, (Config.SCREEN_WIDTH - 70, 20), True, False)
         if 'image' in self.dialogs.current:
-            img = self.dialogs.current['image']
-            img = pygame.transform.scale(img, (img.get_width() * 2, img.get_height() * 2))
-            screen.blit(img, (Config.SCREEN_WIDTH // 2 - img.get_width() // 2, 150))
+            img = pygame.image.load(self.dialogs.current['image'])
+            img = pygame.transform.scale(img, (Config.SCREEN_WIDTH // 4, Config.SCREEN_HEIGHT // 2))
+            screen.blit(img, (10, 150))
 
     def tick(self, keys, events):
         super().tick(keys, events)

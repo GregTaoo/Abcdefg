@@ -17,6 +17,12 @@ class ChatUI(UI):
         self.text = ''
         self.bg_color = (50, 50, 50)
         self.text_color = (255, 255, 255)
+        pygame.key.start_text_input()
+        pygame.key.set_text_input_rect(self.input_rect)
+
+    def on_close(self):
+        pygame.key.stop_text_input()
+        super().on_close()
 
     @staticmethod
     def get_response(text):
@@ -45,15 +51,14 @@ class ChatUI(UI):
         for event in events:
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_RETURN:
-                    print(self.text)
                     self.send_message(self.text)
                     self.text = ''
                 elif event.key == pygame.K_BACKSPACE:
                     self.text = self.text[:-1]
                 elif event.key == pygame.K_ESCAPE:
                     return False
-                else:
-                    self.text += event.unicode
+            if event.type == pygame.TEXTINPUT:
+                self.text += event.text
         return True
 
     def render(self, screen: pygame.Surface):
@@ -77,7 +82,7 @@ class ChatUI(UI):
                 else:
                     i = len(message)
                 lines.append(message[:i])
-                message = message[i:]
+                message = message[i + 1:] if i + 1 < len(message) else ''
             for line in reversed(lines):  # Render each line from bottom to top
                 txt_surface = Config.FONT.render(line, True, color)
                 y_offset -= txt_surface.get_height() + 5

@@ -21,7 +21,7 @@ def init():
             }
         ],
         model='llama3.2',
-    )
+    ).__str__()
 
 
 def get_response(input_text):

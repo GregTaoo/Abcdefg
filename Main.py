@@ -1,5 +1,6 @@
 import random
 import sys
+import os
 
 import pygame
 
@@ -19,6 +20,8 @@ from ui.StarterUI import StarterUI
 
 
 def main():
+    os.environ["SDL_IME_SHOW_UI"] = "1"
+
     pygame.init()
     pygame.display.set_caption("Redemption")
     pygame.display.set_icon(Block.GRASS_BLOCK.renderer.image)
@@ -26,6 +29,7 @@ def main():
     clock = pygame.time.Clock()
 
     pygame.mixer.init()
+    pygame.key.stop_text_input()
 
     I18n.set_language(0)
     player = Player(I18n.text('player_name'), (600, 600), (600, 600), Renderer.PLAYER, size=(50, 50))

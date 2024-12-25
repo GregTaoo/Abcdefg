@@ -32,8 +32,8 @@ class ChatUI(UI):
             print('You: ' + text)
             for chunk in AIHelper.get_response(text):
                 response.string += chunk.choices[0].delta.content
-            AIHelper.update_ai_response(response.string)
-            print('AI: ' + response.string)
+            AIHelper.update_ai_response(response.string[response.string.find(': ') + 2:])
+            print('AI: ' + response.string[response.string.find(': ') + 2:])
 
         def update_response():
             while True:

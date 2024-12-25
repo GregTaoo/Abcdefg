@@ -63,6 +63,6 @@ class MainHud(Hud):
                     screen.blit(txt_surface, (10, y_offset))
                     y_offset -= 20
                     lines_cnt += 1
-            if lines_cnt > 20:
+            if lines_cnt > 10:
                 break
 

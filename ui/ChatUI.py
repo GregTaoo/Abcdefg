@@ -49,6 +49,7 @@ class ChatUI(UI):
                     response.st = response.cnt + 1
             if response.string.count(str(Config.FLAG)) >= 1:
                 Config.CLIENT.current_hud.messages.insert(0, (I18n.text('flag_leaked'), (255, 0, 0), time.time()))
+                Config.NETHER_PORTAL_LOCK = False
             Config.AI_INPUT_LOCK = False
 
         response = I18n.ai_text(I18n.text('ai_assistant').get(), '')

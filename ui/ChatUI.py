@@ -27,9 +27,11 @@ class ChatUI(UI):
     @staticmethod
     def get_response(text):
         def fetch_response():
+            print('You: ' + text)
             for chunk in AIHelper.get_response(text):
                 response.string += chunk.choices[0].delta.content
-            AIHelper.update_ai_response(response.get())
+            AIHelper.update_ai_response(response.string)
+            print('AI: ' + response.string)
 
         def update_response():
             while True:
@@ -38,7 +40,7 @@ class ChatUI(UI):
                     break
                 response.count()
 
-        response = I18n.ai_text(I18n.text('ai_assistant').get() + ': ')
+        response = I18n.ai_text(I18n.text('ai_assistant').get(), '')
         thread = threading.Thread(target=fetch_response)
         thread.start()
         thread1 = threading.Thread(target=update_response)
@@ -52,7 +54,8 @@ class ChatUI(UI):
             Config.CLIENT.player.y = int(y)
             return
         response = self.get_response(text)
-        Config.CLIENT.current_hud.messages.insert(0, (I18n.literal('You: ' + text), (255, 255, 255), time.time()))
+        Config.CLIENT.current_hud.messages.insert(0, (I18n.literal(I18n.text('player_name').get() + ': ' + text),
+                                                      (255, 255, 255), time.time()))
         Config.CLIENT.current_hud.messages.insert(0, (response, (255, 255, 0), time.time()))
         Config.CLIENT.close_ui()
 
@@ -91,7 +94,7 @@ class ChatUI(UI):
                         break
                 else:
                     i = len(message)
-                lines.append(message[:i])
+                lines.append(message[:i].strip())
                 message = message[i:]
             for line in reversed(lines):  # Render each line from bottom to top
                 txt_surface = Config.FONT.render(line, True, color)

@@ -1,8 +1,11 @@
+import threading
 import time
 
 import pygame
 
+import AIHelper
 import Config
+import I18n
 from ui.UI import UI
 
 
@@ -15,8 +18,16 @@ class ChatUI(UI):
         self.bg_color = (50, 50, 50)
         self.text_color = (255, 255, 255)
 
-    def get_response(self, text):
-        return 'AI: You said: ' + text
+    @staticmethod
+    def get_response(text):
+        def fetch_response():
+            for chunk in AIHelper.get_response(text):
+                response.string += chunk.choices[0].delta.content
+
+        response = I18n.literal(I18n.text('ai_assistant').get() + ': ')
+        thread = threading.Thread(target=fetch_response)
+        thread.start()
+        return response
 
     def send_message(self, text):
         if text.startswith('/tp'):
@@ -25,8 +36,8 @@ class ChatUI(UI):
             Config.CLIENT.player.y = int(y)
             return
         response = self.get_response(text)
-        Config.CLIENT.current_hud.messages.insert(0, ('You: ' + text, time.time()))
-        Config.CLIENT.current_hud.messages.insert(0, (response, time.time()))
+        Config.CLIENT.current_hud.messages.insert(0, (I18n.literal('You: ' + text), (255, 255, 255), time.time()))
+        Config.CLIENT.current_hud.messages.insert(0, (response, (255, 255, 0), time.time()))
         Config.CLIENT.close_ui()
 
     def tick(self, keys, events):
@@ -54,20 +65,21 @@ class ChatUI(UI):
         y_offset = Config.SCREEN_HEIGHT - 50
         max_height = 600
         max_width = Config.SCREEN_WIDTH // 2
-        messages_to_render = [(msg, ts) for msg, ts in Config.CLIENT.current_hud.messages]
+        messages_to_render = [(msg, color, ts) for msg, color, ts in Config.CLIENT.current_hud.messages]
 
-        for message, timestamp in messages_to_render:
+        for message, color, timestamp in messages_to_render:
             lines = []
+            message = message.get()
             while message:
                 for i in range(len(message)):
-                    if Config.FONT.size(message[:i])[0] > max_width:
+                    if Config.FONT.size(message[:i])[0] > max_width or message[i] == '\n':
                         break
                 else:
                     i = len(message)
                 lines.append(message[:i])
                 message = message[i:]
-            for line in lines:  # Render each line from bottom to top
-                txt_surface = Config.FONT.render(line, True, (255, 255, 255))
+            for line in reversed(lines):  # Render each line from bottom to top
+                txt_surface = Config.FONT.render(line, True, color)
                 y_offset -= txt_surface.get_height() + 5
                 if y_offset < Config.SCREEN_HEIGHT - max_height:
                     return

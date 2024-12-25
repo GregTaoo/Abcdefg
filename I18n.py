@@ -34,7 +34,7 @@ def literal(string: str):
 
 class Text:
 
-    def __init__(self, string):
+    def __init__(self, string: str):
         self.string = string
 
     def format(self, *args):
@@ -52,7 +52,7 @@ class Text:
 
 class TranslatableText(Text):
 
-    def __init__(self, key):
+    def __init__(self, key: str):
         super().__init__(key)
 
     def format(self, *args):

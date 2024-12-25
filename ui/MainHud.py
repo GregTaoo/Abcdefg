@@ -36,10 +36,11 @@ class MainHud(Hud):
         y_offset = Config.SCREEN_HEIGHT - 50
         max_height = 300
         max_width = Config.SCREEN_WIDTH // 2
-        messages_to_render = [(msg, ts) for msg, ts in self.messages if current_time - ts <= 20]
+        messages_to_render = [(msg, color, ts) for msg, color, ts in self.messages if current_time - ts <= 20]
 
-        for message, timestamp in messages_to_render:
+        for message, color, timestamp in messages_to_render:
             lines = []
+            message = message.get()
             while message:
                 for i in range(len(message)):
                     if Config.FONT.size(message[:i])[0] > max_width:
@@ -48,8 +49,8 @@ class MainHud(Hud):
                     i = len(message)
                 lines.append(message[:i])
                 message = message[i:]
-            for line in lines:  # Render each line from bottom to top
-                txt_surface = Config.FONT.render(line, True, (255, 255, 255))
+            for line in reversed(lines):  # Render each line from bottom to top
+                txt_surface = Config.FONT.render(line, True, color)
                 y_offset -= txt_surface.get_height() + 5
                 if y_offset < Config.SCREEN_HEIGHT - max_height:
                     return

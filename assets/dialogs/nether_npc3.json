@@ -33,11 +33,11 @@
         },
         {
           "str": "nether_player3_dia3_2",
-          "next": "4"
+          "next": "b1"
         },
         {
           "str": "nether_player3_dia3_3",
-          "next": "b1"
+          "next": "4"
         },
         {
           "str": "nether_player3_dia3_4",

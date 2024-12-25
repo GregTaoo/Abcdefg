@@ -19,10 +19,10 @@ class DialogUI(UI):
         self.npc_text = I18n.text(self.dialogs.current['npc']).get()
         self.options = self.dialogs.current['player']
         self.typing_index = 1
-        Config.CLOCKS.append((10, self.typer_animate))
+        Config.CLOCKS.append((5, self.typer_animate))
 
     def on_close(self):
-        Config.CLOCKS.remove((10, self.typer_animate))
+        Config.CLOCKS.remove((5, self.typer_animate))
         super().on_close()
 
     def typer_animate(self):

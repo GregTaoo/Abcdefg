@@ -2,7 +2,7 @@
     "player_name": "Steve",
     "zombie": "Zombie",
     "player_pos": "World: {}, Pos: {},{}",
-    "player_values": "ATK: {:.1f}, CRT: {:.1f}%, CRT DMG: {:.1f}%",
+    "player_values": "ATK: {:.1f}, CRT: {:.1f}%, CRT DMG: {:.1f}%, HP: {:.1f}",
     "npc_dialog": "Hi, I'm {}",
     "villager": "Villager",
     "iron_golem": "Iron Golem",

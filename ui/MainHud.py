@@ -29,7 +29,7 @@ class MainHud(Hud):
         screen.blit(Config.COIN_IMAGE, (Config.SCREEN_WIDTH - 10 - txt_surface.get_width() - 25, 8))
         screen.blit(txt_surface, (Config.SCREEN_WIDTH - 10 - txt_surface.get_width(), 10))
         txt_surface = Config.FONT.render(I18n.text('player_values').format(
-            self.player.atk, self.player.crt * 100, (self.player.crt_damage - 1) * 100), True, (255, 255, 255))
+            self.player.atk, self.player.crt * 100, (self.player.crt_damage - 1) * 100, self.player.max_hp), True, (255, 255, 255))
         screen.blit(txt_surface, (Config.SCREEN_WIDTH - 10 - txt_surface.get_width(), Config.SCREEN_HEIGHT - 30))
 
         current_time = time.time()

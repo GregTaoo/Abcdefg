@@ -2,7 +2,7 @@
     "player_name": "史蒂夫",
     "zombie": "丧尸",
     "player_pos": "世界: {}, 坐标: {},{}",
-    "player_values": "攻击力: {:.1f}, 暴击率: {:.1f}%, 暴击伤害: {:.1f}%",
+    "player_values": "攻击力: {:.1f}, 暴击率: {:.1f}%, 暴击伤害: {:.1f}%, 最大生命值: {:.1f}",
     "npc_dialog": "你好，我是 {}",
     "villager": "刁民",
     "iron_golem": "铁傀儡",

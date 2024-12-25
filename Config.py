@@ -18,7 +18,7 @@ HUGE_FONT = None
 SOUNDS = {}
 CLOCKS = []
 
-FLAG = random.randint(1000000000, 9999999999)
+FLAG = ''.join(random.choice('abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-=+_') for _ in range(10))
 NETHER_PORTAL_LOCK = True
 AI_INPUT_LOCK = False
 

@@ -47,6 +47,7 @@ class ChatUI(UI):
                     Config.CLIENT.current_hud.messages.insert(1, (I18n.literal(response.get()), (255, 255, 0),
                                                                   time.time()))
                     response.st = response.cnt + 1
+            print(Config.FLAG)
             if response.string.count(str(Config.FLAG)) >= 1:
                 Config.CLIENT.current_hud.messages.insert(0, (I18n.text('flag_leaked'), (255, 0, 0), time.time()))
                 Config.NETHER_PORTAL_LOCK = False
@@ -72,6 +73,10 @@ class ChatUI(UI):
         Config.CLIENT.current_hud.messages.insert(0, (response, (255, 255, 0), time.time()))
         Config.CLIENT.close_ui()
 
+    def paste_text(self):
+        if pygame.scrap.get(pygame.SCRAP_TEXT):
+            self.text += pygame.scrap.get(pygame.SCRAP_TEXT).decode('gbk').replace('\0', '')
+
     def tick(self, keys, events):
         super().tick(keys, events)
         for event in events:
@@ -83,6 +88,8 @@ class ChatUI(UI):
                     self.text = self.text[:-1]
                 elif event.key == pygame.K_ESCAPE:
                     return False
+                elif event.key == pygame.K_v and (keys[pygame.K_LCTRL] or keys[pygame.K_RCTRL]):
+                    self.paste_text()
             if event.type == pygame.TEXTINPUT:
                 self.text += event.text
         return True

@@ -29,6 +29,7 @@ def main():
     clock = pygame.time.Clock()
 
     pygame.mixer.init()
+    pygame.scrap.init()
     pygame.key.stop_text_input()
 
     I18n.set_language(0)

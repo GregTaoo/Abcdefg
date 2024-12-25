@@ -30,9 +30,18 @@ class ChatUI(UI):
             for chunk in AIHelper.get_response(text):
                 response.string += chunk.choices[0].delta.content
 
-        response = I18n.literal(I18n.text('ai_assistant').get() + ': ')
+        def update_response():
+            while True:
+                time.sleep(0.01)
+                if not thread.is_alive() and response.is_end():
+                    break
+                response.count()
+
+        response = I18n.ai_text(I18n.text('ai_assistant').get() + ': ')
         thread = threading.Thread(target=fetch_response)
         thread.start()
+        thread1 = threading.Thread(target=update_response)
+        thread1.start()
         return response
 
     def send_message(self, text):

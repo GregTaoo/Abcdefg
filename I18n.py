@@ -32,6 +32,10 @@ def literal(string: str):
     return Text(string)
 
 
+def ai_text(string: str):
+    return AIResponseText(string)
+
+
 class Text:
 
     def __init__(self, string: str):
@@ -66,3 +70,24 @@ class TranslatableText(Text):
 
     def get(self):
         return STRINGS[self.string] if self.string in STRINGS else self.string
+
+
+class AIResponseText(Text):
+
+    cnt = 0
+
+    def count(self):
+        self.cnt = min(self.cnt + 1, len(self.string))
+
+    def is_end(self):
+        return self.cnt == len(self.string)
+
+    def __str__(self):
+        return self.string[:self.cnt]
+
+    def __repr__(self):
+        return self.string[:self.cnt]
+
+    def get(self):
+        return self.string[:self.cnt]
+

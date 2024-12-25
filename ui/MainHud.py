@@ -47,7 +47,7 @@ class MainHud(Hud):
                         break
                 else:
                     i = len(message)
-                lines.append(message[:i])
+                lines.append(message[:i].strip())
                 message = message[i:]
             for line in reversed(lines):  # Render each line from bottom to top
                 txt_surface = Config.FONT.render(line, True, color)

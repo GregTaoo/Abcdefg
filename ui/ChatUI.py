@@ -48,7 +48,7 @@ class ChatUI(UI):
                                                                   time.time()))
                     response.st = response.cnt + 1
             if response.string.count(str(Config.FLAG)) >= 1:
-                Config.CLIENT.current_hud.messages.insert(0, (I18n.text('flag_leaked'), (255, 255, 0), time.time()))
+                Config.CLIENT.current_hud.messages.insert(0, (I18n.text('flag_leaked'), (255, 0, 0), time.time()))
             Config.AI_INPUT_LOCK = False
 
         response = I18n.ai_text(I18n.text('ai_assistant').get(), '')
@@ -92,15 +92,13 @@ class ChatUI(UI):
         txt_surface = Config.FONT.render(self.text, True, self.text_color)
         screen.blit(txt_surface, (self.input_rect.x + 5, self.input_rect.y + 5))
 
-        current_time = time.time()
         y_offset = Config.SCREEN_HEIGHT - 60
         lines_cnt = 0
         for message, color, timestamp in Config.CLIENT.current_hud.messages:
-            if timestamp > current_time - 20:
-                txt_surface = Config.FONT.render(message.get().strip(), True, color)
-                screen.blit(txt_surface, (10, y_offset))
-                y_offset -= 20
-                lines_cnt += 1
+            txt_surface = Config.FONT.render(message.get().strip(), True, color)
+            screen.blit(txt_surface, (10, y_offset))
+            y_offset -= 20
+            lines_cnt += 1
             if lines_cnt > 25:
                 break
 

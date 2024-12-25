@@ -51,11 +51,11 @@ class PortalBlock(Block):
         self.target_pos = target_pos
 
     def on_entity(self, block_pos: Tuple[int, int], mob):
-        if not Config.NETHER_PORTAL_LOCK:
-            if isinstance(mob, Player.Player):
+        if isinstance(mob, Player.Player):
+            if not Config.NETHER_PORTAL_LOCK:
                 mob.teleport(self.target_dimension, self.target_pos)
-        else:
-            Config.CLIENT.current_hud.hint = I18n.text('nether_portal_lock').get()
+            else:
+                Config.CLIENT.current_hud.hint = I18n.text('nether_portal_lock').get()
 
 
 def image_renderer(file: str):

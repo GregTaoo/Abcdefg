@@ -19,6 +19,8 @@ class Player(Entity):
         self.energy = 3
         self.souls = 1
         self.skill = 0
+        self.iron = 0
+        self.coins = 0
         # 0: NONE, 1: 天谴, 2: 吸血
         Config.CLOCKS.append((90, self.tick_second))
 

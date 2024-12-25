@@ -83,7 +83,7 @@ class MedicineTraderNPC(TraderNPC):
                          trade_list=[
                              TradeOption(I18n.literal("锻炼"), 10, self.buy_1),
                              TradeOption(I18n.literal("健身"), 10, self.buy_2),
-                             TradeOption(I18n.literal("购买2"), 10, lambda player, npc, opt: print("购买2")),
+                             TradeOption(I18n.literal("test"), 10, lambda player, npc, opt: print("购买2")),
                          ])
 
     @staticmethod
@@ -110,7 +110,7 @@ class WeaponTraderNPC(TraderNPC):
                          trade_list=[
                              TradeOption(I18n.text('charged_fist'), 10, self.buy_1),
                              TradeOption(I18n.text('iron_sword'), 10, self.buy_2),
-                             TradeOption(I18n.literal("购买2"), 10, lambda player, npc, opt: print("购买2")),
+                             TradeOption(I18n.text("infinite_sword"), 10, self.buy_3),
                          ])
 
     @staticmethod
@@ -128,6 +128,16 @@ class WeaponTraderNPC(TraderNPC):
         player.atk += 0.1
         player.coins -= opt.price
         return I18n.literal(I18n.text('bought').format(I18n.text('iron_sword')))
+    
+    @staticmethod
+    def buy_3(player, npc, opt):
+        if player.coins < opt.price:
+            return I18n.text('no_enough_coins')
+        if player.iron < 1:
+            return I18n.text("no_iron")
+        player.crt_damage += 0.25
+        player.coins -= opt.price
+        return I18n.literal(I18n.text('bought').format(I18n.text('infinite_sword')))
 
 
 class TradeOption:

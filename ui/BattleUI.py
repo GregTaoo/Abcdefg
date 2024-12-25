@@ -111,7 +111,9 @@ class BattleUI(UI):
                 Config.CLIENT.close_ui()
                 Config.CLIENT.open_death_ui()
             elif self.enemy.hp <= 0:
-                self.player.coins += self.enemy.coins
+                self.player.coins += self.enemy.coins 
+                if self.enemy.name.get() == I18n.text('iron_golem').get():
+                     self.player.iron += 1 
                 Config.CLIENT.close_ui()
                 Config.CLIENT.open_ui(BattleSuccessUI(self.enemy.name, self.enemy.coins))
                 Config.SOUNDS['victory'].play()

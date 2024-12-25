@@ -33,7 +33,7 @@ def literal(string: str):
 
 
 def ai_text(string: str):
-    return AIResponseText(string)
+    return AIResponseText(string, len(string))
 
 
 class Text:
@@ -75,6 +75,10 @@ class TranslatableText(Text):
 class AIResponseText(Text):
 
     cnt = 0
+
+    def __init__(self, string: str, start: int):
+        super().__init__(string)
+        self.cnt = start
 
     def count(self):
         self.cnt = min(self.cnt + 1, len(self.string))

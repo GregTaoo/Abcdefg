@@ -58,10 +58,11 @@ class MainHud(Hud):
         lines_cnt = 0
         for message, color, timestamp in self.messages:
             if timestamp > current_time - 20:
-                txt_surface = Config.FONT.render(message.get().strip(), True, color)
-                screen.blit(txt_surface, (10, y_offset))
-                y_offset -= 20
-                lines_cnt += 1
+                if len(message.get().strip()) > 0:
+                    txt_surface = Config.FONT.render(message.get().strip(), True, color)
+                    screen.blit(txt_surface, (10, y_offset))
+                    y_offset -= 20
+                    lines_cnt += 1
             if lines_cnt > 20:
                 break
 

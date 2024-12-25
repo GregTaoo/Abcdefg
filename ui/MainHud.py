@@ -43,12 +43,12 @@ class MainHud(Hud):
             message = message.get()
             while message:
                 for i in range(len(message)):
-                    if Config.FONT.size(message[:i])[0] > max_width or message[i] == '\n':
+                    if Config.FONT.size(message[:i])[0] > max_width or (i > 0 and message[i - 1] == '\n'):
                         break
                 else:
                     i = len(message)
                 lines.append(message[:i])
-                message = message[i + 1:] if i + 1 < len(message) else ''
+                message = message[i:]
             for line in reversed(lines):  # Render each line from bottom to top
                 txt_surface = Config.FONT.render(line, True, color)
                 y_offset -= txt_surface.get_height() + 5

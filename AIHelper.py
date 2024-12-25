@@ -20,6 +20,13 @@ def init():
     )
 
 
+def update_ai_response(response):
+    MESSAGES.append({
+        'role': 'assistant',
+        'content': response
+    })
+
+
 def get_response(input_text, role='user'):
     user = {
         'role': role,

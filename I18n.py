@@ -1,5 +1,7 @@
 import json
 
+import Config
+
 LANG = 0
 # 0: Chinese Simplified, 1: Chinese Traditional, 2: English, 3: Japanese（翻译由 ChatGPT 提供）
 
@@ -33,7 +35,7 @@ def literal(string: str):
 
 
 def ai_text(name: str, string: str):
-    return AIResponseText(name, string)
+    return AIResponseText(name + ': ' + string)
 
 
 class Text:
@@ -74,20 +76,21 @@ class TranslatableText(Text):
 
 class AIResponseText(Text):
 
-    cnt = 0
-
-    def __init__(self, name: str, string: str):
+    def __init__(self, string: str):
         super().__init__(string)
-        self.name = name
+        self.st = 0
+        self.cnt = len(string)
 
-    def count(self):
-        self.cnt = min(self.cnt + 1, len(self.string))
+    def count(self, limit=Config.SCREEN_WIDTH // 2):
+        self.cnt = min(self.cnt + 1, len(self.string) - 1)
+        return ((0 <= self.cnt < len(self.string) and self.string[self.cnt] == '\n') or
+                Config.FONT.size(self.__str__())[0] > limit)
 
     def is_end(self):
-        return self.cnt == len(self.string)
+        return self.cnt == len(self.string) - 1
 
     def __str__(self):
-        return self.name + ': ' + self.string[:self.cnt]
+        return self.string[self.st:self.cnt + 1]
 
     def __repr__(self):
         return self.__str__()

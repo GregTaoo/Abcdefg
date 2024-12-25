@@ -1,8 +1,10 @@
 import threading
+import time
 
 from openai import OpenAI
 
 import Config
+import I18n
 
 CLIENT = None
 MESSAGES = [{
@@ -20,7 +22,7 @@ def init():
     )
 
 
-def update_ai_response(response):
+def update_ai_response(response: str):
     MESSAGES.append({
         'role': 'assistant',
         'content': response

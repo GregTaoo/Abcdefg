@@ -26,6 +26,8 @@ class ChatUI(UI):
 
     @staticmethod
     def get_response(text):
+        Config.AI_INPUT_LOCK = True
+
         def fetch_response():
             print('You: ' + text)
             for chunk in AIHelper.get_response(text):
@@ -37,8 +39,17 @@ class ChatUI(UI):
             while True:
                 time.sleep(0.01)
                 if not thread.is_alive() and response.is_end():
+                    Config.CLIENT.current_hud.messages.insert(1, (I18n.literal(response.get()), (255, 255, 0),
+                                                                  time.time()))
+                    Config.CLIENT.current_hud.messages.pop(0)
                     break
-                response.count()
+                if response.count():
+                    Config.CLIENT.current_hud.messages.insert(1, (I18n.literal(response.get()), (255, 255, 0),
+                                                                  time.time()))
+                    response.st = response.cnt + 1
+            if response.string.count(str(Config.FLAG)) >= 1:
+                Config.CLIENT.current_hud.messages.insert(0, (I18n.text('flag_leaked'), (255, 255, 0), time.time()))
+            Config.AI_INPUT_LOCK = False
 
         response = I18n.ai_text(I18n.text('ai_assistant').get(), '')
         thread = threading.Thread(target=fetch_response)
@@ -53,6 +64,7 @@ class ChatUI(UI):
             Config.CLIENT.player.x = int(x)
             Config.CLIENT.player.y = int(y)
             return
+
         response = self.get_response(text)
         Config.CLIENT.current_hud.messages.insert(0, (I18n.literal(I18n.text('player_name').get() + ': ' + text),
                                                       (255, 255, 255), time.time()))
@@ -63,7 +75,7 @@ class ChatUI(UI):
         super().tick(keys, events)
         for event in events:
             if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_RETURN:
+                if (not Config.AI_INPUT_LOCK) and event.key == pygame.K_RETURN:
                     self.send_message(self.text)
                     self.text = ''
                 elif event.key == pygame.K_BACKSPACE:
@@ -80,25 +92,15 @@ class ChatUI(UI):
         txt_surface = Config.FONT.render(self.text, True, self.text_color)
         screen.blit(txt_surface, (self.input_rect.x + 5, self.input_rect.y + 5))
 
-        y_offset = Config.SCREEN_HEIGHT - 50
-        max_height = 600
-        max_width = Config.SCREEN_WIDTH // 2
-        messages_to_render = [(msg, color, ts) for msg, color, ts in Config.CLIENT.current_hud.messages]
-
-        for message, color, timestamp in messages_to_render:
-            lines = []
-            message = message.get()
-            while message:
-                for i in range(len(message)):
-                    if Config.FONT.size(message[:i])[0] > max_width or (i > 0 and message[i - 1] == '\n'):
-                        break
-                else:
-                    i = len(message)
-                lines.append(message[:i].strip())
-                message = message[i:]
-            for line in reversed(lines):  # Render each line from bottom to top
-                txt_surface = Config.FONT.render(line, True, color)
-                y_offset -= txt_surface.get_height() + 5
-                if y_offset < Config.SCREEN_HEIGHT - max_height:
-                    return
+        current_time = time.time()
+        y_offset = Config.SCREEN_HEIGHT - 60
+        lines_cnt = 0
+        for message, color, timestamp in Config.CLIENT.current_hud.messages:
+            if timestamp > current_time - 20:
+                txt_surface = Config.FONT.render(message.get().strip(), True, color)
                 screen.blit(txt_surface, (10, y_offset))
+                y_offset -= 20
+                lines_cnt += 1
+            if lines_cnt > 25:
+                break
+

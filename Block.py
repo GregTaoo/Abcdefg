@@ -2,10 +2,11 @@ from typing import Tuple
 
 import pygame
 
+import Config
+import I18n
 from Config import BLOCK_SIZE
 from entity import Player
 from render import Renderer
-from render.Renderer import ImageRenderer
 
 
 class Block:
@@ -50,8 +51,11 @@ class PortalBlock(Block):
         self.target_pos = target_pos
 
     def on_entity(self, block_pos: Tuple[int, int], mob):
-        if isinstance(mob, Player.Player):
-            mob.teleport(self.target_dimension, self.target_pos)
+        if not Config.NETHER_PORTAL_LOCK:
+            if isinstance(mob, Player.Player):
+                mob.teleport(self.target_dimension, self.target_pos)
+        else:
+            Config.CLIENT.current_hud.hint = I18n.text('nether_portal_lock').get()
 
 
 def image_renderer(file: str):

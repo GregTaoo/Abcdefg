@@ -18,6 +18,7 @@ class MainHud(Hud):
                                     lambda: Config.CLIENT.open_ui(SelectLanguageUI())))
         self.messages = []
         self.display_hint = False
+        self.hint = ''
         self.target_entity = None
 
     def render(self, screen: pygame.Surface):
@@ -31,30 +32,6 @@ class MainHud(Hud):
         txt_surface = Config.FONT.render(I18n.text('player_values').format(
             self.player.atk, self.player.crt * 100, (self.player.crt_damage - 1) * 100, self.player.max_hp), True, (255, 255, 255))
         screen.blit(txt_surface, (Config.SCREEN_WIDTH - 10 - txt_surface.get_width(), Config.SCREEN_HEIGHT - 30))
-
-        current_time = time.time()
-        y_offset = Config.SCREEN_HEIGHT - 50
-        max_height = 300
-        max_width = Config.SCREEN_WIDTH // 2
-        messages_to_render = [(msg, color, ts) for msg, color, ts in self.messages if current_time - ts <= 20]
-
-        for message, color, timestamp in messages_to_render:
-            lines = []
-            message = message.get()
-            while message:
-                for i in range(len(message)):
-                    if Config.FONT.size(message[:i])[0] > max_width or (i > 0 and message[i - 1] == '\n'):
-                        break
-                else:
-                    i = len(message)
-                lines.append(message[:i].strip())
-                message = message[i:]
-            for line in reversed(lines):  # Render each line from bottom to top
-                txt_surface = Config.FONT.render(line, True, color)
-                y_offset -= txt_surface.get_height() + 5
-                if y_offset < Config.SCREEN_HEIGHT - max_height:
-                    return
-                screen.blit(txt_surface, (10, y_offset))
 
         if self.display_hint:
             y = Config.SCREEN_HEIGHT // 2 - 8 if self.target_entity.can_interact() ^ self.target_entity.can_battle()\
@@ -70,3 +47,21 @@ class MainHud(Hud):
                                                  True, (150, 255, 150))
                 screen.blit(txt_surface,
                             (Config.SCREEN_WIDTH - txt_surface.get_width(), y))
+
+        if len(self.hint) > 0:
+            txt_surface = Config.FONT.render(self.hint, True, (255, 0, 0))
+            screen.blit(txt_surface, ((Config.SCREEN_WIDTH - txt_surface.get_width()) // 2, Config.SCREEN_HEIGHT - 150))
+            self.hint = ''
+
+        current_time = time.time()
+        y_offset = Config.SCREEN_HEIGHT - 50
+        lines_cnt = 0
+        for message, color, timestamp in self.messages:
+            if timestamp > current_time - 20:
+                txt_surface = Config.FONT.render(message.get().strip(), True, color)
+                screen.blit(txt_surface, (10, y_offset))
+                y_offset -= 20
+                lines_cnt += 1
+            if lines_cnt > 20:
+                break
+

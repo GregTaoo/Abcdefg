@@ -1,7 +1,9 @@
 import random
+import time
 
 import pygame
 
+import AIHelper
 import Config
 from entity import Entity
 from render import Particle, Action, Renderer
@@ -40,10 +42,12 @@ class BattleUI(UI):
                                            (Config.SCREEN_WIDTH // 2 + 50, Config.SCREEN_HEIGHT // 2 + 50),
                                            (95, 50), on_click=self.on_click_escape_button)
         self.add_button(self.escape_button)
+        AIHelper.add_event('player has entered battle with ' + enemy.name.get())
 
     def on_click_escape_button(self):
         self.escaping_stage = 1
         self.round_start(Action.EMPTY)
+        AIHelper.add_event('player has tried to escape from ' + self.enemy.name.get())
 
     def set_buttons_active(self, active):
         for button in self.buttons:
@@ -72,6 +76,8 @@ class BattleUI(UI):
                 self.enemy.damage(real_dmg)
                 if real_dmg != 0:
                     Particle.add_particle(Particle.DamageParticle(real_dmg, self.enemy_pos, 180, self.use_crt))
+                    if self.enemy.hp < self.enemy.max_hp // 3:
+                        AIHelper.add_response(f'enemy is now low hp {self.enemy.hp}', (0, 255, 0))
                 self.enemy.render_at_absolute_pos(screen, self.enemy_pos)
                 if target_poses is None:
                     self.player.render_at_absolute_pos(screen, self.player_pos)
@@ -90,6 +96,8 @@ class BattleUI(UI):
                     Particle.add_particle(Particle.DamageParticle(real_dmg, self.player_pos, 180, self.use_crt))
                     if self.player.hp <= 0:
                         Config.SOUNDS['player_death'].play()
+                    elif self.player.hp < self.player.max_hp // 3:
+                        AIHelper.add_response(f'player is now low hp {self.player.hp}', (255, 0, 0))
                 self.player.render_at_absolute_pos(screen, self.player_pos)
                 if target_poses is None:
                     self.enemy.render_at_absolute_pos(screen, self.enemy_pos)
@@ -103,6 +111,19 @@ class BattleUI(UI):
         screen.blit(txt_surface, (30, 30))
         Particle.render_particles(screen, Config.MIDDLE_FONT)
 
+        current_time = time.time()
+        y_offset = Config.SCREEN_HEIGHT - 50
+        lines_cnt = 0
+        for message, color, timestamp in Config.CLIENT.current_hud.messages:
+            if timestamp > current_time - 20:
+                if len(message.get().strip()) > 0:
+                    txt_surface = Config.FONT.render(message.get().strip(), True, color)
+                    screen.blit(txt_surface, (10, y_offset))
+                    y_offset -= 20
+                    lines_cnt += 1
+            if lines_cnt > 10:
+                break
+
     def tick(self, keys, events):
         super().tick(keys, events)
         Renderer.PLAYER.tick()
@@ -111,9 +132,9 @@ class BattleUI(UI):
                 Config.CLIENT.close_ui()
                 Config.CLIENT.open_death_ui()
             elif self.enemy.hp <= 0:
-                self.player.coins += self.enemy.coins 
+                self.player.coins += self.enemy.coins
                 if self.enemy.name.get() == I18n.text('iron_golem').get():
-                     self.player.iron += 1 
+                    self.player.iron += 1
                 Config.CLIENT.close_ui()
                 Config.CLIENT.open_ui(BattleSuccessUI(self.enemy.name, self.enemy.coins))
                 Config.SOUNDS['victory'].play()
@@ -140,4 +161,3 @@ class BattleUI(UI):
 
     def on_close(self):
         Particle.remove_all_particles()
-

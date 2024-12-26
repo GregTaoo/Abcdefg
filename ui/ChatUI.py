@@ -1,6 +1,3 @@
-import threading
-import time
-
 import pygame
 
 import AIHelper
@@ -25,51 +22,16 @@ class ChatUI(UI):
         super().on_close()
 
     @staticmethod
-    def get_response(text):
-        Config.AI_INPUT_LOCK = True
-
-        def fetch_response():
-            print('You: ' + text)
-            for chunk in AIHelper.get_response(text):
-                response.string += chunk.choices[0].delta.content
-            AIHelper.update_ai_response(response.string[response.string.find(': ') + 2:])
-            print('AI: ' + response.string[response.string.find(': ') + 2:])
-
-        def update_response():
-            while True:
-                time.sleep(0.01)
-                if not thread.is_alive() and response.is_end():
-                    Config.CLIENT.current_hud.messages.insert(1, (I18n.literal(response.get()), (255, 255, 0),
-                                                                  time.time()))
-                    Config.CLIENT.current_hud.messages.pop(0)
-                    break
-                if response.count():
-                    Config.CLIENT.current_hud.messages.insert(1, (I18n.literal(response.get()), (255, 255, 0),
-                                                                  time.time()))
-                    response.st = response.cnt + 1
-            if response.string.count(str(Config.FLAG)) >= 1:
-                Config.CLIENT.current_hud.messages.insert(0, (I18n.text('flag_leaked'), (255, 0, 0), time.time()))
-                Config.NETHER_PORTAL_LOCK = False
-            Config.AI_INPUT_LOCK = False
-
-        response = I18n.ai_text(I18n.text('ai_assistant').get(), '')
-        thread = threading.Thread(target=fetch_response)
-        thread.start()
-        thread1 = threading.Thread(target=update_response)
-        thread1.start()
-        return response
-
-    def send_message(self, text):
+    def send_message(text):
         if text.startswith('/tp'):
             x, y = text.split(' ')[1:]
             Config.CLIENT.player.x = int(x)
             Config.CLIENT.player.y = int(y)
             return
 
-        response = self.get_response(text)
-        Config.CLIENT.current_hud.messages.insert(0, (I18n.literal(I18n.text('player_name').get() + ': ' + text),
-                                                      (255, 255, 255), time.time()))
-        Config.CLIENT.current_hud.messages.insert(0, (response, (255, 255, 0), time.time()))
+        Config.CLIENT.current_hud.add_message(I18n.literal(I18n.text('player_name').get() + ': ' + text),
+                                              (255, 255, 255))
+        AIHelper.add_response(text)
         Config.CLIENT.close_ui()
 
     def paste_text(self):

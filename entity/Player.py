@@ -1,5 +1,6 @@
 from typing import Tuple
 
+import AIHelper
 import Config
 from Config import SCREEN_WIDTH, SCREEN_HEIGHT
 from entity.Entity import Entity
@@ -42,7 +43,10 @@ class Player(Entity):
         self.x, self.y = pos
 
     def update_energy(self):
-        self.energy = min(self.energy + 1, 3)
+        if self.energy < 3:
+            self.energy += 1
+            if self.energy == 3:
+                AIHelper.add_response('ultimate skill available', (0, 0, 255))
 
     def reset_energy(self):
         self.energy = 0

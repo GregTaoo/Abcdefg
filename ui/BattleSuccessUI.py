@@ -1,5 +1,6 @@
 import pygame
 
+import AIHelper
 import Config
 import I18n
 from ui.UI import UI
@@ -8,13 +9,14 @@ from ui.widget.ClassicButton import ClassicButton
 
 class BattleSuccessUI(UI):
 
-    def __init__(self, name='', coins=0):
+    def __init__(self, name: I18n.Text, coins=0):
         super().__init__()
         self.name = name
         self.coins = coins
         self.add_button(ClassicButton(I18n.text('continue'),
                                       (Config.SCREEN_WIDTH // 2 - 100, Config.SCREEN_HEIGHT // 2 + 50),
                                       (200, 50), on_click=lambda: Config.CLIENT.close_ui()))
+        AIHelper.add_event('player has beaten ' + name.get())
 
     def tick(self, keys, events):
         super().tick(keys, events)

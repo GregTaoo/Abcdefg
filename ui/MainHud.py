@@ -21,6 +21,9 @@ class MainHud(Hud):
         self.hint = ''
         self.target_entity = None
 
+    def add_message(self, message, color):
+        self.messages.insert(0, (message, color, time.time()))
+
     def render(self, screen: pygame.Surface):
         super().render(screen)
         txt_surface = Config.FONT.render(I18n.text('player_pos').format(

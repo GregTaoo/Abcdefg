@@ -2,6 +2,7 @@ from typing import Tuple
 
 import pygame
 
+import AIHelper
 import Config
 import I18n
 from render import Renderer
@@ -52,6 +53,7 @@ class TraderNPC(NPC):
         self.trade_list = trade_list if trade_list is not None else []
 
     def on_interact(self, player):
+        AIHelper.add_event(f'player interacted with {self.name}')
         Config.CLIENT.open_ui(TradeUI(player, self))
 
 

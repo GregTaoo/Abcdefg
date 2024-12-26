@@ -1,5 +1,6 @@
 import pygame
 
+import AIHelper
 import Config
 import I18n
 from ui.UI import UI
@@ -13,6 +14,7 @@ class DeathUI(UI):
         super().__init__()
         self.add_button(ClassicButton(I18n.text('respawn'), (SCREEN_WIDTH // 2 - 100, SCREEN_HEIGHT // 2 + 50),
                                       (200, 50), on_click=lambda: Config.CLIENT.player_respawn()))
+        AIHelper.add_event('player has died and respawned')
 
     def tick(self, keys, events):
         super().tick(keys, events)

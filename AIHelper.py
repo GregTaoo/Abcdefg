@@ -46,7 +46,7 @@ def get_response_stream(input_text, role='user'):
     }
     try:
         ret = None if CLIENT is None else CLIENT.chat.completions.create(messages=MESSAGES + [event, user],
-                                                                         model='llama3.2', stream=True)
+                                                                         model='llama3.2', stream=True, timeout=30)
     except openai.BadRequestError as e:
         print(e)
         ret = None
@@ -98,6 +98,8 @@ def add_response(text, color=(255, 255, 0), role='user'):
                 Config.CLIENT.current_hud.messages.insert(0, (I18n.text('flag_leaked'), (255, 0, 0), time.time()))
                 Config.NETHER_PORTAL_LOCK = False
             Config.AI_INPUT_LOCK = False
+        except AttributeError:
+            pass
         finally:
             LOCK1.release()
 

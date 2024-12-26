@@ -1,5 +1,6 @@
 import json
 
+import AIHelper
 import Config
 
 LANG = 0
@@ -12,12 +13,19 @@ LANG_DICT = {
     2: 'en_us',
     3: 'jp_jp'
 }
+LANG_NAME_DICT = {
+    0: '简体中文',
+    1: '繁體中文',
+    2: 'English',
+    3: '日本語'
+}
 
 
 def set_language(lang: int):
     global LANG
     LANG = lang
     load_strings()
+    AIHelper.add_response('player has set language to ' + LANG_NAME_DICT[LANG])
 
 
 def load_strings():

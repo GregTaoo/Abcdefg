@@ -55,7 +55,7 @@ class PortalBlock(Block):
         if isinstance(mob, Player.Player):
             if not Config.NETHER_PORTAL_LOCK:
                 mob.teleport(self.target_dimension, self.target_pos)
-                AIHelper.add_event(f'player has been teleported to {self.target_dimension}')
+                AIHelper.add_response(f'player has entered portal and been teleported to {self.target_dimension}')
             else:
                 Config.CLIENT.current_hud.hint = I18n.text('nether_portal_lock').get()
 

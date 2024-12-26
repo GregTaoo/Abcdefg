@@ -29,8 +29,15 @@ class ChatUI(UI):
             Config.CLIENT.player.y = int(y)
             return
 
-        Config.CLIENT.current_hud.add_message(I18n.literal(I18n.text('player_name').get() + ': ' + text),
-                                              (255, 255, 255))
+        s = I18n.text('player_name').get() + ': ' + text
+        while s:
+            i = 0
+            for i in range(len(s)):
+                if Config.FONT.size(s[:i + 1])[0] > Config.SCREEN_WIDTH // 2:
+                    break
+            Config.CLIENT.current_hud.add_message(I18n.text(s[:i + 1]), (255, 255, 255))
+            s = s[i + 1:]
+
         AIHelper.add_response(text)
         Config.CLIENT.close_ui()
 

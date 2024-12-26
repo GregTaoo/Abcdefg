@@ -47,7 +47,6 @@ class ChatUI(UI):
                     Config.CLIENT.current_hud.messages.insert(1, (I18n.literal(response.get()), (255, 255, 0),
                                                                   time.time()))
                     response.st = response.cnt + 1
-            print(Config.FLAG)
             if response.string.count(str(Config.FLAG)) >= 1:
                 Config.CLIENT.current_hud.messages.insert(0, (I18n.text('flag_leaked'), (255, 0, 0), time.time()))
                 Config.NETHER_PORTAL_LOCK = False

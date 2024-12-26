@@ -44,7 +44,6 @@ def get_response_stream(input_text, role='user'):
         'role': 'system',
         'content': ';'.join(EVENTS)
     }
-    print(MESSAGES + [event, user])
     try:
         ret = None if CLIENT is None else CLIENT.chat.completions.create(messages=MESSAGES + [event, user],
                                                                          model='llama3.2', stream=True)

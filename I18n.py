@@ -106,3 +106,5 @@ class AIResponseText(Text):
     def get(self):
         return self.__str__()
 
+
+load_strings()

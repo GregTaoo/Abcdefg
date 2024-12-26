@@ -36,11 +36,12 @@ class MainHud(Hud):
         screen.blit(Config.COIN_IMAGE, (Config.SCREEN_WIDTH - 10 - txt_surface.get_width() - 25, 8))
         screen.blit(txt_surface, (Config.SCREEN_WIDTH - 10 - txt_surface.get_width(), 10))
         txt_surface = Config.FONT.render(I18n.text('player_values').format(
-            self.player.atk, self.player.crt * 100, (self.player.crt_damage - 1) * 100, self.player.max_hp), True, (255, 255, 255))
+            self.player.atk, self.player.crt * 100, (self.player.crt_damage - 1) * 100, self.player.max_hp), True,
+            (255, 255, 255))
         screen.blit(txt_surface, (Config.SCREEN_WIDTH - 10 - txt_surface.get_width(), Config.SCREEN_HEIGHT - 30))
 
         if self.display_hint:
-            y = Config.SCREEN_HEIGHT // 2 - 8 if self.target_entity.can_interact() ^ self.target_entity.can_battle()\
+            y = Config.SCREEN_HEIGHT // 2 - 8 if self.target_entity.can_interact() ^ self.target_entity.can_battle() \
                 else Config.SCREEN_HEIGHT // 2 - 25
             if self.target_entity.can_interact():
                 txt_surface = Config.FONT.render(I18n.text('hint_interact').format(self.target_entity.name),
@@ -60,7 +61,8 @@ class MainHud(Hud):
             self.hint = ''
 
         current_time = time.time()
-        if len(self.messages) > 0 and self.messages[0][2] > current_time - 20:
+        if (len(self.messages) > 0 and (self.messages[0][2] > current_time - 20 or
+                                        (len(self.messages) > 1 and self.messages[1][2] > current_time - 20))):
             screen.blit(self.text_bg, (0, Config.SCREEN_HEIGHT // 2 + 33))
 
         y_offset = Config.SCREEN_HEIGHT - 60
@@ -74,4 +76,3 @@ class MainHud(Hud):
                     lines_cnt += 1
             if lines_cnt > 10:
                 break
-

@@ -64,6 +64,8 @@ def add_response(text, color=(255, 255, 0), role='user'):
         LOCK.acquire()
         LOCK1.acquire()
         LOCK1.release()
+        thread1 = threading.Thread(target=update_response)
+        thread1.start()
         try:
             Config.AI_INPUT_LOCK = True
             print('You: ' + text)
@@ -99,15 +101,13 @@ def add_response(text, color=(255, 255, 0), role='user'):
                 Config.NETHER_PORTAL_LOCK = False
             Config.AI_INPUT_LOCK = False
         except AttributeError:
-            pass
+            LOCK1.release()
         finally:
             LOCK1.release()
 
     response = I18n.ai_text(I18n.text('ai_assistant').get(), '')
     thread0 = threading.Thread(target=fetch_response)
     thread0.start()
-    thread1 = threading.Thread(target=update_response)
-    thread1.start()
     return response
 
 

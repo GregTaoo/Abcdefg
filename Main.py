@@ -32,7 +32,6 @@ def main():
     pygame.scrap.init()
     pygame.key.stop_text_input()
 
-    I18n.set_language(0)
     player = Player(I18n.text('player_name'), (600, 600), (600, 600), Renderer.PLAYER, size=(50, 50))
 
     Config.CLIENT = Client.Client(screen, clock, player, 'the_world')

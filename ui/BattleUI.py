@@ -77,7 +77,7 @@ class BattleUI(UI):
                 if real_dmg != 0:
                     Particle.add_particle(Particle.DamageParticle(real_dmg, self.enemy_pos, 180, self.use_crt))
                     if self.enemy.hp < self.enemy.max_hp // 3:
-                        AIHelper.add_response(f'enemy is now low hp {self.enemy.hp}', (0, 255, 0))
+                        AIHelper.add_response(f'enemy {self.enemy.name} is now low hp {self.enemy.hp}', (0, 255, 0))
                 self.enemy.render_at_absolute_pos(screen, self.enemy_pos)
                 if target_poses is None:
                     self.player.render_at_absolute_pos(screen, self.player_pos)

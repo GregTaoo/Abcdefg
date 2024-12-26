@@ -20,6 +20,9 @@ class MainHud(Hud):
         self.display_hint = False
         self.hint = ''
         self.target_entity = None
+        self.text_bg = pygame.Surface((Config.SCREEN_WIDTH // 2 + 40, Config.SCREEN_HEIGHT // 2 - 70))
+        self.text_bg.fill((0, 0, 0))
+        self.text_bg.set_alpha(150)
 
     def add_message(self, message, color):
         self.messages.insert(0, (message, color, time.time()))
@@ -57,6 +60,9 @@ class MainHud(Hud):
             self.hint = ''
 
         current_time = time.time()
+        if len(self.messages) > 0 and self.messages[0][2] > current_time - 20:
+            screen.blit(self.text_bg, (0, Config.SCREEN_HEIGHT // 2 + 40))
+
         y_offset = Config.SCREEN_HEIGHT - 50
         lines_cnt = 0
         for message, color, timestamp in self.messages:

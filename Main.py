@@ -22,6 +22,10 @@ from ui.StarterUI import StarterUI
 def main():
     os.environ["SDL_IME_SHOW_UI"] = "1"
 
+    print('=================================================================')
+    print('Thanks for playing Redemption！')
+    print('=================================================================')
+
     pygame.init()
     pygame.display.set_caption("Redemption")
     pygame.display.set_icon(Block.GRASS_BLOCK.renderer.image)

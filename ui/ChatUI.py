@@ -43,7 +43,7 @@ class ChatUI(UI):
 
     def paste_text(self):
         if pygame.scrap.get(pygame.SCRAP_TEXT):
-            self.text += pygame.scrap.get(pygame.SCRAP_TEXT).decode('gbk').replace('\0', '')
+            self.text += pygame.scrap.get(pygame.SCRAP_TEXT).decode('utf-8').replace('\0', '')
 
     def tick(self, keys, events):
         super().tick(keys, events)

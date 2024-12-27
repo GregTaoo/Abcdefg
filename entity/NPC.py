@@ -141,7 +141,6 @@ class WeaponTraderNPC(TraderNPC):
         player.coins -= opt.price
         return I18n.literal(I18n.text('bought').format(I18n.text('infinite_sword')))
 
-
 class TradeOption:
 
     def __init__(self, name: I18n.Text, price: int, on_trade):
@@ -149,3 +148,4 @@ class TradeOption:
         self.price = price
         self.on_trade = on_trade
         self.available = True
+

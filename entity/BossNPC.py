@@ -120,3 +120,17 @@ class BossNPC6(NPC):
             return 'b1'
         else:
             return '!#'
+
+class TrueBoss(NPC)
+
+    def __init__(self, pos):
+        super().__init__(I18n.text('yourself'), pos, Renderer.image_renderer('him.png', (50, 50)))
+        self.battle = True
+        
+    def on_battle(self, player):
+        him = Entity.Entity(I18n.text('yourself'), self.get_right_bottom_pos(),
+                                   Renderer.image_renderer('him.png', (50, 50)),
+                                   atk=8)
+        Config.CLIENT.spawn_entity(him)
+        Config.CLIENT.open_ui(BattleUI(player, him))
+

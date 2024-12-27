@@ -62,9 +62,9 @@ class VillagerNPC(TraderNPC):
     def __init__(self, pos):
         super().__init__(I18n.text('villager'), pos, Renderer.image_renderer('villager.png', (50, 50)),
                          trade_list=[
-                             TradeOption(I18n.literal("购买"), 10, lambda player, npc, opt: print("购买")),
-                             TradeOption(I18n.literal("购买1"), 10, lambda player, npc, opt: print("购买1")),
-                             TradeOption(I18n.literal("购买2"), 10, lambda player, npc, opt: print("购买2")),
+                             TradeOption(I18n.literal("购买"), 999, lambda player, npc, opt: print("购买")),
+                             TradeOption(I18n.literal("购买1"), 1099, lambda player, npc, opt: print("购买1")),
+                             TradeOption(I18n.literal("购买2"), 1990, lambda player, npc, opt: print("购买2")),
                          ])
         self.battle = True
 

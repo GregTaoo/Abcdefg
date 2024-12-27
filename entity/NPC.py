@@ -16,7 +16,7 @@ class NPC(Entity.Entity):
     def __init__(self, name: str, pos: Tuple[int, int], renderer: Renderer):
         super().__init__(name, pos, renderer)
         self.dialog_timer = 0
-        self.hp = self.max_hp = 1145141919810
+        self.hp = self.max_hp = 11451419198101212
         self.battle = False
         self.interact = True
 

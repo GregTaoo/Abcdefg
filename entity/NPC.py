@@ -16,7 +16,7 @@ class NPC(Entity.Entity):
     def __init__(self, name: str, pos: Tuple[int, int], renderer: Renderer):
         super().__init__(name, pos, renderer)
         self.dialog_timer = 0
-        self.hp = self.max_hp = 1145141919810
+        self.hp = self.max_hp = 11451419198101212
         self.battle = False
         self.interact = True
 
@@ -62,9 +62,9 @@ class VillagerNPC(TraderNPC):
     def __init__(self, pos):
         super().__init__(I18n.text('villager'), pos, Renderer.image_renderer('villager.png', (50, 50)),
                          trade_list=[
-                             TradeOption(I18n.literal("购买"), 10, lambda player, npc, opt: print("购买")),
-                             TradeOption(I18n.literal("购买1"), 10, lambda player, npc, opt: print("购买1")),
-                             TradeOption(I18n.literal("购买2"), 10, lambda player, npc, opt: print("购买2")),
+                             TradeOption(I18n.literal("购买"), 999, lambda player, npc, opt: print("购买")),
+                             TradeOption(I18n.literal("购买1"), 1099, lambda player, npc, opt: print("购买1")),
+                             TradeOption(I18n.literal("购买2"), 1990, lambda player, npc, opt: print("购买2")),
                          ])
         self.battle = True
 
@@ -141,7 +141,6 @@ class WeaponTraderNPC(TraderNPC):
         player.coins -= opt.price
         return I18n.literal(I18n.text('bought').format(I18n.text('infinite_sword')))
 
-
 class TradeOption:
 
     def __init__(self, name: I18n.Text, price: int, on_trade):
@@ -149,3 +148,4 @@ class TradeOption:
         self.price = price
         self.on_trade = on_trade
         self.available = True
+

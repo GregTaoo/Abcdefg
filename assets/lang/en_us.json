@@ -32,5 +32,6 @@
     "crt_hit": "CRT Hit!",
     "nether_npc1_option1": "Heart of Slaughter",
     "nether_npc1_option2": "Eye of Guardian",
-    "nether_npc1_dia1": ""
+    "nether_npc1_dia1": "",
+    "boss_npc":"Boss"
 }

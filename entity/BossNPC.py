@@ -6,6 +6,7 @@ from entity.NPC import TraderNPC, TradeOption, NPC
 from render import Renderer
 from ui.DialogUI import DialogUI
 from ui.TradeUI import TradeUI
+from entity import Entity
 
 class BossNPC1(NPC):
     

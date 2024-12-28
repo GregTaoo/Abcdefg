@@ -22,8 +22,8 @@ def render_dialog_at_absolute_pos(text, screen, pos, font: pygame.font):
 
 class Entity:
 
-    def __init__(self, name: str, pos: Tuple[int, int], renderer: Renderer, actions=None, atk=1.0, crt=0.0,
-                 coins=0, max_hp=100, size=None):
+    def __init__(self, name: str, pos: Tuple[int, int], renderer: Renderer, actions: list[Action] = None,
+                 atk: float = 1.0, crt: float = 0.0, coins: int = 0, max_hp: float = 100, size: Tuple[int, int] = None):
         self.name = name
         self.x, self.y = pos
         self.renderer = renderer
@@ -40,13 +40,13 @@ class Entity:
         self.battle = True
         self.actions = actions if actions is not None else [Action.ATTACK_LEFT]
 
-    def damage(self, damage):
-        self.hp = max(0, self.hp - damage)
+    def damage(self, damage: float):
+        self.hp = max(0.0, self.hp - damage)
 
-    def cure(self, cure):
+    def cure(self, cure: float):
         self.hp = min(self.max_hp, self.hp + cure)
 
-    def move(self, direction, dimension, speed=4):
+    def move(self, direction: int, dimension, speed: int = 4):
         if not (1 <= direction <= 4):
             return
 

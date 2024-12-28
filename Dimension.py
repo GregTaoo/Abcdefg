@@ -11,7 +11,7 @@ from Config import BLOCK_SIZE, MAP_WIDTH, MAP_HEIGHT
 
 class Dimension:
 
-    def __init__(self, name: str, width: int, height: int, blocks: list[list[Block.Block]], music=None):
+    def __init__(self, name: str, width: int, height: int, blocks: list[list[Block.Block]], music: str = None):
         self.name = name
         self.width = width
         self.height = height

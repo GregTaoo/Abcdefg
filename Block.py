@@ -76,8 +76,8 @@ END_PORTAL = PortalBlock("end_portal", Renderer.END_PORTAL, target_dimension='th
 NETHER_BACK_PORTAL = PortalBlock("nether_portal", Renderer.NETHER_PORTAL,
                                  target_dimension='the_world', target_pos=(1080, 1080))
 END_STONE = Block("end_stone", image_renderer("end_stone.png"))
-WARPED_PLANKS = Block("warped_planks", image_renderer("warped_planks.png"))
-NETHERITE_BLOCK = Block("netherite_block", image_renderer("netherite_block.png"), obstacle=True)
+WARPED_PLANKS = Block("warped_planks", image_renderer("warped_planks.png"), obstacle=True)
+NETHERITE_BLOCK = Block("netherite_block", image_renderer("netherite_block.png"))
 OBSIDIAN = Block("obsidian", image_renderer("obsidian.png"))
 OAK_TRAPDOOR = Block("oak_trapdoor", image_renderer("oak_trapdoor.png"), obstacle=True)
 REDSTONE_BLOCK = Block("redstone_block", image_renderer("redstone_block.png"), obstacle=True)

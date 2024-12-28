@@ -29,5 +29,6 @@
     "rounds": "ラウンド {}",
     "clone_tech": "分身の術!",
     "mocking": "下手なら練習しろ",
-    "crt_hit": "暴走ヒット!"
+    "crt_hit": "暴走ヒット!",
+    "boss_npc":"ボス"
 }

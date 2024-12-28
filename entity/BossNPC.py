@@ -7,6 +7,7 @@ from render import Renderer
 from ui.DialogUI import DialogUI
 from ui.TradeUI import TradeUI
 from entity import Entity
+from ui.BattleUI import BattleUI
 
 class BossNPC1(NPC):
     

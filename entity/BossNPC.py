@@ -121,7 +121,7 @@ class BossNPC6(NPC):
         else:
             return '!#'
 
-class TrueBoss(NPC)
+class TrueBoss(NPC):
 
     def __init__(self, pos):
         super().__init__(I18n.text('yourself'), pos, Renderer.image_renderer('him.png', (50, 50)))

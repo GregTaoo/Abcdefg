@@ -82,9 +82,8 @@ class VillagerNPC(TraderNPC):
 
     def on_battle(self, player):
         # 当玩家与村民 NPC 战斗时触发。
-        # 将所有交易选项的价格加倍。
         for trade in self.trade_list:
-            trade.price *= 2
+            trade.price *= 2  # 将所有交易选项的价格加倍。
         # 召唤一个铁傀儡来与玩家战斗。
         iron_golem = Entity.Entity(I18n.text('iron_golem'), self.get_right_bottom_pos(),
                                    Renderer.image_renderer('iron_golem.png', (50, 50)), atk=8)
@@ -170,6 +169,6 @@ class TradeOption:
     def __init__(self, name: I18n.Text, price: int, on_trade):
         self.name = name
         self.price = price
-        self.on_trade = on_trade # 是否在售
-        self.available = True # 是否可获得
+        self.on_trade = on_trade  # 是否在售
+        self.available = True  # 是否可获得
 

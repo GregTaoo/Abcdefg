@@ -3,6 +3,7 @@ import random
 import pygame
 
 import entity.NetherNPC
+import entity.BossNPC
 import I18n
 import Config
 import Block
@@ -88,6 +89,19 @@ class Client:
         Config.WORLDS['the_nether'].spawn_entity(nether_npc4)
         nether_npc5 = entity.NetherNPC.NetherNPC3((20 * Config.BLOCK_SIZE + 5, 1 * Config.BLOCK_SIZE + 5))
         Config.WORLDS['the_nether'].spawn_entity(nether_npc5)
+        
+        BossNPC1 = entity.BossNPC.BossNPC1((2 * Config.BLOCK_SIZE + 5, 18 * Config.BLOCK_SIZE + 5))
+        Config.WORLDS['the_end'].spawn_entity(BossNPC1)
+        BossNPC2 = entity.BossNPC.BossNPC2((8 * Config.BLOCK_SIZE + 5, 11 * Config.BLOCK_SIZE + 5))
+        Config.WORLDS['the_end'].spawn_entity(BossNPC2)
+        BossNPC3 = entity.BossNPC.BossNPC3((18 * Config.BLOCK_SIZE + 5, 19 * Config.BLOCK_SIZE + 5))
+        Config.WORLDS['the_end'].spawn_entity(BossNPC3)
+        BossNPC4 = entity.BossNPC.BossNPC4((12 * Config.BLOCK_SIZE + 5, 2 * Config.BLOCK_SIZE + 5))
+        Config.WORLDS['the_end'].spawn_entity(BossNPC4)
+        BossNPC5 = entity.BossNPC.BossNPC3((20 * Config.BLOCK_SIZE + 5, 1 * Config.BLOCK_SIZE + 5))
+        Config.WORLDS['the_end'].spawn_entity(BossNPC5)
+        BossNPC6 = entity.BossNPC.BossNPC3((20 * Config.BLOCK_SIZE + 5, 10 * Config.BLOCK_SIZE + 5))
+        Config.WORLDS['the_end'].spawn_entity(BossNPC6)
 
         load_sound('hit', './assets/sounds/hit.mp3', 0.5)
         load_sound('player_death', './assets/sounds/player_death.mp3', 0.5)

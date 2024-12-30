@@ -14,7 +14,9 @@ class NetherNPC1(NPC):
         super().__init__(I18n.text('nether_npc1'), pos, Renderer.image_renderer('trainer.png', (50, 50)))
 
     def on_interact(self, player):
+        # 玩家与NPC交互时触发
         if self.interact:
+            # 打开对话框UI，调用process_choice方法处理玩家选择
             Config.CLIENT.open_ui(DialogUI(self, Dialog('nether_npc1'),
                                            lambda msg: self.process_choice(player, msg)))
 

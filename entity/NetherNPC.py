@@ -121,19 +121,20 @@ class NetherNPC5(TraderNPC):
 
     @staticmethod
     def buy_1(player, npc, opt):
-        # Config.CLIENT.dimension.set_block((7, 11), Block.WARPED_PLANKS)
+        # 玩家选择交易选项1时触发，关闭UI并返回购买成功的提示
         npc.interact = False
         Config.CLIENT.close_ui()
         return I18n.literal(I18n.text('bought').format(I18n.text('nether_npc5_option1')))
 
     @staticmethod
     def buy_2(player, npc, opt):
-        # Config.CLIENT.dimension.set_block((8, 10), Block.WARPED_PLANKS)
+        # 玩家选择交易选项2时触发，关闭UI并返回购买成功的提示
         npc.interact = False
         Config.CLIENT.close_ui()
         return I18n.literal(I18n.text('bought').format(I18n.text('nether_npc5_option2')))
 
     def on_interact(self, player):
+        # 玩家与交易NPC交互时触发，打开对话框UI并显示交易界面
         if self.interact:
             Config.CLIENT.open_ui(DialogUI(self, Dialog('nether_npc5'),
                                            lambda msg: Config.CLIENT.open_ui(TradeUI(player, self))))

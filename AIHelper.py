@@ -15,16 +15,17 @@ MESSAGES = [{
 EVENTS = []  # 存储事件的列表
 
 
+# 向EVENTS列表中添加新事件
 def add_event(event: str):
     EVENTS.append(event)
     print(event)
 
-
+# 初始化AI客户端
 def init():
     global CLIENT
     CLIENT = OpenAI(
-        base_url=Config.AI_URL,
-        api_key='ollama',  # required but ignored
+        base_url=Config.AI_URL,  # 设置AI服务的URL
+        api_key='ollama',  # API密钥（在此为假设值）
     )
 
 

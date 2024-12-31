@@ -9,10 +9,10 @@ import I18n
 
 CLIENT = None
 MESSAGES = [{
-    'role': 'system',
+    'role': 'system',  # 系统消息，初始化为配置的AI提示
     'content': Config.AI_PROMPT
 }]
-EVENTS = []
+EVENTS = []  # 存储事件的列表
 
 
 def add_event(event: str):

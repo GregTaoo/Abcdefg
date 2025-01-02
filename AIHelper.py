@@ -86,30 +86,32 @@ def add_response(text, color=(255, 255, 0), role='user'):
         finally:
             LOCK.release()  # 释放LOCK锁
 
+        # UI更新处理线程
+
     def update_response():
-        LOCK1.acquire()
+        LOCK1.acquire()  # 获取LOCK1锁
         try:
-            Config.CLIENT.current_hud.add_message(response, color)
+            Config.CLIENT.current_hud.add_message(response, color)  # 更新UI上的信息
             while True:
-                time.sleep(0.01)
-                if Config.AI_INPUT_LOCK:
-                    if not thread0.is_alive() and response.is_end():
+                time.sleep(0.01)  # 小的延迟，避免过度占用CPU
+                if Config.AI_INPUT_LOCK:  # 检查是否锁定输入
+                    if not thread0.is_alive() and response.is_end():  # 判断响应是否结束
                         Config.CLIENT.current_hud.messages.insert(1, (I18n.literal(response.get()), color,
-                                                                      time.time()))
-                        Config.CLIENT.current_hud.messages.pop(0)
+                                                                      time.time()))  # 插入消息到UI
+                        Config.CLIENT.current_hud.messages.pop(0)  # 弹出旧消息
                         break
                     if response.count():
                         Config.CLIENT.current_hud.messages.insert(1, (I18n.literal(response.get()), color,
                                                                       time.time()))
-                        response.st = response.cnt + 1
-            if response.string.count(str(Config.FLAG)) >= 1:
+                        response.st = response.cnt + 1  # 更新响应状态
+            if response.string.count(str(Config.FLAG)) >= 1:  # 检查是否泄露了标记
                 Config.CLIENT.current_hud.messages.insert(0, (I18n.text('flag_leaked'), (255, 0, 0), time.time()))
-                Config.NETHER_PORTAL_LOCK = False
-            Config.AI_INPUT_LOCK = False
+                Config.NETHER_PORTAL_LOCK = False  # 解锁传送门
+            Config.AI_INPUT_LOCK = False  # 解除输入锁定
         except AttributeError:
-            LOCK1.release()
+            LOCK1.release()  # 异常时释放锁
         finally:
-            LOCK1.release()
+            LOCK1.release()  # 最终释放锁
 
     response = I18n.ai_text(I18n.text('ai_assistant').get(), '')
     thread0 = threading.Thread(target=fetch_response)

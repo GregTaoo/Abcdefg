@@ -73,18 +73,18 @@ def add_response(text, color=(255, 255, 0), role='user'):
         thread1 = threading.Thread(target=update_response)
         thread1.start()
         try:
-            Config.AI_INPUT_LOCK = True
-            print('You: ' + text)
-            stream = get_response_stream(text, role)
+            Config.AI_INPUT_LOCK = True  # 锁定AI输入，避免同时多个输入
+            print('You: ' + text)  # 打印用户输入
+            stream = get_response_stream(text, role)  # 获取AI响应流
             if stream is None:
-                response.string += 'ERROR'
+                response.string += 'ERROR'  # 若流为空，表示出错
                 return
             for chunk in stream:
-                response.string += chunk.choices[0].delta.content
-            update_ai_response(response.string[response.string.find(': ') + 2:])
-            print('AI: ' + response.string[response.string.find(': ') + 2:])
+                response.string += chunk.choices[0].delta.content  # 拼接返回的响应内容
+            update_ai_response(response.string[response.string.find(': ') + 2:])  # 更新AI回复
+            print('AI: ' + response.string[response.string.find(': ') + 2:])  # 打印AI回复
         finally:
-            LOCK.release()
+            LOCK.release()  # 释放LOCK锁
 
     def update_response():
         LOCK1.acquire()

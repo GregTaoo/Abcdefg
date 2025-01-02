@@ -24,35 +24,40 @@ def add_event(event: str):
 def init():
     global CLIENT
     CLIENT = OpenAI(
-        base_url=Config.AI_URL,  # 设置AI服务的URL
-        api_key='ollama',  # API密钥（在此为假设值）
+        base_url=Config.AI_URL,
+        api_key='ollama',
     )
 
 
+# 更新AI的回应消息
 def update_ai_response(response: str):
     MESSAGES.append({
-        'role': 'assistant',
-        'content': response
+        'role': 'assistant',  # 表示AI的消息角色
+        'content': response   # AI的回复内容
     })
 
-
+# 获取AI响应流（异步获取）
 def get_response_stream(input_text, role='user'):
     user = {
-        'role': role,
-        'content': input_text
+        'role': role,         # 用户的角色
+        'content': input_text  # 用户输入的文本
     }
     event = {
-        'role': 'system',
-        'content': ';'.join(EVENTS)
+        'role': 'system',     # 系统角色
+        'content': ';'.join(EVENTS)  # 系统事件信息，连接成字符串
     }
     try:
-        ret = None if CLIENT is None else CLIENT.chat.completions.create(messages=MESSAGES + [event, user],
-                                                                         model='llama3.2', stream=True, timeout=30)
-    except openai.BadRequestError as e:
+        ret = None if CLIENT is None else CLIENT.chat.completions.create(
+            messages=MESSAGES + [event, user],  # 合并消息列表
+            model='llama3.2',  # 使用的AI模型
+            stream=True,  # 使用流模式进行响应
+            timeout=30  # 超时设定
+        )
+    except openai.BadRequestError as e:  # 异常处理
         print(e)
         ret = None
-    MESSAGES.append(user)
-    return ret
+    MESSAGES.append(user)  # 添加用户消息到对话记录
+    return ret  # 返回流对象
 
 
 LOCK = threading.Lock()

@@ -2,12 +2,10 @@ import Block
 import Config
 import I18n
 from Dialog import Dialog
-from entity.NPC import TraderNPC, TradeOption, NPC
+from entity.NPC import NPC
 from render import Renderer
-from ui.DialogUI import DialogUI
-from ui.TradeUI import TradeUI
-from entity import Entity
 from ui.BattleUI import BattleUI
+from ui.DialogUI import DialogUI
 
 
 class BossNPC1(NPC):

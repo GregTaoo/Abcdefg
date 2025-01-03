@@ -71,7 +71,7 @@ class AnimationRenderer(Renderer):
                 self.index = random.randint(0, len(self.images) - 1)
             else:
                 # 否则顺序播放动画
-                self.index = min(self.index + 1, len(self.images) - 1)
+                self.index = min(self.index + 1, len(self.images))
                 if self.repeat:
                     self.index %= len(self.images)
 
@@ -159,6 +159,7 @@ def load_images_from_sprite(file, image_size, resize):
 def load_lava_images():
     images = load_images_from_sprite("./assets/lava.png", (16, 16), (60, 60))
     return images + images[::-1]  # 加载镜像图像
+
 
 # 辅助函数：加载水的图像并返回图像列表（包含镜像）
 def load_water_images():

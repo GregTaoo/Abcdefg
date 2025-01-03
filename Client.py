@@ -240,11 +240,11 @@ class Client:
             Particle.ENV_PARTICLES.tick()
             Particle.ENV_PARTICLES.render(self.screen, Config.FONT, self.camera)
 
-            self.current_hud.tick(keys, events)
-            self.current_hud.render(self.screen)
-
             self.screen.blit(layers[1], (0, 0))
             self.screen.blit(layers[2], (0, 0))
+
+            self.current_hud.tick(keys, events)
+            self.current_hud.render(self.screen)
         else:
             self.render_entities([self.screen, self.screen, self.screen])
             self.current_ui.render(self.screen)

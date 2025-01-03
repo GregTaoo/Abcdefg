@@ -25,6 +25,7 @@ class StarterUI(UI):
         self.tick_cnt = (self.tick_cnt + 1) % 90
         for event in events:
             if event.type == pygame.MOUSEBUTTONDOWN:
+                Config.SOUNDS['button1'].play()
                 Config.CLIENT.open_ui(SelectLanguageUI())
         return True
 

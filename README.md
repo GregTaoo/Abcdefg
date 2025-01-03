@@ -4,7 +4,7 @@
 
 ### 发明项目：Redemption (Team Name: Abcdefg)
 
-![ICON](./assets/ui/title.png)
+![ICON](./assets/ui/cover.png)
 
 ------------------------------------
 

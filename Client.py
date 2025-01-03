@@ -85,6 +85,8 @@ class Client:
         Config.FONT_BOLD = pygame.font.Font("./assets/lang/simhei.ttf", 16)
         Config.FONT_BOLD.set_bold(True)
         Config.MIDDLE_FONT = pygame.font.Font("./assets/lang/simhei.ttf", 24)
+        Config.MIDDLE_FONT_BOLD = pygame.font.Font("./assets/lang/simhei.ttf", 24)
+        Config.MIDDLE_FONT_BOLD.set_bold(True)
         Config.LARGE_FONT = pygame.font.Font("./assets/lang/simhei.ttf", 32)
         Config.HUGE_FONT = pygame.font.Font("./assets/lang/simhei.ttf", 48)
 
@@ -123,6 +125,7 @@ class Client:
 
         # 加载图像资源
         Config.COIN_IMAGE = pygame.transform.scale(pygame.image.load('./assets/ui/coin.png'), (20, 20))
+        Config.SPIRIT_POWER_IMAGE = pygame.transform.scale(pygame.image.load('./assets/ui/spirit_power.png'), (20, 20))
         Config.LANGUAGE_IMAGE = pygame.transform.scale(pygame.image.load('./assets/ui/language.png'), (20, 20))
         Config.MESSAGE_IMAGE = pygame.transform.scale(pygame.image.load('./assets/ui/message.png'), (20, 20))
 

@@ -94,7 +94,7 @@ class VillagerNPC(TraderNPC):
             trade.price *= 2  # 将所有交易选项的价格加倍。
         # 召唤一个铁傀儡来与玩家战斗。
         iron_golem = Entity.Entity(I18n.text('iron_golem'), self.get_right_bottom_pos(),
-                                   Renderer.image_renderer('entities/iron_golem.png', (50, 50)), atk=8, sp=5)
+                                   Renderer.image_renderer('entities/iron_golem.png', (50, 50)), atk=8, sp=3)
         Config.CLIENT.spawn_entity(iron_golem)  # 生成铁傀儡。
         Config.CLIENT.open_ui(BattleUI(player, iron_golem))  # 打开战斗界面。
 

@@ -5,7 +5,6 @@ from Dialog import Dialog
 from entity.NPC import TraderNPC, NPC
 from render import Renderer
 from ui.DialogUI import DialogUI
-from ui.TradeUI import TradeUI
 
 
 class NetherNPC1(NPC):
@@ -88,11 +87,13 @@ class NetherNPC4(TraderNPC):
         # 玩家与交易NPC交互时触发，打开对话框UI并显示交易界面
         if self.interact:
             Config.CLIENT.open_ui(DialogUI(self, Dialog('nether_npc4'),
-                                           lambda msg: Config.CLIENT.open_ui(TradeUI(player, self))))
+                                           lambda msg: self.process_choice(player, msg)))
     
     def process_choice(self, player, choice):
         self.interact = False
-        if player.sp < 2:
+        if choice == '#':
+            return '!#'
+        elif player.sp < 2:
             Config.CLIENT.dimension.set_block((11, 2), Block.LAVA)
             return 'b3'
         elif choice == '1':
@@ -104,6 +105,7 @@ class NetherNPC4(TraderNPC):
             return 'b1'
         elif choice == '2':
             Config.CLIENT.dimension.set_block((10, 2), Block.LAVA)
+            player.sp = 0
             # 清空你所有的灵力，换取50点攻击力，并直接离开这个世界
             return 'b2'
         else:
@@ -119,10 +121,12 @@ class NetherNPC5(TraderNPC):
         # 玩家与交易NPC交互时触发，打开对话框UI并显示交易界面
         if self.interact:
             Config.CLIENT.open_ui(DialogUI(self, Dialog('nether_npc5'),
-                                           lambda msg: Config.CLIENT.open_ui(TradeUI(player, self))))
+                                           lambda msg: self.process_choice(player, msg)))
             
     def process_choice(self, player, choice):
         self.interact = False
+        if choice == '#':
+            return '!#'
         if player.sp < 2:
             Config.CLIENT.dimension.set_block((20, 10), Block.LAVA)
             return 'b2'

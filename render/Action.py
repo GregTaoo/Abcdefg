@@ -20,10 +20,11 @@ class Action:
                     poses = []  # 存储位置坐标
                     for i in range(len(num) // 2):  # 假设每两个数是一个位置坐标 (x, y)
                         poses.append((float(num[i * 2]), float(num[i * 2 + 1])))  # 将坐标转换为浮点数并添加到 poses 列表
-                    if len(line1) >= 4:
-                        sounds = line1[3].split()  # 如果有声音参数，按空格分割为列表
-                    self.pos.append((poses, int(line1[1]) if len(line1) >= 2 else 0,
-                                     line1[2] if len(line1) >= 3 else '', sounds if len(line1) >= 4 else []))
+                    if len(line1) >= 5:
+                        sounds = line1[4].split()  # 如果有声音参数，按空格分割为列表
+                    self.pos.append((poses, int(line1[1]) if len(line1) >= 2 else 0,  # 伤害
+                                     int(line1[2]) if len(line1) >= 3 else 0,  # 回血
+                                     line1[3] if len(line1) >= 4 else '', sounds if len(line1) >= 5 else []))
                     # 将每个动作位置、帧数、描述和声音信息添加到 pos 列表中
 
     # 每调用一次 tick 方法，动作帧数加一，最大不超过动作的总帧数 - 1
@@ -32,7 +33,7 @@ class Action:
 
     # 获取当前动作的位置（坐标、帧数、描述、声音等信息）
     def get_current_pos(self):
-        return self.pos[self.ticks] if len(self.pos) > 0 else (None, 0, '', [])
+        return self.pos[self.ticks] if len(self.pos) > 0 else (None, 0, 0, '', [])
 
     # 判断动作是否结束（即 ticks 是否已到达动作的最后一帧）
     def is_end(self):

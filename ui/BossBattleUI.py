@@ -81,7 +81,7 @@ class BossBattleUI(UI):
         super().render(screen)
         if self.playing_action:
             # 获取当前攻击目标、伤害、文本和音效
-            target_poses, damage, text, sounds = self.action.get_current_pos()
+            target_poses, damage, heal, text, sounds = self.action.get_current_pos()
             for sound in sounds:
                 Config.SOUNDS[sound].play()
             if self.half_round < self.round * 2:  # 玩家攻击阶段
@@ -98,6 +98,10 @@ class BossBattleUI(UI):
                         self.generate_explosion(self.enemy_pos)
                     if self.enemy.hp < self.enemy.max_hp // 3:
                         AIHelper.add_response(f'enemy {self.enemy.name} is now low hp {self.enemy.hp}', (0, 255, 0))
+                if heal != 0:
+                    self.player.heal(heal)
+                    Particle.UI_PARTICLES.add(Particle.DamageParticle(heal, self.player_pos, 180,
+                                                                      False, (0, 255, 0)))
                 self.enemy.render_at_absolute_pos(screen, self.enemy_pos)
                 if target_poses is None:
                     self.player.render_at_absolute_pos(screen, self.player_pos)
@@ -122,6 +126,10 @@ class BossBattleUI(UI):
                         Config.SOUNDS['player_death'].play()
                     elif self.player.hp < self.player.max_hp // 3:
                         AIHelper.add_response(f'player is now low hp {self.player.hp}', (255, 0, 0))
+                    if heal != 0:
+                        self.enemy.heal(heal)
+                        Particle.UI_PARTICLES.add(Particle.DamageParticle(heal, self.player_pos, 180,
+                                                                          False, (0, 255, 0)))
                 self.player.render_at_absolute_pos(screen, self.player_pos)
                 if target_poses is None:
                     self.enemy.render_at_absolute_pos(screen, self.enemy_pos)
@@ -135,9 +143,6 @@ class BossBattleUI(UI):
         # 渲染当前回合数
         txt_surface = Config.FONT.render(I18n.text('rounds').format(self.round), True, (255, 255, 255))
         screen.blit(txt_surface, (30, 30))
-
-        # 渲染所有粒子
-        Particle.UI_PARTICLES.render(screen, Config.MIDDLE_FONT)
 
         # 显示最近的聊天消息
         current_time = time.time()
@@ -179,8 +184,7 @@ class BossBattleUI(UI):
             if self.action.is_end():
                 if self.half_round < self.round * 2:
                     self.action.reset()
-                    self.action = Action.LASER_CANNON_LEFT
-                    Particle.UI_PARTICLES.add(Particle.LaserCannonParticle((self.player_pos[0] + 50, self.player_pos[1] - 30), 50))
+                    self.action = Action.ATTACK_LEFT
                     self.half_round += 1
                     self.use_crt = random.randint(0, 100) < self.enemy.crt * 100
                     if self.escaping_stage == 2:
@@ -194,8 +198,6 @@ class BossBattleUI(UI):
                         self.escaping_stage = 2
                         self.round_start(Action.ESCAPE_LEFT)
             self.action.tick()
-        # 更新所有粒子
-        Particle.UI_PARTICLES.tick()
         return True
 
     # 关闭UI时清除所有粒子

@@ -66,10 +66,10 @@ class NetherNPC3(NPC):
                                            lambda msg: self.process_choice(player, msg)))
 
     def process_choice(self, player, choice):
-        self.interact = False
         if choice == '1':
+            self.interact = False
             Config.CLIENT.dimension.set_block((2, 7), Block.LAVA)
-            #获得狂暴战刃
+            # 获得狂暴战刃
             return 'b1'
         else:
             return '!#'

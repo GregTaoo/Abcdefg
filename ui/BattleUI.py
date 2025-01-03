@@ -81,7 +81,7 @@ class BattleUI(UI):
         super().render(screen)
         if self.playing_action:
             # 获取当前攻击目标、伤害、文本和音效
-            target_poses, damage, text, sounds = self.action.get_current_pos()
+            target_poses, damage, heal, text, sounds = self.action.get_current_pos()
             for sound in sounds:
                 Config.SOUNDS[sound].play()
             if self.half_round < self.round * 2:  # 玩家攻击阶段
@@ -98,6 +98,10 @@ class BattleUI(UI):
                         self.generate_explosion(self.enemy_pos)
                     if self.enemy.hp < self.enemy.max_hp // 3:
                         AIHelper.add_response(f'enemy {self.enemy.name} is now low hp {self.enemy.hp}', (0, 255, 0))
+                if heal != 0:
+                    self.player.heal(heal)
+                    Particle.UI_PARTICLES.add(Particle.DamageParticle(heal, self.player_pos, 180,
+                                                                      False, (0, 255, 0)))
                 self.enemy.render_at_absolute_pos(screen, self.enemy_pos)
                 if target_poses is None:
                     self.player.render_at_absolute_pos(screen, self.player_pos)
@@ -122,6 +126,10 @@ class BattleUI(UI):
                         Config.SOUNDS['player_death'].play()
                     elif self.player.hp < self.player.max_hp // 3:
                         AIHelper.add_response(f'player is now low hp {self.player.hp}', (255, 0, 0))
+                    if heal != 0:
+                        self.enemy.heal(heal)
+                        Particle.UI_PARTICLES.add(Particle.DamageParticle(heal, self.player_pos, 180,
+                                                                          False, (0, 255, 0)))
                 self.player.render_at_absolute_pos(screen, self.player_pos)
                 if target_poses is None:
                     self.enemy.render_at_absolute_pos(screen, self.enemy_pos)

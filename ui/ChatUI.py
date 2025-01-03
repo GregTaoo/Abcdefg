@@ -23,23 +23,26 @@ class ChatUI(UI):
 
     @staticmethod
     def send_message(text):
-        if text.startswith('/tp'):
-            x, y = text.split(' ')[1:]
-            Config.CLIENT.player.x = int(x)
-            Config.CLIENT.player.y = int(y)
-            return
+        # 发送消息的静态方法
+        if text.startswith('/tp'):  # 如果消息以 '/tp' 开头，表示传送命令
+            x, y = text.split(' ')[1:]  # 获取目标位置坐标
+            Config.CLIENT.player.x = int(x)  # 设置玩家的x坐标
+            Config.CLIENT.player.y = int(y)  # 设置玩家的y坐标
+            return  # 执行完传送后直接返回
 
-        s = I18n.text('player_name').get() + ': ' + text
+        # 普通消息发送
+        s = I18n.text('player_name').get() + ': ' + text  # 将玩家名字和消息拼接
         while s:
             i = 0
+            # 将消息按屏幕宽度分割，避免文字溢出
             for i in range(len(s)):
                 if Config.FONT.size(s[:i + 1])[0] > Config.SCREEN_WIDTH // 2:
                     break
-            Config.CLIENT.current_hud.add_message(I18n.text(s[:i + 1]), (255, 255, 255))
-            s = s[i + 1:]
+            Config.CLIENT.current_hud.add_message(I18n.text(s[:i + 1]), (255, 255, 255))  # 添加消息到HUD
+            s = s[i + 1:]  # 处理剩余的消息
 
-        AIHelper.add_response(text)
-        Config.CLIENT.close_ui()
+        AIHelper.add_response(text)  # 记录响应
+        Config.CLIENT.close_ui()  # 关闭聊天UI
 
     def paste_text(self):
         if pygame.scrap.get(pygame.SCRAP_TEXT):

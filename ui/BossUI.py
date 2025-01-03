@@ -75,7 +75,7 @@ class BattleUI(UI):
                 real_dmg = damage * self.player.atk * (self.player.crt_damage if self.use_crt else 1)
                 self.enemy.damage(real_dmg)
                 if real_dmg != 0:
-                    Particle.add_particle(Particle.DamageParticle(real_dmg, self.enemy_pos, 180, self.use_crt))
+                    Particle.UI_PARTICLES.add(Particle.DamageParticle(real_dmg, self.enemy_pos, 180, self.use_crt))
                     if self.enemy.hp < self.enemy.max_hp // 3:
                         AIHelper.add_response(f'enemy {self.enemy.name} is now low hp {self.enemy.hp}', (0, 255, 0))
                 self.enemy.render_at_absolute_pos(screen, self.enemy_pos)
@@ -93,7 +93,7 @@ class BattleUI(UI):
                 real_dmg = damage * self.enemy.atk * (self.enemy.crt_damage if self.use_crt else 1)
                 self.player.damage(real_dmg)
                 if real_dmg != 0:
-                    Particle.add_particle(Particle.DamageParticle(real_dmg, self.player_pos, 180, self.use_crt))
+                    Particle.UI_PARTICLES.add(Particle.DamageParticle(real_dmg, self.player_pos, 180, self.use_crt))
                     if self.player.hp <= 0:
                         Config.SOUNDS['player_death'].play()
                     elif self.player.hp < self.player.max_hp // 3:
@@ -109,7 +109,7 @@ class BattleUI(UI):
             self.enemy.render_at_absolute_pos(screen, self.enemy_pos)
         txt_surface = Config.FONT.render(I18n.text('rounds').format(self.round), True, (255, 255, 255))
         screen.blit(txt_surface, (30, 30))
-        Particle.render_particles(screen, Config.MIDDLE_FONT)
+        Particle.UI_PARTICLES.render(screen, Config.MIDDLE_FONT)
 
         current_time = time.time()
         y_offset = Config.SCREEN_HEIGHT - 50
@@ -156,8 +156,8 @@ class BattleUI(UI):
                         self.escaping_stage = 2
                         self.round_start(Action.ESCAPE_LEFT)
             self.action.tick()
-        Particle.tick_particles()
+        Particle.UI_PARTICLES.tick()
         return True
 
     def on_close(self):
-        Particle.remove_all_particles()
+        Particle.UI_PARTICLES.clear()

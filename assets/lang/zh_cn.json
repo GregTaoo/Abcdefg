@@ -96,6 +96,8 @@
     "nether_player4_dia_b1": "谢谢",
     "nether_npc4_dia_b2": "祝你好运",
     "nether_player4_dia_b2": "谢谢",
+    "nether_npc4_dia_b3": "你好",
+    "nether_player4_dia_b3": "我没钱了......",
 
     "nether_npc5_dia1": "你感受到一阵眩晕，当你醒来时，你发现自己来到了一个白骨成堆的维度",
     "nether_player5_dia1": "这是哪里？",
@@ -108,6 +110,8 @@
     "nether_player5_dia4": "获得 回响之杖",
     "nether_npc5_dia_b1": "祝你好运",
     "nether_player5_dia_b1": "谢谢",
+    "nether_npc5_dia_b2": "你好",
+    "nether_player5_dia_b2": "我没钱了......",
 
     "boss_npc1_dia1": "你终于来了，年轻人,你觉得我是真是假？",
     "boss_player1_dia1_1": "我觉得你是真的",

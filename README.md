@@ -2,13 +2,13 @@
 
 ------------------------------------
 
-### 发明项目：Redemption (Team Abcdefg)
+### 发明项目：Redemption (Team Name: Abcdefg)
 
 ![ICON](./assets/ui/title.png)
 
 ------------------------------------
 
-### 发明人：
+### 发明人及分工：
 
 钟晨涛: 程序设计，代码编写，部分美工，部分音乐
 
@@ -16,13 +16,13 @@
 
 [gregtao@shanghaitech.edu.cn](mailto:gregtao@shanghaitech.edu.cn) 
 
-周陈诚: 美工资源，游戏策划，数值设计，部分代码
+周陈诚: 美工资源，游戏策划，数值设计，部分代码(图3较多）
 
 [Z-c-c-cc's GitHub](https://github.com/Z-c-c-cc)
 
 [zhouchch2024@shanghaitech.edu.cn](mailto:zhouchch2024@shanghaitech.edu.cn) 
 
-李明熹: 游戏剧情，游戏策划，数值设计，部分音乐，部分代码
+李明熹: 游戏剧情，游戏策划，数值设计，部分音乐，部分代码（图2较多）
 
 [Svania-riCw's GitHub](https://github.com/Svania-riCw)
 

@@ -47,8 +47,14 @@ class BossBattleUI(UI):
                                            (Config.SCREEN_WIDTH // 2 + 50, Config.SCREEN_HEIGHT // 2 + 50),
                                            (95, 50), on_click=self.on_click_escape_button)
         self.add_button(self.escape_button)
+        self.live_steal_button = ClassicButton(I18n.text('live_steal'),
+                                               (Config.SCREEN_WIDTH // 2 + 50, Config.SCREEN_HEIGHT // 2 + 100),
+                                               (95, 50), on_click=lambda: self.round_start(Action.LIFE_STEAL_RIGHT))
+        self.add_button(self.live_steal_button)
         # 记录玩家和敌人进入战斗
         AIHelper.add_event('player has entered battle with ' + enemy.name.get())
+        self.clock_heart_particle = [10, lambda: Particle.UI_PARTICLES.add(Particle.LifeStealingParticle(
+                                                                           (600, 215), 90)), 10]
 
     # 点击逃跑按钮的操作
     def on_click_escape_button(self):
@@ -73,6 +79,8 @@ class BossBattleUI(UI):
             self.player.update_energy()
         elif use_action == Action.ULTIMATE_RIGHT:
             self.player.reset_energy()
+        elif use_action == Action.LIFE_STEAL_RIGHT:
+            Config.CLOCKS.append(self.clock_heart_particle)
         # 判断是否触发暴击
         self.use_crt = random.randint(0, 100) < self.player.crt * 100
 
@@ -100,7 +108,7 @@ class BossBattleUI(UI):
                         AIHelper.add_response(f'enemy {self.enemy.name} is now low hp {self.enemy.hp}', (0, 255, 0))
                 if heal != 0:
                     self.player.heal(heal)
-                    Particle.UI_PARTICLES.add(Particle.DamageParticle(heal, self.player_pos, 180,
+                    Particle.UI_PARTICLES.add(Particle.DamageParticle(-heal, self.player_pos, 180,
                                                                       False, (0, 255, 0)))
                 self.enemy.render_at_absolute_pos(screen, self.enemy_pos)
                 if target_poses is None:
@@ -128,7 +136,7 @@ class BossBattleUI(UI):
                         AIHelper.add_response(f'player is now low hp {self.player.hp}', (255, 0, 0))
                     if heal != 0:
                         self.enemy.heal(heal)
-                        Particle.UI_PARTICLES.add(Particle.DamageParticle(heal, self.player_pos, 180,
+                        Particle.UI_PARTICLES.add(Particle.DamageParticle(-heal, self.player_pos, 180,
                                                                           False, (0, 255, 0)))
                 self.player.render_at_absolute_pos(screen, self.player_pos)
                 if target_poses is None:

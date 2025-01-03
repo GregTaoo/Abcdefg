@@ -79,12 +79,12 @@ with open("laser_cannon_left.txt", "w") as file:
     for x in range(90):
         file.write(f"600 200\n")
 
-with open ("lifesteal_left.txt", "w") as file:
-    for i in range (10):
+with open("life_steal_right.txt", "w") as file:
+    for i in range(10):
         for x in range(9):
-            file.write(f"200 200|0|0|lifesteal\n")
-        file.write(f"200 200|4|0|lifesteal\n")
-    for i in range (10):
+            file.write(f"150 200|0|0|life_steal\n")
+        file.write(f"150 200|4|0|life_steal\n")
+    for i in range(10):
         for x in range(9):
-            file.write(f"200 200|0|0|lifesteal\n")
-        file.write(f"200 200|0|5|lifesteal\n")
+            file.write(f"150 200|0|0|life_steal\n")
+        file.write(f"150 200|0|5|life_steal\n")

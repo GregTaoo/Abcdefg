@@ -49,6 +49,15 @@
           "next": "!#"
         }
       ]
+    },
+    "b2": {
+      "npc": "nether_npc5_dia_b2",
+      "player": [
+        {
+          "str": "nether_player5_dia_b2",
+          "next": "!#"
+        }
+      ]
     }
   }
 }

@@ -43,13 +43,14 @@ class BossNPC2(NPC):
     def process_choice(self, player, choice):
         self.interact = False
         if choice == '1':
-            Config.CLIENT.dimension.set_block((7, 11), Block.WARPED_PLANKS)
-            return 'b1'
+            Config.CLIENT.player.heal(1)
         elif choice == '2':
-            Config.CLIENT.dimension.set_block((8, 10), Block.WARPED_PLANKS)
-            return 'b2'
-        else:
-            return '!#'
+            if Config.CLIENT.player.hp > Config.CLIENT.player.max_hp / 2:
+               Config.CLIENT.player.damage(Config.CLIENT.player.hp - Config.CLIENT.player.max_hp / 2)
+            Config.CLIENT.player.max_hp /= 2
+        elif choice == '3':
+            Config.CLIENT.player.damage(Config.CLIENT.player.hp/2)
+        return "!#"
 
 
 class BossNPC3(NPC):

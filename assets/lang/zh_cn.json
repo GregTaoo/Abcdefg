@@ -116,9 +116,9 @@
     "boss_npc2_dia2_1": "你的选择是错误的，年轻人",
     "boss_npc2_dia2_2": "你的选择是正确的，年轻人",
     "boss_npc2_dia3": "你有勇气来挑战我吗?",
-    "boss_player2_dia3": "我有",
+    "boss_player2_dia3_1": "我有",
     "boss_player2_dia3_2": "快跑",
-    "boss_npc2_dia4": "激烈的战斗后，你元气大伤，最大HP减半",
+    "boss_npc2_dia4_1": "激烈的战斗后，你元气大伤，最大HP减半",
     "boss_npc2_dia4_2": "你狼狈逃跑，HP减半",
 
     "boss_npc3_dia1": "你终于来了，年轻人,你觉得我是真是假？",

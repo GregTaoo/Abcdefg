@@ -17,14 +17,18 @@ from ui.MessageBoxUI import MessageBoxUI
 
 
 def generate_the_world():
+    # 生成世界地图，包含草地、岩浆、石头和水块
     mp = Dimension.generate_map(MAP_WIDTH, MAP_HEIGHT, [
         Block.GRASS_BLOCK, Block.LAVA, Block.STONE, Block.WATER
     ], [150, 1, 2, 1])
+
+    # 在地图的特定位置添加黑曜石和传送门
     for i in range(3):
         mp[MAP_WIDTH - 10 + i][MAP_HEIGHT - 10] = mp[MAP_WIDTH - 10 + i][MAP_HEIGHT - 8] = Block.OBSIDIAN
     mp[MAP_WIDTH - 10][MAP_HEIGHT - 9] = mp[MAP_WIDTH - 8][MAP_HEIGHT - 9] = Block.OBSIDIAN
     mp[MAP_WIDTH - 9][MAP_HEIGHT - 9] = Block.NETHER_PORTAL
-    # mp[10][10] = Block.NETHER_PORTAL
+
+    # 在草地上随机生成花朵或蘑菇
     for i in range(3):
         mp[MAP_WIDTH - 10 + i][8] = mp[MAP_WIDTH - 10 + i][10] = random.choice([Block.GRASS_BLOCK_WITH_FLOWER,
                                                                                 Block.GRASS_BLOCK_WITH_MUSHROOM])
@@ -35,17 +39,21 @@ def generate_the_world():
 
 
 def generate_the_end():
+    # 生成末地地图，只有末地石
     mp = Dimension.generate_map(MAP_WIDTH, MAP_HEIGHT, [Block.END_STONE], [1])
+    # 设置末地中的传送门
     mp[MAP_WIDTH // 2][MAP_HEIGHT // 2] = Block.NETHER_BACK_PORTAL
     return mp
 
 
 def generate_the_nether():
+    # 读取并生成地狱地图
     mp = [[Block.WARPED_PLANKS] * 17 + [Block.NETHERITE_BLOCK] * 3 + [Block.WARPED_PLANKS] * 40]
     with open('assets/maps/nether.txt', 'r') as f:
         for line in f.readlines():
             mp.append([Block.WARPED_PLANKS if i == 'B' else Block.NETHERITE_BLOCK
                        for i in line.strip()] + [Block.WARPED_PLANKS] * 39)
+    # 生成陷阱门和其他特殊地形
     for i in range(38):
         mp.append([Block.WARPED_PLANKS] * MAP_WIDTH)
     mp[2][17] = mp[3][19] = Block.OAK_TRAPDOOR
@@ -57,13 +65,14 @@ def generate_the_nether():
 
 
 def load_sound(name, path, volume=0.5):
+    # 加载音效文件并设置音量
     Config.SOUNDS[name] = pygame.mixer.Sound(path)
     Config.SOUNDS[name].set_volume(volume)
 
 
 class Client:
-
     def __init__(self, screen: pygame.Surface, clock, player, dimension):
+        # 初始化游戏世界
         Config.WORLDS['the_world'] = Dimension('the_world', MAP_WIDTH, MAP_HEIGHT, generate_the_world(),
                                                './assets/sounds/music_minecraft.mp3')
         Config.WORLDS['the_nether'] = Dimension('the_nether', MAP_WIDTH, MAP_HEIGHT, generate_the_nether(),
@@ -71,6 +80,7 @@ class Client:
         Config.WORLDS['the_end'] = Dimension('the_end', MAP_WIDTH, MAP_HEIGHT, generate_the_end(),
                                              './assets/sounds/music_mario.mp3')
 
+        # 设置字体
         Config.FONT = pygame.font.Font("./assets/lang/simhei.ttf", 16)
         Config.FONT_BOLD = pygame.font.Font("./assets/lang/simhei.ttf", 16)
         Config.FONT_BOLD.set_bold(True)
@@ -78,31 +88,16 @@ class Client:
         Config.LARGE_FONT = pygame.font.Font("./assets/lang/simhei.ttf", 32)
         Config.HUGE_FONT = pygame.font.Font("./assets/lang/simhei.ttf", 48)
 
+        # 生成地狱中的NPC
         nether_npc1 = entity.NetherNPC.NetherNPC1((2 * Config.BLOCK_SIZE + 5, 18 * Config.BLOCK_SIZE + 5))
         nether_npc1.mirror = True
         Config.WORLDS['the_nether'].spawn_entity(nether_npc1)
-        nether_npc2 = entity.NetherNPC.NetherNPC2((8 * Config.BLOCK_SIZE + 5, 11 * Config.BLOCK_SIZE + 5))
-        Config.WORLDS['the_nether'].spawn_entity(nether_npc2)
-        nether_npc3 = entity.NetherNPC.NetherNPC3((18 * Config.BLOCK_SIZE + 5, 19 * Config.BLOCK_SIZE + 5))
-        Config.WORLDS['the_nether'].spawn_entity(nether_npc3)
-        nether_npc4 = entity.NetherNPC.NetherNPC4((12 * Config.BLOCK_SIZE + 5, 2 * Config.BLOCK_SIZE + 5))
-        Config.WORLDS['the_nether'].spawn_entity(nether_npc4)
-        nether_npc5 = entity.NetherNPC.NetherNPC3((20 * Config.BLOCK_SIZE + 5, 1 * Config.BLOCK_SIZE + 5))
-        Config.WORLDS['the_nether'].spawn_entity(nether_npc5)
-        
+
+        # 生成末地中的Boss NPC
         boss_npc1 = entity.BossNPC.BossNPC1((2 * Config.BLOCK_SIZE + 5, 18 * Config.BLOCK_SIZE + 5))
         Config.WORLDS['the_end'].spawn_entity(boss_npc1)
-        boss_npc2 = entity.BossNPC.BossNPC2((8 * Config.BLOCK_SIZE + 5, 11 * Config.BLOCK_SIZE + 5))
-        Config.WORLDS['the_end'].spawn_entity(boss_npc2)
-        boss_npc3 = entity.BossNPC.BossNPC3((18 * Config.BLOCK_SIZE + 5, 19 * Config.BLOCK_SIZE + 5))
-        Config.WORLDS['the_end'].spawn_entity(boss_npc3)
-        boss_npc4 = entity.BossNPC.BossNPC4((12 * Config.BLOCK_SIZE + 5, 2 * Config.BLOCK_SIZE + 5))
-        Config.WORLDS['the_end'].spawn_entity(boss_npc4)
-        boss_npc5 = entity.BossNPC.BossNPC3((20 * Config.BLOCK_SIZE + 5, 1 * Config.BLOCK_SIZE + 5))
-        Config.WORLDS['the_end'].spawn_entity(boss_npc5)
-        boss_npc6 = entity.BossNPC.BossNPC3((20 * Config.BLOCK_SIZE + 5, 10 * Config.BLOCK_SIZE + 5))
-        Config.WORLDS['the_end'].spawn_entity(boss_npc6)
 
+        # 加载音效
         load_sound('hit', './assets/sounds/hit.mp3', 0.5)
         load_sound('player_death', './assets/sounds/player_death.mp3', 0.5)
         load_sound('zeus', './assets/sounds/zeus.mp3', 0.25)
@@ -110,9 +105,11 @@ class Client:
         load_sound('button2', './assets/sounds/button2.mp3', 0.75)
         load_sound('victory', './assets/sounds/victory.mp3', 0.75)
 
+        # 加载图像资源
         Config.COIN_IMAGE = pygame.transform.scale(pygame.image.load('./assets/coin.png'), (20, 20))
         Config.LANGUAGE_IMAGE = pygame.transform.scale(pygame.image.load('./assets/language.png'), (20, 20))
 
+        # 初始化客户端界面
         self.screen = screen
         self.clock = clock
         self.tick_counter = 0
@@ -123,9 +120,11 @@ class Client:
         self.set_dimension(Config.WORLDS[dimension])
         self.camera = self.player.get_camera()
 
+        # 注册定时任务
         Config.CLOCKS.append((15, self.update_hint))
 
     def update_hint(self):
+        # 更新显示提示信息
         nearest = self.dimension.nearest_entity(self.player.get_pos())
         if nearest is not None and nearest.is_nearby(self.player):
             self.current_hud.display_hint = True

@@ -69,6 +69,8 @@ class NetherNPC3(NPC):
         if choice == '1':
             self.interact = False
             Config.CLIENT.dimension.set_block((2, 7), Block.LAVA)
+            Config.CLIENT.dimension.set_block((9, 17), Block.NETHERITE_BLOCK)
+            Config.CLIENT.dimension.set_block((19, 19), Block.OAK_TRAPDOOR)
             # 获得狂暴战刃
             return 'b1'
         else:

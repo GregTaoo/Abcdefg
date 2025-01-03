@@ -46,7 +46,7 @@ class Entity:
         # 扣除生命值，确保不低于0
         self.hp = max(0.0, self.hp - damage)
 
-    def cure(self, cure: float):
+    def heal(self, cure: float):
         # 恢复生命值，确保不超过最大生命值
         self.hp = min(self.max_hp, self.hp + cure)
 

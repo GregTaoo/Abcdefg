@@ -89,9 +89,11 @@ class TheWorldDimension(Dimension):
 
     def render(self, screen: pygame.Surface, camera: Tuple[int, int]):
         super().render(screen, camera)
-        self.rain_scroll_y += 6
-        if self.rain_scroll_y >= 600:  # 当滚动到屏幕底部时，重置
-            self.rain_scroll_y = 0
-        screen.blit(self.rain_surface, (0, -600 + self.rain_scroll_y))
-        x, y = camera[0] + random.randint(0, Config.SCREEN_WIDTH), camera[1] + random.randint(0, Config.SCREEN_HEIGHT)
-        Particle.ENV_PARTICLES.add(Particle.SplashParticle((x, y), 30))
+        if Config.CLIENT.current_ui is None:
+            self.rain_scroll_y += 6
+            if self.rain_scroll_y >= 600:  # 当滚动到屏幕底部时，重置
+                self.rain_scroll_y = 0
+            screen.blit(self.rain_surface, (0, -600 + self.rain_scroll_y))
+            x, y = (camera[0] + random.randint(0, Config.SCREEN_WIDTH),
+                    camera[1] + random.randint(0, Config.SCREEN_HEIGHT))
+            Particle.ENV_PARTICLES.add(Particle.SplashParticle((x, y), 60))

@@ -45,31 +45,38 @@ class ChatUI(UI):
         Config.CLIENT.close_ui()  # 关闭聊天UI
 
     def paste_text(self):
+        # 从剪贴板粘贴文本
         if pygame.scrap.get(pygame.SCRAP_TEXT):
             try:
-                self.text += pygame.scrap.get(pygame.SCRAP_TEXT).decode('utf-8').replace('\0', '')
+                self.text += pygame.scrap.get(pygame.SCRAP_TEXT).decode('utf-8').replace('\0', '')  # 尝试使用UTF-8解码
             except UnicodeDecodeError:
                 try:
-                    self.text += pygame.scrap.get(pygame.SCRAP_TEXT).decode('gbk').replace('\0', '')
+                    self.text += pygame.scrap.get(pygame.SCRAP_TEXT).decode('gbk').replace('\0', '')  # 如果解码失败，尝试GBK
                 except UnicodeDecodeError:
-                    pass
+                    pass  # 如果仍然无法解码，则不做处理
 
     def tick(self, keys, events):
-        super().tick(keys, events)
+        # 处理每一帧的键盘和鼠标事件
+        super().tick(keys, events)  # 调用父类的 tick 方法
         for event in events:
             if event.type == pygame.KEYDOWN:
                 if (not Config.AI_INPUT_LOCK) and event.key == pygame.K_RETURN:
+                    # 如果没有锁定AI输入且按下回车键，发送消息
                     self.send_message(self.text)
-                    self.text = ''
+                    self.text = ''  # 清空输入框
                 elif event.key == pygame.K_BACKSPACE:
+                    # 如果按下退格键，删除最后一个字符
                     self.text = self.text[:-1]
                 elif event.key == pygame.K_ESCAPE:
+                    # 如果按下Esc键，关闭聊天窗口
                     return False
                 elif event.key == pygame.K_v and (keys[pygame.K_LCTRL] or keys[pygame.K_RCTRL]):
+                    # 如果按下Ctrl+V，粘贴剪贴板内容
                     self.paste_text()
             if event.type == pygame.TEXTINPUT:
-                self.text += event.text
-        return True
+                # 处理文本输入事件
+                self.text += event.text  # 将输入的字符添加到文本中
+        return True  # 返回True，表示UI仍然有效
 
     def render(self, screen: pygame.Surface):
         super().render(screen)

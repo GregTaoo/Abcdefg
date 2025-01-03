@@ -13,7 +13,7 @@ from ui.BattleSuccessUI import BattleSuccessUI
 from ui.widget.ClassicButton import ClassicButton
 
 
-class BattleUI(UI):
+class BossBattleUI(UI):
 
     def __init__(self, player, enemy):
         super().__init__()
@@ -179,7 +179,8 @@ class BattleUI(UI):
             if self.action.is_end():
                 if self.half_round < self.round * 2:
                     self.action.reset()
-                    self.action = Action.ATTACK_LEFT
+                    self.action = Action.LASER_CANNON_LEFT
+                    Particle.UI_PARTICLES.add(Particle.LaserCannonParticle((self.player_pos[0] + 50, self.player_pos[1] - 30), 50))
                     self.half_round += 1
                     self.use_crt = random.randint(0, 100) < self.enemy.crt * 100
                     if self.escaping_stage == 2:

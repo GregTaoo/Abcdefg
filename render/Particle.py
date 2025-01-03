@@ -81,12 +81,16 @@ class DamageParticle(Particle):
 
 class AnimationParticle(Particle):
 
-    def __init__(self, images, pos, duration):
+    def __init__(self, images, pos, duration, repeat_times=1):
         super().__init__(pos, duration)
         self.images = images
         self.index = 0
+        self.repeat_times = repeat_times
 
     def tick(self):
+        if self.repeat_times > 0 and self.timer == self.duration - 1:
+            self.timer = 0
+            self.repeat_times -= 1
         super().tick()
         self.index = min(self.timer * (len(self.images) - 1) // self.duration, len(self.images) - 1)
 
@@ -97,7 +101,7 @@ class AnimationParticle(Particle):
 class LaserCannonParticle(AnimationParticle):
 
     def __init__(self, pos, duration):
-        super().__init__(LASER_CANNON, pos, duration)
+        super().__init__(LASER_CANNON, pos, duration, 5)
 
 
 class ExplosionParticle(AnimationParticle):
@@ -167,7 +171,7 @@ class CriticalHitParticle(ImageParticle):
         self.pos = (self.pos[0] + self.vel_x, self.pos[1] + self.vel_y)
 
 
-LASER_CANNON = Renderer.load_images_from_sprite('./assets/particles/laser_cannon.png', (207, 102), (207, 102))
+LASER_CANNON = Renderer.load_images_from_sprite('./assets/particles/laser_cannon.png', (398, 102), (398, 102))
 EXPLOSION = Renderer.load_images_from_sprite('./assets/particles/explosion.png', (32, 32), (64, 64))
 CLICK = Renderer.load_images_from_sprite('./assets/particles/click.png', (32, 32), (32, 32))
 LAVA = Renderer.load_image('particles/lava.png', (8, 8))

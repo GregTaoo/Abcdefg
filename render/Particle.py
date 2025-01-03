@@ -163,7 +163,8 @@ class WalkParticle(ImageParticle):
 class CriticalHitParticle(ImageParticle):
 
     def __init__(self, pos, duration):
-        super().__init__(CRITICAL_HIT, pos, duration)
+        super().__init__(random.choice([CRITICAL_HIT, CRITICAL_HIT_YELLOW, CRITICAL_HIT_RED, CRITICAL_HIT_GREEN]),
+                         pos, duration)
         self.vel_x = random.uniform(-10, 10)
         self.vel_y = random.uniform(-10, 10)
 
@@ -193,4 +194,7 @@ LAVA = Renderer.load_image('particles/lava.png', (8, 8))
 GLINT = Renderer.load_image('particles/glint.png', (16, 16))
 WALK = Renderer.load_image('particles/walk.png', (4, 4))
 CRITICAL_HIT = Renderer.load_image('particles/critical_hit.png', (8, 8))
+CRITICAL_HIT_YELLOW = Renderer.load_image('particles/critical_hit_yellow.png', (8, 8))
+CRITICAL_HIT_RED = Renderer.load_image('particles/critical_hit_red.png', (8, 8))
+CRITICAL_HIT_GREEN = Renderer.load_image('particles/critical_hit_green.png', (8, 8))
 HEART = Renderer.load_image('particles/heart.png', (20, 20))

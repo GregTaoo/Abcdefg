@@ -11,7 +11,7 @@ from ui.TradeUI import TradeUI
 class NetherNPC1(NPC):
 
     def __init__(self, pos):
-        super().__init__(I18n.text('nether_npc1'), pos, Renderer.image_renderer('trainer.png', (50, 50)))
+        super().__init__(I18n.text('nether_npc1'), pos, Renderer.image_renderer('entities/trainer.png', (50, 50)))
 
     def on_interact(self, player):
         # 玩家与NPC交互时触发
@@ -23,10 +23,10 @@ class NetherNPC1(NPC):
     def process_choice(self, player, choice):
         self.interact = False
         if choice == '1':
-            Config.CLIENT.dimension.set_block((2, 17), Block.WARPED_PLANKS)
+            Config.CLIENT.dimension.set_block((2, 17), Block.NETHERITE_BLOCK)
             return 'b1'
         elif choice == '2':
-            Config.CLIENT.dimension.set_block((3, 19), Block.WARPED_PLANKS)
+            Config.CLIENT.dimension.set_block((3, 19), Block.NETHERITE_BLOCK)
             return 'b2'
         else:
             return '!#'
@@ -35,7 +35,7 @@ class NetherNPC1(NPC):
 class NetherNPC2(NPC):
 
     def __init__(self, pos):
-        super().__init__(I18n.text('nether_npc2'), pos, Renderer.image_renderer('trainer.png', (50, 50)))
+        super().__init__(I18n.text('nether_npc2'), pos, Renderer.image_renderer('entities/trainer.png', (50, 50)))
 
     def on_interact(self, player):
         if self.interact:
@@ -45,10 +45,10 @@ class NetherNPC2(NPC):
     def process_choice(self, player, choice):
         self.interact = False
         if choice == '1':
-            Config.CLIENT.dimension.set_block((7, 11), Block.WARPED_PLANKS)
+            Config.CLIENT.dimension.set_block((7, 11), Block.NETHERITE_BLOCK)
             return 'b1'
         elif choice == '2':
-            Config.CLIENT.dimension.set_block((8, 10), Block.WARPED_PLANKS)
+            Config.CLIENT.dimension.set_block((8, 10), Block.NETHERITE_BLOCK)
             return 'b2'
         else:
             return '!#'
@@ -57,7 +57,7 @@ class NetherNPC2(NPC):
 class NetherNPC3(NPC):
 
     def __init__(self, pos):
-        super().__init__(I18n.text('nether_npc3'), pos, Renderer.image_renderer('trainer.png', (50, 50)))
+        super().__init__(I18n.text('nether_npc3'), pos, Renderer.image_renderer('entities/trainer.png', (50, 50)))
 
     def on_interact(self, player):
         if self.interact:
@@ -75,7 +75,7 @@ class NetherNPC3(NPC):
 class NetherNPC4(TraderNPC):
 
     def __init__(self, pos):
-        super().__init__(I18n.text('nether_npc4'), pos, Renderer.image_renderer('trainer.png', (50, 50)),
+        super().__init__(I18n.text('nether_npc4'), pos, Renderer.image_renderer('entities/trainer.png', (50, 50)),
                          trade_list=[
                              TradeOption(I18n.text('nether_npc4_option1'), 0, self.buy_1),
                              TradeOption(I18n.text('nether_npc4_option2'), 0, self.buy_2)
@@ -113,7 +113,7 @@ class NetherNPC4(TraderNPC):
 class NetherNPC5(TraderNPC):
 
     def __init__(self, pos):
-        super().__init__(I18n.text('nether_npc5'), pos, Renderer.image_renderer('trainer.png', (50, 50)),
+        super().__init__(I18n.text('nether_npc5'), pos, Renderer.image_renderer('entities/trainer.png', (50, 50)),
                          trade_list=[
                              TradeOption(I18n.text('nether_npc4_option1'), 0, self.buy_1),
                              TradeOption(I18n.text('nether_npc4_option2'), 0, self.buy_2)

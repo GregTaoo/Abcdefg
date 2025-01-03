@@ -73,7 +73,7 @@ class VillagerNPC(TraderNPC):
 
     def __init__(self, pos):
         # 初始化 VillagerNPC，设置其名称、渲染器和交易选项。
-        super().__init__(I18n.text('villager'), pos, Renderer.image_renderer('villager.png', (50, 50)),
+        super().__init__(I18n.text('villager'), pos, Renderer.image_renderer('entities/villager.png', (50, 50)),
                          trade_list=[
                              TradeOption(I18n.literal("购买"), 999, lambda player, npc, opt: print("购买")),
                              TradeOption(I18n.literal("购买1"), 1099, lambda player, npc, opt: print("购买1")),
@@ -94,7 +94,7 @@ class VillagerNPC(TraderNPC):
             trade.price *= 2  # 将所有交易选项的价格加倍。
         # 召唤一个铁傀儡来与玩家战斗。
         iron_golem = Entity.Entity(I18n.text('iron_golem'), self.get_right_bottom_pos(),
-                                   Renderer.image_renderer('iron_golem.png', (50, 50)), atk=8)
+                                   Renderer.image_renderer('entities/iron_golem.png', (50, 50)), atk=8)
         Config.CLIENT.spawn_entity(iron_golem)  # 生成铁傀儡。
         Config.CLIENT.open_ui(BattleUI(player, iron_golem))  # 打开战斗界面。
 
@@ -104,7 +104,7 @@ class MedicineTraderNPC(TraderNPC):
 
     def __init__(self, pos):
         # 初始化 MedicineTraderNPC，设置其名称、渲染器和交易选项。
-        super().__init__(I18n.text('witch'), pos, Renderer.image_renderer('witch.png', (50, 50)),
+        super().__init__(I18n.text('witch'), pos, Renderer.image_renderer('entities/witch.png', (50, 50)),
                          trade_list=[
                              TradeOption(I18n.literal("锻炼"), 10, self.buy_1),
                              TradeOption(I18n.literal("健身"), 10, self.buy_2),
@@ -135,7 +135,7 @@ class WeaponTraderNPC(TraderNPC):
 
     def __init__(self, pos):
         # 初始化 WeaponTraderNPC，设置其名称、渲染器和交易选项。
-        super().__init__(I18n.text('weapon_trader'), pos, Renderer.image_renderer('weapon_trader.png', (50, 50)),
+        super().__init__(I18n.text('weapon_trader'), pos, Renderer.image_renderer('entities/weapon_trader.png', (50, 50)),
                          trade_list=[
                              TradeOption(I18n.text('charged_fist'), 10, self.buy_1),
                              TradeOption(I18n.text('iron_sword'), 10, self.buy_2),

@@ -25,7 +25,7 @@
     },
     "3": {
       "npc": "nether_npc3_dia3",
-      "image": "./assets/shaanxi.png",
+      "image": "./assets/ui/shaanxi.png",
       "player": [
         {
           "str": "nether_player3_dia3",

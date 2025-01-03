@@ -11,56 +11,66 @@ from render import Renderer
 
 
 class Block:
-
     def __init__(self, name: str, renderer: Renderer, obstacle=False):
-        self.name = name
-        self.renderer = renderer
-        self.path = obstacle
+        # 初始化方块
+        self.name = name  # 方块的名称
+        self.renderer = renderer  # 方块的渲染器，用于显示方块的图像
+        self.path = obstacle  # 方块是否为障碍物，默认为 False
 
     @staticmethod
     def get_rect(block_pos: Tuple[int, int]):
+        # 获取方块的位置矩形区域
         return pygame.Rect(block_pos, (BLOCK_SIZE, BLOCK_SIZE))
 
     def on_entity(self, block_pos: Tuple[int, int], mob):
+        # 当实体与方块碰撞时触发的方法（可以在子类中实现具体行为）
         pass
 
     def render(self, screen: pygame.Surface, pos: Tuple[int, int]):
+        # 渲染方块
         self.renderer.render(screen, pos, False)
 
 
 class LavaBlock(Block):
-
+    # 熔岩方块，继承自 Block 类
     def on_entity(self, block_pos: Tuple[int, int], mob):
-        mob.fire_tick = 450
-        overlap = mob.get_rect().clip(self.get_rect(block_pos))
+        # 当实体进入熔岩方块时触发
+        mob.fire_tick = 450  # 设置实体的火焰持续时间
+        overlap = mob.get_rect().clip(self.get_rect(block_pos))  # 计算实体与熔岩方块的重叠区域
+        # 计算重叠区域的面积并给予实体伤害，伤害与重叠面积成正比
         mob.damage((overlap.width * overlap.height) / BLOCK_SIZE ** 2 / 3)
 
 
 class WaterBlock(Block):
-
+    # 水方块，继承自 Block 类
     def on_entity(self, block_pos: Tuple[int, int], mob):
-        mob.fire_tick = 0
-        overlap = mob.get_rect().clip(self.get_rect(block_pos))
+        # 当实体进入水方块时触发
+        mob.fire_tick = 0  # 取消火焰效果
+        overlap = mob.get_rect().clip(self.get_rect(block_pos))  # 计算实体与水方块的重叠区域
+        # 计算重叠区域的面积并治愈实体，治愈量与重叠面积成正比
         mob.cure((overlap.width * overlap.height) / BLOCK_SIZE ** 2 / 5)
 
 
 class PortalBlock(Block):
-
+    # 传送门方块，继承自 Block 类
     def __init__(self, name: str, renderer, obstacle=False, target_dimension=None, target_pos=(0, 0)):
-        super().__init__(name, renderer, obstacle)
-        self.target_dimension = target_dimension
-        self.target_pos = target_pos
+        # 初始化传送门方块
+        super().__init__(name, renderer, obstacle)  # 调用父类构造函数
+        self.target_dimension = target_dimension  # 目标地图维度
+        self.target_pos = target_pos  # 目标位置
 
     def on_entity(self, block_pos: Tuple[int, int], mob):
-        if isinstance(mob, Player.Player):
-            if not Config.NETHER_PORTAL_LOCK:
-                mob.teleport(self.target_dimension, self.target_pos)
+        # 当实体进入传送门方块时触发
+        if isinstance(mob, Player.Player):  # 如果实体是玩家
+            if not Config.NETHER_PORTAL_LOCK:  # 如果传送门没有被锁定
+                mob.teleport(self.target_dimension, self.target_pos)  # 玩家传送到目标维度和位置
                 AIHelper.add_response(f'player has entered portal and been teleported to {self.target_dimension}')
             else:
-                Config.CLIENT.current_hud.hint = I18n.text('nether_portal_lock').get()
+                Config.CLIENT.current_hud.hint = I18n.text('nether_portal_lock').get()  # 提示传送门被锁定
 
 
 def image_renderer(file: str):
+    # 图片渲染器，根据文件路径加载图片并渲染为方块大小
     return Renderer.image_renderer(file, (BLOCK_SIZE, BLOCK_SIZE))
 
 

@@ -67,6 +67,7 @@ class NetherNPC3(NPC):
     def process_choice(self, player, choice):
         self.interact = False
         if choice == '1':
+            #获得狂暴战刃
             return 'b1'
         else:
             return '!#'
@@ -75,36 +76,22 @@ class NetherNPC3(NPC):
 class NetherNPC4(TraderNPC):
 
     def __init__(self, pos):
-        super().__init__(I18n.text('nether_npc4'), pos, Renderer.image_renderer('entities/trainer.png', (50, 50)),
-                         trade_list=[
-                             TradeOption(I18n.text('nether_npc4_option1'), 0, self.buy_1),
-                             TradeOption(I18n.text('nether_npc4_option2'), 0, self.buy_2)
-                         ])
-
-    @staticmethod
-    def buy_1(player, npc, opt):
-        # 玩家选择交易选项1时触发，关闭UI并返回购买成功的提示
-        npc.interact = False
-        Config.CLIENT.close_ui()
-        return I18n.literal(I18n.text('bought').format(I18n.text('nether_npc5_option1')))
-
-    @staticmethod
-    def buy_2(player, npc, opt):
-        # 玩家选择交易选项2时触发，关闭UI并返回购买成功的提示
-        npc.interact = False
-        Config.CLIENT.close_ui()
-        return I18n.literal(I18n.text('bought').format(I18n.text('nether_npc5_option2')))
+        super().__init__(I18n.text('nether_npc4'), pos, Renderer.image_renderer('entities/trainer.png', (50, 50)))
 
     def on_interact(self, player):
         # 玩家与交易NPC交互时触发，打开对话框UI并显示交易界面
         if self.interact:
-            Config.CLIENT.open_ui(DialogUI(self, Dialog('nether_npc5'),
+            Config.CLIENT.open_ui(DialogUI(self, Dialog('nether_npc4'),
                                            lambda msg: Config.CLIENT.open_ui(TradeUI(player, self))))
     
     def process_choice(self, player, choice):
         self.interact = False
         if choice == '1':
+            # 以5点灵力换取冰霜冲击
             return 'b1'
+        elif choice == '2':
+            # 清空你所有的灵力，换取50点攻击力，并直接离开这个世界
+            return 'b2'
         else:
             return '!#'
 
@@ -112,25 +99,7 @@ class NetherNPC4(TraderNPC):
 class NetherNPC5(TraderNPC):
 
     def __init__(self, pos):
-        super().__init__(I18n.text('nether_npc5'), pos, Renderer.image_renderer('entities/trainer.png', (50, 50)),
-                         trade_list=[
-                             TradeOption(I18n.text('nether_npc4_option1'), 0, self.buy_1),
-                             TradeOption(I18n.text('nether_npc4_option2'), 0, self.buy_2)
-                         ])
-
-    @staticmethod
-    def buy_1(player, npc, opt):
-        # 玩家选择交易选项1时触发，关闭UI并返回购买成功的提示
-        npc.interact = False
-        Config.CLIENT.close_ui()
-        return I18n.literal(I18n.text('bought').format(I18n.text('nether_npc5_option1')))
-
-    @staticmethod
-    def buy_2(player, npc, opt):
-        # 玩家选择交易选项2时触发，关闭UI并返回购买成功的提示
-        npc.interact = False
-        Config.CLIENT.close_ui()
-        return I18n.literal(I18n.text('bought').format(I18n.text('nether_npc5_option2')))
+        super().__init__(I18n.text('nether_npc5'), pos, Renderer.image_renderer('entities/trainer.png', (50, 50)))
 
     def on_interact(self, player):
         # 玩家与交易NPC交互时触发，打开对话框UI并显示交易界面
@@ -141,6 +110,7 @@ class NetherNPC5(TraderNPC):
     def process_choice(self, player, choice):
         self.interact = False
         if choice == '1':
+            # 获得回响之杖 + 一个技能槽
             return 'b1'
         else:
             return '!#'

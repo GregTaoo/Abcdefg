@@ -33,10 +33,28 @@
       "player": [
         {
           "str": "nether_npc4_option1",
-          "next": "!#"
+          "next": "!1"
         },
         {
           "str": "nether_npc4_option2",
+          "next": "!2"
+        }
+      ]
+    },
+    "b1": {
+      "npc": "nether_npc4_dia_b1",
+      "player": [
+        {
+          "str": "nether_player4_dia_b1",
+          "next": "!#"
+        }
+      ]
+    },
+    "b2": {
+      "npc": "nether_npc4_dia_b2",
+      "player": [
+        {
+          "str": "nether_player4_dia_b2",
           "next": "!#"
         }
       ]

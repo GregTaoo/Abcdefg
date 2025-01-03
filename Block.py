@@ -59,7 +59,7 @@ class WaterBlock(Block):
         mob.fire_tick = 0  # 取消火焰效果
         overlap = mob.get_rect().clip(self.get_rect(block_pos))  # 计算实体与水方块的重叠区域
         # 计算重叠区域的面积并治愈实体，治愈量与重叠面积成正比
-        mob.cure((overlap.width * overlap.height) / BLOCK_SIZE ** 2 / 5)
+        mob.heal((overlap.width * overlap.height) / BLOCK_SIZE ** 2 / 5)
 
 
 class PortalBlock(Block):

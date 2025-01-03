@@ -48,4 +48,5 @@ ATTACK_RIGHT = Action("attack_right", "./assets/actions/attack_right.txt")  # �
 ATTACK_LEFT = Action("attack_left", "./assets/actions/attack_left.txt")  # 左侧攻击动作
 ULTIMATE_RIGHT = Action("ultimate_right", "./assets/actions/ultimate_right.txt")  # 右侧终极技能动作
 ESCAPE_LEFT = Action("escape_left", "./assets/actions/escape_left.txt")  # 左侧逃跑动作
+LASER_CANNON_LEFT = Action("laser_cannon_left", "./assets/actions/laser_cannon_left.txt")
 EMPTY = Action("empty", None)  # 空的动作，没有对应的文件

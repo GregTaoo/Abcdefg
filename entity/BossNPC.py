@@ -3,8 +3,8 @@ import Config
 import I18n
 from Dialog import Dialog
 from entity.NPC import NPC
-from render import Renderer
-from ui.BattleUI import BattleUI
+from render import Renderer, Action
+from ui.BossBattleUI import BossBattleUI
 from ui.DialogUI import DialogUI
 
 
@@ -137,8 +137,9 @@ class BossNPC6(NPC):
 class HerobrineNPC(NPC):
 
     def __init__(self, pos):
-        super().__init__(I18n.text('yourself'), pos, Renderer.image_renderer('herobrine.png', (50, 50)))
+        super().__init__(I18n.text('yourself'), pos, Renderer.image_renderer('entities/herobrine.png', (50, 50)))
         self.battle = True
+        self.actions = [Action.ATTACK_LEFT, Action.LASER_CANNON_LEFT]
 
     def on_battle(self, player):
-        Config.CLIENT.open_ui(BattleUI(player, self))
+        Config.CLIENT.open_ui(BossBattleUI(player, self))

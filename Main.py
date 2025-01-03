@@ -9,6 +9,7 @@ import Client
 import Config
 import I18n
 from Config import SCREEN_WIDTH, SCREEN_HEIGHT, MAP_WIDTH, MAP_HEIGHT, BLOCK_SIZE
+from entity.BossNPC import HerobrineNPC
 from entity.Entity import Monster
 from entity.NPC import MedicineTraderNPC
 from entity.NPC import VillagerNPC
@@ -44,6 +45,9 @@ def main():
     Config.CLIENT.spawn_entity(VillagerNPC((300, 300)))
     Config.CLIENT.spawn_entity(MedicineTraderNPC((200, 200)))
     Config.CLIENT.spawn_entity(WeaponTraderNPC((400, 400)))
+
+    # TEST
+    Config.CLIENT.spawn_entity(HerobrineNPC((500, 500)))
 
     for _ in range(20):
         Config.CLIENT.spawn_entity(

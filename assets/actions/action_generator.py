@@ -74,3 +74,7 @@ with open("escape_left.txt", "w") as file:
     # 最后 30 帧，x 从 500 逐渐变化到 150
     for x in range(30):
         file.write(f"{500 - 550 * x / 25:.0f} 200\n")
+
+with open("laser_cannon_left.txt", "w") as file:
+    for x in range(90):
+        file.write(f"600 200\n")

@@ -65,7 +65,6 @@ class BossNPC3(NPC):
     def process_choice(self, player, choice):
         self.interact = False
         if choice == '1':
-            Config.CLIENT.dimension.set_block((18, 18), Block.WARPED_PLANKS)
             return 'b1'
         elif choice == '2':
             Config.CLIENT.dimension.set_block((19, 19), Block.WARPED_PLANKS)

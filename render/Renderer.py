@@ -179,3 +179,6 @@ END_PORTAL = AnimationRenderer(load_images_from_sprite("./assets/blocks/end_port
 PLAYER = EntityRenderer(load_images_from_sprite("./assets/entities/player.png", (34, 26), (67, 50)),
                         load_images_from_sprite("./assets/entities/player_moving.png", (34, 26), (67, 50)),
                         5, pos_delta=(-16, 0), pos_delta_mirrored=(0, 0))
+GHAST = EntityRenderer(load_images_from_sprite("./assets/entities/ghast.png", (329, 369), (50, 50)),
+                       load_images_from_sprite("./assets/entities/ghast.png", (329, 369), (50, 50)),
+                       20, pos_delta=(0, 0), pos_delta_mirrored=(0, 0))

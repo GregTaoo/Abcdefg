@@ -88,7 +88,7 @@ class AnimationParticle(Particle):
         self.repeat_times = repeat_times
 
     def tick(self):
-        if self.repeat_times > 0 and self.timer == self.duration - 1:
+        if self.repeat_times > 1 and self.timer == self.duration - 1:
             self.timer = 0
             self.repeat_times -= 1
         super().tick()

@@ -14,6 +14,9 @@ class HerobrineNPC(NPC):
         super().__init__(I18n.text('yourself'), pos, Renderer.image_renderer('entities/herobrine.png', (50, 50)))
         self.battle = True
         self.actions = [Action.ATTACK_LEFT, Action.LASER_CANNON_LEFT]
+        self.hp = 500
+        self.max_hp = 500
+        self.atk = 50
 
     def on_battle(self, player):
         Config.CLIENT.open_ui(BossBattleUI(player, self))

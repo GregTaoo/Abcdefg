@@ -23,7 +23,7 @@ class NPC(Entity.Entity):
         self.interact = True  # 标记 NPC 是否可互动。
 
     def dialog(self):
-        #表示 NPC 的对话。
+        # 表示 NPC 的对话。
         return I18n.text('npc_dialog').format(self.name)
 
     def tick(self, dimension, player=None):
@@ -38,10 +38,10 @@ class NPC(Entity.Entity):
         # 启动对话并设置对话持续时间。
         self.dialog_timer = duration
 
-    def render(self, screen: pygame.Surface, camera: Tuple[int, int]):
+    def render(self, layers: list[pygame.Surface], camera: Tuple[int, int]):
         # 渲染对话框到屏幕上。
-        super().render(screen, camera)
-        self.render_dialog(screen, camera)  # 如果有对话，绘制对话框。
+        super().render(layers, camera)
+        self.render_dialog(layers[1], camera)  # 如果有对话，绘制对话框。
 
     def render_dialog(self, screen, camera):
         # 如果对话计时器大于 0，则渲染对话框。
@@ -172,6 +172,7 @@ class WeaponTraderNPC(TraderNPC):
         player.coins -= opt.price
         return I18n.literal(I18n.text('bought').format(I18n.text('infinite_sword')))
 
+
 class TradeOption:
     # TradeOption代表交易选择，物品名字和价格
     def __init__(self, name: I18n.Text, price: int, on_trade):
@@ -179,4 +180,3 @@ class TradeOption:
         self.price = price
         self.on_trade = on_trade  # 是否在售
         self.available = True  # 是否可获得
-

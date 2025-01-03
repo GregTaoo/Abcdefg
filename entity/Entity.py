@@ -148,16 +148,16 @@ class Entity:
         # 检查另一个实体是否在交互范围内
         return abs(self.x - entity.x) + abs(self.y - entity.y) < distance * BLOCK_SIZE
 
-    def render(self, screen: pygame.Surface, camera: Tuple[int, int]):
+    def render(self, layers: list[pygame.Surface], camera: Tuple[int, int]):
         # 渲染实体及其生命条
-        self.renderer.render(screen, (self.x - camera[0], self.y - camera[1]), self.mirror, not self.moving)
+        self.renderer.render(layers[0], (self.x - camera[0], self.y - camera[1]), self.mirror, not self.moving)
         if self.moving and random.randint(0, 5) == 0:
             pos = self.get_left_bottom_pos()
             Particle.ENV_PARTICLES.add(Particle.WalkParticle((pos[0] + random.randint(0, self.size[0]),
                                                               pos[1] + random.randint(-5, 5)), 60))
         if self.fire_tick > 0:
-            Renderer.FIRE.render(screen, (self.x - camera[0], self.y - camera[1]))
-        self.render_hp_bar(screen, (self.x - camera[0], self.y - camera[1] - 10), Config.FONT)
+            Renderer.FIRE.render(layers[0], (self.x - camera[0], self.y - camera[1]))
+        self.render_hp_bar(layers[0], (self.x - camera[0], self.y - camera[1] - 10), Config.FONT)
 
     def render_at_absolute_pos(self, screen: pygame.Surface, pos: Tuple[int, int], use_mirror=False, hp_bar=True):
         # 在绝对位置渲染实体

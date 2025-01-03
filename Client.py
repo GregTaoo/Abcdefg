@@ -63,7 +63,7 @@ def load_sound(name, path, volume=0.5):
 
 class Client:
 
-    def __init__(self, screen, clock, player, dimension):
+    def __init__(self, screen: pygame.Surface, clock, player, dimension):
         Config.WORLDS['the_world'] = Dimension('the_world', MAP_WIDTH, MAP_HEIGHT, generate_the_world(),
                                                './assets/sounds/music_minecraft.mp3')
         Config.WORLDS['the_nether'] = Dimension('the_nether', MAP_WIDTH, MAP_HEIGHT, generate_the_nether(),
@@ -173,19 +173,23 @@ class Client:
         self.player.respawn()
         self.close_ui()
 
-    def render_entities(self):
+    def render_entities(self, layers):
         for i in self.dimension.entities:
             if (self.camera[0] - i.size[0] <= i.x <= self.camera[0] + SCREEN_WIDTH and
                     self.camera[1] - i.size[1] <= i.y <= self.camera[1] + SCREEN_HEIGHT):
-                i.render(self.screen, self.camera)
-        self.player.render(self.screen, self.camera)
+                i.render(layers, self.camera)
+        self.player.render(layers, self.camera)
 
     def tick(self, events):
         # 务必先渲染背景
         self.screen.fill((50, 50, 50))
+
         self.dimension.render(self.screen, self.camera)
 
         if self.current_ui is None:
+            layers = [self.screen, pygame.Surface(self.screen.get_size(), pygame.SRCALPHA),
+                      pygame.Surface(self.screen.get_size(), pygame.SRCALPHA)]
+
             self.dimension.tick(self.camera)
             for i in Renderer.ANIMATIONS:
                 i.tick()
@@ -231,15 +235,18 @@ class Client:
                 Config.SOUNDS['player_death'].play()
                 self.open_death_ui()
 
-            self.render_entities()
+            self.render_entities(layers)
 
             Particle.ENV_PARTICLES.tick()
             Particle.ENV_PARTICLES.render(self.screen, Config.FONT, self.camera)
 
             self.current_hud.tick(keys, events)
             self.current_hud.render(self.screen)
+
+            self.screen.blit(layers[1], (0, 0))
+            self.screen.blit(layers[2], (0, 0))
         else:
-            self.render_entities()
+            self.render_entities([self.screen, self.screen, self.screen])
             self.current_ui.render(self.screen)
             if not self.current_ui.tick(pygame.key.get_pressed(), events):
                 self.close_ui()

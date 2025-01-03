@@ -94,6 +94,8 @@ class BattleUI(UI):
                     center = (self.enemy_pos[0] + self.enemy.size[0] // 2, self.enemy_pos[1] + self.enemy.size[1] // 2)
                     for _ in range(int(real_dmg // 3)):
                         Particle.UI_PARTICLES.add(Particle.CriticalHitParticle(center, 50))
+                    if self.action == Action.ULTIMATE_RIGHT:
+                        self.generate_explosion(self.enemy_pos)
                     if self.enemy.hp < self.enemy.max_hp // 3:
                         AIHelper.add_response(f'enemy {self.enemy.name} is now low hp {self.enemy.hp}', (0, 255, 0))
                 self.enemy.render_at_absolute_pos(screen, self.enemy_pos)
@@ -150,6 +152,12 @@ class BattleUI(UI):
                     lines_cnt += 1
             if lines_cnt > 6:
                 break
+
+    @staticmethod
+    def generate_explosion(pos):
+        for _ in range(10):
+            pos1 = (pos[0] + random.randint(-80, 80), pos[1] + random.randint(-80, 80))
+            Particle.UI_PARTICLES.add(Particle.ExplosionParticle(pos1, 40))
 
     # 处理每一帧的事件
     def tick(self, keys, events):

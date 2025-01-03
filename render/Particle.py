@@ -100,6 +100,12 @@ class LaserCannonParticle(AnimationParticle):
         super().__init__(LASER_CANNON, pos, duration)
 
 
+class ExplosionParticle(AnimationParticle):
+
+    def __init__(self, pos, duration):
+        super().__init__(EXPLOSION, pos, duration)
+
+
 class ImageParticle(Particle):
 
     def __init__(self, image, pos, duration):
@@ -156,6 +162,7 @@ class CriticalHitParticle(ImageParticle):
 
 
 LASER_CANNON = Renderer.load_images_from_sprite('./assets/particles/laser_cannon.png', (207, 102), (207, 102))
+EXPLOSION = Renderer.load_images_from_sprite('./assets/particles/explosion.png', (32, 32), (64, 64))
 LAVA = Renderer.load_image('particles/lava.png', (8, 8))
 GLINT = Renderer.load_image('particles/glint.png', (16, 16))
 WALK = Renderer.load_image('particles/walk.png', (4, 4))

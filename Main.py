@@ -4,6 +4,7 @@ import os
 
 import pygame
 
+import AIHelper
 import Config
 import I18n
 import Block
@@ -58,6 +59,7 @@ def main():
         for event in events:
             if event.type == pygame.QUIT:
                 pygame.quit()
+                AIHelper.thread.join()
                 sys.exit()
 
         Config.CLIENT.tick(events)

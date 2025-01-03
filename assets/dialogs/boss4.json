@@ -16,7 +16,12 @@
     },
     "2": {
       "npc": "boss_npc4_dia2_1",
-      "next": "!1"
+      "player": [
+        {
+          "str": "...",
+          "next": "!1"
+        }
+      ]
     },
     "3": {
       "npc": "boss_npc4_dia2_2",
@@ -46,15 +51,30 @@
     },
     "5": {
       "npc": "boss_npc4_dia4_2",
-      "next": "!2"
+      "player": [
+        {
+          "str": "...",
+          "next": "!2"
+        }
+      ]
     },
     "6": {
       "npc": "boss_npc4_dia5_1",
-      "next": "!3"
+      "player": [
+        {
+          "str": "...",
+          "next": "!3"
+        }
+      ]
     },
     "7": {
       "npc": "boss_npc4_dia5_2",
-      "next": "!4"
+      "player": [
+        {
+          "str": "...",
+          "next": "!4"
+        }
+      ]
     }
   }
 }

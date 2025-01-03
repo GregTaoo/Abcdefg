@@ -16,7 +16,12 @@
     },
     "2": {
       "npc": "boss_npc2_dia2_1",
-      "next": "!1"
+      "player": [
+        {
+          "str": "...",
+          "next": "!1"
+        }
+      ]
     },
     "3": {
       "npc": "boss_npc2_dia2_2",
@@ -33,11 +38,21 @@
     },
     "4": {
       "npc": "boss_npc2_dia4_1",
-      "next": "!2"
+      "player": [
+        {
+          "str": "...",
+          "next": "!2"
+        }
+      ]
     },
     "5": {
       "npc": "boss_npc2_dia4_2",
-      "next": "!3"
+      "player": [
+        {
+          "str": "...",
+          "next": "!3"
+        }
+      ]
     }
   }
 }

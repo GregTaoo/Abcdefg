@@ -29,7 +29,7 @@ def main():
 
     pygame.init()
     pygame.display.set_caption("Redemption")
-    pygame.display.set_icon(Block.GRASS_BLOCK.renderer.image)
+    pygame.display.set_icon(pygame.image.load("./assets/icon.png"))
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
     clock = pygame.time.Clock()
 

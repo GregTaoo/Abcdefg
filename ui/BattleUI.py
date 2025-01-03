@@ -91,6 +91,9 @@ class BattleUI(UI):
                 if real_dmg != 0:
                     # 播放伤害粒子效果
                     Particle.UI_PARTICLES.add(Particle.DamageParticle(real_dmg, self.enemy_pos, 180, self.use_crt))
+                    center = (self.enemy_pos[0] + self.enemy.size[0] // 2, self.enemy_pos[1] + self.enemy.size[1] // 2)
+                    for _ in range(int(real_dmg // 3)):
+                        Particle.UI_PARTICLES.add(Particle.CriticalHitParticle(center, 50))
                     if self.enemy.hp < self.enemy.max_hp // 3:
                         AIHelper.add_response(f'enemy {self.enemy.name} is now low hp {self.enemy.hp}', (0, 255, 0))
                 self.enemy.render_at_absolute_pos(screen, self.enemy_pos)
@@ -109,6 +112,10 @@ class BattleUI(UI):
                 self.player.damage(real_dmg)
                 if real_dmg != 0:
                     Particle.UI_PARTICLES.add(Particle.DamageParticle(real_dmg, self.player_pos, 180, self.use_crt))
+                    center = (self.player_pos[0] + self.player.size[0] // 2,
+                              self.player_pos[1] + self.player.size[1] // 2)
+                    for _ in range(int(real_dmg // 3)):
+                        Particle.UI_PARTICLES.add(Particle.CriticalHitParticle(center, 50))
                     if self.player.hp <= 0:
                         Config.SOUNDS['player_death'].play()
                     elif self.player.hp < self.player.max_hp // 3:

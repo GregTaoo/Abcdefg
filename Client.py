@@ -9,7 +9,7 @@ import Config
 import Block
 from Config import MAP_WIDTH, MAP_HEIGHT, SCREEN_WIDTH, SCREEN_HEIGHT
 from Dimension import Dimension
-from render import Renderer
+from render import Renderer, Particle
 from ui.ChatUI import ChatUI
 from ui.DeathUI import DeathUI
 from ui.MainHud import MainHud
@@ -186,6 +186,7 @@ class Client:
         self.dimension.render(self.screen, self.camera)
 
         if self.current_ui is None:
+            self.dimension.tick(self.camera)
             for i in Renderer.ANIMATIONS:
                 i.tick()
             self.player.tick(self.dimension)
@@ -231,6 +232,9 @@ class Client:
                 self.open_death_ui()
 
             self.render_entities()
+
+            Particle.ENV_PARTICLES.tick()
+            Particle.ENV_PARTICLES.render(self.screen, Config.FONT, self.camera)
 
             self.current_hud.tick(keys, events)
             self.current_hud.render(self.screen)

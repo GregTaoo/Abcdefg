@@ -1,3 +1,4 @@
+import random
 from typing import Tuple
 
 import pygame
@@ -7,7 +8,7 @@ import Config
 import I18n
 from Config import BLOCK_SIZE
 from entity import Player
-from render import Renderer
+from render import Renderer, Particle
 
 
 class Block:
@@ -26,12 +27,22 @@ class Block:
         # 当实体与方块碰撞时触发的方法（可以在子类中实现具体行为）
         pass
 
+    def tick(self, block_pos: Tuple[int, int]):
+        pass
+
     def render(self, screen: pygame.Surface, pos: Tuple[int, int]):
         # 渲染方块
         self.renderer.render(screen, pos, False)
 
 
 class LavaBlock(Block):
+
+    def tick(self, block_pos: Tuple[int, int]):
+        if random.randint(0, 180) == 0:
+            x = block_pos[0] * BLOCK_SIZE + BLOCK_SIZE // 4 + random.randint(0, BLOCK_SIZE // 2)
+            Particle.ENV_PARTICLES.add(
+                Particle.LavaParticle((x, block_pos[1] * BLOCK_SIZE + random.randint(0, BLOCK_SIZE // 2)), 90))
+
     # 熔岩方块，继承自 Block 类
     def on_entity(self, block_pos: Tuple[int, int], mob):
         # 当实体进入熔岩方块时触发

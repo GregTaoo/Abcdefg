@@ -1,3 +1,4 @@
+import random
 from typing import Tuple
 
 import pygame
@@ -5,7 +6,7 @@ import pygame
 import AIHelper
 import Config
 import I18n
-from render import Renderer
+from render import Renderer, Particle
 from ui.BattleUI import BattleUI
 from ui.TradeUI import TradeUI
 from entity import Entity
@@ -79,6 +80,13 @@ class VillagerNPC(TraderNPC):
                              TradeOption(I18n.literal("购买2"), 1990, lambda player, npc, opt: print("购买2")),
                          ])
         self.battle = True  # 启用战斗模式。
+
+    def tick(self, dimension, player=None):
+        super().tick(dimension, player)
+        if self.is_nearby(player, 4) and random.randint(0, 180) == 0:
+            x = self.x + random.randint(0, 50)
+            y = self.y + random.randint(0, 50)
+            Particle.ENV_PARTICLES.add(Particle.GlintParticle((x, y), 90))
 
     def on_battle(self, player):
         # 当玩家与村民 NPC 战斗时触发。

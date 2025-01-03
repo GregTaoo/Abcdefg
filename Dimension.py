@@ -33,15 +33,21 @@ class Dimension:
         return [random.choices(blocks, weights, k=height) for _ in range(width)]
         # 最简单的地图生成器，可自定义权重
 
-    def render(self, screen: pygame.Surface, camera: Tuple[int, int]):
+    def foreach_block_in_camera(self, camera: Tuple[int, int], func):
         st_x = max(0, camera[0] // BLOCK_SIZE - 1)
         st_y = max(0, camera[1] // BLOCK_SIZE - 1)
         ed_x = min(st_x + Config.SCREEN_WIDTH // BLOCK_SIZE + 3, MAP_WIDTH)
         ed_y = min(st_y + Config.SCREEN_HEIGHT // BLOCK_SIZE + 3, MAP_HEIGHT)
         for x in range(st_x, ed_x):
             for y in range(st_y, ed_y):
-                self.blocks[x][y].render(screen, (x * BLOCK_SIZE - camera[0], y * BLOCK_SIZE - camera[1]))
-                # 这下优化了
+                func(self.blocks[x][y], (x, y))
+
+    def tick(self, camera: Tuple[int, int]):
+        self.foreach_block_in_camera(camera, lambda block, pos: block.tick(pos))
+
+    def render(self, screen: pygame.Surface, camera: Tuple[int, int]):
+        self.foreach_block_in_camera(camera, lambda block, pos: block.render(screen, (pos[0] * BLOCK_SIZE - camera[0],
+                                                                                      pos[1] * BLOCK_SIZE - camera[1])))
 
     @staticmethod
     def get_block_index(pos: Tuple[int, int]):

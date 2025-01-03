@@ -142,6 +142,10 @@ def image_renderer(file: str, size: Tuple[int, int]):
     return ImageRenderer(pygame.transform.scale(pygame.image.load("./assets/" + file), size))
 
 
+def load_image(file: str, size: Tuple[int, int]):
+    return pygame.transform.scale(pygame.image.load("./assets/" + file), size)
+
+
 # 辅助函数：从精灵图加载并返回一系列图像
 def load_images_from_sprite(file, image_size, resize):
     sprite = pygame.image.load(file)  # 加载精灵图

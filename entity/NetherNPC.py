@@ -109,7 +109,6 @@ class NetherNPC4(TraderNPC):
             return '!#'
 
 
-
 class NetherNPC5(TraderNPC):
 
     def __init__(self, pos):

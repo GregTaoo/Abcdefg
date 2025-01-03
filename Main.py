@@ -1,21 +1,20 @@
+import os
 import random
 import sys
-import os
 
 import pygame
 
 import AIHelper
+import Client
 import Config
 import I18n
-import Block
-from entity.NPC import VillagerNPC
-from entity.NPC import MedicineTraderNPC
-from entity.NPC import WeaponTraderNPC
-import Client
 from Config import SCREEN_WIDTH, SCREEN_HEIGHT, MAP_WIDTH, MAP_HEIGHT, BLOCK_SIZE
 from entity.Entity import Monster
+from entity.NPC import MedicineTraderNPC
+from entity.NPC import VillagerNPC
+from entity.NPC import WeaponTraderNPC
 from entity.Player import Player
-from render import Renderer
+from render import Renderer, Particle
 from render.Renderer import ImageRenderer
 from ui.StarterUI import StarterUI
 
@@ -62,6 +61,9 @@ def main():
                 pygame.quit()
                 AIHelper.thread.join()
                 sys.exit()
+            elif event.type == pygame.MOUSEBUTTONDOWN:
+                pos = pygame.mouse.get_pos()
+                Particle.UI_PARTICLES.add(Particle.ClickParticle((pos[0] - 16, pos[1] - 16), 30))
 
         Config.CLIENT.tick(events)
 

@@ -136,9 +136,6 @@ class BattleUI(UI):
         txt_surface = Config.FONT.render(I18n.text('rounds').format(self.round), True, (255, 255, 255))
         screen.blit(txt_surface, (30, 30))
 
-        # 渲染所有粒子
-        Particle.UI_PARTICLES.render(screen, Config.MIDDLE_FONT)
-
         # 显示最近的聊天消息
         current_time = time.time()
         y_offset = Config.SCREEN_HEIGHT - 50
@@ -193,8 +190,6 @@ class BattleUI(UI):
                         self.escaping_stage = 2
                         self.round_start(Action.ESCAPE_LEFT)
             self.action.tick()
-        # 更新所有粒子
-        Particle.UI_PARTICLES.tick()
         return True
 
     # 关闭UI时清除所有粒子

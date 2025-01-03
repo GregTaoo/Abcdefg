@@ -250,6 +250,9 @@ class Client:
             if not self.current_ui.tick(pygame.key.get_pressed(), events):
                 self.close_ui()
 
+        Particle.UI_PARTICLES.tick()
+        Particle.UI_PARTICLES.render(self.screen, Config.MIDDLE_FONT)
+
         self.tick_counter += 1
         for ticks, method in Config.CLOCKS:
             if self.tick_counter % ticks == 0:

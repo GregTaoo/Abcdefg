@@ -82,7 +82,7 @@ class PortalBlock(Block):
 
 def image_renderer(file: str):
     # 图片渲染器，根据文件路径加载图片并渲染为方块大小
-    return Renderer.image_renderer(file, (BLOCK_SIZE, BLOCK_SIZE))
+    return Renderer.image_renderer("blocks/" + file, (BLOCK_SIZE, BLOCK_SIZE))
 
 
 GRASS_BLOCK = Block("grass_block", image_renderer("grass_block.png"))

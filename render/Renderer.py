@@ -161,21 +161,21 @@ def load_images_from_sprite(file, image_size, resize):
 
 # 辅助函数：加载岩浆的图像并返回图像列表（包含镜像）
 def load_lava_images():
-    images = load_images_from_sprite("./assets/lava.png", (16, 16), (60, 60))
+    images = load_images_from_sprite("./assets/blocks/lava.png", (16, 16), (60, 60))
     return images + images[::-1]  # 加载镜像图像
 
 
 # 辅助函数：加载水的图像并返回图像列表（包含镜像）
 def load_water_images():
-    images = load_images_from_sprite("./assets/water.png", (16, 16), (60, 60))
+    images = load_images_from_sprite("./assets/blocks/water.png", (16, 16), (60, 60))
     return images + images[::-1]  # 加载镜像图像
 
 
-FIRE = AnimationRenderer(load_images_from_sprite("./assets/fire.png", (16, 16), (50, 50)), 5)
+FIRE = AnimationRenderer(load_images_from_sprite("./assets/entities/fire.png", (16, 16), (50, 50)), 5)
 LAVA = AnimationRenderer(load_lava_images(), 10)
 WATER = AnimationRenderer(load_water_images(), 10)
-NETHER_PORTAL = AnimationRenderer(load_images_from_sprite("./assets/nether_portal.png", (16, 16), (60, 60)), 5)
-END_PORTAL = AnimationRenderer(load_images_from_sprite("./assets/end_portal.png", (16, 16), (60, 60)), 5)
-PLAYER = EntityRenderer(load_images_from_sprite("./assets/player.png", (34, 26), (67, 50)),
-                        load_images_from_sprite("./assets/player_moving.png", (34, 26), (67, 50)),
+NETHER_PORTAL = AnimationRenderer(load_images_from_sprite("./assets/blocks/nether_portal.png", (16, 16), (60, 60)), 5)
+END_PORTAL = AnimationRenderer(load_images_from_sprite("./assets/blocks/end_portal.png", (16, 16), (60, 60)), 5)
+PLAYER = EntityRenderer(load_images_from_sprite("./assets/entities/player.png", (34, 26), (67, 50)),
+                        load_images_from_sprite("./assets/entities/player_moving.png", (34, 26), (67, 50)),
                         5, pos_delta=(-16, 0), pos_delta_mirrored=(0, 0))

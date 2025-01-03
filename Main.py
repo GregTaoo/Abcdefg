@@ -29,7 +29,7 @@ def main():
 
     pygame.init()
     pygame.display.set_caption("Redemption")
-    pygame.display.set_icon(pygame.image.load("./assets/icon.png"))
+    pygame.display.set_icon(pygame.image.load("./assets/ui/icon.png"))
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
     clock = pygame.time.Clock()
 
@@ -50,7 +50,8 @@ def main():
         Config.CLIENT.spawn_entity(
             Monster(I18n.text('zombie'), (random.randint(0, MAP_WIDTH * BLOCK_SIZE),
                                           random.randint(0, MAP_HEIGHT * BLOCK_SIZE)),
-                    ImageRenderer(pygame.transform.scale(pygame.image.load("assets/zombie.png"), (50, 50))), coins=10)
+                    ImageRenderer(pygame.transform.scale(pygame.image.load("./assets/entities/zombie.png"), (50, 50))),
+                    coins=10)
         )
 
     while True:

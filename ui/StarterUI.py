@@ -16,7 +16,7 @@ class StarterUI(UI):
         self.splash = 'NULL'
         with open('./assets/lang/splashes.txt', 'r') as f:
             self.splash = random.choice(f.readlines()).strip()
-        self.title = pygame.image.load('./assets/title.png')
+        self.title = pygame.image.load('./assets/ui/title.png')
         self.rendered_splash = pygame.transform.rotate(Config.MIDDLE_FONT.render(self.splash, True, (255, 255, 0)), -30)
         self.tick_cnt = 0
 

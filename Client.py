@@ -106,8 +106,8 @@ class Client:
         load_sound('victory', './assets/sounds/victory.mp3', 0.75)
 
         # 加载图像资源
-        Config.COIN_IMAGE = pygame.transform.scale(pygame.image.load('./assets/coin.png'), (20, 20))
-        Config.LANGUAGE_IMAGE = pygame.transform.scale(pygame.image.load('./assets/language.png'), (20, 20))
+        Config.COIN_IMAGE = pygame.transform.scale(pygame.image.load('./assets/ui/coin.png'), (20, 20))
+        Config.LANGUAGE_IMAGE = pygame.transform.scale(pygame.image.load('./assets/ui/language.png'), (20, 20))
 
         # 初始化客户端界面
         self.screen = screen

@@ -74,7 +74,8 @@ class DamageParticle(Particle):
 
     def render(self, screen, font: pygame.font.Font, base_pos: Tuple[int, int]):
         txt_surface = font.render(
-            (I18n.text('crt_hit').get() + ' ' if self.is_crt else '') + f"{-self.damage:.0f}", True, self.color)
+            (I18n.text('crt_hit').get() + ' ' if self.is_crt else '') + ('+' if self.damage < 0 else '')
+            + f"{-self.damage:.0f}", True, self.color)
         txt_surface.set_alpha(max(0, int(self.alpha)))
         screen.blit(txt_surface, (base_pos[0], base_pos[1] + self.delta_y))
 
@@ -171,6 +172,20 @@ class CriticalHitParticle(ImageParticle):
         self.pos = (self.pos[0] + self.vel_x, self.pos[1] + self.vel_y)
 
 
+class LifeStealingParticle(ImageParticle):
+
+    def __init__(self, pos, duration):
+        super().__init__(HEART, pos, duration)
+        self.start_pos = pos
+        self.end_pos = (pos[0] - 400, pos[1])
+
+    def tick(self):
+        super().tick()
+        t = self.timer / self.duration
+        x = self.start_pos[0] + t * (self.end_pos[0] - self.start_pos[0])
+        self.pos = (x, self.pos[1])
+
+
 LASER_CANNON = Renderer.load_images_from_sprite('./assets/particles/laser_cannon.png', (398, 102), (398, 102))
 EXPLOSION = Renderer.load_images_from_sprite('./assets/particles/explosion.png', (32, 32), (64, 64))
 CLICK = Renderer.load_images_from_sprite('./assets/particles/click.png', (32, 32), (32, 32))
@@ -178,3 +193,4 @@ LAVA = Renderer.load_image('particles/lava.png', (8, 8))
 GLINT = Renderer.load_image('particles/glint.png', (16, 16))
 WALK = Renderer.load_image('particles/walk.png', (4, 4))
 CRITICAL_HIT = Renderer.load_image('particles/critical_hit.png', (8, 8))
+HEART = Renderer.load_image('particles/heart.png', (20, 20))

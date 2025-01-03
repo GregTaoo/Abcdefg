@@ -24,7 +24,8 @@ def render_dialog_at_absolute_pos(text, screen, pos, font: pygame.font):
 
 class Entity:
     def __init__(self, name: str, pos: Tuple[int, int], renderer: Renderer, actions: list[Action] = None,
-                 sp: float = 2.0, atk: float = 1.0, crt: float = 0.0, coins: int = 0, max_hp: float = 100, size: Tuple[int, int] = None):
+                 atk: float = 1.0, crt: float = 0.0, coins: int = 0, max_hp: float = 100, size: Tuple[int, int] = None,
+                 sp: int = 0):
         # 初始化实体
         self.name = name
         self.x, self.y = pos

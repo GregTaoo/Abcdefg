@@ -4,6 +4,7 @@ import pygame
 
 import Config
 import I18n
+from ui.ChatUI import ChatUI
 from ui.Hud import Hud
 from ui.SelectLanguageUI import SelectLanguageUI
 from ui.widget.ImageButton import ImageButton
@@ -16,6 +17,8 @@ class MainHud(Hud):
         self.player = player
         self.add_button(ImageButton(Config.LANGUAGE_IMAGE, (10, Config.SCREEN_HEIGHT - 30),
                                     lambda: Config.CLIENT.open_ui(SelectLanguageUI())))
+        self.add_button(ImageButton(Config.MESSAGE_IMAGE, (35, Config.SCREEN_HEIGHT - 30),
+                                    lambda: Config.CLIENT.open_ui(ChatUI())))
         self.messages = []
         self.display_hint = False
         self.hint = ''

@@ -73,7 +73,7 @@ class NetherNPC3(NPC):
             Config.CLIENT.dimension.set_block((19, 19), Block.OAK_TRAPDOOR)
             player.sp -= 2
             player.atk += 0.2
-            player.crt += 0.1 # 获得狂暴战刃
+            player.crt += 0.1  # 获得狂暴战刃
             return 'b1'
         else:
             return '!#'

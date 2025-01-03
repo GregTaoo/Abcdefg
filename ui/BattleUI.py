@@ -100,7 +100,7 @@ class BattleUI(UI):
                         AIHelper.add_response(f'enemy {self.enemy.name} is now low hp {self.enemy.hp}', (0, 255, 0))
                 if heal != 0:
                     self.player.heal(heal)
-                    Particle.UI_PARTICLES.add(Particle.DamageParticle(heal, self.player_pos, 180,
+                    Particle.UI_PARTICLES.add(Particle.DamageParticle(-heal, self.player_pos, 180,
                                                                       False, (0, 255, 0)))
                 self.enemy.render_at_absolute_pos(screen, self.enemy_pos)
                 if target_poses is None:
@@ -128,7 +128,7 @@ class BattleUI(UI):
                         AIHelper.add_response(f'player is now low hp {self.player.hp}', (255, 0, 0))
                     if heal != 0:
                         self.enemy.heal(heal)
-                        Particle.UI_PARTICLES.add(Particle.DamageParticle(heal, self.player_pos, 180,
+                        Particle.UI_PARTICLES.add(Particle.DamageParticle(-heal, self.player_pos, 180,
                                                                           False, (0, 255, 0)))
                 self.player.render_at_absolute_pos(screen, self.player_pos)
                 if target_poses is None:
@@ -175,6 +175,7 @@ class BattleUI(UI):
             elif self.enemy.hp <= 0:
                 # 玩家战胜敌人，增加金币
                 self.player.coins += self.enemy.coins
+                self.player.sp += self.enemy.sp
                 if self.enemy.name.get() == I18n.text('iron_golem').get():
                     self.player.iron += 1
                 Config.CLIENT.close_ui()

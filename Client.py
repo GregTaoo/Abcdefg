@@ -124,6 +124,7 @@ class Client:
         # 加载图像资源
         Config.COIN_IMAGE = pygame.transform.scale(pygame.image.load('./assets/ui/coin.png'), (20, 20))
         Config.LANGUAGE_IMAGE = pygame.transform.scale(pygame.image.load('./assets/ui/language.png'), (20, 20))
+        Config.MESSAGE_IMAGE = pygame.transform.scale(pygame.image.load('./assets/ui/message.png'), (20, 20))
 
         # 初始化客户端界面
         self.screen = screen
@@ -270,6 +271,15 @@ class Client:
         Particle.UI_PARTICLES.render(self.screen, Config.MIDDLE_FONT)
 
         self.tick_counter += 1
-        for ticks, method in Config.CLOCKS:
-            if self.tick_counter % ticks == 0:
-                method()
+        for clock in Config.CLOCKS:
+            if isinstance(clock, list):
+                ticks, method, times = clock
+                if self.tick_counter % ticks == 0:
+                    method()
+                    clock[2] -= 1
+                    if clock[2] == 0:
+                        Config.CLOCKS.remove(clock)
+            else:
+                ticks, method = clock
+                if self.tick_counter % ticks == 0:
+                    method()

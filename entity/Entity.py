@@ -100,6 +100,11 @@ class Entity:
             elif direction == 4:
                 self.y += block_y * BLOCK_SIZE - self.y + BLOCK_SIZE
 
+        if random.randint(0, 5) == 0:
+            pos = self.get_left_bottom_pos()
+            Particle.ENV_PARTICLES.add(Particle.WalkParticle((pos[0] + random.randint(0, self.size[0]),
+                                                              pos[1] + random.randint(-5, 5)), 30))
+
     def tick(self, dimension, player=None):
         # 每帧更新实体状态，处理持续伤害等
         self.moving = False
@@ -151,10 +156,6 @@ class Entity:
     def render(self, layers: list[pygame.Surface], camera: Tuple[int, int]):
         # 渲染实体及其生命条
         self.renderer.render(layers[0], (self.x - camera[0], self.y - camera[1]), self.mirror, not self.moving)
-        if self.moving and random.randint(0, 5) == 0:
-            pos = self.get_left_bottom_pos()
-            Particle.ENV_PARTICLES.add(Particle.WalkParticle((pos[0] + random.randint(0, self.size[0]),
-                                                              pos[1] + random.randint(-5, 5)), 60))
         if self.fire_tick > 0:
             Renderer.FIRE.render(layers[0], (self.x - camera[0], self.y - camera[1]))
         self.render_hp_bar(layers[0], (self.x - camera[0], self.y - camera[1] - 10), Config.FONT)

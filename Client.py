@@ -58,7 +58,6 @@ def generate_the_nether():
         mp.append([Block.WARPED_PLANKS] * MAP_WIDTH)
     mp[2][17] = mp[3][19] = Block.OAK_TRAPDOOR
     mp[7][11] = mp[8][10] = Block.OAK_TRAPDOOR
-    mp[18][18] = mp[19][19] = Block.OAK_TRAPDOOR
     mp[0][19] = Block.NETHER_BACK_PORTAL
 
     return mp
@@ -93,11 +92,11 @@ class Client:
         Config.WORLDS['the_nether'].spawn_entity(nether_npc1)
         nether_npc2 = entity.NetherNPC.NetherNPC2((8 * Config.BLOCK_SIZE + 5, 11 * Config.BLOCK_SIZE + 5))
         Config.WORLDS['the_nether'].spawn_entity(nether_npc2)
-        nether_npc3 = entity.NetherNPC.NetherNPC3((18 * Config.BLOCK_SIZE + 5, 19 * Config.BLOCK_SIZE + 5))
+        nether_npc3 = entity.NetherNPC.NetherNPC3((2 * Config.BLOCK_SIZE + 5, 1 * Config.BLOCK_SIZE + 5))
         Config.WORLDS['the_nether'].spawn_entity(nether_npc3)
         nether_npc4 = entity.NetherNPC.NetherNPC4((12 * Config.BLOCK_SIZE + 5, 2 * Config.BLOCK_SIZE + 5))
         Config.WORLDS['the_nether'].spawn_entity(nether_npc4)
-        nether_npc5 = entity.NetherNPC.NetherNPC3((20 * Config.BLOCK_SIZE + 5, 1 * Config.BLOCK_SIZE + 5))
+        nether_npc5 = entity.NetherNPC.NetherNPC5((20 * Config.BLOCK_SIZE + 5, 1 * Config.BLOCK_SIZE + 5))
         Config.WORLDS['the_nether'].spawn_entity(nether_npc5)
 
         boss_npc1 = entity.BossNPC.BossNPC1((2 * Config.BLOCK_SIZE + 5, 18 * Config.BLOCK_SIZE + 5))

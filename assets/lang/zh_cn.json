@@ -91,6 +91,10 @@
     "nether_npc4_dia4": "做出自己的选择吧......",
     "nether_npc4_option1": "购买冰霜冲击",
     "nether_npc4_option2": "换取50点攻击力，并离开",
+    "nether_npc4_dia_b1": "祝你好运",
+    "nether_player4_dia_b1": "谢谢",
+    "nether_npc4_dia_b2": "祝你好运",
+    "nether_player4_dia_b2": "谢谢",
 
     "nether_npc5_dia1": "你感受到一阵眩晕，当你醒来时，你发现自己来到了一个白骨成堆的维度",
     "nether_player5_dia1": "这是哪里？",
@@ -101,6 +105,8 @@
     "nether_player5_dia3": "多少钱？",
     "nether_npc5_dia4": "... ... ...",
     "nether_player5_dia4": "获得 回响之杖+技能槽",
+    "nether_npc5_dia_b1": "祝你好运",
+    "nether_player5_dia_b1": "谢谢",
 
     "boss_npc1_dia1": "你终于来了，年轻人,你觉得我是真是假？",
     "boss_player1_dia1_1": "我觉得你是真的",

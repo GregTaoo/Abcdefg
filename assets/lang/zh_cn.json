@@ -108,7 +108,11 @@
     "boss_npc1_dia2_1": "你的选择是正确的，年轻人",
     "boss_npc1_dia2_2": "你的选择是错误的，年轻人",
     "boss_npc1_dia3": "你有勇气来挑战我吗?",
-    "boss_player1_dia3": "我有",
+    "boss_player1_dia3_1": "我有",
+    "boss_player1_dia3_2": "先行休整",
+    "boss_npc1_dia4": "你确定你的力量足够强大吗$$",
+    "boss_player1_dia4_1": "我准备好了",
+    "boss_player1_dia4_2": "我还需要准备一下",
 
     "boss_npc2_dia1": "你终于来了，年轻人,你觉得我是真是假？",
     "boss_player2_dia1_1": "我觉得你是真的",
@@ -154,11 +158,11 @@
     "boss_player5_dia1_2": "我觉得你是假的",
     "boss_npc5_dia2_1": "你的选择是错误的，年轻人",
     "boss_npc5_dia2_2": "你的选择是正确的，年轻人",
-    "boss_npc5_dia3": "你有勇气来挑战我吗?需要金币10元",
-    "boss_player5_dia3_1": "战斗",
+    "boss_npc5_dia3": "你有勇气来挑战我吗?需要金币10$",
+    "boss_player5_dia3_1": "管他的，战斗",
     "boss_player5_dia3_2": "逃跑",
     "boss_player5_dia3_3": "穷鬼，快走吧",
-    "boss_npc5_dia4_1": "你轻松取下对方首级，获得100金币",
+    "boss_npc5_dia4_1": "你轻松取下对方首级，获得100金币（怎么可能要付钱才能战斗）",
     "boss_npc5_dia4_2": "你狼狈逃跑",
     "boss_npc5_dia4_3": "你被嘲讽了，你充满了决心，伤害翻倍！",
 
@@ -173,7 +177,7 @@
     "boss_player6_dia3_3": "真是个xx，快滚吧",
     "boss_npc6_dia4_1": "你轻松杀死对方，获得100金币",
     "boss_npc6_dia4_2": "你仓皇逃窜",
-    "boss_npc6_dia4_3": "你被嘲讽麻了，你气血翻涌，伤害翻倍！"
+    "boss_npc6_dia4_3": "你被嘲讽麻了，你气血翻涌，血量翻倍！"
 
 
 

@@ -136,9 +136,16 @@ class BossNPC6(NPC):
     def process_choice(self, player, choice):
         self.interact = False
         if choice == '1':
-            return 'b1'
-        else:
-            return '!#'
+            Config.CLIENT.player.heal(1)
+        elif choice == '2':
+            Config.CLIENT.player.coins += 100
+        elif choice == '3':
+            Config.CLIENT.player.damage(Config.CLIENT.player.hp / 2)
+        elif choice == '4':
+            Config.CLIENT.player.hp *= 2
+            Config.CLIENT.player.max_hp *= 2
+
+        return "!#"
 
 
 class HerobrineNPC(NPC):

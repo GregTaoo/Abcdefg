@@ -67,6 +67,7 @@ class NetherNPC3(NPC):
     def process_choice(self, player, choice):
         self.interact = False
         if choice == '1':
+            Config.CLIENT.dimension.set_block((2, 7), Block.LAVA)
             #获得狂暴战刃
             return 'b1'
         else:
@@ -87,9 +88,11 @@ class NetherNPC4(TraderNPC):
     def process_choice(self, player, choice):
         self.interact = False
         if choice == '1':
+            Config.CLIENT.dimension.set_block((11, 2), Block.LAVA)
             # 以5点灵力换取冰霜冲击
             return 'b1'
         elif choice == '2':
+            Config.CLIENT.dimension.set_block((10, 2), Block.LAVA)
             # 清空你所有的灵力，换取50点攻击力，并直接离开这个世界
             return 'b2'
         else:
@@ -110,6 +113,7 @@ class NetherNPC5(TraderNPC):
     def process_choice(self, player, choice):
         self.interact = False
         if choice == '1':
+            Config.CLIENT.dimension.set_block((20, 10), Block.LAVA)
             # 获得回响之杖 + 一个技能槽
             return 'b1'
         else:

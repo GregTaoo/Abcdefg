@@ -24,7 +24,7 @@ def render_dialog_at_absolute_pos(text, screen, pos, font: pygame.font):
 
 class Entity:
     def __init__(self, name: str, pos: Tuple[int, int], renderer: Renderer, actions: list[Action] = None,
-                 atk: float = 1.0, crt: float = 0.0, coins: int = 0, max_hp: float = 100, size: Tuple[int, int] = None):
+                 sp: float = 2.0, atk: float = 1.0, crt: float = 0.0, coins: int = 0, max_hp: float = 100, size: Tuple[int, int] = None):
         # 初始化实体
         self.name = name
         self.x, self.y = pos
@@ -33,6 +33,7 @@ class Entity:
         self.mirror = False  # 是否镜像（用于角色朝向）
         self.hp = self.max_hp = max_hp  # 生命值和最大生命值
         self.fire_tick = 0  # 火焰持续时间，用于持续伤害
+        self.sp = sp
         self.atk = atk  # 攻击力
         self.crt = crt  # 暴击率
         self.moving = False  # 是否在移动

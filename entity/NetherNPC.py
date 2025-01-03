@@ -2,7 +2,7 @@ import Block
 import Config
 import I18n
 from Dialog import Dialog
-from entity.NPC import TraderNPC, TradeOption, NPC
+from entity.NPC import TraderNPC, NPC
 from render import Renderer
 from ui.DialogUI import DialogUI
 from ui.TradeUI import TradeUI
@@ -22,6 +22,7 @@ class NetherNPC1(NPC):
 
     def process_choice(self, player, choice):
         self.interact = False
+        Config.CLIENT.dimension.set_block((0, 19), Block.NETHERITE_BLOCK)
         if choice == '1':
             Config.CLIENT.dimension.set_block((2, 17), Block.NETHERITE_BLOCK)
             return 'b1'
@@ -65,9 +66,10 @@ class NetherNPC3(NPC):
                                            lambda msg: self.process_choice(player, msg)))
 
     def process_choice(self, player, choice):
-        self.interact = False
         if choice == '1':
-            #获得狂暴战刃
+            self.interact = False
+            Config.CLIENT.dimension.set_block((2, 7), Block.LAVA)
+            # 获得狂暴战刃
             return 'b1'
         else:
             return '!#'
@@ -87,9 +89,11 @@ class NetherNPC4(TraderNPC):
     def process_choice(self, player, choice):
         self.interact = False
         if choice == '1':
+            Config.CLIENT.dimension.set_block((11, 2), Block.LAVA)
             # 以5点灵力换取冰霜冲击
             return 'b1'
         elif choice == '2':
+            Config.CLIENT.dimension.set_block((10, 2), Block.LAVA)
             # 清空你所有的灵力，换取50点攻击力，并直接离开这个世界
             return 'b2'
         else:
@@ -110,6 +114,7 @@ class NetherNPC5(TraderNPC):
     def process_choice(self, player, choice):
         self.interact = False
         if choice == '1':
+            Config.CLIENT.dimension.set_block((20, 10), Block.LAVA)
             # 获得回响之杖 + 一个技能槽
             return 'b1'
         else:

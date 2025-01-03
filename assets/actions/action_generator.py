@@ -16,7 +16,7 @@ with open("attack_left.txt", "w") as file:
         # 将计算的 x 和 y 值写入文件，其中 y 值由 f(x) 计算得到
         file.write(f"{x:.0f} {f(x):.0f}\n")
     # 添加攻击效果标记
-    file.write("150 200|10||hit\n")
+    file.write("150 200|10|0||hit\n")
     # 继续写入从 150 到 600 的位置变化
     for i in range(frames // 2):
         x = 450 * i / frames * 2 + 150
@@ -30,7 +30,7 @@ with open("attack_right.txt", "w") as file:
         # 将计算的 x 和 y 值写入文件，其中 y 值由 f(x) 计算得到
         file.write(f"{x:.0f} {f(x):.0f}\n")
     # 添加攻击效果标记
-    file.write("600 200|10||hit\n")
+    file.write("600 200|10|0||hit\n")
     # 继续写入从 600 到 150 的位置变化
     for i in range(frames // 2):
         x = 600 - (450 * i / frames * 2)
@@ -48,14 +48,14 @@ with open("ultimate_right.txt", "w") as file:
     for x in range(10):
         file.write(f"{600 - 100 / 10 * x} {200 - 100 / 10 * x} {600 + 100 / 10 * x} {200 - 100 / 10 * x}"
                    f" {600 - 100 / 10 * x} {200 + 100 / 10 * x} {600 + 100 / 10 * x} {200 + 100 / 10 * x}"
-                   f"|0|clone_tech|zeus\n")
+                   f"|0|0|clone_tech|zeus\n")
     # 输出终极技能的范围
-    file.write(f"500 100 700 100 500 300 700 300|60||zeus\n")
+    file.write(f"500 100 700 100 500 300 700 300|60|0||zeus\n")
     # 生成 90 帧的技能范围，随着时间的推移，技能的范围逐渐增大
     for x in range(90):
         k = (math.sqrt(100 / 90) * x) ** 2
         file.write(f"{500 + k} {100 + k} {700 - k} {100 + k}"
-                   f" {500 + k} {300 - k} {700 - k} {300 - k}|0|clone_tech\n")
+                   f" {500 + k} {300 - k} {700 - k} {300 - k}|0|0|clone_tech\n")
     # 最后 40 帧的运动轨迹，x 从 600 逐渐变到 150
     for x in range(40):
         file.write(f"{600 - 450 / 40 * x} 200\n")
@@ -70,7 +70,7 @@ with open("escape_left.txt", "w") as file:
         file.write(f"500 200\n")
     # 生成 50 帧的动作标记，模拟角色在逃跑过程中的动作
     for x in range(50):
-        file.write(f"500 200|0|mocking\n")
+        file.write(f"500 200|0|0|mocking\n")
     # 最后 30 帧，x 从 500 逐渐变化到 150
     for x in range(30):
         file.write(f"{500 - 550 * x / 25:.0f} 200\n")

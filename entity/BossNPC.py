@@ -22,7 +22,7 @@ class HerobrineNPC(NPC):
 class BossNPC1(NPC):
 
     def __init__(self, pos):
-        super().__init__(I18n.text('boss_npc'), pos, Renderer.image_renderer('baby_dragon.png', (50, 50)))
+        super().__init__(I18n.text('boss_npc'), pos, Renderer.GHAST)
 
     def on_interact(self, player):
         if self.interact:

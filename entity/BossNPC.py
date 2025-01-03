@@ -128,7 +128,7 @@ class BossNPC6(NPC):
             return '!#'
 
 
-class Herobrine(NPC):
+class HerobrineNPC(NPC):
 
     def __init__(self, pos):
         super().__init__(I18n.text('yourself'), pos, Renderer.image_renderer('herobrine.png', (50, 50)))

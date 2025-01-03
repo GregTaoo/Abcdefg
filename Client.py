@@ -58,8 +58,8 @@ def generate_the_nether():
         mp.append([Block.WARPED_PLANKS] * MAP_WIDTH)
     mp[2][17] = mp[3][19] = Block.OAK_TRAPDOOR
     mp[7][11] = mp[8][10] = Block.OAK_TRAPDOOR
-    mp[0][19] = Block.NETHER_BACK_PORTAL
-
+    mp[0][19] = Block.NETHER_BACK_PORTAL  # 最后记得删
+    mp[0][18] = Block.LAVA
 
     return mp
 

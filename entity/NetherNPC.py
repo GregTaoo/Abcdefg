@@ -2,7 +2,7 @@ import Block
 import Config
 import I18n
 from Dialog import Dialog
-from entity.NPC import TraderNPC, TradeOption, NPC
+from entity.NPC import TraderNPC, NPC
 from render import Renderer
 from ui.DialogUI import DialogUI
 from ui.TradeUI import TradeUI
@@ -22,6 +22,7 @@ class NetherNPC1(NPC):
 
     def process_choice(self, player, choice):
         self.interact = False
+        Config.CLIENT.dimension.set_block((0, 19), Block.NETHERITE_BLOCK)
         if choice == '1':
             Config.CLIENT.dimension.set_block((2, 17), Block.NETHERITE_BLOCK)
             return 'b1'

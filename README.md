@@ -1,10 +1,34 @@
-# SI100B_Project
-队名：ABCDEFG
-成员：钟晨涛（队长） 周陈诚 李明熹
-分工：
-钟晨涛: 技术总监 代码主力 审核
-周陈诚：美工 资源找寻 及部分代码
-李明熹：负责游戏背景，设定，叙事，创意，玩法与平衡，及部分音乐，并负责部分代码工作
+## SI100B_Project
+
+------------------------------------
+
+### 发明项目：Redemption (Team Abcdefg)
+
+![ICON](./assets/ui/title.png)
+
+------------------------------------
+
+### 发明人：
+
+钟晨涛: 程序设计，代码编写，部分美工，部分音乐
+
+[GregTao's GitHub](https://github.com/GregTaoo)
+
+[gregtao@shanghaitech.edu.cn](mailto:gregtao@shanghaitech.edu.cn) 
+
+周陈诚: 美工资源，游戏策划，数值设计，部分代码
+
+[Z-c-c-cc's GitHub](https://github.com/Z-c-c-cc)
+
+[zhouchch2024@shanghaitech.edu.cn](mailto:zhouchch2024@shanghaitech.edu.cn) 
+
+李明熹: 游戏剧情，游戏策划，数值设计，部分音乐，部分代码
+
+[Svania-riCw's GitHub](https://github.com/Svania-riCw)
+
+[limx2024@shanghaitech.edu.cn](mailto:limx2024@shanghaitech.edu.cn) 
+
+-------------------------------------
 
 精彩部分：战斗效果 音效 渲染 AI 找密钥 技能 情节设定 多语言 世界观（此处可添加......)
 

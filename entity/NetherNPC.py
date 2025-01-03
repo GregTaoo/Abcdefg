@@ -69,7 +69,10 @@ class NetherNPC3(NPC):
         if choice == '1':
             self.interact = False
             Config.CLIENT.dimension.set_block((2, 7), Block.LAVA)
-            # 获得狂暴战刃
+            Config.CLIENT.dimension.set_block((9, 17), Block.NETHERITE_BLOCK)
+            Config.CLIENT.dimension.set_block((19, 19), Block.OAK_TRAPDOOR)
+            player.atk += 0.2
+            player.crt += 0.1 # 获得狂暴战刃
             return 'b1'
         else:
             return '!#'
@@ -91,6 +94,8 @@ class NetherNPC4(TraderNPC):
         if choice == '1':
             Config.CLIENT.dimension.set_block((11, 2), Block.LAVA)
             # 以5点灵力换取冰霜冲击
+            player.atk += 0.15
+            player.atk += 0.15
             return 'b1'
         elif choice == '2':
             Config.CLIENT.dimension.set_block((10, 2), Block.LAVA)
@@ -115,7 +120,8 @@ class NetherNPC5(TraderNPC):
         self.interact = False
         if choice == '1':
             Config.CLIENT.dimension.set_block((20, 10), Block.LAVA)
-            # 获得回响之杖 + 一个技能槽
+            # 获得回响之杖
+            player.crt += 0.3
             return 'b1'
         else:
             return '!#'

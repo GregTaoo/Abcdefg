@@ -6,6 +6,17 @@ from entity.NPC import NPC
 from render import Renderer, Action
 from ui.BossBattleUI import BossBattleUI
 from ui.DialogUI import DialogUI
+from ui.BattleUI import BattleUI
+
+class HerobrineNPC(NPC):
+
+    def __init__(self, pos):
+        super().__init__(I18n.text('yourself'), pos, Renderer.image_renderer('entities/herobrine.png', (50, 50)))
+        self.battle = True
+        self.actions = [Action.ATTACK_LEFT, Action.LASER_CANNON_LEFT]
+
+    def on_battle(self, player):
+        Config.CLIENT.open_ui(BossBattleUI(player, self))
 
 
 class BossNPC1(NPC):
@@ -21,13 +32,13 @@ class BossNPC1(NPC):
     def process_choice(self, player, choice):
         self.interact = False
         if choice == '1':
-            Config.CLIENT.dimension.set_block((2, 17), Block.WARPED_PLANKS)
-            return 'b1'
-        elif choice == '2':
-            Config.CLIENT.dimension.set_block((3, 19), Block.WARPED_PLANKS)
-            return 'b2'
-        else:
-            return '!#'
+            Config.CLIENT.player.heal(1)
+        elif choice == '3':
+            Config.CLIENT.spawn_entity(HerobrineNPC((500, 500)))
+            Config.CLIENT.open_ui(BattleUI(player, HerobrineNPC))
+
+        return "!#"
+
 
 
 class BossNPC2(NPC):
@@ -148,12 +159,4 @@ class BossNPC6(NPC):
         return "!#"
 
 
-class HerobrineNPC(NPC):
 
-    def __init__(self, pos):
-        super().__init__(I18n.text('yourself'), pos, Renderer.image_renderer('entities/herobrine.png', (50, 50)))
-        self.battle = True
-        self.actions = [Action.ATTACK_LEFT, Action.LASER_CANNON_LEFT]
-
-    def on_battle(self, player):
-        Config.CLIENT.open_ui(BossBattleUI(player, self))

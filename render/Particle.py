@@ -117,6 +117,12 @@ class ClickParticle(AnimationParticle):
         super().__init__(CLICK, pos, duration)
 
 
+class SplashParticle(AnimationParticle):
+
+    def __init__(self, pos, duration):
+        super().__init__(SPLASH, pos, duration)
+
+
 class ImageParticle(Particle):
 
     def __init__(self, image, pos, duration):
@@ -190,6 +196,7 @@ class LifeStealingParticle(ImageParticle):
 LASER_CANNON = Renderer.load_images_from_sprite('./assets/particles/laser_cannon.png', (398, 102), (398, 102))
 EXPLOSION = Renderer.load_images_from_sprite('./assets/particles/explosion.png', (32, 32), (64, 64))
 CLICK = Renderer.load_images_from_sprite('./assets/particles/click.png', (32, 32), (32, 32))
+SPLASH = Renderer.load_images_from_sprite('./assets/particles/splash.png', (8, 8), (16, 16))
 LAVA = Renderer.load_image('particles/lava.png', (8, 8))
 GLINT = Renderer.load_image('particles/glint.png', (16, 16))
 WALK = Renderer.load_image('particles/walk.png', (4, 4))

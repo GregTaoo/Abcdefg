@@ -50,8 +50,10 @@ class DialogUI(UI):
         nxt = self.dialogs.next(choice)  # 获取下一个对话
         if isinstance(nxt, str):  # 如果下一个是字符串，表示跳转到另一个对话
             s = self.choose(nxt) or '!#'  # 调用选择函数获取新的对话
-            if s[0] == '!':  # 如果是以!开头，关闭对话UI
+            if s == '!#':  # 如果是以!开头，关闭对话UI
                 Config.CLIENT.close_ui()
+                return
+            elif s[0] == '!':
                 return
             else:
                 # 如果是有效的对话键，更新当前对话

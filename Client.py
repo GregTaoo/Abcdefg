@@ -8,7 +8,7 @@ import I18n
 import Config
 import Block
 from Config import MAP_WIDTH, MAP_HEIGHT, SCREEN_WIDTH, SCREEN_HEIGHT
-from Dimension import Dimension
+from Dimension import Dimension, TheWorldDimension
 from render import Renderer, Particle
 from ui.ChatUI import ChatUI
 from ui.DeathUI import DeathUI
@@ -73,8 +73,8 @@ def load_sound(name, path, volume=0.5):
 class Client:
     def __init__(self, screen: pygame.Surface, clock, player, dimension):
         # 初始化游戏世界
-        Config.WORLDS['the_world'] = Dimension('the_world', MAP_WIDTH, MAP_HEIGHT, generate_the_world(),
-                                               './assets/sounds/music_minecraft.mp3')
+        Config.WORLDS['the_world'] = TheWorldDimension('the_world', MAP_WIDTH, MAP_HEIGHT, generate_the_world(),
+                                                       './assets/sounds/music_minecraft.mp3')
         Config.WORLDS['the_nether'] = Dimension('the_nether', MAP_WIDTH, MAP_HEIGHT, generate_the_nether(),
                                                 './assets/sounds/music_terribly.mp3')
         Config.WORLDS['the_end'] = Dimension('the_end', MAP_WIDTH, MAP_HEIGHT, generate_the_end(),

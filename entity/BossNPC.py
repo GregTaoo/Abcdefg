@@ -1,12 +1,12 @@
-import Block
 import Config
 import I18n
 from Dialog import Dialog
 from entity.NPC import NPC
 from render import Renderer, Action
+from ui.BattleUI import BattleUI
 from ui.BossBattleUI import BossBattleUI
 from ui.DialogUI import DialogUI
-from ui.BattleUI import BattleUI
+
 
 class HerobrineNPC(NPC):
 
@@ -40,9 +40,8 @@ class BossNPC1(NPC):
             h_npc = HerobrineNPC((500, 500))
             Config.CLIENT.spawn_entity(h_npc)
             Config.CLIENT.open_ui(BattleUI(player, h_npc))
-
+            return "!"
         return "!#"
-
 
 
 class BossNPC2(NPC):
@@ -61,10 +60,10 @@ class BossNPC2(NPC):
             Config.CLIENT.player.heal(1)
         elif choice == '2':
             if Config.CLIENT.player.hp > Config.CLIENT.player.max_hp / 2:
-               Config.CLIENT.player.damage(Config.CLIENT.player.hp - Config.CLIENT.player.max_hp / 2)
+                Config.CLIENT.player.damage(Config.CLIENT.player.hp - Config.CLIENT.player.max_hp / 2)
             Config.CLIENT.player.max_hp /= 2
         elif choice == '3':
-            Config.CLIENT.player.damage(Config.CLIENT.player.hp/2)
+            Config.CLIENT.player.damage(Config.CLIENT.player.hp / 2)
         return "!#"
 
 
@@ -134,7 +133,6 @@ class BossNPC5(NPC):
         elif choice == '4':
             Config.CLIENT.player.atk *= 2
 
-
         return "!#"
 
 
@@ -161,6 +159,3 @@ class BossNPC6(NPC):
             Config.CLIENT.player.max_hp *= 2
 
         return "!#"
-
-
-

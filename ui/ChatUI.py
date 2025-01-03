@@ -79,20 +79,21 @@ class ChatUI(UI):
         return True  # 返回True，表示UI仍然有效
 
     def render(self, screen: pygame.Surface):
-        super().render(screen)
-        pygame.draw.rect(screen, self.bg_color, self.input_rect)
-        txt_surface = Config.FONT.render(self.text, True, self.text_color)
-        screen.blit(txt_surface, (self.input_rect.x + 5, self.input_rect.y + 5))
+        # 渲染聊天UI界面
+        super().render(screen)  # 调用父类的 render 方法
+        pygame.draw.rect(screen, self.bg_color, self.input_rect)  # 绘制输入框的背景
+        txt_surface = Config.FONT.render(self.text, True, self.text_color)  # 渲染输入框中的文本
+        screen.blit(txt_surface, (self.input_rect.x + 5, self.input_rect.y + 5))  # 将文本绘制到输入框内
 
-        y_offset = Config.SCREEN_HEIGHT - 60
-        lines_cnt = 0
+        # 渲染聊天消息
+        y_offset = Config.SCREEN_HEIGHT - 60  # 初始位置从屏幕底部向上
+        lines_cnt = 0  # 计数器，限制最多显示25行消息
         for message, color, timestamp in Config.CLIENT.current_hud.messages:
-            if len(message.get().strip()) > 0:
-                txt_surface = Config.FONT.render(message.get().strip(), True, color)
-                screen.blit(txt_surface, (10, y_offset))
-
-                y_offset -= 20
+            if len(message.get().strip()) > 0:  # 如果消息不为空
+                txt_surface = Config.FONT.render(message.get().strip(), True, color)  # 渲染消息文本
+                screen.blit(txt_surface, (10, y_offset))  # 将消息绘制到屏幕上
+                y_offset -= 20  # 每条消息之间的间隔
                 lines_cnt += 1
-            if lines_cnt > 25:
+            if lines_cnt > 25:  # 限制最多显示25条消息
                 break
 

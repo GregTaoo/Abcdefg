@@ -5,7 +5,7 @@
 ### 发明项目：Redemption (Team Name: Abcdefg)
 
 ![ICON](./assets/ui/cover.png)
-*（由 AI 生成）*
+*（由 Microsoft Designer 生成）*
 
 ------------------------------------
 

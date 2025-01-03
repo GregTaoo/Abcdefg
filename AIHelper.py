@@ -20,6 +20,7 @@ def add_event(event: str):
     EVENTS.append(event)
     print(event)
 
+
 # 初始化AI客户端
 def init():
     global CLIENT
@@ -35,6 +36,7 @@ def update_ai_response(response: str):
         'role': 'assistant',  # 表示AI的消息角色
         'content': response   # AI的回复内容
     })
+
 
 # 获取AI响应流（异步获取）
 def get_response_stream(input_text, role='user'):
@@ -86,7 +88,7 @@ def add_response(text, color=(255, 255, 0), role='user'):
         finally:
             LOCK.release()  # 释放LOCK锁
 
-        # UI更新处理线程
+    # UI更新处理线程
 
     def update_response():
         LOCK1.acquire()  # 获取LOCK1锁

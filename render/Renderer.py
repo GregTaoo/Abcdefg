@@ -42,7 +42,7 @@ class ImageRenderer(Renderer):
 
 class AnimationRenderer(Renderer):
 
-    def __init__(self, images: list[pygame.Surface], duration: int, is_random=False, register=True):
+    def __init__(self, images: list[pygame.Surface], duration: int, is_random=False, repeat=True, register=True):
         if register:
             ANIMATIONS.append(self)
         self.images = images
@@ -51,6 +51,7 @@ class AnimationRenderer(Renderer):
         self.ticks = 0
         self.index = 0
         self.is_random = is_random
+        self.repeat = repeat
 
     def tick(self):
         self.ticks += 1
@@ -59,7 +60,12 @@ class AnimationRenderer(Renderer):
             if self.is_random:
                 self.index = random.randint(0, len(self.images) - 1)
             else:
-                self.index = (self.index + 1) % len(self.images)
+                self.index = min(self.index + 1, len(self.images) - 1)
+                if self.repeat:
+                    self.index %= len(self.images)
+
+    def is_end(self):
+        return self.index == len(self.images) - 1
 
     def render(self, screen: pygame.Surface, pos: tuple[int, int], mirror=False, use_default=False):
         index = 0 if use_default else self.index

@@ -9,21 +9,21 @@
 
 ------------------------------------
 
-### 发明人及分工：
+### 发明人及分工（实名在项目报告中，此处不实名）：
 
-钟晨涛: 程序设计，代码编写，部分美工，部分音乐
+GregTao: 程序设计，代码编写，部分美工，部分音乐
 
 [GregTao's GitHub](https://github.com/GregTaoo)
 
 [gregtao@shanghaitech.edu.cn](mailto:gregtao@shanghaitech.edu.cn) 
 
-周陈诚: 美工资源，游戏策划，数值设计，部分代码(图3较多）
+Z-c-c-cc: 美工资源，游戏策划，数值设计，部分代码(图3较多）
 
 [Z-c-c-cc's GitHub](https://github.com/Z-c-c-cc)
 
 [zhouchch2024@shanghaitech.edu.cn](mailto:zhouchch2024@shanghaitech.edu.cn) 
 
-李明熹: 游戏剧情，游戏策划，数值设计，部分音乐，部分代码（图2较多）
+Svania-riCw: 游戏剧情，游戏策划，数值设计，部分音乐，部分代码（图2较多）
 
 [Svania-riCw's GitHub](https://github.com/Svania-riCw)
 

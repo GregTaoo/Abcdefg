@@ -82,9 +82,10 @@ class TheWorldDimension(Dimension):
     def __init__(self, name: str, width: int, height: int, blocks: list[list[Block.Block]], music: str = None):
         super().__init__(name, width, height, blocks, music)
         rain_image = pygame.image.load("./assets/maps/rain.png").convert_alpha()
-        self.rain_surface = pygame.Surface((800, 1200), pygame.SRCALPHA)  # 双倍高度
+        self.rain_surface = pygame.Surface((1600, 1200), pygame.SRCALPHA)
         for i in range(0, self.rain_surface.get_height(), rain_image.get_height()):
-            self.rain_surface.blit(rain_image, (0, i))
+            for j in range(0, self.rain_surface.get_width(), rain_image.get_width()):
+                self.rain_surface.blit(rain_image, (j, i))
         self.rain_scroll_y = 0
 
     def render(self, screen: pygame.Surface, camera: Tuple[int, int]):
@@ -93,7 +94,7 @@ class TheWorldDimension(Dimension):
             self.rain_scroll_y += 6
             if self.rain_scroll_y >= 600:  # 当滚动到屏幕底部时，重置
                 self.rain_scroll_y = 0
-            screen.blit(self.rain_surface, (0, -600 + self.rain_scroll_y))
+            screen.blit(self.rain_surface, (-(camera[0] % 800), -600 + self.rain_scroll_y))
             x, y = (camera[0] + random.randint(0, Config.SCREEN_WIDTH),
                     camera[1] + random.randint(0, Config.SCREEN_HEIGHT))
             Particle.ENV_PARTICLES.add(Particle.SplashParticle((x, y), 60))

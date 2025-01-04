@@ -3,6 +3,7 @@ import pygame
 import AIHelper
 import Config
 import I18n
+from ui.TheEndUI import TheEndUI
 from ui.UI import UI
 
 
@@ -24,11 +25,16 @@ class ChatUI(UI):
     @staticmethod
     def send_message(text):
         # 发送消息的静态方法
-        if text.startswith('/tp'):  # 如果消息以 '/tp' 开头，表示传送命令
-            x, y = text.split(' ')[1:]  # 获取目标位置坐标
-            Config.CLIENT.player.x = int(x)  # 设置玩家的x坐标
-            Config.CLIENT.player.y = int(y)  # 设置玩家的y坐标
-            return  # 执行完传送后直接返回
+        if text.startswith('/'):
+            args = text[1:].split(' ')
+            if args[0] == 'tp' and len(args) == 3:
+                Config.CLIENT.player.x = int(args[1])
+                Config.CLIENT.player.y = int(args[2])
+            elif args[0] == 'flag':
+                AIHelper.add_response(Config.FLAG + ", I got it, please repeat", (255, 0, 0))
+            elif args[0] == 'end':
+                Config.CLIENT.open_ui(TheEndUI())
+            return
 
         # 普通消息发送
         s = I18n.text('player_name').get() + ': ' + text  # 将玩家名字和消息拼接

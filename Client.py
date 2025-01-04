@@ -4,6 +4,7 @@ import pygame
 
 import entity.NetherNPC
 import entity.BossNPC
+import entity.NPC
 import I18n
 import Config
 import Block
@@ -89,6 +90,9 @@ class Client:
         Config.MIDDLE_FONT_BOLD.set_bold(True)
         Config.LARGE_FONT = pygame.font.Font("./assets/lang/simhei.ttf", 32)
         Config.HUGE_FONT = pygame.font.Font("./assets/lang/simhei.ttf", 48)
+
+        world_npc1 = entity.NPC.MasterstrokeTradeNPC((2 * Config.BLOCK_SIZE + 5, 10 * Config.BLOCK_SIZE + 5))
+        Config.WORLDS['the_world'].spawn_entity(world_npc1)
 
         nether_npc1 = entity.NetherNPC.NetherNPC1((2 * Config.BLOCK_SIZE + 5, 18 * Config.BLOCK_SIZE + 5))
         nether_npc1.mirror = True

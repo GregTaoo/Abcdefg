@@ -203,12 +203,12 @@ class MasterstrokeTradeNPC(NPC):
             Config.CLIENT.open_ui(DialogUI(self, Dialog('masterstroke'),
                                            lambda msg: self.process_choice(player, msg)))
 
-    @staticmethod
-    def process_choice(player, choice):
+    def process_choice(self, player, choice):
         if choice == '1':
             player.sp -= 2
             player.skill_unlocked = True
             player.skill = 1
+            self.interact = False
             # 获得换血技能
             return 'b1'
         else:

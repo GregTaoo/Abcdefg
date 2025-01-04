@@ -29,7 +29,12 @@
     },
     "3": {
       "npc": "boss_npc1_dia2_2",
-      "next": "!1"
+      "player": [
+        {
+          "str": "...",
+          "next": "!1"
+        }
+      ]
     },
     "4": {
       "npc": "boss_npc1_dia3",

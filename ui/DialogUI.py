@@ -32,9 +32,9 @@ class DialogUI(UI):
 
     # 打字动画效果，每次增加一个字符
     def typer_animate(self):
-        self.typing_index = min(len(self.npc_text), self.typing_index + 1)
+        self.typing_index = min(len(self.npc_text) + 1, self.typing_index + 1)
         # 如果打字动画结束，更新按钮选项
-        if self.typing_index == len(self.npc_text) - 1:
+        if self.typing_index == len(self.npc_text):
             self.update_buttons(self.options)
 
     # 更新按钮选项
@@ -50,10 +50,9 @@ class DialogUI(UI):
         nxt = self.dialogs.next(choice)  # 获取下一个对话
         if isinstance(nxt, str):  # 如果下一个是字符串，表示跳转到另一个对话
             s = self.choose(nxt) or '!#'  # 调用选择函数获取新的对话
-            if s == '!#':  # 如果是以!开头，关闭对话UI
-                Config.CLIENT.close_ui()
-                return
-            elif s[0] == '!':
+            if s[0] == '!':  # 如果是以!开头，关闭对话UI
+                if Config.CLIENT.current_ui == self:
+                    Config.CLIENT.close_ui()
                 return
             else:
                 # 如果是有效的对话键，更新当前对话

@@ -76,15 +76,17 @@ class Client:
         Config.WORLDS['the_world'] = TheWorldDimension('the_world', MAP_WIDTH, MAP_HEIGHT, generate_the_world(),
                                                        './assets/sounds/music_minecraft.mp3')
         Config.WORLDS['the_nether'] = Dimension('the_nether', MAP_WIDTH, MAP_HEIGHT, generate_the_nether(),
-                                                './assets/sounds/music_terribly.mp3')
+                                                './assets/sounds/music_mario.mp3')
         Config.WORLDS['the_end'] = Dimension('the_end', MAP_WIDTH, MAP_HEIGHT, generate_the_end(),
-                                             './assets/sounds/music_mario.mp3')
+                                             './assets/sounds/music_terribly.mp3')
 
         # 设置字体
         Config.FONT = pygame.font.Font("./assets/lang/simhei.ttf", 16)
         Config.FONT_BOLD = pygame.font.Font("./assets/lang/simhei.ttf", 16)
         Config.FONT_BOLD.set_bold(True)
         Config.MIDDLE_FONT = pygame.font.Font("./assets/lang/simhei.ttf", 24)
+        Config.MIDDLE_FONT_BOLD = pygame.font.Font("./assets/lang/simhei.ttf", 24)
+        Config.MIDDLE_FONT_BOLD.set_bold(True)
         Config.LARGE_FONT = pygame.font.Font("./assets/lang/simhei.ttf", 32)
         Config.HUGE_FONT = pygame.font.Font("./assets/lang/simhei.ttf", 48)
 
@@ -120,9 +122,11 @@ class Client:
         load_sound('button1', './assets/sounds/button1.mp3', 0.75)
         load_sound('button2', './assets/sounds/button2.mp3', 0.75)
         load_sound('victory', './assets/sounds/victory.mp3', 0.75)
+        load_sound('heart', './assets/sounds/heart.mp3', 1)
 
         # 加载图像资源
         Config.COIN_IMAGE = pygame.transform.scale(pygame.image.load('./assets/ui/coin.png'), (20, 20))
+        Config.SPIRIT_POWER_IMAGE = pygame.transform.scale(pygame.image.load('./assets/ui/spirit_power.png'), (20, 20))
         Config.LANGUAGE_IMAGE = pygame.transform.scale(pygame.image.load('./assets/ui/language.png'), (20, 20))
         Config.MESSAGE_IMAGE = pygame.transform.scale(pygame.image.load('./assets/ui/message.png'), (20, 20))
 

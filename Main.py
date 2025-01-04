@@ -21,6 +21,8 @@ from ui.StarterUI import StarterUI
 
 
 def main():
+    Config.RUNNING = True
+
     os.environ["SDL_IME_SHOW_UI"] = "1"
 
     print('=================================================================')
@@ -63,6 +65,7 @@ def main():
         for event in events:
             if event.type == pygame.QUIT:
                 pygame.quit()
+                Config.RUNNING = False
                 AIHelper.thread.join()
                 sys.exit()
             elif event.type == pygame.MOUSEBUTTONDOWN:

@@ -25,7 +25,7 @@ class MainHud(Hud):
         self.target_entity = None
         self.text_bg = pygame.Surface((Config.SCREEN_WIDTH // 2 + 30, Config.SCREEN_HEIGHT // 2 - 70))
         self.text_bg.fill((0, 0, 0))
-        self.text_bg.set_alpha(150)
+        self.text_bg.set_alpha(100)
 
     def add_message(self, message, color):
         self.messages.insert(0, (message, color, time.time()))
@@ -35,9 +35,15 @@ class MainHud(Hud):
         txt_surface = Config.FONT.render(I18n.text('player_pos').format(
             I18n.text(Config.CLIENT.dimension.name), self.player.x, self.player.y), True, (200, 200, 200))
         screen.blit(txt_surface, (10, 10))
+
         txt_surface = Config.FONT.render(f"{self.player.coins}", True, (255, 175, 45))
         screen.blit(Config.COIN_IMAGE, (Config.SCREEN_WIDTH - 10 - txt_surface.get_width() - 25, 8))
         screen.blit(txt_surface, (Config.SCREEN_WIDTH - 10 - txt_surface.get_width(), 10))
+
+        txt_surface = Config.FONT.render(f"{self.player.sp}", True, (255, 255, 255))
+        screen.blit(Config.SPIRIT_POWER_IMAGE, (Config.SCREEN_WIDTH - 10 - txt_surface.get_width() - 25, 38))
+        screen.blit(txt_surface, (Config.SCREEN_WIDTH - 10 - txt_surface.get_width(), 40))
+
         txt_surface = Config.FONT.render(I18n.text('player_values').format(
             self.player.atk, self.player.crt * 100, (self.player.crt_damage - 1) * 100, self.player.max_hp), True,
             (255, 255, 255))
@@ -64,9 +70,9 @@ class MainHud(Hud):
             self.hint = ''
 
         current_time = time.time()
-        if (len(self.messages) > 0 and (self.messages[0][2] > current_time - 20 or
-                                        (len(self.messages) > 1 and self.messages[1][2] > current_time - 20))):
-            screen.blit(self.text_bg, (0, Config.SCREEN_HEIGHT // 2 + 33))
+        # if (len(self.messages) > 0 and (self.messages[0][2] > current_time - 20 or
+        #                                 (len(self.messages) > 1 and self.messages[1][2] > current_time - 20))):
+        #     screen.blit(self.text_bg, (0, Config.SCREEN_HEIGHT // 2 + 33))
 
         y_offset = Config.SCREEN_HEIGHT - 60
         lines_cnt = 0

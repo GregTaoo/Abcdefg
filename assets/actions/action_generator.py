@@ -83,8 +83,8 @@ with open("life_steal_right.txt", "w") as file:
     for i in range(10):
         for x in range(9):
             file.write(f"150 200|0|0|life_steal\n")
-        file.write(f"150 200|4|0|life_steal\n")
+        file.write(f"150 200|4|0|life_steal|heart\n")
     for i in range(10):
         for x in range(9):
             file.write(f"150 200|0|0|life_steal\n")
-        file.write(f"150 200|0|5|life_steal\n")
+        file.write(f"150 200|0|5|life_steal|heart\n")

@@ -200,7 +200,7 @@ class MasterstrokeTradeNPC(NPC):
 
     def on_interact(self, player):
         if self.interact:
-            Config.CLIENT.open_ui(DialogUI(self, Dialog('masterstroke_trade_npc'),
+            Config.CLIENT.open_ui(DialogUI(self, Dialog('masterstroke'),
                                            lambda msg: self.process_choice(player, msg)))
 
     @staticmethod

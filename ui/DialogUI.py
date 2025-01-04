@@ -3,7 +3,6 @@ import pygame
 import I18n
 import Config
 from Dialog import Dialog
-from entity.NPC import NPC
 from render import Renderer
 from ui.UI import UI
 from ui.widget.ClassicButton import ClassicButton
@@ -11,7 +10,7 @@ from ui.widget.ClassicButton import ClassicButton
 
 class DialogUI(UI):
 
-    def __init__(self, npc: NPC, dialogs: Dialog, choose):
+    def __init__(self, npc, dialogs: Dialog, choose):
         super().__init__()
         # 初始化对话UI，设置NPC、对话内容和选择函数
         self.npc = npc

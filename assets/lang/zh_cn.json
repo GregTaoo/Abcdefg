@@ -125,7 +125,7 @@
     "boss_player1_dia2_1_1": "我有",
     "boss_player1_dia2_1_2": "先行休整",
     "boss_npc1_dia3": "你确定你的力量足够强大吗$$",
-    "boss_player1_dia3_1": "我准备好了",
+    "boss_player1_dia3_1": "我准备好了（相信你的力量，士气非常重要）",
     "boss_player1_dia3_2": "我还需要准备一下",
 
     "boss_npc2_dia1": "你终于来了，年轻人,你觉得我是真是假？",
@@ -189,7 +189,18 @@
     "boss_npc6_dia4_3": "你被嘲讽麻了，你气血翻涌，血量翻倍！",
 
 
-     "...": "..."
+     "...": "...",
+
+     "boss_true_npc_dia1": "很好，在通过了法力和智力的考验过后，你终于来到了这里",
+     "boss_true_player_dia1": "(?)",
+     "boss_true_npc_dia2": "我是你，或者说，我是来自不同空间的你",
+     "boss_true_player_dia2": "我不明白",
+     "boss_true_npc_dia3": "(对方掏出了什么东西)",
+     "boss_true_player_dia3": "(!)",
+     "boss_true_npc_dia4": "这是你的武器，你的力量，你的未来",
+     "boss_true_player_dia4": "我的未来，我的未来，我的未来...",
+     "boss_true_npc_dia5": "既见未来，为何不拜！",
+     "boss_true_player_dia5": "（准备战斗）"
 
 
 

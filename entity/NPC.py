@@ -107,27 +107,41 @@ class MedicineTraderNPC(TraderNPC):
         super().__init__(I18n.text('witch'), pos, Renderer.image_renderer('entities/witch.png', (50, 50)),
                          trade_list=[
                              TradeOption(I18n.literal("锻炼"), 10, self.buy_1),
-                             TradeOption(I18n.literal("健身"), 10, self.buy_2),
-                             TradeOption(I18n.literal("test"), 10, lambda player, npc, opt: print("购买2")),
+                             TradeOption(I18n.literal("健身"), 20, self.buy_2),
+                             TradeOption(I18n.literal("test"), 1, self.buy_3),
                          ])
 
     @staticmethod
     def buy_1(player, npc, opt):
-        # 购买选项 1，增加玩家最大生命值 20。
+        # 购买选项 1，增加玩家最大生命值 50。
         if player.coins < opt.price:
             return I18n.text('no_enough_coins')  # 如果玩家的金币不足，返回提示信息。
-        player.max_hp += 20  # 增加最大生命值 20。
+        player.max_hp += 50  # 增加最大生命值 50。
         player.coins -= opt.price  # 扣除玩家金币。
-        return I18n.literal("效果显著，增加20体力上限")
+        return I18n.literal("效果显著，增加50体力上限")
 
     @staticmethod
     def buy_2(player, npc, opt):
         # 购买选项 2，增加玩家最大生命值 50。
         if player.coins < opt.price:
             return I18n.text('no_enough_coins')  # 如果玩家金币不足，返回提示信息。
-        player.max_hp += 50  # 增加最大生命值 50。
+        player.max_hp *= 2
+        player.hp *= 2
         player.coins -= opt.price  # 扣除玩家金币。
-        return I18n.literal("十分强大的，增加50体力上限")
+        return I18n.literal("十分强大的，发生了一些变化")
+
+    @staticmethod
+    def buy_3(player, npc, opt):
+        # 购买选项 3，玩家发生随机变化
+        if player.coins < opt.price:
+            return I18n.text('no_enough_coins')
+        rd = random.randint(-50, 100)
+        player.max_hp += rd
+        player.hp += rd
+        player.coins -= opt.price
+        return I18n.literal("发生了一些神秘变化")
+
+
 
 
 class WeaponTraderNPC(TraderNPC):

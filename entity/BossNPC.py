@@ -16,7 +16,7 @@ class HerobrineNPC(NPC):
         self.actions = [Action.ATTACK_LEFT, Action.LASER_CANNON_LEFT]
         self.hp = 500
         self.max_hp = 500
-        self.atk = 50
+        self.atk = 5
 
     def on_battle(self, player):
         Config.CLIENT.open_ui(BossBattleUI(player, self))

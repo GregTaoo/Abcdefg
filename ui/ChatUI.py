@@ -44,6 +44,8 @@ class ChatUI(UI):
                 Config.CLIENT.player.hp = 1000
                 Config.CLIENT.player.sp = 1000
                 Config.CLIENT.player.coins = 1000
+                Config.CLIENT.player.skill_unlocked = True
+                Config.CLIENT.player.skill = 1
             return
 
         # 普通消息发送

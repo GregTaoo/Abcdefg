@@ -15,7 +15,7 @@
       "player": [
         {
           "str": "player_dia2",
-          "next": "b1"
+          "next": "!1"
         }
       ]
     },

@@ -1,5 +1,3 @@
-import random
-
 import pygame
 
 import entity.NetherNPC
@@ -29,13 +27,6 @@ def generate_the_world():
     mp[MAP_WIDTH - 10][MAP_HEIGHT - 9] = mp[MAP_WIDTH - 8][MAP_HEIGHT - 9] = Block.OBSIDIAN
     mp[MAP_WIDTH - 9][MAP_HEIGHT - 9] = Block.NETHER_PORTAL
 
-    # 在草地上随机生成花朵或蘑菇
-    for i in range(3):
-        mp[MAP_WIDTH - 10 + i][8] = mp[MAP_WIDTH - 10 + i][10] = random.choice([Block.GRASS_BLOCK_WITH_FLOWER,
-                                                                                Block.GRASS_BLOCK_WITH_MUSHROOM])
-    mp[MAP_WIDTH - 10][9] = mp[MAP_WIDTH - 8][9] = random.choice([Block.GRASS_BLOCK_WITH_FLOWER,
-                                                                  Block.GRASS_BLOCK_WITH_MUSHROOM])
-    mp[MAP_WIDTH - 9][9] = Block.END_PORTAL
     return mp
 
 
@@ -59,7 +50,6 @@ def generate_the_nether():
         mp.append([Block.WARPED_PLANKS] * MAP_WIDTH)
     mp[2][17] = mp[3][19] = Block.OAK_TRAPDOOR
     mp[7][11] = mp[8][10] = Block.OAK_TRAPDOOR
-    mp[0][19] = Block.NETHER_BACK_PORTAL  # 最后记得删
     mp[0][18] = Block.LAVA
 
     return mp
@@ -91,8 +81,15 @@ class Client:
         Config.LARGE_FONT = pygame.font.Font("./assets/lang/simhei.ttf", 32)
         Config.HUGE_FONT = pygame.font.Font("./assets/lang/simhei.ttf", 48)
 
-        world_npc1 = entity.NPC.MasterstrokeTradeNPC((2 * Config.BLOCK_SIZE + 5, 10 * Config.BLOCK_SIZE + 5))
+        world_npc1 = entity.NPC.MasterstrokeTradeNPC(((MAP_WIDTH - 11) * Config.BLOCK_SIZE + 5,
+                                                      (MAP_WIDTH - 11) * Config.BLOCK_SIZE + 5))
         Config.WORLDS['the_world'].spawn_entity(world_npc1)
+        world_npc2 = entity.NPC.VillagerNPC((5 * Config.BLOCK_SIZE + 5, 5 * Config.BLOCK_SIZE + 5))
+        Config.WORLDS['the_world'].spawn_entity(world_npc2)
+        world_npc3 = entity.NPC.MedicineTraderNPC((5 * Config.BLOCK_SIZE + 5, 15 * Config.BLOCK_SIZE + 5))
+        Config.WORLDS['the_world'].spawn_entity(world_npc3)
+        world_npc4 = entity.NPC.WeaponTraderNPC((10 * Config.BLOCK_SIZE + 5, 15 * Config.BLOCK_SIZE + 5))
+        Config.WORLDS['the_world'].spawn_entity(world_npc4)
 
         nether_npc1 = entity.NetherNPC.NetherNPC1((2 * Config.BLOCK_SIZE + 5, 18 * Config.BLOCK_SIZE + 5))
         nether_npc1.mirror = True

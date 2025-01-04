@@ -1,3 +1,5 @@
+import random
+
 import Block
 import Config
 import I18n
@@ -27,12 +29,25 @@ class NetherNPC1(NPC):
         Config.CLIENT.dimension.set_block((0, 19), Block.NETHERITE_BLOCK)
         if choice == '1':
             Config.CLIENT.dimension.set_block((2, 17), Block.NETHERITE_BLOCK)
+            self.generate_the_end_portal()
             return 'b1'
         elif choice == '2':
             Config.CLIENT.dimension.set_block((3, 19), Block.NETHERITE_BLOCK)
+            self.generate_the_end_portal()
             return 'b2'
         else:
             return '!#'
+
+    @staticmethod
+    def generate_the_end_portal():
+        # 在草地上随机生成花朵或蘑菇
+        mp = Config.WORLDS['the_end'].blocks
+        for i in range(3):
+            mp[Config.MAP_WIDTH - 10 + i][8] = mp[Config.MAP_WIDTH - 10 + i][10] = (
+                random.choice([Block.GRASS_BLOCK_WITH_FLOWER, Block.GRASS_BLOCK_WITH_MUSHROOM]))
+        mp[Config.MAP_WIDTH - 10][9] = mp[Config.MAP_WIDTH - 8][9] = random.choice([Block.GRASS_BLOCK_WITH_FLOWER,
+                                                                                    Block.GRASS_BLOCK_WITH_MUSHROOM])
+        mp[Config.MAP_WIDTH - 9][9] = Block.END_PORTAL
 
 
 class NetherNPC2(NPC):
@@ -76,7 +91,6 @@ class NetherNPC3(NPC):
     def process_choice(self, player, choice):
         if choice == '1':
             self.interact = False
-            Config.CLIENT.dimension.set_block((2, 7), Block.LAVA)
             Config.CLIENT.dimension.set_block((9, 17), Block.NETHERITE_BLOCK)
             Config.CLIENT.dimension.set_block((19, 19), Block.OAK_TRAPDOOR)
             player.sp -= 2
@@ -106,17 +120,14 @@ class NetherNPC4(TraderNPC):
         if choice == '#':
             return '!#'
         elif player.sp < 2:
-            Config.CLIENT.dimension.set_block((11, 2), Block.LAVA)
             return 'b3'
         elif choice == '1':
-            Config.CLIENT.dimension.set_block((11, 2), Block.LAVA)
             # 以5点灵力换取冰霜冲击
             player.sp -= 2
             player.atk += 0.15
             player.crt += 0.15
             return 'b1'
         elif choice == '2':
-            Config.CLIENT.dimension.set_block((10, 2), Block.LAVA)
             player.sp = 0
             # 清空你所有的灵力，换取50点攻击力，并直接离开这个世界
             return 'b2'
@@ -143,10 +154,8 @@ class NetherNPC5(TraderNPC):
         if choice == '#':
             return '!#'
         if player.sp < 2:
-            Config.CLIENT.dimension.set_block((20, 10), Block.LAVA)
             return 'b2'
         elif choice == '1':
-            Config.CLIENT.dimension.set_block((20, 10), Block.LAVA)
             # 获得回响之杖
             player.sp -= 2
             player.crt += 0.3

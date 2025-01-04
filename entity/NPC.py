@@ -97,7 +97,8 @@ class VillagerNPC(TraderNPC):
             trade.price *= 2  # 将所有交易选项的价格加倍。
         # 召唤一个铁傀儡来与玩家战斗。
         iron_golem = Entity.Entity(I18n.text('iron_golem'), self.get_right_bottom_pos(),
-                                   Renderer.image_renderer('entities/iron_golem.png', (50, 50)), atk=8, sp=3)
+                                   Renderer.image_renderer('entities/iron_golem.png', (50, 50)),
+                                   max_hp=300, atk=8, sp=6)
         Config.CLIENT.spawn_entity(iron_golem)  # 生成铁傀儡。
         Config.CLIENT.open_ui(BattleUI(player, iron_golem))  # 打开战斗界面。
 
@@ -193,7 +194,7 @@ class MasterstrokeTradeNPC(NPC):
 
     def __init__(self, pos):
         super().__init__(I18n.text('masterstroke_trade_npc'), pos,
-                         Renderer.image_renderer('entities/weapon_trader.png', (50, 50)))
+                         Renderer.image_renderer('entities/war.png', (50, 50)))
 
     def dialog(self):
         return I18n.text('masterstroke_dialog')
@@ -204,11 +205,11 @@ class MasterstrokeTradeNPC(NPC):
                                            lambda msg: self.process_choice(player, msg)))
 
     def process_choice(self, player, choice):
-        if not player.skill_unlocked:
-            return 'b2'
-        elif player.sp <= 2:
-            return 'b3'
-        elif choice == '1':
+        if choice == '1':
+            if player.sp < 2:
+                return 'b3'
+            if not player.skill_unlocked:
+                return 'b2'
             player.sp -= 2
             player.skill_unlocked = True
             player.skill = 1

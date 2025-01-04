@@ -9,11 +9,7 @@ import Client
 import Config
 import I18n
 from Config import SCREEN_WIDTH, SCREEN_HEIGHT, MAP_WIDTH, MAP_HEIGHT, BLOCK_SIZE
-from entity.BossNPC import HerobrineNPC
 from entity.Entity import Monster
-from entity.NPC import MedicineTraderNPC
-from entity.NPC import VillagerNPC
-from entity.NPC import WeaponTraderNPC
 from entity.Player import Player
 from render import Renderer, Particle, Action
 from render.Renderer import ImageRenderer
@@ -44,26 +40,20 @@ def main():
     Config.CLIENT = Client.Client(screen, clock, player, 'the_world')
     Config.CLIENT.open_ui(StarterUI())
 
-    Config.CLIENT.spawn_entity(VillagerNPC((300, 300)))
-    Config.CLIENT.spawn_entity(MedicineTraderNPC((200, 200)))
-    Config.CLIENT.spawn_entity(WeaponTraderNPC((400, 400)))
-
-    # TEST
-    Config.CLIENT.spawn_entity(HerobrineNPC((500, 500)))
-
     for _ in range(10):
         Config.CLIENT.spawn_entity(
-            Monster(I18n.text('zombie'), (random.randint(0, MAP_WIDTH * BLOCK_SIZE),
-                                          random.randint(0, MAP_HEIGHT * BLOCK_SIZE)),
+            Monster(I18n.text('zombie'), (random.randint(0, MAP_WIDTH * BLOCK_SIZE - 10),
+                                          random.randint(0, MAP_HEIGHT * BLOCK_SIZE - 10)),
                     ImageRenderer(pygame.transform.scale(pygame.image.load("./assets/entities/zombie.png"), (50, 50))),
-                    coins=10)
+                    coins=8)
         )
     for _ in range(10):
         Config.CLIENT.spawn_entity(
-            Monster(I18n.text('skeleton'), (random.randint(0, MAP_WIDTH * BLOCK_SIZE),
-                                            random.randint(0, MAP_HEIGHT * BLOCK_SIZE)),
-                    ImageRenderer(pygame.transform.scale(pygame.image.load("./assets/entities/skeleton.png"), (50, 50))),
-                    coins=10, actions=[Action.ARROW_LEFT])
+            Monster(I18n.text('skeleton'), (random.randint(0, MAP_WIDTH * BLOCK_SIZE - 10),
+                                            random.randint(0, MAP_HEIGHT * BLOCK_SIZE - 10)),
+                    ImageRenderer(pygame.transform.scale(pygame.image.load("./assets/entities/skeleton.png"),
+                                                         (50, 50))),
+                    coins=12, actions=[Action.ARROW_LEFT])
         )
 
     while True:

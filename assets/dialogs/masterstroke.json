@@ -1,0 +1,32 @@
+{
+  "start": "1",
+  "data": {
+    "1": {
+      "npc": "master_dia1",
+      "player": [
+        {
+          "str": "player_dia1",
+          "next": "2"
+        }
+      ]
+    },
+    "2": {
+      "npc": "master_dia2",
+      "player": [
+        {
+          "str": "player_dia2",
+          "next": "b1"
+        }
+      ]
+    },
+    "b1": {
+      "npc": "master_dia_b1",
+      "player": [
+        {
+          "str": "player3_dia_b1",
+          "next": "!#"
+        }
+      ]
+    }
+  }
+}

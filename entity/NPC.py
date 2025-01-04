@@ -10,6 +10,8 @@ from render import Renderer, Particle
 from ui.BattleUI import BattleUI
 from ui.TradeUI import TradeUI
 from entity import Entity
+from Dialog import Dialog
+from ui.DialogUI import DialogUI
 
 
 class NPC(Entity.Entity):
@@ -187,6 +189,27 @@ class WeaponTraderNPC(TraderNPC):
 
         player.coins -= opt.price
         return I18n.literal(I18n.text('bought').format(I18n.text('infinite_sword')))
+
+
+class MasterstrokeTradeNPC:
+    def __init__(self, pos):
+        super().__init__(I18n.text('MasterstrokeTradeNPC'), pos, Renderer.image_renderer('', (50, 50)))
+
+    def dialog(self):
+        return I18n.text('Masterstroke_dialog')
+
+    def on_interact(self, player):
+        if self.interact:
+            Config.CLIENT.open_ui(DialogUI(self, Dialog('MasterstrokeTradeNPC'),
+                                           lambda msg: self.process_choice(player, msg)))
+
+    def process_choice(self, player, choice):
+        if choice == '1':
+            player.sp -= 2
+            # 获得换血技能
+            return 'b1'
+        else:
+            return '!#'
 
 
 class TradeOption:

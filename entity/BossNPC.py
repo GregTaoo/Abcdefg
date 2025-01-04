@@ -19,7 +19,8 @@ class HerobrineNPC(NPC):
         self.atk = 10
 
     def on_battle(self, player):
-        Config.CLIENT.open_ui(BossBattleUI(player, self, lambda: Config.CLIENT.open_ui(DialogUI(self, Dialog('boss_true'),lambda msg: self.process_choice(player, msg)))))
+        Config.CLIENT.open_ui(BossBattleUI(player, self, lambda win: Config.CLIENT.open_ui(DialogUI(
+            self, Dialog('boss_true'), lambda msg: self.process_choice(player, msg)))))
 
     def process_choice(self, player, choice):
         if choice == '1':

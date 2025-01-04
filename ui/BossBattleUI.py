@@ -44,14 +44,14 @@ class BossBattleUI(UI):
         # 判断玩家是否可以使用终极攻击
         self.ultimate_button.set_active(self.player.ultimate_available())
         # 逃跑按钮
-        #self.escape_button = ClassicButton(I18n.text('escape'),
+        # self.escape_button = ClassicButton(I18n.text('escape'),
         #                                   (Config.SCREEN_WIDTH // 2 + 50, Config.SCREEN_HEIGHT // 2 + 50),
         #                                  (95, 50), on_click=self.on_click_escape_button)
-        #self.add_button(self.escape_button)
+        # self.add_button(self.escape_button)
         self.life_steal_button = ClassicButton(I18n.text('live_steal') if player.skill_unlocked and player.skill == 1
                                                else I18n.text('live_steal_lock'),
                                                (Config.SCREEN_WIDTH // 2 + 50, Config.SCREEN_HEIGHT // 2 + 50),
-                                               (295, 50),
+                                               (95, 50),
                                                on_click=lambda: self.round_start(Action.LIFE_STEAL_RIGHT))
         self.add_button(self.life_steal_button)
         self.life_steal_button.set_active(player.skill_unlocked and player.skill == 1)
@@ -128,7 +128,6 @@ class BossBattleUI(UI):
                             Entity.render_dialog_at_absolute_pos(text, screen, (i[0] + self.player.size[0] // 2,
                                                                                 i[1] - 40), Config.FONT)
             else:  # 敌人攻击阶段
-                self.enemy.atk -= 0.5
                 real_dmg = damage * self.enemy.atk * (self.enemy.crt_damage if self.use_crt else 1)
                 self.player.damage(real_dmg)
                 if real_dmg != 0:
@@ -206,7 +205,10 @@ class BossBattleUI(UI):
             if self.action.is_end():
                 if self.half_round < self.round * 2:
                     self.action.reset()
-                    self.action = Action.ATTACK_LEFT
+                    self.action = random.choice([Action.ATTACK_LEFT, Action.LASER_CANNON_LEFT])
+                    if self.enemy.hp > 0 and self.action == Action.LASER_CANNON_LEFT:
+                        Particle.UI_PARTICLES.add(Particle.LaserCannonParticle((200, 200), 90))
+                    self.enemy.atk -= 0.5
                     self.half_round += 1
                     self.use_crt = random.randint(0, 100) < self.enemy.crt * 100
                     if self.escaping_stage == 2:

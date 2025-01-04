@@ -73,6 +73,8 @@ def add_response(text, color=(255, 255, 0), role='user'):
         with LOCK:  # 获取LOCK锁
             LOCK1.acquire()
             LOCK1.release()
+            if not Config.RUNNING:
+                return  # 若游戏结束，返回
             thread1 = threading.Thread(target=update_response)
             thread1.start()
             Config.AI_INPUT_LOCK = True  # 锁定AI输入，避免同时多个输入
@@ -97,7 +99,7 @@ def add_response(text, color=(255, 255, 0), role='user'):
                 while True:
                     if not Config.RUNNING:
                         return  # 若游戏结束，返回
-                    time.sleep(0.01)  # 小的延迟，避免过度占用CPU
+                    time.sleep(0.01)
                     if Config.AI_INPUT_LOCK:  # 检查是否锁定输入
                         if not thread0.is_alive() and response.is_end():  # 判断响应是否结束
                             Config.CLIENT.current_hud.messages.insert(1, (I18n.literal(response.get()), color,

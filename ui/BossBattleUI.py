@@ -15,11 +15,12 @@ from ui.widget.ClassicButton import ClassicButton
 
 class BossBattleUI(UI):
 
-    def __init__(self, player, enemy):
+    def __init__(self, player, enemy, after_battle=None):
         super().__init__()
         # 初始化所有动作
         for i in Action.ACTIONS:
             i.reset()
+        self.after_battle = after_battle  # lambda bool
         self.player = player
         self.enemy = enemy
         self.player_pos = (150, 200)
@@ -47,10 +48,13 @@ class BossBattleUI(UI):
                                            (Config.SCREEN_WIDTH // 2 + 50, Config.SCREEN_HEIGHT // 2 + 50),
                                            (95, 50), on_click=self.on_click_escape_button)
         self.add_button(self.escape_button)
-        self.live_steal_button = ClassicButton(I18n.text('live_steal'),
-                                               (Config.SCREEN_WIDTH // 2 + 50, Config.SCREEN_HEIGHT // 2 + 100),
-                                               (95, 50), on_click=lambda: self.round_start(Action.LIFE_STEAL_RIGHT))
-        self.add_button(self.live_steal_button)
+        self.life_steal_button = ClassicButton(I18n.text('live_steal') if player.skill_unlocked and player.skill == 1
+                                               else I18n.text('live_steal_lock'),
+                                               (Config.SCREEN_WIDTH // 2 - 150, Config.SCREEN_HEIGHT // 2 - 10),
+                                               (295, 50),
+                                               on_click=lambda: self.round_start(Action.LIFE_STEAL_RIGHT))
+        self.add_button(self.life_steal_button)
+        self.life_steal_button.set_active(player.skill_unlocked and player.skill == 1)
         # 记录玩家和敌人进入战斗
         AIHelper.add_event('player has entered battle with ' + enemy.name.get())
         self.clock_heart_particle = [10, lambda: Particle.UI_PARTICLES.add(Particle.LifeStealingParticle(
@@ -66,6 +70,7 @@ class BossBattleUI(UI):
     def set_buttons_active(self, active):
         for button in self.buttons:
             button.set_active(active)
+        self.life_steal_button.set_active(self.player.skill_unlocked and self.player.skill == 1)
 
     # 回合开始，选择使用的攻击方式
     def round_start(self, use_action=Action.ATTACK_RIGHT):
@@ -81,6 +86,7 @@ class BossBattleUI(UI):
             self.player.reset_energy()
         elif use_action == Action.LIFE_STEAL_RIGHT:
             Config.CLOCKS.append(self.clock_heart_particle)
+            self.player.skill_unlocked = False
         # 判断是否触发暴击
         self.use_crt = random.randint(0, 100) < self.player.crt * 100
 
@@ -178,16 +184,23 @@ class BossBattleUI(UI):
         Renderer.PLAYER.tick()
         if self.playing_action is None or (self.action is not None and self.action.is_end()):
             if self.player.hp <= 0:
-                Config.CLIENT.close_ui()
-                Config.CLIENT.open_death_ui()
+                if self.after_battle is not None:
+                    self.after_battle(False)
+                else:
+                    Config.CLIENT.close_ui()
+                    Config.CLIENT.open_death_ui()
             elif self.enemy.hp <= 0:
                 # 玩家战胜敌人，增加金币
                 self.player.coins += self.enemy.coins
+                self.player.sp += self.enemy.sp
                 if self.enemy.name.get() == I18n.text('iron_golem').get():
                     self.player.iron += 1
-                Config.CLIENT.close_ui()
-                Config.CLIENT.open_ui(BattleSuccessUI(self.enemy.name, self.enemy.coins))
-                Config.SOUNDS['victory'].play()
+                if self.after_battle is not None:
+                    self.after_battle(True)
+                else:
+                    Config.CLIENT.close_ui()
+                    Config.CLIENT.open_ui(BattleSuccessUI(self.enemy.name, self.enemy.coins))
+                    Config.SOUNDS['victory'].play()
         if self.playing_action:
             if self.action.is_end():
                 if self.half_round < self.round * 2:

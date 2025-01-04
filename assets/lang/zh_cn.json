@@ -213,8 +213,33 @@
      "boss_true_npc_dia4": "这是你的武器，你的力量，你的未来",
      "boss_true_player_dia4": "我的未来，我的未来，我的未来...",
      "boss_true_npc_dia5": "既见未来，为何不拜！",
-     "boss_true_player_dia5": "（准备战斗）"
+     "boss_true_player_dia5": "（准备战斗）",
 
+     "last_npc_dia1": "孩子，你赢了",
+     "last_player_dia1": "我赢了（?...)",
+     "last_npc_dia2": "你赢了，你赢了，你赢了",
+     "last_player_dia2": "我赢了",
+     "last_npc_dia3": "你获得了救赎，你能重新回到你的世界，开始你的生活",
+     "last_player_dia3": "emmm,那个炮...",
+     "last_npc_dia4": "你会获得它的，在将来的某一天，某一日",
+     "last_player_dia4": "我的未来...",
+     "last_npc_dia5": "你的未来必定更加强大，毕竟我也要开始我的redemption之旅了",
+     "last_player_dia5": "啊！我的过去，我的未来，我的现在...",
+     "last_npc_dia6": "回去吧，孩子，继续追寻你的道路",
+     "last_player_dia6": "你睁开了双眼()_()",
+
+     "end_npc_dia1": "你醒了",
+     "end_player_dia1": "（？）",
+     "end_npc_dia2": "你明白你的过往了吗？",
+     "end_player_dia2": "(守护，狂暴，自己)...",
+     "end_npc_dia3": "你明白你的未来了吗？",
+     "end_player_dia3": "(Herobrine，激光炮，魔法)...",
+     "end_npc_dia4": "你明白你的现在了吗？",
+     "end_player_dia4": "我明白了",
+     "end_npc_dia5": "守护那些需要守护的",
+     "end_player_dia5": "打击那些需要打击的",
+     "end_npc_dia6": "心有猛虎",
+     "end_player_dia6": "细嗅蔷薇"
 
 
 }

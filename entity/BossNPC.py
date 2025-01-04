@@ -33,8 +33,18 @@ class HerobrineNPC(NPC):
             self.hp = 5000  # 脚填数值
             self.max_hp = 5000
             self.atk = 100
-            Config.CLIENT.open_ui(BossBattleUI(player, self))
+            Config.CLIENT.open_ui(BossBattleUI(player, self, lambda win: Config.CLIENT.open_ui(DialogUI(self, Dialog('last'),lambda msg_2:
+            self.process_choice_2(Config.CLIENT.player, msg_2)))))
         return "!#"
+
+    def process_choice_2(self, player, choice):
+        if choice == '1':
+            Config.CLIENT.open_ui(DialogUI(self, Dialog('end'), lambda msg: self.process_choice_3(Config.CLIENT.player, msg)))
+        return "!#"
+
+    def process_choice_3(self, player, choice):
+        if choice == '1':
+           ### 最后的页面
 
 
 class BossNPC1(NPC):

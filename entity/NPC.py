@@ -22,9 +22,9 @@ class NPC(Entity.Entity):
         self.battle = False  # 标记 NPC 是否参与战斗。
         self.interact = True  # 标记 NPC 是否可互动。
 
-    def dialog(self):
+    def dialog(self) -> I18n.Text:
         # 表示 NPC 的对话。
-        return I18n.text('npc_dialog').format(self.name)
+        return I18n.literal(I18n.text('npc_dialog').format(self.name))
 
     def tick(self, dimension, player=None):
         # 每一帧更新 NPC 状态。
@@ -45,7 +45,7 @@ class NPC(Entity.Entity):
 
     def render_dialog(self, screen, camera):
         # 如果对话计时器大于 0，则渲染对话框。
-        dialog_text = self.dialog()
+        dialog_text = self.dialog().get()
         if self.dialog_timer > 0 and len(dialog_text) > 0:
             Entity.render_dialog_at_absolute_pos(dialog_text, screen,
                                                  (self.x - camera[0] + self.size[0] // 2,

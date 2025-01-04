@@ -145,8 +145,6 @@ class MedicineTraderNPC(TraderNPC):
         return I18n.literal("发生了一些神秘变化")
 
 
-
-
 class WeaponTraderNPC(TraderNPC):
     # WeaponTraderNPC，代表一个武器商 NPC，出售各种武器给玩家。
 
@@ -191,21 +189,26 @@ class WeaponTraderNPC(TraderNPC):
         return I18n.literal(I18n.text('bought').format(I18n.text('infinite_sword')))
 
 
-class MasterstrokeTradeNPC:
+class MasterstrokeTradeNPC(NPC):
+
     def __init__(self, pos):
-        super().__init__(I18n.text('MasterstrokeTradeNPC'), pos, Renderer.image_renderer('', (50, 50)))
+        super().__init__(I18n.text('masterstroke_trade_npc'), pos,
+                         Renderer.image_renderer('entities/weapon_trader.png', (50, 50)))
 
     def dialog(self):
-        return I18n.text('Masterstroke_dialog')
+        return I18n.text('masterstroke_dialog')
 
     def on_interact(self, player):
         if self.interact:
-            Config.CLIENT.open_ui(DialogUI(self, Dialog('MasterstrokeTradeNPC'),
+            Config.CLIENT.open_ui(DialogUI(self, Dialog('masterstroke_trade_npc'),
                                            lambda msg: self.process_choice(player, msg)))
 
-    def process_choice(self, player, choice):
+    @staticmethod
+    def process_choice(player, choice):
         if choice == '1':
             player.sp -= 2
+            player.skill_unlocked = True
+            player.skill = 1
             # 获得换血技能
             return 'b1'
         else:

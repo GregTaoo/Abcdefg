@@ -8,7 +8,7 @@ class TheEndUI(UI):
 
     def __init__(self):
         super().__init__()
-        with open('./assets/lang/end.txt', 'r') as f:
+        with open('./assets/lang/end.txt', 'r', encoding='utf-8') as f:
             self.text = f.read().split('\n')
             self.text_surface = pygame.Surface((Config.SCREEN_WIDTH, 1200 + len(self.text) * 50))
             for i, line in enumerate(self.text):

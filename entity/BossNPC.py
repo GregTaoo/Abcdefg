@@ -5,6 +5,7 @@ from entity.NPC import NPC
 from render import Renderer, Action
 from ui.BattleUI import BattleUI
 from ui.BossBattleUI import BossBattleUI
+from entity import Entity
 from ui.DialogUI import DialogUI
 from ui.TheEndUI import TheEndUI
 
@@ -40,8 +41,10 @@ class HerobrineNPC(NPC):
         return "!#"
 
     def process_choice_2(self, player, choice):
+        e_npc = Entity.Entity(I18n.text('programmer'), self.get_right_bottom_pos(),
+                                   Renderer.image_renderer('egg.png', (50, 50)), atk=0, sp=0)
         if choice == '1':
-            Config.CLIENT.open_ui(DialogUI(self, Dialog('end'),
+            Config.CLIENT.open_ui(DialogUI(e_npc, Dialog('end'),
                                            lambda msg: self.process_choice_3(Config.CLIENT.player, msg)))
 
     @staticmethod

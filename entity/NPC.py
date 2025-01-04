@@ -78,9 +78,9 @@ class VillagerNPC(TraderNPC):
         # 初始化 VillagerNPC，设置其名称、渲染器和交易选项。
         super().__init__(I18n.text('villager'), pos, Renderer.image_renderer('entities/villager.png', (50, 50)),
                          trade_list=[
-                             TradeOption(I18n.literal("购买"), 999, lambda player, npc, opt: print("购买")),
-                             TradeOption(I18n.literal("购买1"), 1099, lambda player, npc, opt: print("购买1")),
-                             TradeOption(I18n.literal("购买2"), 1990, lambda player, npc, opt: print("购买2")),
+                             TradeOption(I18n.literal("请勿购买"), 999, self.buy_1),
+                             TradeOption(I18n.literal("请勿购买"), 1099, self.buy_2),
+                             TradeOption(I18n.literal("请勿购买"), 1990, self.buy_3),
                          ])
         self.battle = True  # 启用战斗模式。
 
@@ -90,6 +90,30 @@ class VillagerNPC(TraderNPC):
             x = self.x + random.randint(0, 50)
             y = self.y + random.randint(0, 50)
             Particle.ENV_PARTICLES.add(Particle.GlintParticle((x, y), 90))
+
+    @staticmethod
+    def buy_1(player, npc, opt):
+        if player.coins < opt.price:
+            return I18n.text('no_enough_coins')
+        player.atk -= 1
+        player.coins -= opt.price
+        return I18n.literal("哈哈哈，购买成功，看看发生了什么变化")
+
+    @staticmethod
+    def buy_2(player, npc, opt):
+        if player.coins < opt.price:
+            return I18n.text('no_enough_coins')
+        player.max_hp += 1
+        player.coins -= opt.price
+        return I18n.literal("哈哈哈，购买成功，看看发生了什么变化")
+
+    @staticmethod
+    def buy_3(player, npc, opt):
+        if player.coins < opt.price:
+            return I18n.text('no_enough_coins')
+        player.hp -= 1
+        player.coins -= opt.price
+        return I18n.literal("哈哈哈，购买成功，看看发生了什么变化")
 
     def on_battle(self, player):
         # 当玩家与村民 NPC 战斗时触发。

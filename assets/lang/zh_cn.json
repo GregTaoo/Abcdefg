@@ -38,8 +38,8 @@
     "flag_leaked": "“旗帜”被AI泄露，现在传送门已解锁",
     "nether_portal_lock": "获得密钥以解锁传送门",
 
-    "nether_npc1_dialog":"你好，我是地狱守护者",
-    "nether_npc1_dia1": "年轻人，恭喜你通过了第一关！",
+    "nether_npc1_dialog":"这破世界，真TM无聊......（哈欠）",
+    "nether_npc1_dia1": "诶，终于有人来了!年轻人，恭喜你通过了第一关！",
     "nether_player1_dia1": "我感谢你。",
     "nether_npc1_dia2": "接下来，摆在你面前的有两条路，一条走往杀戮，一条走往守护。",
     "nether_player1_dia2": "嗯。",
@@ -56,7 +56,7 @@
     "nether_npc1_dia_b2": "祝你好运",
     "nether_player1_dia_b2": "谢谢",
 
-    "nether_npc2_dialog":"你好，我是地狱幻灵",
+    "nether_npc2_dialog":"嘻嘻，哈哈哈，嘻嘻，哈哈哈......",
     "nether_npc2_dia1": "年轻人，这条路能净化你的内心！",
     "nether_player2_dia1": "我感谢你。",
     "nether_npc2_dia2": "接下来，你有两个选择，年轻人，遵从自己的内心，去做选择吧......",
@@ -69,8 +69,8 @@
     "nether_npc2_dia_b2": "祝你好运",
     "nether_player2_dia_b2": "谢谢",
 
-    "nether_npc3_dialog":"你好，我是地狱狂躁者",
-    "nether_npc3_dia1": "欢迎来到狂暴商店",
+    "nether_npc3_dialog":"狂躁，狂躁！让世界燥起来吧！",
+    "nether_npc3_dia1": "哈哈哈，年轻人，欢迎来到狂暴商店！",
     "nether_player3_dia1": "我感谢你。",
     "nether_npc3_dia2": "想要感受无穷无尽的力量吗？想要获得征服一切的快感吗？就在这里！",
     "nether_player3_dia2": "？？？",
@@ -85,7 +85,7 @@
     "nether_npc3_dia_b1": "攻击力增加0.2 暴击率提高0.1 祝你好运",
     "nether_player3_dia_b1": "谢谢",
 
-    "nether_npc4_dialog":"你好，我是地狱审判者",
+    "nether_npc4_dialog":"地狱...就是要杀戮！!!",
     "nether_npc4_dia1": "嘿嘿，年轻人，恭喜你来到杀戮的世界",
     "nether_player4_dia1": "你***吧",
     "nether_npc4_dia2": "接下来，你可选择以2点灵力换取冰霜冲击，继续探索这个世界",
@@ -102,7 +102,7 @@
     "nether_npc4_dia_b3": "你好",
     "nether_player4_dia_b3": "我没钱了......",
 
-    "nether_npc5_dialog":"你好，我是地狱女巫",
+    "nether_npc5_dialog":"虚幻的是世界，还是我自己？",
     "nether_npc5_dia1": "你感受到一阵眩晕，当你醒来时，你发现自己来到了一个白骨成堆的维度",
     "nether_player5_dia1": "这是哪里？",
     "nether_player5_dia1_2": "什么**地方",

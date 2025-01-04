@@ -199,7 +199,13 @@ class Entity:
 
 
 class Monster(Entity):
-    direction = 0  # 怪物的移动方向
+
+    def __init__(self, name: str, pos: Tuple[int, int], renderer: Renderer, actions: list[Action] = None,
+                 atk: float = 1.0, crt: float = 0.0, coins: int = 0, max_hp: float = 100, size: Tuple[int, int] = None,
+                 sp: int = 0):
+        # 初始化怪物
+        super().__init__(name, pos, renderer, actions, atk, crt, coins, max_hp, size, sp)
+        self.direction = 0
 
     def tick(self, dimension, player=None):
         # 怪物的行为更新

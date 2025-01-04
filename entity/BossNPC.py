@@ -6,6 +6,7 @@ from render import Renderer, Action
 from ui.BattleUI import BattleUI
 from ui.BossBattleUI import BossBattleUI
 from ui.DialogUI import DialogUI
+from ui.TheEndUI import TheEndUI
 
 
 class HerobrineNPC(NPC):
@@ -23,7 +24,8 @@ class HerobrineNPC(NPC):
 
     def open_stage2_battle_ui(self, win: bool):
         if win:
-            Config.CLIENT.open_ui(DialogUI(self, Dialog('boss_true'), lambda msg: self.process_choice(Config.CLIENT.player, msg)))
+            Config.CLIENT.open_ui(DialogUI(self, Dialog('boss_true'),
+                                           lambda msg: self.process_choice(Config.CLIENT.player, msg)))
             return False
         else:
             return True
@@ -33,18 +35,19 @@ class HerobrineNPC(NPC):
             self.hp = 5000  # 脚填数值
             self.max_hp = 5000
             self.atk = 100
-            Config.CLIENT.open_ui(BossBattleUI(player, self, lambda win: Config.CLIENT.open_ui(DialogUI(self, Dialog('last'),lambda msg_2:
-            self.process_choice_2(Config.CLIENT.player, msg_2)))))
+            Config.CLIENT.open_ui(BossBattleUI(player, self, lambda win: Config.CLIENT.open_ui(DialogUI(
+                self, Dialog('last'), lambda msg_2: self.process_choice_2(Config.CLIENT.player, msg_2)))))
         return "!#"
 
     def process_choice_2(self, player, choice):
         if choice == '1':
-            Config.CLIENT.open_ui(DialogUI(self, Dialog('end'), lambda msg: self.process_choice_3(Config.CLIENT.player, msg)))
-        return "!#"
+            Config.CLIENT.open_ui(DialogUI(self, Dialog('end'),
+                                           lambda msg: self.process_choice_3(Config.CLIENT.player, msg)))
 
-    def process_choice_3(self, player, choice):
+    @staticmethod
+    def process_choice_3(player, choice):
         if choice == '1':
-           ### 最后的页面
+            Config.CLIENT.open_ui(TheEndUI())
 
 
 class BossNPC1(NPC):
@@ -64,7 +67,7 @@ class BossNPC1(NPC):
         elif choice == '3':
             h_npc = HerobrineNPC((500, 500))
             Config.CLIENT.spawn_entity(h_npc)
-            Config.CLIENT.open_ui(BattleUI(player, h_npc))
+            Config.CLIENT.open_ui(BattleUI(player, h_npc, lambda win: h_npc.open_stage2_battle_ui(win)))
             return "!"
         return "!#"
 

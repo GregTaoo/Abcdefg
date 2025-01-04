@@ -83,7 +83,6 @@ class BattleUI(UI):
         if self.playing_action:
             # 获取当前攻击目标、伤害、文本和音效
             target_poses, damage, heal, text, sounds = self.action.get_current_pos()
-            print(sounds)
             for sound in sounds:
                 Config.SOUNDS[sound].play()
             if self.half_round < self.round * 2:  # 玩家攻击阶段

@@ -15,11 +15,12 @@ from ui.widget.ClassicButton import ClassicButton
 
 class BattleUI(UI):
 
-    def __init__(self, player, enemy):
+    def __init__(self, player, enemy, after_battle=None):
         super().__init__()
         # 初始化所有动作
         for i in Action.ACTIONS:
             i.reset()
+        self.after_battle = after_battle  # lambda bool
         self.player = player
         self.enemy = enemy
         self.player_pos = (150, 200)
@@ -170,17 +171,23 @@ class BattleUI(UI):
         Renderer.PLAYER.tick()
         if self.playing_action is None or (self.action is not None and self.action.is_end()):
             if self.player.hp <= 0:
-                Config.CLIENT.close_ui()
-                Config.CLIENT.open_death_ui()
+                if self.after_battle is not None:
+                    self.after_battle(False)
+                else:
+                    Config.CLIENT.close_ui()
+                    Config.CLIENT.open_death_ui()
             elif self.enemy.hp <= 0:
                 # 玩家战胜敌人，增加金币
                 self.player.coins += self.enemy.coins
                 self.player.sp += self.enemy.sp
                 if self.enemy.name.get() == I18n.text('iron_golem').get():
                     self.player.iron += 1
-                Config.CLIENT.close_ui()
-                Config.CLIENT.open_ui(BattleSuccessUI(self.enemy.name, self.enemy.coins))
-                Config.SOUNDS['victory'].play()
+                if self.after_battle is not None:
+                    self.after_battle(True)
+                else:
+                    Config.CLIENT.close_ui()
+                    Config.CLIENT.open_ui(BattleSuccessUI(self.enemy.name, self.enemy.coins))
+                    Config.SOUNDS['victory'].play()
         if self.playing_action:
             if self.action.is_end():
                 if self.half_round < self.round * 2:

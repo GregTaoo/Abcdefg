@@ -173,8 +173,12 @@ class Entity:
         bar_width, bar_height = self.size[0], 5
         hp_rect = pygame.Rect(pos[0], pos[1], bar_width * min(1.0, self.hp / self.max_hp), bar_height)
         border_rect = pygame.Rect(pos[0], pos[1], bar_width, bar_height)
-        pygame.draw.rect(screen, ((0, 255, 0) if self.hp >= 60 else (255, 255, 0)) if self.hp >= 30 else (255, 0, 0),
-                         hp_rect)
+        color = (0, 255, 0)
+        if self.hp <= 2 * self.max_hp // 3:
+            color = (255, 255, 0)
+            if self.hp <= self.max_hp // 3:
+                color = (255, 0, 0)
+        pygame.draw.rect(screen, color, hp_rect)
         pygame.draw.rect(screen, (255, 255, 255), border_rect, 1)
 
     def on_interact(self, player):

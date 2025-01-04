@@ -40,6 +40,9 @@ class NetherNPC2(NPC):
     def __init__(self, pos):
         super().__init__(I18n.text('nether_npc2'), pos, Renderer.image_renderer('entities/trainer.png', (50, 50)))
 
+    def dialog(self):
+        return I18n.text('nether_npc2_dialog')
+
     def on_interact(self, player):
         if self.interact:
             Config.CLIENT.open_ui(DialogUI(self, Dialog('nether_npc2'),
@@ -61,6 +64,9 @@ class NetherNPC3(NPC):
 
     def __init__(self, pos):
         super().__init__(I18n.text('nether_npc3'), pos, Renderer.image_renderer('entities/trainer.png', (50, 50)))
+
+    def dialog(self):
+        return I18n.text('nether_npc3_dialog')
 
     def on_interact(self, player):
         if self.interact:
@@ -86,6 +92,9 @@ class NetherNPC4(TraderNPC):
     def __init__(self, pos):
         super().__init__(I18n.text('nether_npc4'), pos, Renderer.image_renderer('entities/trainer.png', (50, 50)))
 
+    def dialog(self):
+        return I18n.text('nether_npc4_dialog')
+
     def on_interact(self, player):
         # 玩家与交易NPC交互时触发，打开对话框UI并显示交易界面
         if self.interact:
@@ -104,7 +113,7 @@ class NetherNPC4(TraderNPC):
             # 以5点灵力换取冰霜冲击
             player.sp -= 2
             player.atk += 0.15
-            player.atk += 0.15
+            player.crt += 0.15
             return 'b1'
         elif choice == '2':
             Config.CLIENT.dimension.set_block((10, 2), Block.LAVA)
@@ -119,6 +128,9 @@ class NetherNPC5(TraderNPC):
 
     def __init__(self, pos):
         super().__init__(I18n.text('nether_npc5'), pos, Renderer.image_renderer('entities/trainer.png', (50, 50)))
+
+    def dialog(self):
+        return I18n.text('nether_npc5_dialog')
 
     def on_interact(self, player):
         # 玩家与交易NPC交互时触发，打开对话框UI并显示交易界面

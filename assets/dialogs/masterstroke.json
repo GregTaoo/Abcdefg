@@ -27,6 +27,24 @@
           "next": "!#"
         }
       ]
+    },
+    "b2": {
+      "npc": "master_dia_b2",
+      "player": [
+        {
+          "str": "player3_dia_b2",
+          "next": "!#"
+        }
+      ]
+    },
+    "b3": {
+      "npc": "master_dia_b3",
+      "player": [
+        {
+          "str": "player3_dia_b3",
+          "next": "!#"
+        }
+      ]
     }
   }
 }

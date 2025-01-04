@@ -204,7 +204,11 @@ class MasterstrokeTradeNPC(NPC):
                                            lambda msg: self.process_choice(player, msg)))
 
     def process_choice(self, player, choice):
-        if choice == '1':
+        if not player.skill_unlocked:
+            return 'b2'
+        elif player.sp <= 2:
+            return 'b3'
+        elif choice == '1':
             player.sp -= 2
             player.skill_unlocked = True
             player.skill = 1

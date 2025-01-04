@@ -46,6 +46,10 @@
     "player_dia2": "好的，我要了",
     "master_dia_b1": "祝你好运",
     "player3_dia_b1": "谢谢",
+    "master_dia_b2": "抱歉，您暂未获得技能槽，请前往[nether]获得",
+    "player3_dia_b2": "好的，我会回来的",
+    "master_dia_b3": "抱歉，您暂未获得足够的灵力值",
+    "player3_dia_b3": "好的",
 
     "nether_npc1_dialog":"这破世界，真TM无聊......（哈欠）",
     "nether_npc1_dia1": "诶，终于有人来了!年轻人，恭喜你通过了第一关！",

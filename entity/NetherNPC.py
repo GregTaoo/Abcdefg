@@ -12,6 +12,9 @@ class NetherNPC1(NPC):
     def __init__(self, pos):
         super().__init__(I18n.text('nether_npc1'), pos, Renderer.image_renderer('entities/trainer.png', (50, 50)))
 
+    def dialog(self):
+        return I18n.text('nether_npc1_dialog')
+
     def on_interact(self, player):
         # 玩家与NPC交互时触发
         if self.interact:

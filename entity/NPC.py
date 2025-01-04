@@ -45,8 +45,9 @@ class NPC(Entity.Entity):
 
     def render_dialog(self, screen, camera):
         # 如果对话计时器大于 0，则渲染对话框。
-        if self.dialog_timer > 0:
-            Entity.render_dialog_at_absolute_pos(self.dialog(), screen,
+        dialog_text = self.dialog()
+        if self.dialog_timer > 0 and len(dialog_text) > 0:
+            Entity.render_dialog_at_absolute_pos(dialog_text, screen,
                                                  (self.x - camera[0] + self.size[0] // 2,
                                                   self.y - camera[1] - 40),
                                                  Config.FONT)

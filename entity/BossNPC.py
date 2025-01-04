@@ -33,7 +33,6 @@ class BossNPC1(NPC):
                                            lambda msg: self.process_choice(player, msg)))
 
     def process_choice(self, player, choice):
-        self.interact = False
         if choice == '1':
             Config.CLIENT.player.heal(1)
         elif choice == '3':
@@ -55,7 +54,6 @@ class BossNPC2(NPC):
                                            lambda msg: self.process_choice(player, msg)))
 
     def process_choice(self, player, choice):
-        self.interact = False
         if choice == '1':
             Config.CLIENT.player.heal(1)
         elif choice == '2':
@@ -78,11 +76,11 @@ class BossNPC3(NPC):
                                            lambda msg: self.process_choice(player, msg)))
 
     def process_choice(self, player, choice):
-        self.interact = False
         if choice == '1':
             Config.CLIENT.player.heal(1)
         elif choice == '3':
             Config.CLIENT.player.crt_damage *= 2
+            self.interact = False
         elif choice == '4':
             Config.CLIENT.player.damage(Config.CLIENT.player.hp / 2)
         return "!#"
@@ -99,7 +97,6 @@ class BossNPC4(NPC):
                                            lambda msg: self.process_choice(player, msg)))
 
     def process_choice(self, player, choice):
-        self.interact = False
         if choice == '1':
             Config.CLIENT.player.heal(1)
         elif choice == '2':
@@ -108,6 +105,7 @@ class BossNPC4(NPC):
             Config.CLIENT.player.atk /= 2
         elif choice == '4':
             Config.CLIENT.player.crt *= 2
+            self.interact = False
 
         return "!#"
 
@@ -123,15 +121,16 @@ class BossNPC5(NPC):
                                            lambda msg: self.process_choice(player, msg)))
 
     def process_choice(self, player, choice):
-        self.interact = False
         if choice == '1':
             Config.CLIENT.player.heal(1)
         elif choice == '2':
             Config.CLIENT.player.coins += 100
+            self.interact = False
         elif choice == '3':
             Config.CLIENT.player.damage(Config.CLIENT.player.hp / 2)
         elif choice == '4':
             Config.CLIENT.player.atk *= 2
+            self.interact = False
 
         return "!#"
 
@@ -147,15 +146,16 @@ class BossNPC6(NPC):
                                            lambda msg: self.process_choice(player, msg)))
 
     def process_choice(self, player, choice):
-        self.interact = False
         if choice == '1':
             Config.CLIENT.player.heal(1)
         elif choice == '2':
             Config.CLIENT.player.coins += 100
+            self.interact = False
         elif choice == '3':
             Config.CLIENT.player.damage(Config.CLIENT.player.hp / 2)
         elif choice == '4':
             Config.CLIENT.player.hp *= 2
             Config.CLIENT.player.max_hp *= 2
+            self.interact = False
 
         return "!#"

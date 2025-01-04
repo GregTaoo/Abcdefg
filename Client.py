@@ -102,17 +102,17 @@ class Client:
         nether_npc5 = entity.NetherNPC.NetherNPC5((20 * Config.BLOCK_SIZE + 5, 1 * Config.BLOCK_SIZE + 5))
         Config.WORLDS['the_nether'].spawn_entity(nether_npc5)
 
-        boss_npc1 = entity.BossNPC.BossNPC1((2 * Config.BLOCK_SIZE + 5, 18 * Config.BLOCK_SIZE + 5))
+        boss_npc1 = entity.BossNPC.BossNPC1((2 * Config.BLOCK_SIZE + 5, 10 * Config.BLOCK_SIZE + 5))
         Config.WORLDS['the_end'].spawn_entity(boss_npc1)
-        boss_npc2 = entity.BossNPC.BossNPC2((8 * Config.BLOCK_SIZE + 5, 11 * Config.BLOCK_SIZE + 5))
+        boss_npc2 = entity.BossNPC.BossNPC2((2 * Config.BLOCK_SIZE + 5, 12 * Config.BLOCK_SIZE + 5))
         Config.WORLDS['the_end'].spawn_entity(boss_npc2)
-        boss_npc3 = entity.BossNPC.BossNPC3((18 * Config.BLOCK_SIZE + 5, 19 * Config.BLOCK_SIZE + 5))
+        boss_npc3 = entity.BossNPC.BossNPC3((2 * Config.BLOCK_SIZE + 5, 14 * Config.BLOCK_SIZE + 5))
         Config.WORLDS['the_end'].spawn_entity(boss_npc3)
-        boss_npc4 = entity.BossNPC.BossNPC4((12 * Config.BLOCK_SIZE + 5, 2 * Config.BLOCK_SIZE + 5))
+        boss_npc4 = entity.BossNPC.BossNPC4((2 * Config.BLOCK_SIZE + 5, 16 * Config.BLOCK_SIZE + 5))
         Config.WORLDS['the_end'].spawn_entity(boss_npc4)
-        boss_npc5 = entity.BossNPC.BossNPC3((20 * Config.BLOCK_SIZE + 5, 1 * Config.BLOCK_SIZE + 5))
+        boss_npc5 = entity.BossNPC.BossNPC5((2 * Config.BLOCK_SIZE + 5, 18 * Config.BLOCK_SIZE + 5))
         Config.WORLDS['the_end'].spawn_entity(boss_npc5)
-        boss_npc6 = entity.BossNPC.BossNPC3((20 * Config.BLOCK_SIZE + 5, 10 * Config.BLOCK_SIZE + 5))
+        boss_npc6 = entity.BossNPC.BossNPC6((2 * Config.BLOCK_SIZE + 5, 20 * Config.BLOCK_SIZE + 5))
         Config.WORLDS['the_end'].spawn_entity(boss_npc6)
 
         # 加载音效

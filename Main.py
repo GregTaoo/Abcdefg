@@ -15,7 +15,7 @@ from entity.NPC import MedicineTraderNPC
 from entity.NPC import VillagerNPC
 from entity.NPC import WeaponTraderNPC
 from entity.Player import Player
-from render import Renderer, Particle
+from render import Renderer, Particle, Action
 from render.Renderer import ImageRenderer
 from ui.StarterUI import StarterUI
 
@@ -51,12 +51,19 @@ def main():
     # TEST
     Config.CLIENT.spawn_entity(HerobrineNPC((500, 500)))
 
-    for _ in range(20):
+    for _ in range(10):
         Config.CLIENT.spawn_entity(
             Monster(I18n.text('zombie'), (random.randint(0, MAP_WIDTH * BLOCK_SIZE),
                                           random.randint(0, MAP_HEIGHT * BLOCK_SIZE)),
                     ImageRenderer(pygame.transform.scale(pygame.image.load("./assets/entities/zombie.png"), (50, 50))),
                     coins=10)
+        )
+    for _ in range(10):
+        Config.CLIENT.spawn_entity(
+            Monster(I18n.text('skeleton'), (random.randint(0, MAP_WIDTH * BLOCK_SIZE),
+                                            random.randint(0, MAP_HEIGHT * BLOCK_SIZE)),
+                    ImageRenderer(pygame.transform.scale(pygame.image.load("./assets/entities/skeleton.png"), (50, 50))),
+                    coins=10, actions=[Action.ARROW_LEFT])
         )
 
     while True:

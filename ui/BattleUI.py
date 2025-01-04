@@ -83,6 +83,7 @@ class BattleUI(UI):
         if self.playing_action:
             # 获取当前攻击目标、伤害、文本和音效
             target_poses, damage, heal, text, sounds = self.action.get_current_pos()
+            print(sounds)
             for sound in sounds:
                 Config.SOUNDS[sound].play()
             if self.half_round < self.round * 2:  # 玩家攻击阶段
@@ -192,7 +193,10 @@ class BattleUI(UI):
             if self.action.is_end():
                 if self.half_round < self.round * 2:
                     self.action.reset()
-                    self.action = Action.ATTACK_LEFT
+                    self.action = random.choice(self.enemy.actions)
+                    if self.enemy.hp > 0 and self.action == Action.ARROW_LEFT:
+                        Particle.UI_PARTICLES.add(Particle.ArrowParticle(
+                            (self.enemy_pos[0], self.enemy_pos[1] + 10), 50))
                     self.half_round += 1
                     self.use_crt = random.randint(0, 100) < self.enemy.crt * 100
                     if self.escaping_stage == 2:

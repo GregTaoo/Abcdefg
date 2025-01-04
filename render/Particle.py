@@ -193,6 +193,20 @@ class LifeStealingParticle(ImageParticle):
         self.pos = (x, self.pos[1])
 
 
+class ArrowParticle(ImageParticle):
+
+    def __init__(self, pos, duration):
+        super().__init__(ARROW, pos, duration)
+        self.start_pos = pos
+        self.end_pos = (pos[0] - 400, pos[1])
+
+    def tick(self):
+        super().tick()
+        t = self.timer / self.duration
+        x = self.start_pos[0] + t * (self.end_pos[0] - self.start_pos[0])
+        self.pos = (x, self.pos[1])
+
+
 LASER_CANNON = Renderer.load_images_from_sprite('./assets/particles/laser_cannon.png', (398, 102), (398, 102))
 EXPLOSION = Renderer.load_images_from_sprite('./assets/particles/explosion.png', (32, 32), (64, 64))
 CLICK = Renderer.load_images_from_sprite('./assets/particles/click.png', (32, 32), (32, 32))
@@ -205,3 +219,4 @@ CRITICAL_HIT_YELLOW = Renderer.load_image('particles/critical_hit_yellow.png', (
 CRITICAL_HIT_RED = Renderer.load_image('particles/critical_hit_red.png', (8, 8))
 CRITICAL_HIT_GREEN = Renderer.load_image('particles/critical_hit_green.png', (8, 8))
 HEART = Renderer.load_image('particles/heart.png', (20, 20))
+ARROW = Renderer.load_image('particles/arrow.png', (32, 10))

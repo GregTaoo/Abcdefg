@@ -36,6 +36,8 @@ class ChatUI(UI):
                 Config.CLIENT.open_ui(TheEndUI())
             elif args[0] == 'op':
                 Config.CLIENT.player.hp = 114514
+                Config.CLIENT.player.skill_unlocked = True
+                Config.CLIENT.player.skill = 1
             elif args[0] == 'cheat':
                 Config.CLIENT.player.atk = 1000
                 Config.CLIENT.player.crt = 1000

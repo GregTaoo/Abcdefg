@@ -36,6 +36,14 @@ with open("attack_right.txt", "w") as file:
         x = 600 - (450 * i / frames * 2)
         file.write(f"{x:.0f} 200\n")
 
+with open("arrow_left.txt", "w") as file:
+    file.write(f"600 200\n")
+    file.write(f"600 200\n")
+    file.write(f"600 200|0|0||arrow\n")
+    for i in range(47):
+        file.write(f"600 200\n")
+    file.write(f"600 200|20|0||hit\n")
+
 # 生成终极技能（右侧）
 with open("ultimate_right.txt", "w") as file:
     # 生成初始的 10 帧，位置从 150 到 600 变化
@@ -78,7 +86,7 @@ with open("escape_left.txt", "w") as file:
 with open("laser_cannon_left.txt", "w") as file:
     for x in range(49):
         file.write(f"600 200\n")
-    file.write("600 200|20\n")
+    file.write("600 200|20|0||hit\n")
     for x in range(40):
         file.write(f"600 200\n")
 

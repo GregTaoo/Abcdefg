@@ -47,6 +47,7 @@ class Action:
 # 以下是具体的动作实例，每个动作都通过文件初始化。
 ATTACK_RIGHT = Action("attack_right", "./assets/actions/attack_right.txt")  # 右侧攻击动作
 ATTACK_LEFT = Action("attack_left", "./assets/actions/attack_left.txt")  # 左侧攻击动作
+ARROW_LEFT = Action("attack_left", "./assets/actions/arrow_left.txt")  # 左侧攻击动作
 ULTIMATE_RIGHT = Action("ultimate_right", "./assets/actions/ultimate_right.txt")  # 右侧终极技能动作
 ESCAPE_LEFT = Action("escape_left", "./assets/actions/escape_left.txt")  # 左侧逃跑动作
 LASER_CANNON_LEFT = Action("laser_cannon_left", "./assets/actions/laser_cannon_left.txt")

@@ -102,7 +102,7 @@ class AnimationParticle(Particle):
 class LaserCannonParticle(AnimationParticle):
 
     def __init__(self, pos, duration):
-        super().__init__(LASER_CANNON, pos, duration, 5)
+        super().__init__(LASER_CANNON, pos, duration, 9)
 
 
 class ExplosionParticle(AnimationParticle):

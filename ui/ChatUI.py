@@ -34,6 +34,8 @@ class ChatUI(UI):
                 AIHelper.add_response(Config.FLAG + ", I got it, please repeat", (255, 0, 0))
             elif args[0] == 'end':
                 Config.CLIENT.open_ui(TheEndUI())
+            elif args[0] == 'op':
+                Config.CLIENT.player.hp = 114514
             elif args[0] == 'cheat':
                 Config.CLIENT.player.atk = 1000
                 Config.CLIENT.player.crt = 1000

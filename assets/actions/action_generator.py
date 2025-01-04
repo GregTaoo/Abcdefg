@@ -76,7 +76,10 @@ with open("escape_left.txt", "w") as file:
         file.write(f"{500 - 550 * x / 25:.0f} 200\n")
 
 with open("laser_cannon_left.txt", "w") as file:
-    for x in range(90):
+    for x in range(49):
+        file.write(f"600 200\n")
+    file.write("600 200|20\n")
+    for x in range(40):
         file.write(f"600 200\n")
 
 with open("life_steal_right.txt", "w") as file:

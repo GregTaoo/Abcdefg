@@ -184,9 +184,7 @@ class BossBattleUI(UI):
         Renderer.PLAYER.tick()
         if self.playing_action is None or (self.action is not None and self.action.is_end()):
             if self.player.hp <= 0:
-                if self.after_battle is not None:
-                    self.after_battle(False)
-                else:
+                if self.after_battle is None or self.after_battle(False):
                     Config.CLIENT.close_ui()
                     Config.CLIENT.open_death_ui()
             elif self.enemy.hp <= 0:
@@ -195,9 +193,7 @@ class BossBattleUI(UI):
                 self.player.sp += self.enemy.sp
                 if self.enemy.name.get() == I18n.text('iron_golem').get():
                     self.player.iron += 1
-                if self.after_battle is not None:
-                    self.after_battle(True)
-                else:
+                if self.after_battle is None or self.after_battle(True):
                     Config.CLIENT.close_ui()
                     Config.CLIENT.open_ui(BattleSuccessUI(self.enemy.name, self.enemy.coins))
                     Config.SOUNDS['victory'].play()
@@ -205,9 +201,9 @@ class BossBattleUI(UI):
             if self.action.is_end():
                 if self.half_round < self.round * 2:
                     self.action.reset()
-                    self.action = random.choice([Action.ATTACK_LEFT, Action.LASER_CANNON_LEFT])
+                    self.action = random.choice([Action.ATTACK_LEFT, Action.LASER_CANNON_LEFT, Action.LASER_CANNON_LEFT])
                     if self.enemy.hp > 0 and self.action == Action.LASER_CANNON_LEFT:
-                        Particle.UI_PARTICLES.add(Particle.LaserCannonParticle((200, 200), 90))
+                        Particle.UI_PARTICLES.add(Particle.LaserCannonParticle((200, 170), 10))
                     self.enemy.atk -= 0.5
                     self.half_round += 1
                     self.use_crt = random.randint(0, 100) < self.enemy.crt * 100

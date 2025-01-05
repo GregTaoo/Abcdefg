@@ -53,7 +53,7 @@ class HerobrineNPC(NPC):
             Config.CLIENT.open_ui(TheEndUI())
 
 
-class BossNPC1(NPC):
+class BossNPC6(NPC):
 
     def __init__(self, pos):
         super().__init__(I18n.text('boss_npc'), pos, Renderer.GHAST)
@@ -69,7 +69,6 @@ class BossNPC1(NPC):
             Config.CLIENT.player.heal(1)
         elif choice == '3':
             h_npc = HerobrineNPC((500, 500))
-            Config.CLIENT.spawn_entity(h_npc)
             Config.CLIENT.open_ui(BattleUI(player, h_npc, h_npc.open_stage2_battle_ui))
             return "!"
         return "!#"
@@ -168,10 +167,11 @@ class BossNPC5(NPC):
         return "!#"
 
 
-class BossNPC6(NPC):
+class BossNPC1(NPC):
 
     def __init__(self, pos):
         super().__init__(I18n.text('boss_npc'), pos, Renderer.image_renderer('entities/super_dragon.png', (50, 50)))
+
 
     def on_interact(self, player):
         if self.interact:

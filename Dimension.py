@@ -97,4 +97,5 @@ class TheWorldDimension(Dimension):
             screen.blit(self.rain_surface, (-(camera[0] % 800), -600 + self.rain_scroll_y))
             x, y = (camera[0] + random.randint(0, Config.SCREEN_WIDTH),
                     camera[1] + random.randint(0, Config.SCREEN_HEIGHT))
-            Particle.ENV_PARTICLES.add(Particle.SplashParticle((x, y), 60))
+            if random.randint(0, 9) == 0:
+                Particle.ENV_PARTICLES.add(Particle.SplashParticle((x, y), 30))

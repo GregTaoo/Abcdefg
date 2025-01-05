@@ -38,7 +38,7 @@ class Block:
 class LavaBlock(Block):
 
     def tick(self, block_pos: Tuple[int, int]):
-        if random.randint(0, 180) == 0:
+        if random.randint(0, 270) == 0:
             x = block_pos[0] * BLOCK_SIZE + BLOCK_SIZE // 4 + random.randint(0, BLOCK_SIZE // 2)
             Particle.ENV_PARTICLES.add(
                 Particle.LavaParticle((x, block_pos[1] * BLOCK_SIZE + random.randint(0, BLOCK_SIZE // 2)), 90))

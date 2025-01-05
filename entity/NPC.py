@@ -136,7 +136,7 @@ class MedicineTraderNPC(TraderNPC):
                          trade_list=[
                              TradeOption(I18n.literal("锻炼"), 10, self.buy_1),
                              TradeOption(I18n.literal("健身"), 20, self.buy_2),
-                             TradeOption(I18n.literal("test"), 1, self.buy_3),
+                             TradeOption(I18n.literal("test"), 2, self.buy_3),
                          ])
 
     @staticmethod

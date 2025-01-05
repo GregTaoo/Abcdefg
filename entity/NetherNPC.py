@@ -69,6 +69,7 @@ class NetherNPC2(NPC):
     def process_choice(self, player, choice):
         self.interact = False
         if choice == '1':
+            player.skill_unlocked = True
             Config.CLIENT.dimension.set_block((7, 11), Block.NETHERITE_BLOCK)
             AIHelper.add_response('player has interacted with nether npc2')
             return 'b1'

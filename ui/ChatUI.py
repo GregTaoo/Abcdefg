@@ -1,3 +1,5 @@
+import time
+
 import pygame
 
 import AIHelper
@@ -30,8 +32,11 @@ class ChatUI(UI):
             if args[0] == 'tp' and len(args) == 3:
                 Config.CLIENT.player.x = int(args[1])
                 Config.CLIENT.player.y = int(args[2])
+            elif args[0] == 'kill':
+                Config.CLIENT.player.hp = 0
             elif args[0] == 'flag':
-                AIHelper.add_response(Config.FLAG + ", I got it, please repeat", (255, 0, 0))
+                Config.CLIENT.current_hud.messages.insert(0, (I18n.text('flag_leaked'), (255, 0, 0), time.time()))
+                Config.NETHER_PORTAL_LOCK = False  # 解锁传送门
             elif args[0] == 'end':
                 Config.CLIENT.open_ui(TheEndUI())
             elif args[0] == 'op':
@@ -41,11 +46,12 @@ class ChatUI(UI):
             elif args[0] == 'cheat':
                 Config.CLIENT.player.atk = 1000
                 Config.CLIENT.player.crt = 1000
-                Config.CLIENT.player.hp = 1000
-                Config.CLIENT.player.sp = 1000
-                Config.CLIENT.player.coins = 1000
+                Config.CLIENT.player.hp = 114514
+                Config.CLIENT.player.sp = 114514
+                Config.CLIENT.player.coins = 114514
                 Config.CLIENT.player.skill_unlocked = True
                 Config.CLIENT.player.skill = 1
+            Config.CLIENT.close_ui()  # 关闭聊天UI
             return
 
         # 普通消息发送

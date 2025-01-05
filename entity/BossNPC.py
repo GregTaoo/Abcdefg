@@ -36,9 +36,16 @@ class HerobrineNPC(NPC):
             self.hp = 1500  # 脚填数值
             self.max_hp = 1500
             self.atk = 15
-            Config.CLIENT.open_ui(BossBattleUI(player, self, lambda win: Config.CLIENT.open_ui(DialogUI(
-                self, Dialog('last'), lambda msg_2: self.process_choice_2(Config.CLIENT.player, msg_2)))))
+            Config.CLIENT.open_ui(BossBattleUI(player, self, self.open_finale_dialog))
         return "!#"
+
+    def open_finale_dialog(self, win):
+        if win:
+            Config.CLIENT.change_music('./assets/sounds/music_finale.mp3')
+            Config.CLIENT.open_ui(DialogUI(
+                self, Dialog('last'), lambda msg_2: self.process_choice_2(Config.CLIENT.player, msg_2)))
+            return False
+        return True
 
     def process_choice_2(self, player, choice):
         e_npc = Entity.Entity(I18n.text('programmer'), self.get_right_bottom_pos(),

@@ -196,9 +196,12 @@ class BattleUI(UI):
                 if self.half_round < self.round * 2:
                     self.action.reset()
                     self.action = random.choice(self.enemy.actions)
-                    if self.enemy.hp > 0 and self.action == Action.ARROW_LEFT:
-                        Particle.UI_PARTICLES.add(Particle.ArrowParticle(
-                            (self.enemy_pos[0], self.enemy_pos[1] + 10), 50))
+                    if self.enemy.hp > 0:
+                        if self.action == Action.ARROW_LEFT:
+                            Particle.UI_PARTICLES.add(Particle.ArrowParticle(
+                                (self.enemy_pos[0], self.enemy_pos[1] + 10), 50))
+                        if self.action == Action.LASER_CANNON_LEFT:
+                            Particle.UI_PARTICLES.add(Particle.LaserCannonParticle((200, 170), 10))
                     self.half_round += 1
                     self.use_crt = random.randint(0, 100) < self.enemy.crt * 100
                     if self.escaping_stage == 2:

@@ -12,6 +12,7 @@
     "witch": "女巫",
     "weapon_trader": "军火贩",
     "no_enough_coins": "金币不足",
+    "no_enough_hp": "生命值不足,请勿赌命",
     "bought": "购买了 {}",
     "charged_fist": "充能拳套",
     "iron_sword": "铁剑",

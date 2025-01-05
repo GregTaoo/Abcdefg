@@ -163,6 +163,8 @@ class MedicineTraderNPC(TraderNPC):
         # 购买选项 3，玩家发生随机变化
         if player.coins < opt.price:
             return I18n.text('no_enough_coins')
+        if player.max_hp < 50:
+            return I18n.text('no_enough_hp')
         rd = random.randint(-50, 100)
         player.max_hp += rd
         player.hp += rd

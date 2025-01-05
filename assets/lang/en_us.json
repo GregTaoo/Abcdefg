@@ -11,6 +11,7 @@
     "witch": "Witch",
     "weapon_trader": "Weapon Trader",
     "no_enough_coins": "Not enough coins",
+    "no_enough_hp": "Not enough HP, don't gamble",
     "bought": "Bought {}",
     "charged_fist": "Charged Fist",
     "iron_sword": "Iron Sword",

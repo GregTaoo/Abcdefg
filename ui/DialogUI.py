@@ -18,6 +18,8 @@ class DialogUI(UI):
         self.choose = choose
         # 获取NPC当前的对话内容
         self.npc_text = I18n.text(self.dialogs.current['npc']).get()
+        self.lines = []
+        self.achieved_length = 0
         # 获取玩家可选择的选项
         self.options = self.dialogs.current['player']
         self.typing_index = 1  # 打字动画的索引
@@ -58,9 +60,11 @@ class DialogUI(UI):
                 nxt = self.dialogs.current = self.dialogs.dialogs[s]
         # 获取下一个对话的玩家选项
         self.options = nxt['player']
+        self.lines.clear()  # 清除对话文本
         self.buttons.clear()  # 清除旧的按钮
         self.npc_text = I18n.text(self.dialogs.current['npc']).get()  # 更新NPC文本
         self.typing_index = 1  # 重置打字动画的索引
+        self.achieved_length = 0  # 重置已经打印的文本长度
 
     # 渲染UI
     def render(self, screen: pygame.Surface):
@@ -74,7 +78,14 @@ class DialogUI(UI):
             button.render(screen)
 
         # 渲染NPC的对话文本，限制为当前的打字索引
-        txt_surface = Config.FONT.render(self.npc_text[:self.typing_index], True, (255, 255, 255))
+        if Config.FONT.size(self.npc_text[self.achieved_length:self.typing_index])[0] > 350:
+            self.lines.append(self.npc_text[self.achieved_length:self.typing_index])
+            self.achieved_length = self.typing_index
+        for i, line in enumerate(self.lines):
+            txt_surface = Config.FONT.render(line, True, (255, 255, 255))
+            screen.blit(txt_surface, (Config.SCREEN_WIDTH // 2 - txt_surface.get_width() // 2,
+                                      Config.SCREEN_HEIGHT // 2 - 75 - len(self.lines) * 25 + i * 25))
+        txt_surface = Config.FONT.render(self.npc_text[self.achieved_length:self.typing_index], True, (255, 255, 255))
         screen.blit(txt_surface, (Config.SCREEN_WIDTH // 2 - txt_surface.get_width() // 2,
                                   Config.SCREEN_HEIGHT // 2 - 75))
 

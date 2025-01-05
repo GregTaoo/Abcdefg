@@ -50,7 +50,7 @@ with open("tnt_right.txt", "w") as file:
     file.write(f"150 200|0|0||tnt\n")
     for i in range(96):
         file.write(f"150 200\n")
-    file.write(f"150 200|10|0||explosion hit\n")
+    file.write(f"150 200|20|0||explosion hit\n")
     for i in range(50):
         file.write(f"150 200\n")
 

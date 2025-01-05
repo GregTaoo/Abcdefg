@@ -33,12 +33,16 @@ class BossBattleUI(UI):
         self.escaping_stage = 0  # 逃跑阶段
         # 普通攻击按钮
         self.attack_button = ClassicButton(I18n.text('common_attack'),
-                                           (Config.SCREEN_WIDTH // 2 - 150, Config.SCREEN_HEIGHT // 2 + 50),
+                                           (Config.SCREEN_WIDTH // 2 - 200, Config.SCREEN_HEIGHT // 2 + 50),
                                            (95, 50), on_click=self.round_start)
         self.add_button(self.attack_button)
+        self.tnt_button = ClassicButton(I18n.text('tnt'),
+                                        (Config.SCREEN_WIDTH // 2 - 100, Config.SCREEN_HEIGHT // 2 + 50),
+                                        (95, 50), on_click=lambda: self.round_start(Action.TNT_RIGHT))
+        self.add_button(self.tnt_button)
         # 终极攻击按钮
         self.ultimate_button = ClassicButton(I18n.text('ultimate_attack'),
-                                             (Config.SCREEN_WIDTH // 2 - 50, Config.SCREEN_HEIGHT // 2 + 50),
+                                             (Config.SCREEN_WIDTH // 2, Config.SCREEN_HEIGHT // 2 + 50),
                                              (95, 50), on_click=lambda: self.round_start(Action.ULTIMATE_RIGHT))
         self.add_button(self.ultimate_button)
         # 判断玩家是否可以使用终极攻击
@@ -50,7 +54,7 @@ class BossBattleUI(UI):
         # self.add_button(self.escape_button)
         self.life_steal_button = ClassicButton(I18n.text('live_steal') if player.skill_unlocked and player.skill == 1
                                                else I18n.text('live_steal_lock'),
-                                               (Config.SCREEN_WIDTH // 2 + 50, Config.SCREEN_HEIGHT // 2 + 50),
+                                               (Config.SCREEN_WIDTH // 2 + 100, Config.SCREEN_HEIGHT // 2 + 50),
                                                (95, 50),
                                                on_click=lambda: self.round_start(Action.LIFE_STEAL_RIGHT))
         self.add_button(self.life_steal_button)
@@ -87,6 +91,9 @@ class BossBattleUI(UI):
         elif use_action == Action.LIFE_STEAL_RIGHT:
             Config.CLOCKS.append(self.clock_heart_particle)
             self.player.skill_unlocked = False
+        elif self.action == Action.TNT_RIGHT:
+            Particle.UI_PARTICLES.add(Particle.TntParticle(
+                (self.player_pos[0] + self.player.size[0] // 2, self.player_pos[1]), 100))
         # 判断是否触发暴击
         self.use_crt = random.randint(0, 100) < self.player.crt * 100
 
@@ -108,7 +115,7 @@ class BossBattleUI(UI):
                     center = (self.enemy_pos[0] + self.enemy.size[0] // 2, self.enemy_pos[1] + self.enemy.size[1] // 2)
                     for _ in range(int(real_dmg // 3)):
                         Particle.UI_PARTICLES.add(Particle.CriticalHitParticle(center, 50))
-                    if self.action == Action.ULTIMATE_RIGHT:
+                    if self.action == Action.ULTIMATE_RIGHT or self.action == Action.TNT_RIGHT:
                         self.generate_explosion(self.enemy_pos)
                     if self.enemy.hp < self.enemy.max_hp // 3:
                         AIHelper.add_response(f'enemy {self.enemy.name} is now low hp {self.enemy.hp}', (0, 255, 0))

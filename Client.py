@@ -125,6 +125,8 @@ class Client:
         load_sound('victory', './assets/sounds/victory.mp3', 0.75)
         load_sound('heart', './assets/sounds/heart.mp3', 1)
         load_sound('arrow', './assets/sounds/arrow.mp3', 0.75)
+        load_sound('tnt', './assets/sounds/tnt.mp3', 0.75)
+        load_sound('explosion', './assets/sounds/explosion.mp3', 0.5)
 
         # 加载图像资源
         Config.COIN_IMAGE = pygame.transform.scale(pygame.image.load('./assets/ui/coin.png'), (20, 20))

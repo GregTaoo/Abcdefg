@@ -40,9 +40,19 @@ with open("arrow_left.txt", "w") as file:
     file.write(f"600 200\n")
     file.write(f"600 200\n")
     file.write(f"600 200|0|0||arrow\n")
-    for i in range(47):
+    for i in range(46):
         file.write(f"600 200\n")
     file.write(f"600 200|20|0||hit\n")
+
+with open("tnt_right.txt", "w") as file:
+    file.write(f"150 200\n")
+    file.write(f"150 200\n")
+    file.write(f"150 200|0|0||tnt\n")
+    for i in range(96):
+        file.write(f"150 200\n")
+    file.write(f"150 200|10|0||explosion hit\n")
+    for i in range(50):
+        file.write(f"150 200\n")
 
 # 生成终极技能（右侧）
 with open("ultimate_right.txt", "w") as file:

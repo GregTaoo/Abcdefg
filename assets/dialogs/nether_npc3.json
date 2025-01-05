@@ -62,6 +62,15 @@
           "next": "!#"
         }
       ]
+    },
+    "b2": {
+      "npc": "nether_npc3_raging_dialogue_b2",
+      "player": [
+        {
+          "str": "nether_player3_raging_dialogue_b2",
+          "next": "!#"
+        }
+      ]
     }
   }
 }

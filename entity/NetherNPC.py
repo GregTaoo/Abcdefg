@@ -94,7 +94,11 @@ class NetherNPC3(NPC):
                                            lambda msg: self.process_choice(player, msg)))
 
     def process_choice(self, player, choice):
-        if choice == '1':
+        if choice == '#':
+            return '!#'
+        elif player.sp < 2:
+            return 'b2'
+        elif choice == '1':
             self.interact = False
             Config.CLIENT.dimension.set_block((9, 17), Block.NETHERITE_BLOCK)
             Config.CLIENT.dimension.set_block((19, 19), Block.OAK_TRAPDOOR)

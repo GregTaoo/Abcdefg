@@ -19,7 +19,7 @@ class TheEndUI(UI):
     def tick(self, keys, events):
         super().tick(keys, events)
         self.ticks += 1
-        return self.ticks <= self.text_surface.get_height() + 900
+        return self.ticks <= self.text_surface.get_height() + 1800
 
     def render(self, screen: pygame.Surface):
         screen.fill((0, 0, 0))

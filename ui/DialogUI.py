@@ -92,8 +92,8 @@ class DialogUI(UI):
                                   Config.SCREEN_HEIGHT // 2 - 75 + len(self.lines) * 12.5))
 
         # 渲染玩家和NPC的形象
-        Config.CLIENT.player.render_at_absolute_pos(screen, (20, Config.SCREEN_HEIGHT - 70), False, False)
-        self.npc.render_at_absolute_pos(screen, (Config.SCREEN_WIDTH - 70, 20), True, False)
+        Config.CLIENT.player.render_at_absolute_pos(screen, (20, Config.SCREEN_HEIGHT - 140), False, False)
+        self.npc.render_at_absolute_pos(screen, (Config.SCREEN_WIDTH - 70, 90), True, False)
 
         # 如果当前对话有图片，加载并显示图片
         if 'image' in self.dialogs.current:

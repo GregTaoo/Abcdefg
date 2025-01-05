@@ -40,11 +40,13 @@ class DialogUI(UI):
 
     # 更新按钮选项
     def update_buttons(self, options):
+        height = len(options) * 50
         for i, option in enumerate(options):
             # 为每个选项创建一个按钮
-            self.add_button(ClassicButton(I18n.text(option['str']),
-                                          (Config.SCREEN_WIDTH // 2 - 250, Config.SCREEN_HEIGHT // 2 + 10 + i * 50),
-                                          (500, 45), on_click=lambda index=i: self.next_dialog(index), border_radius=1))
+            self.add_button(ClassicButton(
+                I18n.text(option['str']),
+                (Config.SCREEN_WIDTH // 2 - 250, Config.SCREEN_HEIGHT // 2 + 115 - height // 2 + i * 50),
+                (500, 45), on_click=lambda index=i: self.next_dialog(index), border_radius=1))
 
     # 处理玩家选择的选项
     def next_dialog(self, choice: int):
@@ -84,10 +86,10 @@ class DialogUI(UI):
         for i, line in enumerate(self.lines):
             txt_surface = Config.FONT.render(line, True, (255, 255, 255))
             screen.blit(txt_surface, (Config.SCREEN_WIDTH // 2 - txt_surface.get_width() // 2,
-                                      Config.SCREEN_HEIGHT // 2 - 75 - len(self.lines) * 25 + i * 25))
+                                      Config.SCREEN_HEIGHT // 2 - 75 - (len(self.lines) - i * 2) * 12.5))
         txt_surface = Config.FONT.render(self.npc_text[self.achieved_length:self.typing_index], True, (255, 255, 255))
         screen.blit(txt_surface, (Config.SCREEN_WIDTH // 2 - txt_surface.get_width() // 2,
-                                  Config.SCREEN_HEIGHT // 2 - 75))
+                                  Config.SCREEN_HEIGHT // 2 - 75 + len(self.lines) * 12.5))
 
         # 渲染玩家和NPC的形象
         Config.CLIENT.player.render_at_absolute_pos(screen, (20, Config.SCREEN_HEIGHT - 70), False, False)

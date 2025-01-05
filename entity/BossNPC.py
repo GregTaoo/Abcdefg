@@ -42,7 +42,7 @@ class HerobrineNPC(NPC):
 
     def process_choice_2(self, player, choice):
         e_npc = Entity.Entity(I18n.text('programmer'), self.get_right_bottom_pos(),
-                              Renderer.image_renderer('egg.png', (50, 50)), atk=0, sp=0)
+                              Renderer.image_renderer('entities/programmer.png', (50, 50)), atk=0, sp=0)
         if choice == '1':
             Config.CLIENT.open_ui(DialogUI(e_npc, Dialog('end'),
                                            lambda msg: self.process_choice_3(Config.CLIENT.player, msg)))

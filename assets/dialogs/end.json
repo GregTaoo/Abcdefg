@@ -2,7 +2,7 @@
   "start": "1",
   "data": {
     "1": {
-      "image": "./assets/egg.png",
+      "image": "./assets/entities/programmer.png",
       "npc": "end_npc_dia1",
       "player": [
         {

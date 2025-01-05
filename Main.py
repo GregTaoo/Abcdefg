@@ -1,6 +1,7 @@
 import os
 import random
 import sys
+import time
 
 import pygame
 
@@ -57,7 +58,7 @@ def main():
         )
 
     while True:
-        # st = time.time()
+        st = time.time()
         events = pygame.event.get()
         for event in events:
             if event.type == pygame.QUIT:
@@ -73,7 +74,8 @@ def main():
 
         # 执行渲染
         pygame.display.flip()
-        # print(time.time() - st)
+        if time.time() - st > 0.01:
+            print(time.time() - st)
 
         clock.tick(90)
 

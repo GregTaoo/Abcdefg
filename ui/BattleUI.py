@@ -178,9 +178,7 @@ class BattleUI(UI):
         Renderer.PLAYER.tick()
         if self.playing_action is None or (self.action is not None and self.action.is_end()):
             if self.player.hp <= 0:
-                if self.after_battle is not None:
-                    self.after_battle(False)
-                else:
+                if self.after_battle is None or self.after_battle(False):
                     Config.CLIENT.close_ui()
                     Config.CLIENT.open_death_ui()
             elif self.enemy.hp <= 0:
@@ -189,9 +187,7 @@ class BattleUI(UI):
                 self.player.sp += self.enemy.sp
                 if self.enemy.name.get() == I18n.text('iron_golem').get():
                     self.player.iron += 1
-                if self.after_battle is not None:
-                    self.after_battle(True)
-                else:
+                if self.after_battle is None or self.after_battle(True):
                     Config.CLIENT.close_ui()
                     Config.CLIENT.open_ui(BattleSuccessUI(self.enemy.name, self.enemy.coins))
                     Config.SOUNDS['victory'].play()

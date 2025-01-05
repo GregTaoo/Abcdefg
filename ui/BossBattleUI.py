@@ -210,7 +210,7 @@ class BossBattleUI(UI):
                     self.action.reset()
                     self.action = random.choice([Action.ATTACK_LEFT, Action.LASER_CANNON_LEFT, Action.LASER_CANNON_LEFT])
                     if self.enemy.hp > 0 and self.action == Action.LASER_CANNON_LEFT:
-                        Particle.UI_PARTICLES.add(Particle.LaserCannonParticle((200, 170), 10))
+                        Particle.UI_PARTICLES.add(Particle.LaserCannonParticle((200, 170), 90))
                     self.enemy.atk -= 0.5
                     self.half_round += 1
                     self.use_crt = random.randint(0, 100) < self.enemy.crt * 100

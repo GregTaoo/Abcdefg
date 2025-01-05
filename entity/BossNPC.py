@@ -15,13 +15,13 @@ class HerobrineNPC(NPC):
     def __init__(self, pos):
         super().__init__(I18n.text('yourself'), pos, Renderer.image_renderer('entities/herobrine.png', (50, 50)))
         self.battle = True
-        self.actions = [Action.ATTACK_LEFT, Action.LASER_CANNON_LEFT]
+        self.actions = [Action.ATTACK_LEFT, Action.LASER_CANNON_LEFT, Action.LASER_CANNON_LEFT]
         self.hp = 500
         self.max_hp = 500
         self.atk = 10
 
     def on_battle(self, player):
-        Config.CLIENT.open_ui(BossBattleUI(player, self, lambda win: self.open_stage2_battle_ui(win)))
+        Config.CLIENT.open_ui(BossBattleUI(player, self, self.open_stage2_battle_ui))
 
     def open_stage2_battle_ui(self, win: bool):
         if win:
@@ -42,7 +42,7 @@ class HerobrineNPC(NPC):
 
     def process_choice_2(self, player, choice):
         e_npc = Entity.Entity(I18n.text('programmer'), self.get_right_bottom_pos(),
-                                   Renderer.image_renderer('egg.png', (50, 50)), atk=0, sp=0)
+                              Renderer.image_renderer('egg.png', (50, 50)), atk=0, sp=0)
         if choice == '1':
             Config.CLIENT.open_ui(DialogUI(e_npc, Dialog('end'),
                                            lambda msg: self.process_choice_3(Config.CLIENT.player, msg)))
@@ -70,7 +70,7 @@ class BossNPC1(NPC):
         elif choice == '3':
             h_npc = HerobrineNPC((500, 500))
             Config.CLIENT.spawn_entity(h_npc)
-            Config.CLIENT.open_ui(BattleUI(player, h_npc, lambda win: h_npc.open_stage2_battle_ui(win)))
+            Config.CLIENT.open_ui(BattleUI(player, h_npc, h_npc.open_stage2_battle_ui))
             return "!"
         return "!#"
 

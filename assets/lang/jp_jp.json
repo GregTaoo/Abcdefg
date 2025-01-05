@@ -31,6 +31,7 @@
   "common_attack": "通常攻撃",
   "ultimate_attack": "最終攻撃",
   "tnt": "TNT",
+  "live_steal": "HPスティール",
   "escape": "逃げる",
   "rounds": "ラウンド {}",
   "clone_tech": "分身の術!",

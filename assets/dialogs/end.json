@@ -2,6 +2,7 @@
   "start": "1",
   "data": {
     "1": {
+      "image": "./assets/egg.png",
       "npc": "end_npc_dia1",
       "player": [
         {

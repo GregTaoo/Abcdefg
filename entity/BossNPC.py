@@ -69,7 +69,6 @@ class BossNPC6(NPC):
             Config.CLIENT.player.heal(1)
         elif choice == '3':
             h_npc = HerobrineNPC((500, 500))
-            Config.CLIENT.spawn_entity(h_npc)
             Config.CLIENT.open_ui(BattleUI(player, h_npc, h_npc.open_stage2_battle_ui))
             return "!"
         return "!#"

@@ -237,7 +237,6 @@ class MasterstrokeTradeNPC(NPC):
             if not player.skill_unlocked:
                 return 'b2'
             player.sp -= 2
-            player.skill_unlocked = True
             player.skill = 1
             self.interact = False
             # 获得换血技能

@@ -134,9 +134,9 @@ class MedicineTraderNPC(TraderNPC):
         # 初始化 MedicineTraderNPC，设置其名称、渲染器和交易选项。
         super().__init__(I18n.text('witch'), pos, Renderer.image_renderer('entities/witch.png', (50, 50)),
                          trade_list=[
-                             TradeOption(I18n.literal("锻炼"), 10, self.buy_1),
-                             TradeOption(I18n.literal("健身"), 20, self.buy_2),
-                             TradeOption(I18n.literal("test"), 2, self.buy_3),
+                             TradeOption(I18n.text("ex1"), 10, self.buy_1),
+                             TradeOption(I18n.text("ex2"), 20, self.buy_2),
+                             TradeOption(I18n.literal("(?)"), 2, self.buy_3),
                          ])
 
     @staticmethod
@@ -153,8 +153,8 @@ class MedicineTraderNPC(TraderNPC):
         # 购买选项 2，增加玩家最大生命值 50。
         if player.coins < opt.price:
             return I18n.text('no_enough_coins')  # 如果玩家金币不足，返回提示信息。
-        player.max_hp *= 2
-        player.hp *= 2
+        player.max_hp *= 1.5
+        player.hp *= 1.5
         player.coins -= opt.price  # 扣除玩家金币。
         return I18n.literal("十分强大的，发生了一些变化")
 

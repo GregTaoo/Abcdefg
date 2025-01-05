@@ -33,9 +33,9 @@ class HerobrineNPC(NPC):
 
     def process_choice(self, player, choice):
         if choice == '1':
-            self.hp = 5000  # 脚填数值
-            self.max_hp = 5000
-            self.atk = 100
+            self.hp = 1500  # 脚填数值
+            self.max_hp = 1500
+            self.atk = 15
             Config.CLIENT.open_ui(BossBattleUI(player, self, lambda win: Config.CLIENT.open_ui(DialogUI(
                 self, Dialog('last'), lambda msg_2: self.process_choice_2(Config.CLIENT.player, msg_2)))))
         return "!#"

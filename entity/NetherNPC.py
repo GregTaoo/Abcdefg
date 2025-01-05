@@ -1,5 +1,6 @@
 import random
 
+import AIHelper
 import Block
 import Config
 import I18n
@@ -30,10 +31,12 @@ class NetherNPC1(NPC):
         if choice == '1':
             Config.CLIENT.dimension.set_block((2, 17), Block.NETHERITE_BLOCK)
             self.generate_the_end_portal()
+            AIHelper.add_response('player has interacted with nether npc1')
             return 'b1'
         elif choice == '2':
             Config.CLIENT.dimension.set_block((3, 19), Block.NETHERITE_BLOCK)
             self.generate_the_end_portal()
+            AIHelper.add_response('player has interacted with nether npc1')
             return 'b2'
         else:
             return '!#'
@@ -41,7 +44,7 @@ class NetherNPC1(NPC):
     @staticmethod
     def generate_the_end_portal():
         # 在草地上随机生成花朵或蘑菇
-        mp = Config.WORLDS['the_end'].blocks
+        mp = Config.WORLDS['the_world'].blocks
         for i in range(3):
             mp[Config.MAP_WIDTH - 10 + i][8] = mp[Config.MAP_WIDTH - 10 + i][10] = (
                 random.choice([Block.GRASS_BLOCK_WITH_FLOWER, Block.GRASS_BLOCK_WITH_MUSHROOM]))
@@ -67,9 +70,11 @@ class NetherNPC2(NPC):
         self.interact = False
         if choice == '1':
             Config.CLIENT.dimension.set_block((7, 11), Block.NETHERITE_BLOCK)
+            AIHelper.add_response('player has interacted with nether npc2')
             return 'b1'
         elif choice == '2':
             Config.CLIENT.dimension.set_block((8, 10), Block.NETHERITE_BLOCK)
+            AIHelper.add_response('player has interacted with nether npc2')
             return 'b2'
         else:
             return '!#'
@@ -96,6 +101,7 @@ class NetherNPC3(NPC):
             player.sp -= 2
             player.atk += 0.2
             player.crt += 0.1  # 获得狂暴战刃
+            AIHelper.add_response('player has interacted with nether npc3')
             return 'b1'
         else:
             return '!#'
@@ -126,10 +132,12 @@ class NetherNPC4(TraderNPC):
             player.sp -= 2
             player.atk += 0.15
             player.crt += 0.15
+            AIHelper.add_response('player has interacted with nether npc4')
             return 'b1'
         elif choice == '2':
             player.sp = 0
             # 清空你所有的灵力，换取50点攻击力，并直接离开这个世界
+            AIHelper.add_response('player has interacted with nether npc4')
             return 'b2'
         else:
             return '!#'
@@ -153,12 +161,13 @@ class NetherNPC5(TraderNPC):
         self.interact = False
         if choice == '#':
             return '!#'
-        if player.sp < 2:
+        elif player.sp < 2:
             return 'b2'
         elif choice == '1':
             # 获得回响之杖
             player.sp -= 2
             player.crt += 0.3
+            AIHelper.add_response('player has interacted with nether npc5')
             return 'b1'
         else:
             return '!#'

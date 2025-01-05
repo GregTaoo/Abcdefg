@@ -19,7 +19,7 @@ class TradeUI(UI):
         # 遍历NPC的交易列表，创建对应的按钮
         for option in npc.trade_list:
             # 创建每个交易选项的按钮，绑定交易选项
-            button = TradeButton(option.name, (Config.SCREEN_WIDTH // 2 - 50, 50 + cnt * 70), (100, 50),
+            button = TradeButton(option.name, (Config.SCREEN_WIDTH // 2 - 100, 50 + cnt * 70), (200, 50),
                                  option, on_click=lambda opt=option: self.handle_trade(opt))
             if player.coins < option.price:
                 # 如果玩家的金币不足，则禁用按钮
@@ -28,8 +28,8 @@ class TradeUI(UI):
             cnt += 1
         # 添加返回按钮
         self.add_button(ClassicButton(I18n.text('go_back'),
-                                      (Config.SCREEN_WIDTH // 2 - 50, Config.SCREEN_HEIGHT // 2 + 10),
-                                      (100, 50), on_click=Config.CLIENT.close_ui))
+                                      (Config.SCREEN_WIDTH // 2 - 100, Config.SCREEN_HEIGHT // 2 + 10),
+                                      (200, 50), on_click=Config.CLIENT.close_ui))
 
     def handle_trade(self, option):
         # 处理交易逻辑

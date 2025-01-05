@@ -4,6 +4,7 @@ import pygame
 
 import Config
 import I18n
+from render import Particle
 from ui.ChatUI import ChatUI
 from ui.Hud import Hud
 from ui.SelectLanguageUI import SelectLanguageUI
@@ -36,13 +37,17 @@ class MainHud(Hud):
             I18n.text(Config.CLIENT.dimension.name), self.player.x, self.player.y), True, (200, 200, 200))
         screen.blit(txt_surface, (10, 10))
 
-        txt_surface = Config.FONT.render(f"{self.player.coins}", True, (255, 175, 45))
-        screen.blit(Config.COIN_IMAGE, (Config.SCREEN_WIDTH - 10 - txt_surface.get_width() - 25, 8))
+        txt_surface = Config.FONT.render(f"{self.player.hp:.0f}", True, (255, 255, 255))
+        screen.blit(Particle.HEART, (Config.SCREEN_WIDTH - 10 - txt_surface.get_width() - 25, 8))
         screen.blit(txt_surface, (Config.SCREEN_WIDTH - 10 - txt_surface.get_width(), 10))
 
-        txt_surface = Config.FONT.render(f"{self.player.sp}", True, (255, 255, 255))
-        screen.blit(Config.SPIRIT_POWER_IMAGE, (Config.SCREEN_WIDTH - 10 - txt_surface.get_width() - 25, 38))
+        txt_surface = Config.FONT.render(f"{self.player.coins}", True, (255, 175, 45))
+        screen.blit(Config.COIN_IMAGE, (Config.SCREEN_WIDTH - 10 - txt_surface.get_width() - 25, 38))
         screen.blit(txt_surface, (Config.SCREEN_WIDTH - 10 - txt_surface.get_width(), 40))
+
+        txt_surface = Config.FONT.render(f"{self.player.sp}", True, (255, 255, 255))
+        screen.blit(Config.SPIRIT_POWER_IMAGE, (Config.SCREEN_WIDTH - 10 - txt_surface.get_width() - 25, 68))
+        screen.blit(txt_surface, (Config.SCREEN_WIDTH - 10 - txt_surface.get_width(), 70))
 
         txt_surface = Config.FONT.render(I18n.text('player_values').format(
             self.player.atk, self.player.crt * 100, (self.player.crt_damage - 1) * 100, self.player.max_hp), True,

@@ -43,6 +43,8 @@ with open("arrow_left.txt", "w") as file:
     for i in range(46):
         file.write(f"600 200\n")
     file.write(f"600 200|20|0||hit\n")
+    for i in range(20):
+        file.write(f"600 200\n")
 
 with open("tnt_right.txt", "w") as file:
     file.write(f"150 200\n")

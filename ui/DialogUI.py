@@ -41,8 +41,8 @@ class DialogUI(UI):
         for i, option in enumerate(options):
             # 为每个选项创建一个按钮
             self.add_button(ClassicButton(I18n.text(option['str']),
-                                          (Config.SCREEN_WIDTH // 2 - 150, Config.SCREEN_HEIGHT // 2 + 10 + i * 50),
-                                          (300, 45), on_click=lambda index=i: self.next_dialog(index), border_radius=1))
+                                          (Config.SCREEN_WIDTH // 2 - 250, Config.SCREEN_HEIGHT // 2 + 10 + i * 50),
+                                          (500, 45), on_click=lambda index=i: self.next_dialog(index), border_radius=1))
 
     # 处理玩家选择的选项
     def next_dialog(self, choice: int):

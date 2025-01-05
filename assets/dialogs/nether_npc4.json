@@ -2,68 +2,68 @@
   "start": "1",
   "data": {
     "1": {
-      "npc": "nether_npc4_dia1",
+      "npc": "nether_npc4_frost_dialogue1",
       "player": [
         {
-          "str": "nether_player4_dia1",
+          "str": "nether_player4_frost_dialogue1",
           "next": "2"
         }
       ]
     },
     "2": {
-      "npc": "nether_npc4_dia2",
+      "npc": "nether_npc4_frost_dialogue2",
       "player": [
         {
-          "str": "nether_player4_dia2",
+          "str": "nether_player4_frost_dialogue2",
           "next": "3"
         }
       ]
     },
     "3": {
-      "npc": "nether_npc4_dia3",
+      "npc": "nether_npc4_frost_dialogue3",
       "player": [
         {
-          "str": "nether_player4_dia3",
+          "str": "nether_player4_frost_dialogue3",
           "next": "4"
         }
       ]
     },
     "4": {
-      "npc": "nether_npc4_dia4",
+      "npc": "nether_npc4_frost_dialogue4",
       "player": [
         {
-          "str": "nether_npc4_option1",
+          "str": "nether_npc4_frost_option1",
           "next": "!1"
         },
         {
-          "str": "nether_npc4_option2",
+          "str": "nether_npc4_frost_option2",
           "next": "!2"
         }
       ]
     },
     "b1": {
-      "npc": "nether_npc4_dia_b1",
+      "npc": "nether_npc4_frost_dialogue_b1",
       "player": [
         {
-          "str": "nether_player4_dia_b1",
+          "str": "nether_player4_frost_dialogue_b1",
           "next": "!#"
         }
       ]
     },
     "b2": {
-      "npc": "nether_npc4_dia_b2",
+      "npc": "nether_npc4_frost_dialogue_b2",
       "player": [
         {
-          "str": "nether_player4_dia_b2",
+          "str": "nether_player4_frost_dialogue_b2",
           "next": "!#"
         }
       ]
     },
     "b3": {
-      "npc": "nether_npc4_dia_b3",
+      "npc": "nether_npc4_frost_dialogue_b3",
       "player": [
         {
-          "str": "nether_player4_dia_b3",
+          "str": "nether_player4_frost_dialogue_b3",
           "next": "!#"
         }
       ]

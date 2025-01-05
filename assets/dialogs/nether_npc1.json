@@ -2,47 +2,47 @@
   "start": "1",
   "data": {
     "1": {
-      "npc": "nether_npc1_dia1",
+      "npc": "nether_npc1_dialogue1",
       "player": [
         {
-          "str": "nether_player1_dia1",
+          "str": "nether_npc1_player_dialogue1_1",
           "next": "2"
         }
       ]
     },
     "2": {
-      "npc": "nether_npc1_dia2",
+      "npc": "nether_npc1_dialogue2",
       "player": [
         {
-          "str": "nether_player1_dia2",
+          "str": "nether_npc1_player_dialogue2_1",
           "next": "3"
         },
         {
-          "str": "nether_player1_dia2_2",
+          "str": "nether_npc1_player_dialogue2_2",
           "next": "4"
         }
       ]
     },
     "3": {
-      "npc": "nether_npc1_dia3",
+      "npc": "nether_npc1_dialogue3",
       "player": [
         {
-          "str": "nether_player1_dia3",
+          "str": "nether_npc1_player_dialogue3_1",
           "next": "5"
         }
       ]
     },
     "4": {
-      "npc": "nether_npc1_dia4",
+      "npc": "nether_npc1_dialogue4",
       "player": [
         {
-          "str": "nether_player1_dia4",
+          "str": "nether_npc1_player_dialogue4_1",
           "next": "5"
         }
       ]
     },
     "5": {
-      "npc": "nether_npc1_dia5",
+      "npc": "nether_npc1_dialogue5",
       "player": [
         {
           "str": "nether_npc1_option1",
@@ -55,19 +55,19 @@
       ]
     },
     "b1": {
-      "npc": "nether_npc1_dia_b1",
+      "npc": "nether_npc1_dialogue_b1",
       "player": [
         {
-          "str": "nether_player1_dia_b1",
+          "str": "nether_npc1_player_dialogue_b1_1",
           "next": "!#"
         }
       ]
     },
     "b2": {
-      "npc": "nether_npc1_dia_b2",
+      "npc": "nether_npc1_dialogue_b2",
       "player": [
         {
-          "str": "nether_player1_dia_b2",
+          "str": "nether_npc1_player_dialogue_b2_1",
           "next": "!#"
         }
       ]

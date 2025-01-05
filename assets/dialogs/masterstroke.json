@@ -2,46 +2,46 @@
   "start": "1",
   "data": {
     "1": {
-      "npc": "master_dia1",
+      "npc": "masterstroke_knight_dialogue1",
       "player": [
         {
-          "str": "player_dia1",
+          "str": "masterstroke_player_dialogue1",
           "next": "2"
         }
       ]
     },
     "2": {
-      "npc": "master_dia2",
+      "npc": "masterstroke_knight_dialogue2",
       "player": [
         {
-          "str": "player_dia2",
+          "str": "masterstroke_player_dialogue2",
           "next": "!1"
         }
       ]
     },
     "b1": {
-      "npc": "master_dia_b1",
+      "npc": "masterstroke_knight_dialogue_b1",
       "player": [
         {
-          "str": "player3_dia_b1",
+          "str": "masterstroke_player3_dialogue_b1",
           "next": "!#"
         }
       ]
     },
     "b2": {
-      "npc": "master_dia_b2",
+      "npc": "masterstroke_knight_dialogue_b2",
       "player": [
         {
-          "str": "player3_dia_b2",
+          "str": "masterstroke_player3_dialogue_b2",
           "next": "!#"
         }
       ]
     },
     "b3": {
-      "npc": "master_dia_b3",
+      "npc": "masterstroke_knight_dialogue_b3",
       "player": [
         {
-          "str": "player3_dia_b3",
+          "str": "masterstroke_player3_dialogue_b3",
           "next": "!#"
         }
       ]

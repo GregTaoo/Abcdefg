@@ -2,50 +2,50 @@
   "start": "1",
   "data": {
     "1": {
-      "npc": "nether_npc2_dia1",
+      "npc": "nether_npc2_guide_dialogue1",
       "player": [
         {
-          "str": "nether_player2_dia1",
+          "str": "nether_player2_guide_dialogue1",
           "next": "2"
         }
       ]
     },
     "2": {
-      "npc": "nether_npc2_dia2",
+      "npc": "nether_npc2_guide_dialogue2",
       "player": [
         {
-          "str": "nether_player2_dia2",
+          "str": "nether_player2_guide_dialogue2",
           "next": "3"
         }
       ]
     },
     "3": {
-      "npc": "nether_npc2_dia3",
+      "npc": "nether_npc2_guide_dialogue3",
       "player": [
         {
-          "str": "nether_npc2_option1",
+          "str": "nether_npc2_guide_option1",
           "next": "!1"
         },
         {
-          "str": "nether_npc2_option2",
+          "str": "nether_npc2_guide_option2",
           "next": "!2"
         }
       ]
     },
     "b1": {
-      "npc": "nether_npc2_dia_b1",
+      "npc": "nether_npc2_guide_dialogue_b1",
       "player": [
         {
-          "str": "nether_player2_dia_b1",
+          "str": "nether_player2_guide_dialogue_b1",
           "next": "!#"
         }
       ]
     },
     "b2": {
-      "npc": "nether_npc2_dia_b2",
+      "npc": "nether_npc2_guide_dialogue_b2",
       "player": [
         {
-          "str": "nether_player2_dia_b2",
+          "str": "nether_player2_guide_dialogue_b2",
           "next": "!#"
         }
       ]

@@ -43,6 +43,8 @@ class ChatUI(UI):
                 Config.CLIENT.player.hp = 114514
                 Config.CLIENT.player.skill_unlocked = True
                 Config.CLIENT.player.skill = 1
+                Config.CLIENT.current_hud.messages.insert(0, (I18n.text('flag_leaked'), (255, 0, 0), time.time()))
+                Config.NETHER_PORTAL_LOCK = False  # 解锁传送门
             elif args[0] == 'cheat':
                 Config.CLIENT.player.atk = 1000
                 Config.CLIENT.player.crt = 1000
@@ -51,6 +53,8 @@ class ChatUI(UI):
                 Config.CLIENT.player.coins = 114514
                 Config.CLIENT.player.skill_unlocked = True
                 Config.CLIENT.player.skill = 1
+                Config.CLIENT.current_hud.messages.insert(0, (I18n.text('flag_leaked'), (255, 0, 0), time.time()))
+                Config.NETHER_PORTAL_LOCK = False  # 解锁传送门
             Config.CLIENT.close_ui()  # 关闭聊天UI
             return
 

@@ -78,17 +78,20 @@ class BossNPC2(NPC):
 
     def __init__(self, pos):
         super().__init__(I18n.text('boss_npc'), pos, Renderer.image_renderer('entities/dragon.png', (50, 50)))
+        self.max_hp = 11111111
+        self.hp = 11111111
+        self.atk = 114541
 
     def on_interact(self, player):
         if self.interact:
             Config.CLIENT.open_ui(DialogUI(self, Dialog('boss2'),
                                            lambda msg: self.process_choice(player, msg)))
 
-    @staticmethod
-    def process_choice(player, choice):
+    def process_choice(self, player, choice):
         if choice == '1':
             Config.CLIENT.player.heal(1)
         elif choice == '2':
+            Config.CLIENT.open_ui(BattleUI(player, self))
             if Config.CLIENT.player.hp > Config.CLIENT.player.max_hp / 2:
                 Config.CLIENT.player.damage(Config.CLIENT.player.hp - Config.CLIENT.player.max_hp / 2)
             Config.CLIENT.player.max_hp /= 2
@@ -101,6 +104,9 @@ class BossNPC3(NPC):
 
     def __init__(self, pos):
         super().__init__(I18n.text('boss_npc'), pos, Renderer.image_renderer('entities/electro_dragon.png', (50, 50)))
+        self.max_hp = 1
+        self.hp = 1
+        self.atk = 0.1
 
     def on_interact(self, player):
         if self.interact:
@@ -109,6 +115,7 @@ class BossNPC3(NPC):
 
     def process_choice(self, player, choice):
         if choice == '1':
+            Config.CLIENT.open_ui(BattleUI(player, self))
             Config.CLIENT.player.heal(1)
         elif choice == '3':
             Config.CLIENT.player.crt_damage *= 2
@@ -122,6 +129,9 @@ class BossNPC4(NPC):
 
     def __init__(self, pos):
         super().__init__(I18n.text('boss_npc'), pos, Renderer.image_renderer('entities/inferno_dragon.png', (50, 50)))
+        self.max_hp = 11111111
+        self.hp = 11111111
+        self.atk = 114541
 
     def on_interact(self, player):
         if self.interact:
@@ -134,6 +144,7 @@ class BossNPC4(NPC):
         elif choice == '2':
             Config.CLIENT.player.damage(Config.CLIENT.player.hp / 2)
         elif choice == '3':
+            Config.CLIENT.open_ui(BattleUI(player, self))
             Config.CLIENT.player.atk /= 2
         elif choice == '4':
             Config.CLIENT.player.crt *= 2
@@ -146,6 +157,9 @@ class BossNPC5(NPC):
 
     def __init__(self, pos):
         super().__init__(I18n.text('boss_npc'), pos, Renderer.image_renderer('entities/lava_hound.png', (50, 50)))
+        self.max_hp = 1
+        self.hp = 1
+        self.atk = 0.1
 
     def on_interact(self, player):
         if self.interact:
@@ -156,6 +170,7 @@ class BossNPC5(NPC):
         if choice == '1':
             Config.CLIENT.player.heal(1)
         elif choice == '2':
+            Config.CLIENT.open_ui(BattleUI(player, self))
             Config.CLIENT.player.coins += 100
             self.interact = False
         elif choice == '3':
@@ -171,6 +186,10 @@ class BossNPC1(NPC):
 
     def __init__(self, pos):
         super().__init__(I18n.text('boss_npc'), pos, Renderer.image_renderer('entities/super_dragon.png', (50, 50)))
+        self.max_hp = 1
+        self.hp = 1
+        self.atk = 0.1
+
 
 
     def on_interact(self, player):
@@ -182,6 +201,7 @@ class BossNPC1(NPC):
         if choice == '1':
             Config.CLIENT.player.heal(1)
         elif choice == '2':
+            Config.CLIENT.open_ui(BattleUI(player, self))
             Config.CLIENT.player.coins += 100
             self.interact = False
         elif choice == '3':

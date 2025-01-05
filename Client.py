@@ -28,18 +28,18 @@ def generate_the_world():
     mp[MAP_WIDTH - 9][MAP_HEIGHT - 9] = Block.NETHER_PORTAL
 
     for i in range(4, 12):
-        mp[i][10] = mp[i][19] = Block.STONE_BRICKS
+        mp[i][10] = mp[i][19] = Block.OAK_PLANKS
         for j in range(11, 19):
-            mp[i][j] = Block.OAK_PLANKS
+            mp[i][j] = Block.STONE_BRICKS
     for i in range(10, 14):
-        mp[3][i] = Block.STONE_BRICKS
-        mp[12][i] = Block.STONE_BRICKS
-    for i in range(14, 16):
         mp[3][i] = Block.OAK_PLANKS
         mp[12][i] = Block.OAK_PLANKS
-    for i in range(16, 20):
+    for i in range(14, 16):
         mp[3][i] = Block.STONE_BRICKS
         mp[12][i] = Block.STONE_BRICKS
+    for i in range(16, 20):
+        mp[3][i] = Block.OAK_PLANKS
+        mp[12][i] = Block.OAK_PLANKS
 
     return mp
 

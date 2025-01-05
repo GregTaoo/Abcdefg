@@ -30,4 +30,4 @@ class TradeButton(ClassicButton):
             text_rect = text_surface.get_rect(center=(
                 self.rect.center[0] + 12 + delta, self.rect.center[1] + 10 + delta))
             screen.blit(text_surface, text_rect)
-            screen.blit(Config.COIN_IMAGE, (self.rect.center[0] - 22 + delta, self.rect.center[1] + delta))
+            screen.blit(Config.COIN_IMAGE, (self.rect.center[0] - 30 + delta, self.rect.center[1] + delta))

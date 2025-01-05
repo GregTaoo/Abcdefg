@@ -78,9 +78,9 @@ class VillagerNPC(TraderNPC):
         # 初始化 VillagerNPC，设置其名称、渲染器和交易选项。
         super().__init__(I18n.text('villager'), pos, Renderer.image_renderer('entities/villager.png', (50, 50)),
                          trade_list=[
-                             TradeOption(I18n.literal("请勿购买"), 999, self.buy_1),
-                             TradeOption(I18n.literal("请勿购买"), 1099, self.buy_2),
-                             TradeOption(I18n.literal("请勿购买"), 1990, self.buy_3),
+                             TradeOption(I18n.literal("?"), 799, self.buy_1),
+                             TradeOption(I18n.literal("??"), 899, self.buy_2),
+                             TradeOption(I18n.literal("???"), 999, self.buy_3),
                          ])
         self.battle = True  # 启用战斗模式。
 

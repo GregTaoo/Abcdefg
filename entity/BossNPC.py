@@ -53,7 +53,7 @@ class HerobrineNPC(NPC):
             Config.CLIENT.open_ui(TheEndUI())
 
 
-class BossNPC1(NPC):
+class BossNPC6(NPC):
 
     def __init__(self, pos):
         super().__init__(I18n.text('boss_npc'), pos, Renderer.GHAST)
@@ -168,10 +168,11 @@ class BossNPC5(NPC):
         return "!#"
 
 
-class BossNPC6(NPC):
+class BossNPC1(NPC):
 
     def __init__(self, pos):
         super().__init__(I18n.text('boss_npc'), pos, Renderer.image_renderer('entities/super_dragon.png', (50, 50)))
+
 
     def on_interact(self, player):
         if self.interact:

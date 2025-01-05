@@ -20,6 +20,7 @@ class BossBattleUI(UI):
         # 初始化所有动作
         for i in Action.ACTIONS:
             i.reset()
+        Config.CLIENT.change_music('./assets/sounds/music_battle.mp3')
         self.after_battle = after_battle  # lambda bool
         self.player = player
         self.enemy = enemy

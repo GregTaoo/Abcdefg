@@ -14,6 +14,7 @@
   "no_enough_hp": "Not enough HP, don't gamble",
   "ex1": "Exercise, increase a small amount of HP",
   "ex2": "Fitness, increase a large amount of HP",
+  "ex3": "??? (Limited to 15 purchases)",
   "bought": "Bought {}",
   "charged_fist": "Charged Fist (CRT)",
   "iron_sword": "Iron Sword (ATK)",

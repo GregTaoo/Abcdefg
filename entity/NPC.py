@@ -136,8 +136,9 @@ class MedicineTraderNPC(TraderNPC):
                          trade_list=[
                              TradeOption(I18n.text("ex1"), 10, self.buy_1),
                              TradeOption(I18n.text("ex2"), 20, self.buy_2),
-                             TradeOption(I18n.literal("(?)"), 2, self.buy_3),
+                             TradeOption(I18n.text("ex3"), 2, self.buy_3),
                          ])
+        self.ex3_cnt = 15
 
     @staticmethod
     def buy_1(player, npc, opt):
@@ -169,6 +170,9 @@ class MedicineTraderNPC(TraderNPC):
         player.max_hp += rd
         player.hp += rd
         player.coins -= opt.price
+        npc.ex3_cnt -= 1
+        if npc.ex3_cnt == 0:
+            opt.available = False
         return I18n.literal("发生了一些神秘变化")
 
 

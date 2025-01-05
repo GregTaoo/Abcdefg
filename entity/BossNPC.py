@@ -122,8 +122,9 @@ class BossNPC3(NPC):
 
     def process_choice(self, player, choice):
         if choice == '1':
-            Config.CLIENT.open_ui(BattleUI(player, self))
             Config.CLIENT.player.heal(1)
+        elif choice == '2':
+            Config.CLIENT.open_ui(BattleUI(player, self))
         elif choice == '3':
             Config.CLIENT.player.crt_damage *= 2
             self.interact = False

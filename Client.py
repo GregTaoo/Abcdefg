@@ -18,8 +18,8 @@ from ui.MessageBoxUI import MessageBoxUI
 def generate_the_world():
     # 生成世界地图，包含草地、岩浆、石头和水块
     mp = Dimension.generate_map(MAP_WIDTH, MAP_HEIGHT, [
-        Block.GRASS_BLOCK, Block.LAVA, Block.STONE, Block.WATER
-    ], [150, 1, 2, 1])
+        Block.GRASS_BLOCK, Block.LAVA, Block.STONE, Block.WATER, Block.JACK_O_LANTERN
+    ], [150, 1, 2, 1, 1])
 
     # 在地图的特定位置添加黑曜石和传送门
     for i in range(3):
@@ -32,7 +32,7 @@ def generate_the_world():
 
 def generate_the_end():
     # 生成末地地图，只有末地石
-    mp = Dimension.generate_map(MAP_WIDTH, MAP_HEIGHT, [Block.END_STONE], [1])
+    mp = Dimension.generate_map(MAP_WIDTH, MAP_HEIGHT, [Block.END_STONE, Block.REDSTONE_BLOCK], [150, 1])
     # 设置末地中的传送门
     mp[MAP_WIDTH // 2][MAP_HEIGHT // 2] = Block.NETHER_BACK_PORTAL
     return mp

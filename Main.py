@@ -36,22 +36,22 @@ def main():
     pygame.scrap.init()
     pygame.key.stop_text_input()
 
-    player = Player(I18n.text('player_name'), (600, 600), (600, 600), Renderer.PLAYER, size=(50, 50))
+    player = Player(I18n.text('player_name'), (1024, 1024), (1024, 1024), Renderer.PLAYER, size=(50, 50))
 
     Config.CLIENT = Client.Client(screen, clock, player, 'the_world')
     Config.CLIENT.open_ui(StarterUI())
 
-    for _ in range(10):
+    for _ in range(12):
         Config.CLIENT.spawn_entity(
-            Monster(I18n.text('zombie'), (random.randint(0, MAP_WIDTH * BLOCK_SIZE - 10),
-                                          random.randint(0, MAP_HEIGHT * BLOCK_SIZE - 10)),
+            Monster(I18n.text('zombie'), (1200 + random.randint(0, MAP_WIDTH * BLOCK_SIZE - 1250),
+                                          random.randint(0, MAP_HEIGHT * BLOCK_SIZE - 50)),
                     ImageRenderer(pygame.transform.scale(pygame.image.load("./assets/entities/zombie.png"), (50, 50))),
                     coins=8)
         )
-    for _ in range(10):
+    for _ in range(12):
         Config.CLIENT.spawn_entity(
-            Monster(I18n.text('skeleton'), (random.randint(0, MAP_WIDTH * BLOCK_SIZE - 10),
-                                            random.randint(0, MAP_HEIGHT * BLOCK_SIZE - 10)),
+            Monster(I18n.text('skeleton'), (1200 + random.randint(0, MAP_WIDTH * BLOCK_SIZE - 1250),
+                                            random.randint(0, MAP_HEIGHT * BLOCK_SIZE - 50)),
                     ImageRenderer(pygame.transform.scale(pygame.image.load("./assets/entities/skeleton.png"),
                                                          (50, 50))),
                     coins=12, actions=[Action.ARROW_LEFT])

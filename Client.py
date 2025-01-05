@@ -27,6 +27,20 @@ def generate_the_world():
     mp[MAP_WIDTH - 10][MAP_HEIGHT - 9] = mp[MAP_WIDTH - 8][MAP_HEIGHT - 9] = Block.OBSIDIAN
     mp[MAP_WIDTH - 9][MAP_HEIGHT - 9] = Block.NETHER_PORTAL
 
+    for i in range(4, 12):
+        mp[i][10] = mp[i][19] = Block.STONE_BRICKS
+        for j in range(11, 19):
+            mp[i][j] = Block.OAK_PLANKS
+    for i in range(10, 14):
+        mp[3][i] = Block.STONE_BRICKS
+        mp[12][i] = Block.STONE_BRICKS
+    for i in range(14, 16):
+        mp[3][i] = Block.OAK_PLANKS
+        mp[12][i] = Block.OAK_PLANKS
+    for i in range(16, 20):
+        mp[3][i] = Block.STONE_BRICKS
+        mp[12][i] = Block.STONE_BRICKS
+
     return mp
 
 
@@ -84,11 +98,11 @@ class Client:
         world_npc1 = entity.NPC.MasterstrokeTradeNPC(((MAP_WIDTH - 11) * Config.BLOCK_SIZE + 5,
                                                       (MAP_WIDTH - 11) * Config.BLOCK_SIZE + 5))
         Config.WORLDS['the_world'].spawn_entity(world_npc1)
-        world_npc2 = entity.NPC.VillagerNPC((5 * Config.BLOCK_SIZE + 5, 5 * Config.BLOCK_SIZE + 5))
+        world_npc2 = entity.NPC.VillagerNPC((5 * Config.BLOCK_SIZE + 5, 17 * Config.BLOCK_SIZE + 5))
         Config.WORLDS['the_world'].spawn_entity(world_npc2)
-        world_npc3 = entity.NPC.MedicineTraderNPC((5 * Config.BLOCK_SIZE + 5, 15 * Config.BLOCK_SIZE + 5))
+        world_npc3 = entity.NPC.MedicineTraderNPC((5 * Config.BLOCK_SIZE + 5, 12 * Config.BLOCK_SIZE + 5))
         Config.WORLDS['the_world'].spawn_entity(world_npc3)
-        world_npc4 = entity.NPC.WeaponTraderNPC((10 * Config.BLOCK_SIZE + 5, 15 * Config.BLOCK_SIZE + 5))
+        world_npc4 = entity.NPC.WeaponTraderNPC((10 * Config.BLOCK_SIZE + 5, 17 * Config.BLOCK_SIZE + 5))
         Config.WORLDS['the_world'].spawn_entity(world_npc4)
 
         nether_npc1 = entity.NetherNPC.NetherNPC1((2 * Config.BLOCK_SIZE + 5, 18 * Config.BLOCK_SIZE + 5))

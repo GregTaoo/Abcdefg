@@ -74,7 +74,7 @@ def main():
 
         # 执行渲染
         pygame.display.flip()
-        if time.time() - st > 0.01:
+        if time.time() - st > 1 / 90:
             print(time.time() - st)
 
         clock.tick(90)

@@ -16,8 +16,7 @@ class ParticleManager:
         for i in self.particles:
             i.tick()
             if i.is_end():
-                self.particles.remove(i)
-                del i
+                self.particles = [i for i in self.particles if not i.is_end()]
 
     def render(self, screen, font: pygame.font.Font, camera=None):
         for i in self.particles:

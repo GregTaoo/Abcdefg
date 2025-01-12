@@ -42,7 +42,7 @@ class BattleUI(UI):
         # 普通攻击按钮
         attack_button = ClassicButton(I18n.text('common_attack'),
                                       (Config.SCREEN_WIDTH // 2 - 200, Config.SCREEN_HEIGHT // 2 + 50),
-                                      (95, 50), on_click=self.round_start)
+                                      (95, 50), on_click=lambda: self.round_start(Action.ATTACK_RIGHT))
         self.add_button(attack_button)
         tnt_button = ClassicButton(I18n.text('tnt'),
                                    (Config.SCREEN_WIDTH // 2 - 100, Config.SCREEN_HEIGHT // 2 + 50),

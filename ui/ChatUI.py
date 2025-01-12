@@ -40,7 +40,7 @@ class ChatUI(UI):
             elif args[0] == 'end':
                 Config.CLIENT.open_ui(TheEndUI())
                 return
-            elif args[0] == 'op':
+            elif args[0] == 'undead':
                 Config.CLIENT.player.hp = 114514
                 Config.CLIENT.player.skill_unlocked = True
                 Config.CLIENT.player.skill = 1

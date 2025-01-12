@@ -31,15 +31,23 @@ class BattleUI(UI):
         self.action = None  # 当前执行的动作
         self.use_crt = False  # 是否触发暴击
         self.escaping_stage = 0  # 逃跑阶段
+        # 记录玩家和敌人进入战斗
+        AIHelper.add_event('player has entered battle with ' + enemy.name.get())
+        self.clock_heart_particle = [10, lambda: Particle.UI_PARTICLES.add(Particle.LifeStealingParticle(
+            (600, 215), 90)), 10]
+        self.ultimate_button = None
+        self.init_buttons()
+
+    def init_buttons(self):
         # 普通攻击按钮
-        self.attack_button = ClassicButton(I18n.text('common_attack'),
-                                           (Config.SCREEN_WIDTH // 2 - 200, Config.SCREEN_HEIGHT // 2 + 50),
-                                           (95, 50), on_click=self.round_start)
-        self.add_button(self.attack_button)
-        self.tnt_button = ClassicButton(I18n.text('tnt'),
-                                        (Config.SCREEN_WIDTH // 2 - 100, Config.SCREEN_HEIGHT // 2 + 50),
-                                        (95, 50), on_click=lambda: self.round_start(Action.TNT_RIGHT))
-        self.add_button(self.tnt_button)
+        attack_button = ClassicButton(I18n.text('common_attack'),
+                                      (Config.SCREEN_WIDTH // 2 - 200, Config.SCREEN_HEIGHT // 2 + 50),
+                                      (95, 50), on_click=self.round_start)
+        self.add_button(attack_button)
+        tnt_button = ClassicButton(I18n.text('tnt'),
+                                   (Config.SCREEN_WIDTH // 2 - 100, Config.SCREEN_HEIGHT // 2 + 50),
+                                   (95, 50), on_click=lambda: self.round_start(Action.TNT_RIGHT))
+        self.add_button(tnt_button)
         # 终极攻击按钮
         self.ultimate_button = ClassicButton(I18n.text('ultimate_attack'),
                                              (Config.SCREEN_WIDTH // 2, Config.SCREEN_HEIGHT // 2 + 50),
@@ -48,12 +56,10 @@ class BattleUI(UI):
         # 判断玩家是否可以使用终极攻击
         self.ultimate_button.set_active(self.player.ultimate_available())
         # 逃跑按钮
-        self.escape_button = ClassicButton(I18n.text('escape'),
-                                           (Config.SCREEN_WIDTH // 2 + 100, Config.SCREEN_HEIGHT // 2 + 50),
-                                           (95, 50), on_click=self.on_click_escape_button)
-        self.add_button(self.escape_button)
-        # 记录玩家和敌人进入战斗
-        AIHelper.add_event('player has entered battle with ' + enemy.name.get())
+        escape_button = ClassicButton(I18n.text('escape'),
+                                      (Config.SCREEN_WIDTH // 2 + 100, Config.SCREEN_HEIGHT // 2 + 50),
+                                      (95, 50), on_click=self.on_click_escape_button)
+        self.add_button(escape_button)
 
     # 点击逃跑按钮的操作
     def on_click_escape_button(self):
@@ -78,6 +84,9 @@ class BattleUI(UI):
             self.player.update_energy()
         elif use_action == Action.ULTIMATE_RIGHT:
             self.player.reset_energy()
+        elif use_action == Action.LIFE_STEAL_RIGHT:
+            Config.CLOCKS.append(self.clock_heart_particle)
+            self.player.skill_unlocked = False
         elif self.action == Action.TNT_RIGHT:
             Particle.UI_PARTICLES.add(Particle.TntParticle(
                 (self.player_pos[0] + self.player.size[0] // 2, self.player_pos[1]), 100))
@@ -133,7 +142,7 @@ class BattleUI(UI):
                     if self.player.hp <= 0:
                         Config.SOUNDS['player_death'].play()
                     elif self.player.hp < self.player.max_hp // 3:
-                        AIHelper.add_response(f'player is now low hp {self.player.hp}', (255, 0, 0))
+                        AIHelper.add_response(f'player is now in a low hp {self.player.hp}', (255, 0, 0))
                     if heal != 0:
                         self.enemy.heal(heal)
                         Particle.UI_PARTICLES.add(Particle.DamageParticle(-heal, self.player_pos, 180,

@@ -1,7 +1,6 @@
 import threading
 import time
 
-import openai
 import pygame
 from openai import OpenAI
 
@@ -25,10 +24,14 @@ def add_event(event: str):
 # 初始化AI客户端
 def init():
     global CLIENT
-    CLIENT = OpenAI(
-        base_url=Config.AI_URL,
-        api_key='ollama',
-    )
+    try:
+        CLIENT = OpenAI(
+            base_url=Config.AI_URL,
+            api_key='ollama',
+        )
+    except Exception as e:
+        print(e)
+        CLIENT = None
 
 
 # 更新AI的回应消息
@@ -56,7 +59,7 @@ def get_response_stream(input_text, role='user'):
             stream=True,  # 使用流模式进行响应
             timeout=30  # 超时设定
         )
-    except openai.BadRequestError as e:  # 异常处理
+    except Exception as e:  # 异常处理
         print(e)
         ret = None
     MESSAGES.append(user)  # 添加用户消息到对话记录
